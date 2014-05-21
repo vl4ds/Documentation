@@ -28,8 +28,6 @@ You cannot be guaranteed that your command has been executed, because another Sm
 
 If you needed to know if a command was executed, you can subscribe to an event trigged by the command you executed and check it's timestamp to ensure it fired after you told it to. You will, however, still have latency issues to take into consideration, so it's impossible to know the exact current status at any given time.
 
-TODO example
-
 The SmartApps platform follows eventually consistent programming, meaning that responses to a request for a value in SmartApps will eventually be the same, but in the short term they might differ.
 
 **Future State**
