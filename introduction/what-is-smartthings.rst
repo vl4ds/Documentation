@@ -29,7 +29,7 @@ the need for electricians or expert IT support.
 In order to make this vision a reality, we realized early on that we
 needed to provide an end-to-end solution of hardware, software, a
 fantastic user experience, and incredible user support. To do that we
-provide three different SmartThings “Kits” that include our SmartThings
+provide two SmartThings starter “Kits” that include our SmartThings
 Hub, Smart Devices, and are bundled with free SmartApps to make your
 life better.
 
