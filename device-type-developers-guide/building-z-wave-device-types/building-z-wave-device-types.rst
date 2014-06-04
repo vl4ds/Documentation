@@ -145,15 +145,14 @@ In some situations, instead of sending a command in response to a
 request by the user, you want to automatically send a command to the
 device on receipt of a Z-Wave command.
 
-| If you return a list from the parse method, each item of the list will
+If you return a list from the parse method, each item of the list will
 be evaluated separately. Items that are maps will be processed as events
 as usual and sent to subscribed SmartApps and mobile clients. Returned
 items that are HubAction items, however, will be sent via the hub to the
 device, in much the same way as formatted commands returned from command
-methods. The easiest
-| way to send a command to a device in response to an event is the
-``response`` helper, which takes a
-| Z-Wave command or encoded string and supplies a HubAction:
+methods. The easiest way to send a command to a device in response to an
+event is the ``response`` helper, which takes a Z-Wave command or encoded
+string and supplies a HubAction:
 
 .. code:: groovy
 

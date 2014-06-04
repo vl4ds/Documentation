@@ -98,7 +98,7 @@ impact on critical, local use cases and are being deeply thoughtful on
 how we minimize the risk of disruption.
 
 Our architecture is designed in a way that abstracts away from the
-details of a specific device (Zigbee, ZWave, Wifi/IP/UPnP, etc) and
+details of a specific device (ZigBee, Z-Wave, Wifi/IP/UPnP, etc) and
 allows the developer to focus solely on the capabilities and actions
 supported by the device (lock/unlock, on/off, etc).
 
@@ -150,7 +150,7 @@ Cloud, so let's address each of those specifically:
    cloud-connected, all in the same app. In this case, the SmartApp
    needs to run in the Cloud.
 -  **There may be Multiple Hubs** – While the mesh network standards for
-   Zigbee and Zwave generally eliminate the need for multiple
+   ZigBee and Z-Wave generally eliminate the need for multiple
    SmartThings Hubs, we didn’t want to exclude this as a valid
    deployment configuration for large homes or even business
    applications of our technology. In the multi-hub case, SmartApps that
@@ -180,7 +180,7 @@ is:
 
 ::
 
-    MyGarageDoor.Open()
+    myGarageDoor.open()
 
 And that is really important to our vision of keeping it as simple as
 possible for developers, makers, and power users who want to write their
@@ -269,9 +269,9 @@ We wanted to support as many off-the-shelf devices out-of-the-box as
 possible. So we chose to support the following protocols in the
 SmartThings Hub:
 
--  Zigbee - A Personal Area Mesh Networking standard for connecting and
-   controlling devices. Zigbee is an open standard supported by the
-   Zigbee Alliance. For more information on Zigbee see
+-  ZigBee - A Personal Area Mesh Networking standard for connecting and
+   controlling devices. ZigBee is an open standard supported by the
+   ZigBee Alliance. For more information on ZigBee see
    http://en.wikipedia.org/wiki/ZigBee.
 -  Z-Wave - A proprietary wireless protocol for Home Automation and
    Lighting Control. For more information on Z-Wave see

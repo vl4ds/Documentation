@@ -108,7 +108,6 @@ configure.
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/configure-screen.png
    :alt: Thermostat
 
-   Thermostat
 Authorization with the third party is the first part of the
 configuration process. The user is driven to a page which tells them
 about the authorization process and how it will work. They can then
@@ -117,7 +116,6 @@ click a link to move forward.
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/click-to-login.png
    :alt: Thermostat
 
-   Thermostat
 The user will be driven to a third party site, embedded within the
 SmartThings application chrome. They will be required to put in their
 username and password for the third party service.
@@ -125,14 +123,12 @@ username and password for the third party service.
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-login.png
    :alt: Thermostat
 
-   Thermostat
 The third party server will show what SmartThings will have access to
 and give the user the opportunity to accept or decline.
 
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/authorize-ecobee.png
    :alt: Thermostat
 
-   Thermostat
 Upon acceptance, the user will be redirected to another page within the
 third party service. This page includes language about the end user
 clicking done on the top right of the SmartThings chrome.
@@ -140,7 +136,6 @@ clicking done on the top right of the SmartThings chrome.
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-authorization-complete.png
    :alt: Thermostat
 
-   Thermostat
 After done is clicked, the user will go back to the initial
 configuration screen, seeing that their device is now connected. They
 can then click next to continue, and any other configuration can be
@@ -149,7 +144,6 @@ done.
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/st-authorization-complete.png
    :alt: Thermostat
 
-   Thermostat
 **Refreshing the OAuth Token**
 
 OAuth tokens are available for a finite amount of time, so you will
@@ -203,14 +197,15 @@ subscriptions that allow us to receive notifications when something
 changes in their cloud.
 
 In this case and ONLY in this case the SmartApp (service manager) issues
-it's OWN OAuth token and embeds it in the callback URL as a way to
+its OWN OAuth token and embeds it in the callback URL as a way to
 authenticate the post backs from the external cloud.
 
 Discovery
 ---------
 
-| **Identifying Devices in the Third-Party Device Cloud**
-| The techniques you will use to identify devices in the third party
+**Identifying Devices in the Third-Party Device Cloud**
+
+The techniques you will use to identify devices in the third party
 cloud will vary, because you are interacting with unique third party
 APIs which all have unique parameters. Typically you will authenticate
 with the third party API using OAuth. Then call an API specific method.
@@ -228,7 +223,7 @@ For example, it could be as simple as this:
             //Handle the response here
     }
 
-*Creating Child-Devices*
+**Creating Child-Devices**
 
 Within a service manager SmartApp, you create child devices for all your
 respective cloud devices.
@@ -242,9 +237,9 @@ respective cloud devices.
       }
     }
 
+**Getting Initial Device State**
 
-| **Getting Initial Device State**
-| Upon initial discovery of a device, you need to get the state of your
+Upon initial discovery of a device, you need to get the state of your
 device from the third party API. This would be the current status of
 various attributes of your device. You need to have a method defined in
 your Service Manager that is responsible for connecting to the API and
@@ -276,9 +271,11 @@ into account error checking for the http request.
 Handling Adds, Changes, Deletes
 -------------------------------
 
-**Implicit Creation of New Child Devices** When you update your settings
-in a Service Manager to add additional devices, the Service Manager
-needs to respond by adding a new device in SmartThings.
+**Implicit Creation of New Child Devices**
+
+When you update your settings in a Service Manager to add additional
+devices, the Service Manager needs to respond by adding a new device
+in SmartThings.
 
 ::
 
@@ -299,8 +296,10 @@ needs to respond by adding a new device in SmartThings.
         }
     }
 
-| **Implicit Removal of Child Devices**
-| Similarly when you remove devices within your Service Manager, they
+
+**Implicit Removal of Child Devices**
+
+Similarly when you remove devices within your Service Manager, they
 need to be removed from SmartThings.
 
 ::
@@ -311,8 +310,8 @@ need to be removed from SmartThings.
         deleteChildDevice(it.deviceNetworkId)
     }
 
-Also, When a Service Manager SmartApp is uninstalled, you need to remove
-it's child devices.
+Also, when a Service Manager SmartApp is uninstalled, you need to remove
+its child devices.
 
 ::
 
@@ -326,15 +325,15 @@ it's child devices.
         }
     }
 
-| **Changes in Device Name**
-| The device name is stored within the device and you need to monitor if
+
+**Changes in Device Name**
+
+The device name is stored within the device and you need to monitor if
 it changes in the third party cloud.
 
-::
 
-| **Explicit Delete Actions**
-| When a user manually deletes a device within the Things screen on the
+**Explicit Delete Actions**
+
+When a user manually deletes a device within the Things screen on the
 client device, you need to delete the child devices from within the
 Service Manager.
-
-::

@@ -12,8 +12,10 @@ are the connection between the SmartThings system and the physical
 world. There's a huge variety in the devices you can use, some created
 by SmartThings but most not.
 
-| **SmartThings Devices**
-| SmartThings manufactures a variety of devices for you to use with your
+
+**SmartThings Devices**
+
+SmartThings manufactures a variety of devices for you to use with your
 SmartThings hub. Your initial kit comes with a few devices such as the
 `SmartSense
 Multi <https://shop.smartthings.com/#/products/smartsense-multi>`__
@@ -27,12 +29,14 @@ Sensor <https://shop.smartthings.com/#/products/smartsense-moisture>`__,
 and `SmartPower
 Outlets <https://shop.smartthings.com/#/products/smartpower-outlets-3-pack>`__.
 
-| **Third Party Devices**
-| The real power of SmartThings is that our system works with most home
+
+**Third Party Devices**
+
+The real power of SmartThings is that our system works with most home
 automation devices already on the market. We believe in a fully
 integrated approach, where you aren't tied into a particular technology
-or protocol. We offer compatibility with standards such as Zigbee,
-ZWave, and IP/WiFi, so we work with literally hundreds of off the shelf
+or protocol. We offer compatibility with standards such as ZigBee,
+Z-Wave, and IP/WiFi, so we work with literally hundreds of off the shelf
 third-party devices. There is `an outlet made by
 GE <https://shop.smartthings.com/#/products/ge-z-wave-wireless-lighting-control-lamp-module-dimmer>`__
 that allows you to integrate with your SmartThings system to dim your
@@ -54,7 +58,7 @@ cloud and mobile application.
 -  Simply plug into your Ethernet router and provide power.
 -  Build your own SmartThings kit by combining with other SmartThings
    devices.
--  Also works with standard ZigBee and ZWave devices, such as GE ZWave
+-  Also works with standard ZigBee and Z-Wave devices, such as GE Z-Wave
    in-wall switches and outlets.
 
 Connectivity Management

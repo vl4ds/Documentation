@@ -1,6 +1,8 @@
 Device Type Example
 ===================
 
+
+
 Example: Centralite Switch::
 
     /**
@@ -130,3 +132,4 @@ parse method of the Device Type.
         ]
     }
 
+For a Z-Wave example, see the `Reference Z-Wave Device Type <building-z-wave-device-types/z-wave-device-reference.html>`__.

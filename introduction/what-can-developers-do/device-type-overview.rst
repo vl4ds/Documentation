@@ -7,7 +7,7 @@ developers to build applications that are insulated from the specifics
 of which device they are using. For example, there are lots of
 wirelessly controllable “switches”. Switches can come in the form of
 pluggable outlet overlays, in-wall outlets, in-wall light switches, etc.
-At it's core, however, a switch is any device that can be turned On or
+At its core, however, a switch is any device that can be turned On or
 Off.
 
 When a SmartApp interacts with the virtual representation of a device,
@@ -41,7 +41,7 @@ same point. A point to point network would have a single path and have
 more single points of failure.
 
 ZigBee is an open standard supported by the ZigBee Alliance. For more
-information on Zigbee see http://en.wikipedia.org/wiki/ZigBee. Because
+information on ZigBee see http://en.wikipedia.org/wiki/ZigBee. Because
 it's open, there are a variety of vendors engaged in providing ZigBee
 based products.
 
@@ -83,7 +83,7 @@ Xively, ThingWorx).
 SmartThings support of cloud-connected devices is limited to those whose
 cloud services authenticate through a standard OAuth2 flow, and
 communicate via HTTP-based APIs. While it is technically possible to
-store and encypt the user's credentials for the remote service rather
+store and encrypt the user's credentials for the remote service rather
 than completing an OAuth2 flow and storing only an access token, it is
 highly discouraged.
 
