@@ -1,7 +1,8 @@
 Reference Z-Wave Device Type
 ============================
 
-Reference Z-Wave Deice Type::
+This is a device type code sample with examples of many common commands
+and parsed events::
 
 	metadata {
 		definition (name: "Z-Wave Device Reference", author: "SmartThings") {

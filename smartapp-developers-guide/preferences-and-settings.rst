@@ -147,7 +147,7 @@ Preferences Data Types
 
 Devices
 
-Specific devices like a zWave Alarm or SmartMotion detector. Use
+Specific devices like a Z-Wave Alarm or SmartMotion detector. Use
 'device' prefix when declaring. Ex. "device.motionDetector" or
 "device.switch"
 

@@ -182,7 +182,7 @@ is:
 
 ::
 
-    MyGarageDoor.Open()
+    myGarageDoor.open()
 
 That is really important to our vision of keeping it as simple as
 possible for developers, makers, and power users who want to write their

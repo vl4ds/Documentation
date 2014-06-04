@@ -4,8 +4,8 @@ ZigBee Primer
 Before we start, lets take a look at a full ZigBee message as it would
 look in a SmartThings Device Type Handler. Then we’ll break up the
 message into its parts and dive into what each part means. Make sure you
-download the ZigBee Cluster Library as a reference for ZigBee messages
-are formatted and what is capable for each device.
+download the ZigBee Cluster Library as a reference for ZigBee message
+formatting and what is possible for each device.
 
 Here is a full command:
 ``"st cmd 0x${device.deviceNetworkId} ${endpointId} 8 4 {FFFF 0000}”``
@@ -22,11 +22,9 @@ The 3 Main types of ZigBee Messages
 Device Network ID
 -----------------
 
-DEVICE NETWORK ID
-
 All connected devices have a Device Network ID that is used to route
 messages correctly to the device. In the loosest terms think of the
-Network ID as the IP Address. It is a 4 digit Hex number that the device
+Network ID as the IP Address. It is a 4 digit hex number that the device
 gets while pairing. Since the Network ID is different by device, you can
 reference it dynamically in a Device Handler like this:
 ``0x${device.deviceNetworkId}``
@@ -48,14 +46,13 @@ Clusters are a group of commands and attributes that define what a
 device can do. Think of Clusters as a group of actions by function. A
 device can support multiple clusters to do a whole variety of tasks.
 Majority of clusters are defined by the ZigBee Alliance and listed in
-the ZigBee Cluster Library (link). There are also profile specific
-clusters that are defined by their own ZigBee profile like Home
-Automation (link) or ZigBee Smart Energy (link). Also Manufacture
-Specific clusters that are defined by the manufacture of the device.
-These are typically used when no existing cluster can be used for a
-device.
+the ZigBee Cluster Library. There are also profile specific clusters that
+are defined by their own ZigBee profile like Home Automation or ZigBee
+Smart Energy, and Manufacture Specific clusters that are defined by the
+manufacture of the device. These are typically used when no existing
+cluster can be used for a device.
 
-Most used Clusters are
+Most used clusters are
 
 -  0x0006 - On/Off (Switch)
 -  0x0008 - Level Control (Dimmer)
@@ -87,10 +84,8 @@ This would turn it on:
 This would toggle it:
 ``"st cmd 0x${device.deviceNetworkId} ${endpointId} 6 2 {}"``
 
-Read and Write Attribtues
+Read and Write Attributes
 -------------------------
-
-ATTRIBUTES
 
 Attributes are used to get information from a device and to set
 preferences on a device. The two main types are Read and Write. The data
