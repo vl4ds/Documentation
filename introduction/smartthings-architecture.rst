@@ -10,10 +10,10 @@ Devices
 Devices are the building blocks of the SmartThings infrastructure. They
 are the connection between the SmartThings system and the physical
 world. There's a huge variety in the devices you can use, some created
-by SmartThings but most not.
+by SmartThings but most are not.
 
-| **SmartThings Devices**
-| SmartThings manufactures a variety of devices for you to use with your
+**SmartThings Devices**
+SmartThings manufactures a variety of devices for you to use with your
 SmartThings hub. Your initial kit comes with a few devices such as the
 `SmartSense
 Multi <https://shop.smartthings.com/#/products/smartsense-multi>`__
@@ -27,8 +27,8 @@ Sensor <https://shop.smartthings.com/#/products/smartsense-moisture>`__,
 and `SmartPower
 Outlets <https://shop.smartthings.com/#/products/smartpower-outlets-3-pack>`__.
 
-| **Third Party Devices**
-| The real power of SmartThings is that our system works with most home
+**Third Party Devices**
+The real power of SmartThings is that our system works with most home
 automation devices already on the market. We believe in a fully
 integrated approach, where you aren't tied into a particular technology
 or protocol. We offer compatibility with standards such as Zigbee,
