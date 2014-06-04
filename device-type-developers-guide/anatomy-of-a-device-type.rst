@@ -64,6 +64,39 @@ and should be available via the device's documentation.
 
         fingerprint profileId: "C05E", inClusters: "0000,0003,0004,0005,0006,0008,0300,1000", outClusters: "0019"
 
+For Z-Wave devices, the fingerprint should include the deviceId of the 
+device and the command classes it supports in the inClusters list. The 
+easiest way to find these values is by adding the actual device to 
+SmartThings and looking for the *Raw Description* in its details view in 
+the SmartThings developer tools. The device class ID is the four-digit 
+hexadecimal number (eg. 0x1001) and the command classes are the two-digit 
+hexadecimal numbers. So if the raw description is ::
+
+    0 0 0x1104 0 0 0 8 0x26 0x2B 0x2C 0x27 0x73 0x70 0x86 0x72
+
+The fingerprint will be ::
+
+    fingerprint deviceId:"0x1104", inClusters:"0x26, 0x2B, 0x2C, 0x27, 0x73, 0x70, 0x86, 0x72"
+
+If the raw description has two lists of command classes separated by a 
+single digit 'count' number, the second list is the outClusters. So for 
+the raw description ::
+
+    0 0 0x2001 0 8 0x30 0x71 0x72 0x86 0x85 0x84 0x80 0x70 1 0x20
+
+The fingerprint will be ::
+
+    fingerprint deviceId:"0x2001", inClusters:"0x30, 0x71, 0x72, 0x86, 0x85, 0x84, 0x80, 0x70", outClusters: "0x20"
+
+Note that the fingerprint clusters lists are comma separated while the raw 
+description is not.
+
+The order of the inClusters and outClusters lists is not important. A 
+device will match to the *longest* fingerprint for which it matches the 
+deviceId and supports all of the clusters – it can have more than the 
+fingerprint and still match.
+
+
 | **Simulator Metadata**
 | Simulator Metadata is used when testing your device in the IDE
 simulator. If you have examples of messages the device sends, you can

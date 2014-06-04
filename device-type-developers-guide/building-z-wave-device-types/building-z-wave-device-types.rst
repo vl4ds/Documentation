@@ -174,3 +174,37 @@ device is temporarily listening for commands. In addition to creating a
 hidden event, the handler will send a BatteryGet request, wait 1.2
 seconds for a response, and then issue a WakeUpNoMoreInformation command
 to tell the device it can go back to sleep to save battery.
+
+Join Fingerprints
+-----------------
+
+To have the device get assigned to your device type when it's added to the
+SmartThings hub you have to add a fingerprint to the definition section.
+Fingerprinting of Z-Wave devices is currently based only on the device
+class ID and the supported/controlled command classes of the device. A
+Z-Wave device provides this information when it is included into the
+network, and it can be found in the SmartThings developer tools in the
+device details view as the *Raw Descripiton*. The device class ID is the
+four digit hexadecimal number (eg. 0x1001) and the command classes are the
+two digit hexadecimal numbers.
+
+So if the raw description is ::
+
+    0 0 0x1104 0 0 0 8 0x26 0x2B 0x2C 0x27 0x73 0x70 0x86 0x72
+
+The fingerprint will be ::
+
+    fingerprint deviceId:"0x1104", inClusters:"0x26, 0x2B, 0x2C, 0x27, 0x73, 0x70, 0x86, 0x72"
+
+If the raw description has two lists of command classes separated by a single digit 'count' number, 
+the second list is the outClusters. So for the raw description ::
+
+    0 0 0x2001 0 8 0x30 0x71 0x72 0x86 0x85 0x84 0x80 0x70 1 0x20
+
+The fingerprint will be ::
+
+    fingerprint deviceId:"0x2001", inClusters:"0x30, 0x71, 0x72, 0x86, 0x85, 0x84, 0x80, 0x70", outClusters: "0x20"
+
+Note that the fingerprint clusters lists are comma separated while the raw description is not.
+
+
