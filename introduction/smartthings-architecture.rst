@@ -10,7 +10,7 @@ Devices
 Devices are the building blocks of the SmartThings infrastructure. They
 are the connection between the SmartThings system and the physical
 world. There's a huge variety in the devices you can use, some created
-by SmartThings but most not.
+by SmartThings but most are not.
 
 
 **SmartThings Devices**

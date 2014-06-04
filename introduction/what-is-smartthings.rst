@@ -48,8 +48,8 @@ These initial SmartThings kits include:
    this kit, see
    https://shop.smartthings.com/#/kits/smartthings-starterkit
 
-But these kits are just the starting point. Each customers usage of the
-SmartThings platform will be as diverse and varied as their lives are.
+But these kits are just the starting point. Each person's usage of the
+SmartThings platform will be as diverse and varied as are their lives.
 And to support that diversity, we need a diverse catalog of applications
 and devices! That is where you, as a developer, can help!
 
@@ -76,7 +76,7 @@ We made the decision at SmartThings to support a “Cloud First” approach
 for our platform. This means that in our initial release, there is a
 dependency on the Cloud. SmartApps run in the SmartThings Cloud, so for
 everything to work, your hub does need to be online and connected to our
-cloud. And this will generally be the case, even when we implement
+cloud. This will generally be the case, even when we implement
 hub-local capabilities as described below.
 
 We believe in a “connected” service where local capabilities in the hub
@@ -85,17 +85,18 @@ intermittent internet outages. We do not plan to support a perpetually
 disconnected mode.
 
 We made the decision to limit SmartApps to the Cloud in our first
-release because it allowed us to focus more on the experience of writing
+release because it allowed us to focus on the experience of writing
 the applications and less on the mechanics of deploying that logic
 locally to the hub.
 
 That said, we are actively considering implementation scenarios whereby
-we can distribute SmartApps to and execute SmartApps locally on the hub.
+we can distribute SmartApps to — and execute SmartApps locally on — the 
+SmartThings Hub.
 
-In all cases, we obviously recognize the critical scenarios where a loss
-of communications with the SmartThings Cloud could have a degrading
-impact on critical, local use cases and are being deeply thoughtful on
-how we minimize the risk of disruption.
+In all cases, we recognize the critical scenarios where a loss of
+communications with the SmartThings Cloud could have a degrading impact 
+on critical, local use cases, and are being deeply thoughtful on how we 
+minimize the risk of disruption.
 
 Our architecture is designed in a way that abstracts away from the
 details of a specific device (ZigBee, Z-Wave, Wifi/IP/UPnP, etc) and
@@ -107,7 +108,8 @@ That conceptual architecture looks like this:
 .. figure:: ../img/overview/conceptual-architecture.png
    :alt: Conceptual Architecture
 
-   Conceptual Architecture
+**Conceptual Architecture**
+
 Applications, or SmartApps, sit on top of that abstraction layer and the
 result is that SmartApps are easy to write, debug, and test in the
 SmartThings Cloud.
@@ -121,7 +123,7 @@ important because we don’t want SmartApps to be the exclusive domain of
 firmware developers. We want the SmartApps community to be made up of
 developers of all kinds, and we’ve put a lot of energy into reducing
 friction for developers and makers. The Cloud-First approach allowed us
-to move quickly, and now we can iteratively move capabilities into the
+to move quickly, and now we can iteratively move capabilities onto the
 hub to support local SmartApps and reduce the dependency on the Cloud
 where possible.
 
@@ -172,17 +174,17 @@ Cloud, so let's address each of those specifically:
    SmartApps or even Wiring simply may not be possible.
 
 Lastly on this topic, keep in mind that because of the Abstraction
-layer, SmartApps developers never have to understand where or how
+layer, SmartApp developers never have to understand where or how
 devices connect to the SmartThings platform. All of that is hidden from
-the developer, so that whether a device (such as a Garage Door opener)
-is Hub-Connected or Cloud-Connected, all the developer has to understand
+the developer so that — whether a device (such as a Garage Door opener)
+is Hub-Connected or Cloud-Connected — all they need to understand
 is:
 
 ::
 
     myGarageDoor.open()
 
-And that is really important to our vision of keeping it as simple as
+That is really important to our vision of keeping it as simple as
 possible for developers, makers, and power users who want to write their
 own SmartApps!
 
@@ -195,11 +197,11 @@ overall SmartThings approach, summarized here:
    – No matter how much computing power we put into the SmartThings Hub,
    there are scenarios where it simply wouldn’t be enough. Take for
    example the ability to apply advanced facial recognition algorithms
-   to a photo taken by our SmartThings Camera (stay tuned) to
-   automatically determine who just walked into your house while you
-   were away. In the Cloud we can bring all necessary computing power to
-   bear to solve for just about any problem, but if we are limited to
-   local processing power in a hub, there will always be limits.
+   to a photo taken by a connected camera to automatically determine who 
+   just walked into your house while you were away. In the Cloud we can 
+   bring all necessary computing power to bear to solve for just about 
+   any problem, but if we are limited to local processing power in a hub, 
+   there will always be limits.
 -  **The Value of the Network Effect** – Our vision is to make your
    Physical World Smarter, and we are doing that not just for our Hub
    and Devices, but for lots of different devices and scenarios. The
@@ -265,9 +267,9 @@ Within the SmartThings Cloud however there are also four logical
 What Protocols Does It Support?
 -------------------------------
 
-We wanted to support as many off-the-shelf devices out-of-the-box as
-possible. So we chose to support the following protocols in the
-SmartThings Hub:
+We wanted to support as many off-the-shelf devices as possible, 
+out-of-the-box. We also wanted to limit radio interference. So we chose 
+to support the following protocols in the SmartThings Hub:
 
 -  ZigBee - A Personal Area Mesh Networking standard for connecting and
    controlling devices. ZigBee is an open standard supported by the

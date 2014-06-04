@@ -11,7 +11,7 @@ things, most commonly invoking a command on another device. We're
 confident that if you are familiar with back end development of web
 sites, then you will be more than capable of developing SmartApps.
 
-A very simple example of a SmartApp would involve you walking through a
+A very simple example of a SmartApp would involve you opening a
 door and having the lights turn on automatically.
 
 Solution Module SmartApps
@@ -32,11 +32,12 @@ Service Manager SmartApps
 -------------------------
 
 Service Manager SmartApps are used to connect to LAN or cloud devices,
-such as the Sonos or WeMo. They are the connecting glue between the
+such as Sonos or Belkin WeMo. They are the connecting glue betweenthe 
 unique protocols of your external devices and a device type handler
 you'd create for those devices. They discover devices and then continue
 to maintain the connection for those devices.
 
 The Service Manager SmartApp must be installed when a user utilizes a
-device using LAN or the cloud, so for example, there is a Sonos Service
-Manager SmartApp that is installed when pairing with a Sonos.
+device using LAN or the cloud. For example, there is a Sonos Service
+Manager SmartApp, called Sonos (Connect) that is installed when pairing 
+with a Sonos device.
