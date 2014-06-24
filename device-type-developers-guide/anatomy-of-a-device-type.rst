@@ -4,16 +4,19 @@ Anatomy of a Device Type
 Metadata Declarations
 ---------------------
 
-| \*\* Definition Metadata\*\*
-| The definition metadata defines the core attributes of your Device
+**Definition Metadata**
+
+The definition metadata defines the core attributes of your Device
 Type. These previously were found in the web UI, but must now be defined
 in the code itself. You need to pass along the name, namespace, and
 author to the definition method, and then you can define relevant
 capabilities, commands, attributes, and your fingerprinting information
 in the closure.
 
-For your namespace, you should use your GitHub Username. Internal apps
-use the name space smartthings.
+The namespace is used when looking up device types by name to ensure that
+the correct version is found even if you used the same name as someone
+else for your device type. For your namespace, you should use your GitHub
+username. Internal apps use the name space ``smartthings``.
 
 Capabilities are the interactions that a device allows. We have a
 `reference
@@ -33,17 +36,16 @@ that come along with them, so you don't need to include those commands
 and attributes explicitly.
 
 The fingerprinting process is dependent on the type of device you are
-looking to pair. SmartThing attempts to match devices coming in
-depending on the input and output clusters a device uses, as well as a
-profileId (for ZigBee) or deviceId (for ZWave). Basically, by
-determining what capabilities your device has, SmartThings determines
-what your device is.
+looking to pair. SmartThings attempts to match devices coming in based on
+the input and output clusters a device uses, as well as a profileId
+(for ZigBee) or deviceId (for Z-Wave). Basically, by determining what
+capabilities your device has, SmartThings determines what your device is.
 
 For ZigBee devices, the main profileIds you will need to use are
 
 -  HA: Home Automation (0104)
 -  SEP: Smart Energy Profile
--  ZLL: ZigBee Light Lock (C05E)
+-  ZLL: ZigBee Light Link (C05E)
 
 The input and output clusters are defined specifically by your device
 and should be available via the device's documentation.
@@ -97,8 +99,9 @@ deviceId and supports all of the clusters – it can have more than the
 fingerprint and still match.
 
 
-| **Simulator Metadata**
-| Simulator Metadata is used when testing your device in the IDE
+**Simulator Metadata**
+
+Simulator Metadata is used when testing your device in the IDE
 simulator. If you have examples of messages the device sends, you can
 set it up to send those from the drop-down to your parse function to try
 it out without needing to connect to the real device. You can also add
@@ -119,34 +122,43 @@ Message
         reply "zcl on-off off": "on/off: 0"
     }
 
-| **UX Metadata**
-| When creating a device type, you need to define how it will show up
+**UX Metadata**
+
+When creating a device type, you need to define how it will show up
 for the end user on their "Things" screen. There are a variety of
 customizations you can make within the framework, including colors and
 tile widths.
 
-| **Tile Definitions**
-| There are three types of tiles that you can use within your device
+**Tile Definitions**
+
+There are three types of tiles that you can use within your device
 types, and they all have specific parameters and a specific end user
 view.
 
--  | standardTile()
-   | Used for showing different labels and icons based on current state,
+-  standardTile()
+
+   Used for showing different labels and icons based on current state,
    for example to show a switch as on or off. You can view the `icon
    options here <http://scripts.3dgo.net/smartthings/icons/>`__.
-   | |Standard Tile|
 
--  | controlTile()
-   | Used for displaying or inputing a number within a range, for
+   |Standard Tile|
+
+-  controlTile()
+
+   Used for displaying or inputing a number within a range, for
    example to dim a light.
-   | |Control Tile|
 
--  | valueTile()
-   | Used for setting a particular value to be shown, for example to
-   show degrees. |Value Tile|
+   |Control Tile|
+
+-  valueTile()
+
+   Used for setting a particular value to be shown, for example to
+   show degrees.
+
+   |Value Tile|
 
 Here's an example of using metadata to create the user experience for a
-thermostat application.
+thermostat application:
 
 ::
 
@@ -197,9 +209,10 @@ This builds the following interface:
 .. figure:: ../img/device-types/thermostat.png
    :alt: Thermostat
 
-   Thermostat
-| **Tile Layouts**
-| When working with the user experience, you'll quickly notice that the
+
+**Tile Layouts**
+
+When working with the user experience, you'll quickly notice that the
 UI is built on a grid with three columns and an unlimited height. When
 you create your device types, you can determine how many grid columns
 and rows you'd like a particular tile to take up. The default setting is
@@ -218,15 +231,16 @@ the default tiles that can be selected on location and group displays.
 
     main "temperature"
 
-**Details** is all tiles that will appear once you tap on a device and
-view it's details. The tiles are listed in order.
+The **details** definition lists the tiles that will appear in the
+device's details view. The tiles are listed in order.
 
 ::
 
      details(["temperature", "mode", "fanMode", "heatSliderControl", "heatingSetpoint", "coolSliderControl", "coolingSetpoint"])
 
-| **Device Preferences**
-| When you add a device, in addition to the "name your device" field you
+**Device Preferences**
+
+When you add a device, in addition to the "name your device" field you
 could show other fields, and they'll be editable by tapping the
 "preferences" tile in the device details. This is a fairly uncommon
 scenario, but would be handled by the following code. You can find out
@@ -244,7 +258,7 @@ Parse Method
 ------------
 
 The parse method takes incoming device messages and generates changes
-within SmartThings based on them. It's purpose is to map the events on a
+within SmartThings based on them. Its purpose is to map the events on a
 device to events or change attributes within the SmartThings
 architecture. The specifics by which the messages are converted is
 dependent on the interface being used (ZigBee, Z-Wave, etc).

@@ -29,7 +29,7 @@ the Namespace Identifier (NID) **schemas-upnp-org** and Namespace
 Specific String (NSS) **device:ZonePlayer:1** according to the `URN
 Syntax Guide <http://www.ietf.org/rfc/rfc2141.txt>`__.
 
-For sonos, the device specific search term is **ZonePlayer:1**, but that
+For Sonos, the device specific search term is **ZonePlayer:1**, but that
 will change per device. The search term for a particular device using
 UPnP should be published on documentation for the device, but you may
 also have to contact the manufacturer directly. The above command is
@@ -39,7 +39,7 @@ typically called in a timing loop.
 
 mDNS/DNS-SD is another popular protocol used to find devices on a
 network. It's made up of Multicast DNS and DNS-based service discovery.
-Known as Bonjur in the Apple ecosytem, Applie relies on mMDNS/DNS-SD for
+Known as Bonjour in the Apple ecosystem, Apple relies on mMDNS/DNS-SD for
 services such as iChat or AppleTV. **Our support for mDNS/DNS-SD isn't
 quite ready yet, but will be released on a future hub firmware
 upgrade.**
@@ -59,7 +59,7 @@ upgrade.**
 As a device type developer, you are responsible only for step 5 in the
 process.
 
-More information on Bonjur can be found in `Apple's Developer
+More information on Bonjour can be found in `Apple's Developer
 documentation <https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/NetServices/Articles/NetServicesArchitecture.html#//apple_ref/doc/uid/20001074-SW1>`__.
 
 Your discovery request would look like this:

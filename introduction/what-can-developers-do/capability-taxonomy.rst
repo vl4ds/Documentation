@@ -11,8 +11,8 @@ capabilities) are eligible for use within a specific SmartApp.
 
 The `capability
 taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__ is
-evolving and is heavily influenced by existing standards like Zigbee,
-Z-Wave, UPnP, and many others.
+evolving and is heavily influenced by existing standards like ZigBee
+and Z-Wave.
 
 `Capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
 themselves may decompose into both ‘Actions’ or ‘Commands’ (these are

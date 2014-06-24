@@ -9,10 +9,10 @@ type. We a new device is joined, it is recognized through a
 fingerprinting process and assigned the appropriate type. That process
 takes into account:
 
--  Protocol (e.g. Zigbee, Z-Wave, UPnP, etc)
+-  Protocol (e.g. ZigBee, Z-Wave, UPnP, etc)
 -  Manufacturer
 -  Model Number
--  Protocol-Specific Functions (Zigbee Clusters, Z-Wave Command Classes,
+-  Protocol-Specific Functions (ZigBee Clusters, Z-Wave Command Classes,
    UPnP Services)
 
 The fingerprinting process is designed to quickly type the device so
@@ -28,7 +28,7 @@ Parsing Incoming Messages
 -------------------------
 
 Messages come in from a third party device with unique syntax. Whether
-they are a ZigBee, ZWave, or LAN device, the messages will look
+they are a ZigBee, Z-Wave, or LAN device, the messages will look
 different, so they need to be parsed in such a way that the SmartThings
 system knows what to do with them. The Device Type must do the heavy
 lifting of converting the messages, so as to abstract SmartApps from
@@ -53,6 +53,6 @@ device type.
 Formatting Outbound Commands
 ----------------------------
 
-When a command method is called, it's job is to convert the SmartThings
+When a command method is called, its job is to convert the SmartThings
 command into a readable format for the end device. One example would be
 calling an on method, which would then format a ZigBee command for on.
