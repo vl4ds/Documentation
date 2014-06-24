@@ -17,7 +17,7 @@ use the name space smartthings.
 
 Capabilities are the interactions that a device allows. We have a
 `reference
-document <../introduction/what-can-developers-do-with-smartthings/device-type-development/capability-taxonomy.md>`__
+document <../introduction/what-can-developers-do-with-smartthings/device-type-development/capability-taxonomy.html>`__
 that lists all available capabilities. When you define a capability, you
 are stating that your device supports the given capability.
 
@@ -231,7 +231,7 @@ could show other fields, and they'll be editable by tapping the
 "preferences" tile in the device details. This is a fairly uncommon
 scenario, but would be handled by the following code. You can find out
 more about preferences
-`here <../smartapp-developers-guide/preferences-&-settings.md>`__.
+`here <../smartapp-developers-guide/preferences-&-settings.html>`__.
 
 ::
 
