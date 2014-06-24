@@ -100,7 +100,7 @@ SmartApps can be triggered and executed by
 2. **Scheduled Events:** Using a method like runIn(), you call
    a method within your SmartApp at a particular time .
 3. **Endpoint Triggers:** Using our `web services
-   API <../smartapp-web-services-developers-guide/overview.md>`__, you
+   API <../smartapp-web-services-developers-guide/overview.html>`__, you
    create an endpoint accessible over the web that calls a method within
    your SmartApp.
 
@@ -110,7 +110,7 @@ SmartApp Sandboxing
 SmartApps are developed in a sandboxed environment. The sandbox is a way
 to limit developers to a specific subset of the Groovy language for
 performance and security. We `have
-documented <smartthings-sandbox-groovy-limitations.md>`__ the main ways
+documented <smartthings-sandbox-groovy-limitations.html>`__ the main ways
 this should affect you.
 
 Updated Method
