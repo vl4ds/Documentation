@@ -15,7 +15,7 @@ block.
     preferences {}
 
 Find more information on the basic structure of preferences `go
-here <../smartapp-developers-guide/preferences-&-settings.md>`__.
+here <../smartapp-developers-guide/preferences-&-settings.html>`__.
 
 Dashboard solution apps utilize additional capabilities within
 meta-data.
