@@ -98,4 +98,4 @@ within your devices cumulative list of relevant commands, which is built
 dependent on your capabilities.
 
 Next Article: `Dashboard Solution SmartApps
-➞ <dashboard-solution-smartapps.md>`__
+➞ <dashboard-solution-smartapps.html>`__
