@@ -139,6 +139,11 @@ preferences for the chosen type.
                 input "switches", "capability.switch", title: "Choose devices for $app.label", multiple: true, required: true, pairedDeviceName: nextPairedDeviceName("$app.label", switches)
                 icon title: "Choose an icon for $app.label", required: true, defaultValue: "st.Lighting.light13-icn"
             }
+
+            section ([mobileOnly:true]) {
+                label title: "Assign a name", required: false
+                mode title: "Set for specific mode(s)", required: false
+            }
         }
     }
 
