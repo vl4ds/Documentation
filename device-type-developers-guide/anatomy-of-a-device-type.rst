@@ -20,7 +20,7 @@ username. Internal apps use the name space ``smartthings``.
 
 Capabilities are the interactions that a device allows. We have a
 `reference
-document <../introduction/what-can-developers-do-with-smartthings/device-type-development/capability-taxonomy.html>`__
+document <https://graph.api.smartthings.com/ide/doc/capabilities>`__
 that lists all available capabilities. When you define a capability, you
 are stating that your device supports the given capability.
 
