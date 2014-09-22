@@ -167,7 +167,7 @@ token to the specified URL.
     Authorization: Bearer 43373fd2-8716-4137-9ce8-b35a9165e803
 
     Request:
-    GET /api/smartapps/endpoints
+    GET https://graph.api.smartthings.com/api/smartapps/endpoints
 
     Response:
     200 OK
