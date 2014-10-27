@@ -167,7 +167,7 @@ token to the specified URL.
     Authorization: Bearer 43373fd2-8716-4137-9ce8-b35a9165e803
 
     Request:
-    GET /api/smartapps/endpoints
+    GET https://graph.api.smartthings.com/api/smartapps/endpoints
 
     Response:
     200 OK
@@ -187,7 +187,7 @@ token to the specified URL.
 
     Headers:
     Content-Type:  application/json
-    Authentication:  Bearer 43373fd2-8716-4137-9ce8-b35a9165e803
+    Authorization:  Bearer 43373fd2-8716-4137-9ce8-b35a9165e803
 
     Request:
     PUT /api/smartapps/installations/8a2aa0cd3df1a718013df1ca2e3f000c/switches/8a818a9b39c0de7f0139c0dff1290073
