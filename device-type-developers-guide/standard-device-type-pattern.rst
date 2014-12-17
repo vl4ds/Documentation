@@ -5,7 +5,7 @@ Finger Printing
 ---------------
 
 Devices attached to the SmartThings platform are always of a specific
-type. We a new device is joined, it is recognized through a
+type. When a new device is joined, it is recognized through a
 fingerprinting process and assigned the appropriate type. That process
 takes into account:
 
