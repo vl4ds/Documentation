@@ -5,7 +5,6 @@ SmartApp Developer's Guide
    :maxdepth: 3
                
    anatomy-and-life-cycle-of-a-smartapp
-   submitting-smartapps-for-publication
    preferences-and-settings
    state
    smartthings-sanbox-groovy-limitations
@@ -14,3 +13,5 @@ SmartApp Developer's Guide
    querying-events-in-smartapps
    generating-events-in-smartapps
    example-bon-voyage
+   submitting-smartapps-for-publication
+

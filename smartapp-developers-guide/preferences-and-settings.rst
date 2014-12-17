@@ -137,7 +137,7 @@ The currently supported input element types are:
 ===========================  ===========================================================================================
 **Name**                     **Function**
 ---------------------------  -------------------------------------------------------------------------------------------
-capability.capabilityName    Prompts for all the devices that match the specified capability.
+cacapability.capabilityName  Prompts for all the devices that match the specified capability.
                              See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capability>`__
                              table for possible values.
 device.deviceTypeName        Prompts for all devices of the specified type.
