@@ -1,10 +1,11 @@
 Anatomy & Life-Cycle of a SmartApp
 ==================================
 
-SmartApps are applications created by SmartThings and the SmartThings
-community as a whole. They allow a user to tap into the capabilities of
-their devices to automate their lives, and can be installed via the
-SmartThings mobile client applications.
+SmartApps are applications that allow users to tap into the capabilities of
+their devices to automate their lives. Most SmartApps are installed by the user via the
+SmartThings mobile client application, though some come pre-installed. Generally
+speaking, there are three different kinds of SmartApps: *Event-Handlers*,
+*Solution Modules*, and *Service Managers*.
 
 Types of SmartApps
 ------------------
@@ -46,104 +47,122 @@ The Service Manager SmartApp must be installed when a user utilizes a
 device using LAN or the cloud, so for example, there is a Sonos Service
 Manager SmartApp that is installed when pairing with a Sonos.
 
-Installation & Configuration
-----------------------------
+SmartApp Structure
+------------------
 
-The enduser installs your SmartApp through the SmartThings Application.
-Upon installation, they will go through a process of configuring
-settings for their unique instance of the SmartApp.
+SmartApps take the form of a single `Groovy <http://groovy.codehaus.org/>`__ script.
+A typical SmartApp script is composed of four
+sections: *Definition*, *Preferences*, *Predefined Callbacks*, and *Event Handlers*. There is also
+a *Mappings* section that is required for cloud-connected SmartApps that will be described later.
 
-Installed Method
-----------------
+.. image:: ../img/smartapps/demo-app.png
+    :class: with-border
 
-A method that is called when the app is first installed
+**Definition**
 
-This is where you would subscribe to the events coming from the devices
-you described in the preferences() method.
+The *defintion* section of the SmartApp specifies the name of the app along with other information that identifies and
+describes it.
 
-::
+**Preferences**
 
-    def installed() {}
+The *preferences* section is responsible for defining the screens that appear in the mobile app when a SmartApp is
+installed or updated. These screens allow the user to specify which devices the SmartApp interacts with along with
+other configuration options that affect its behavior.
 
-Subscriptions
--------------
+**Pre-defined Callbacks**
 
-Subscriptions allow you to listen for particular events. Upon the event
-firing, a variable is set to the event and a handler method is called.
+The following methods, if present, are automatically called at various times during the lifecycle of a SmartApp:
 
-.. TODO add link
+1. **installed()** - Called when a SmartApp is first installed
+2. **updated()** - Called when the preferences of an installed smart app are updated
+3. **uninstalled()** - Called when a SmartApp is uninstalled.
+4. **childUninstalled()** - Called for the parent app when a child app is uninstalled
 
-::
+The installed and updated methods are commonly found in all apps. Since the selected devices may have changed when an
+app is updated, both of these methods typically set up the same event subscriptions, so it is common practice to put
+those calls in an `initialize()` method and call it from both the installed and updated methods.
 
-    subscribe(motion1, "motion", motionHandler)
+The uninstalled method is typically not needed since the system automatically removes subscriptions and schedules
+when a SmartApp is uninstalled. However, they can be necessary in apps that integrate with other systems and need
+to perform cleanup on those systems.
 
-You can also subscribe to specific event stats like "switch.on" or
-"motion.active". This is useful when you only want to subscribe to some
-events.
+**Event Handlers**
 
-::
-
-    subscribe(motion1, "motion.active", motionActiveHandler)
+The remainder of the SmartApp contains the event handler methods specified in the event subscriptions and any other
+methods necessary for implementing the SmartApp. Event handler methods must have a single argument, which contains the
+Event object.
 
 SmartApp Execution
 ------------------
 
-SmartApps exist transiently. They are instantiated, run though logic,
-execute commands, and terminate. They aren't always running, and
-therefore SmartApps must be told to run.
+SmartApps aren't always running. Their various methods are executed when external events occur.
+SmartApps execute when any of the following types of events occur:
 
-SmartApps can be triggered and executed by
-
-1. **Event Subscription:** An attribute changes on a device, which
+1. **Pre-defined callback** - Any of the predefined lifecycle events described above occur.
+2. **Device state change** - An attribute changes on a device, which
    creates an event, which triggers a subscription, which calls a
    handler method within your SmartApp.
-2. **Scheduled Events:** Using a method like runIn(), you call
+3. **Location state change** - A location attribute such as *mode* changes. *Sunrise* and *sunset*
+   are other examples of location events
+4. **User action on the app** - The user taps a SmartApp icon or shortcut in the mobile app UI
+5. **Scheduled event** - Using a method like runIn(), you call
    a method within your SmartApp at a particular time .
-3. **Endpoint Triggers:** Using our `web services
+6. **Web services call** Using our `web services
    API <../smartapp-web-services-developers-guide/overview.html>`__, you
    create an endpoint accessible over the web that calls a method within
    your SmartApp.
+
+
+Device Preferences
+------------------
+
+The most common type of input in the preferences section specifies what kind of devices a SmartApp works with. For
+example, to specify that an app requires one contact sensor:
+
+::
+
+    input "contact1", "capability.contactSensor"
+
+This will generate an input element in the mobile UI that prompts for the selection
+of a single contact sensor (`capability.contactSensor`). `contact1` is the name of a variable that provides access to the device in the SmartApp.
+
+Device inputs can also prompt for more than one device, so to ask for the selection of one
+or more switches:
+
+::
+
+    input "switch1", "capability.switch", multiple: true
+
+You can find more information about SmartApp preferences `here <preferences-and-settings.html>`__
+
+Event Subscriptions
+-------------------
+
+Subscriptions allow a SmartApp to listen for events from devices, the location, and the SmartApp tile in the mobile UI.
+Device subscriptions are the most common and take the form:
+
+    **subscribe (** device **,** "attribute[.value]" **,** handlerMethod **)**
+
+For example, to subscribe to all events from a contact sensor you would write:
+::
+
+    subscribe(contact1, "contact", contactHandler)
+
+The contactHandler method would then be called whenever the sensor opened or closed. You can also subscribe to specific
+event values, so to call a handler only when the contact sensor opens write:
+
+::
+
+    subscribe(contact1, "contact.open", contactOpenHandler)
+
+The *subscribe* method call accepts either a device or a list of devices, so you don't need to explicitly iterate over
+each device in a list when you specify `multiple: true` in an input preference.
 
 SmartApp Sandboxing
 -------------------
 
 SmartApps are developed in a sandboxed environment. The sandbox is a way
 to limit developers to a specific subset of the Groovy language for
-performance and security. We `have
-documented <smartthings-sandbox-groovy-limitations.html>`__ the main ways
+performance and security. We have
+`documented <smartthings-sandbox-groovy-limitations.html>`__ the main ways
 this should affect you.
-
-Updated Method
---------------
-
-A method that is called when an already installed app is updated by the
-user
-
-Sometimes the app is updated by the user, for example they could change
-which device the app is pointing to. In this case then you need to
-unsubscribe from the previous device's events and subscribe to the new
-device's instead.
-
-::
-
-    def updated()
-    {
-      unsubscribe()
-      subscribe(motion1, "motion", motionHandler)
-    }
-
-Uninstalled Method
-------------------
-
-A method that is called when the user uninstalls an app. You don't need
-to do housekeeping of your application as this point, as the SmartThings
-platform will automatically clean up all extraneous data within the
-platform before it's deleted. This method is rarely utilized.
-
-::
-
-    def uninstalled()
-    {
-      doSomething()
-    }
-

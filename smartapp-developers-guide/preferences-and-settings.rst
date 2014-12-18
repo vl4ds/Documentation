@@ -1,193 +1,228 @@
 Preferences & Settings
 ======================
 
-Static Preferences
-------------------
+The preferences section of a SmartApp specifies what
+kinds of devices and other information is needed in order for the
+application to run. Inputs for each of these are presented to the user
+during installation of the SmartApp from the mobile UI.  You can present all of these
+inputs on a single page, or break them up into multiple pages. 
 
-As a SmartApps developer, you will define preferences that tell us what
-kind of Things and other information you need in order for the
-application to be able to run. We’ll then use that preferences metadata
-to collect that information from the end user at the time of
-installation for the SmartApp. The metadata is structured in the
-following hierarchy:
+Single Preferences Page
+-----------------------
 
--  pages: A list of sections, containing meta data about the page flow.
-
-   -  sections: A list of maps each containing 'title' and 'input' keys
-
-      -  title: A string that will be displayed to the user describing
-         the section. Ex. "Choose your lamp", "Remind me at..."
-      -  input: Contains a map that holds the section's variables
-
-         -  name: A string that represents the variable name you will
-            use in your code. Ex. "phone1", "switch2"
-         -  title: A string that will be displayed to the user
-            describing the selection box. Ex. "Where?", "What time?",
-            "Phone number?"
-         -  type: A string describing the type of variable. One of
-            device.openClosedSensor, device.doorShield,
-            device.lightSensor, device.motionDetector,
-            device.onoffShield, device.particulateDetector,
-            device.petFeederShield, device.smartSenseMulti,
-            device.smartSenseMotion, device.smartPhone,
-            device.smarttagMotionSensor, device.smarttagPresenceSensor,
-            device.smarttagTemperatureSensor,
-            device.smarttagThreeAxisSensor, device.smartthingShield,
-            device.spark, device.switch, device.temperatureSensor,
-            device.unknown, device.aeonMultiSensor, device.zWaveAlarm,
-            device.zWaveMultilevelSwitch, device.zWaveSwitch,
-            device.zWaveWaterAlarm, time, phone, number, string
-         -  description: A string that will be displayed to the user
-            that will be the default selection. Ex. "Tap to set"
-         -  multiple: A boolean that sets whether the selection box
-            allows multiple devices to be selected. Ex. true, false.
-         -  required: A boolean that sets if this input must be selected
-            by the user. Ex. true, false
-
-      -  app: A child app to include.
-      -  label: A string to display.
-      -  mode: An option field for user to select mode.
-      -  paragraph: A string to display for messaging purposes.
-      -  icon: An icon to display.
-      -  href: A link.
-      -  buttons: Button to display.
-      -  image: An image to display.
-
-.. TODO Link to methods
-
-The final output takes a format like this
+A single page preferences declaration is composed of one or more *section* elements, which in turn contain one or more
+*input* elements. Here's an example:
 
 ::
 
     preferences {
-        section("When the door opens/closes...") {
-            input "contact1", "capability.contactSensor"
-        } section("Turn on these lights...") {
-            input "switch1", "capability.switch", title: "Which door?", multiple: true
+        section("When activity on any of these sensors") {
+
+            input "contactSensors", "capability.contactSensor",
+                title: "Open/close sensors", multiple: true
+
+            input "motionSensors", "capability.motionSensor",
+                title: "Motion sensors?", multiple: true
+        }
+        section("Turn on these lights") {
+            input "switches", "capability.switch", multiple: true
         }
     }
 
-This preferences definition will ask the user for two bits of
-information: a device with a contact sensor capability to use and a
-device with an on/off switch capability to use. Note that we are asking
-for devices by capability and NOT by type. This is important since
-device types are always protocol specific and may even be manufacturer
-or model specific. If we want to write the most flexible SmartApp, we
-need to forget about device types and embrace device capabilities.
+Which would be rendered in the mobile app UI as:
 
-The preferences metadata defined in the application itself provides all
-of the information we need to render and collect these preferences from
-the enduser at the time they install (and configure) the application.
+.. image:: ../img/smartapps/single-page-preferences.png
 
-As a developer, you don’t know or care what the enduser called their
-devices. You get to name them within the scope of your application so
-that you can use those names whenever you reference the device.
 
-Of course users can change their preferences later as well, and
-applications need to know how to react to those changes. Notice also
-that the preferences gave internal (appspecific) names to the Things
-that are used by the application (e.g. contact1 for the contact sensor
-and switch1 for the onoff switch).
+Multiple Preferences Pages
+--------------------------
 
-If you'd like a paginated experience for the end user, pages influence
-the end user experience. They allow you to organize the initial install
-screens into separate pages. Each app can create one level of pages, and
-their children can do the same.
+Preferences can also be broken up into multiple pages. Each page must contain one or more *section*
+elements. Each page specifies a *name* property that is referenced by the *nextPage* property. The *nextPage*
+property is used to define the flow of the pages. Unlike single page preferences, the app name and mode control
+fields are not automatically added, and must be specified on the desired page or pages.
 
-There are two different types of pages that can be created. You can
-simply create pages, like so
+Here's an example that defines three pages:
 
 ::
 
     preferences {
-        page( name:"page1", title:"Preferences Page 1", nextPage:"page2", uninstall:true, install:false ) {
-            section( "When a door opens..." ) {
-                input "door1", "capability.contactSensor", title:"Where?"
+        page(name: "pageOne", title: "When there's activity on any of these sensors", nextPage: "pageTwo", uninstall: true) {
+            section("Choose sensors to trigger the action") {
+
+                input "contactSensors", "capability.contactSensor",
+                    title: "Open/close sensors", multiple: true
+
+                input "motionSensors", "capability.motionSensor",
+                    title: "Motion sensors?", multiple: true
             }
         }
-
-        page( name:"page2", title:"Preferences Page 2", uninstall:true, install:true ) {
-            section( "Turn on a light..." ) {
-                input "switch1", "capability.switch", title:"Which light?"
-            }
-        }
-    }
-
-You could also create dynamic pages, which involve variable content.
-
-.. TODO Link Method
-
-Dynamic Preferences
--------------------
-
-Dynamic preferences are used in the context of dynamic pages. These
-could change based on previous inputs and is common in the
-dashboard/solution smart apps. For example, if you allow the user to
-choose between different types of devices, you could display different
-preferences for the chosen type.
-
-::
-
-    preferences {
-        page(name: "lightDetail")
-    }
-
-    def lightDetail() {
-        dynamicPage(name: "lightDetail", title: "Configure $app.label", nextPage: "lightOptions") {
+        page(name: "pageTwo", title: "Turn on these lights", nextPage: "pageThree") {
             section {
-                input "switches", "capability.switch", title: "Choose devices for $app.label", multiple: true, required: true, pairedDeviceName: nextPairedDeviceName("$app.label", switches)
-                icon title: "Choose an icon for $app.label", required: true, defaultValue: "st.Lighting.light13-icn"
+                input "switches", "capability.switch", multiple: true
             }
-
-            section ([mobileOnly:true]) {
+        }
+        page(name: "pageThree", title: "Name app and configure modes", install: true, uninstall: true) {
+            section([mobileOnly:true]) {
                 label title: "Assign a name", required: false
                 mode title: "Set for specific mode(s)", required: false
             }
         }
     }
 
-Preferences Data Types
-----------------------
+The resulting pages in the mobile app would show the name and mode control fields only on the third page, and the
+uninstall button on the first and third pages:
 
-Devices
+.. image:: ../img/smartapps/multiple-page-preferences.png
 
-Specific devices like a Z-Wave Alarm or SmartMotion detector. Use
-'device' prefix when declaring. Ex. "device.motionDetector" or
-"device.switch"
 
-Supported Device Types:
+Preference Elements & Inputs
+----------------------------
 
-contactSensor, lightSensor, motionDetector, smartContact, smartMotion,
-smartPhone, smarttagPresenceSensor, switch, temperatureSensor,
-zwaveAeonMultisensor, doorShield, onOffShield, particulateDetector,
-petFeederShield, zwaveAlarm, zwaveWaterAlarm, zwaveMultilevelSwitch,
-zwaveSwitch, smartthingShield, zwaveThermostat
+Preference pages (single or multiple) are composed of one or more sections, each of which contains one or more of the
+following elements.
 
-Capabilities
+**Element Types**
 
-Instead of a specific device, an ability that multiple devices could
-have. For example both the smarttagPresenceSensor and smartPhone devices
-have the presenceSensor capability. Use 'capability' prefix when
-declaring. Ex. "capability.presenceSensor" or "capability.switch"
+============  ==========================================================================================================
+**Name**      **Purpose**
+------------  ----------------------------------------------------------------------------------------------------------
+app           Provides user-initiated installation of child apps. Typically used in solution modules
+input         Allows the user to select devices or enter values to be used during execution of the smart app
+label         Allows the user to name the app installation. Automatically generated by non-page preferences.
+mode          Allows the user to select which modes the app executes in. Automatically generated by non-page preferences
+paragraph     Text that's displayed on the page for messaging and instructional purposes
+icon          Allows the user to select an icon to be used when displaying the app in the mobile UI
+href          A control that selects another preference page or external HTML page
+============  ==========================================================================================================
 
-Supported Capabilities:
+Inputs are the most commonly used preference elements. They can be used to prompt the user to select devices that
+provide a certain capability, devices of a specific type, or constants of various kinds. Input element method calls
+take two forms. The "shorthand" form passes in the name and type unnamed as the require first two parameters, and any
+other arguments as named options:
 
-switch, battery, contactSensor, motionSensor, illuminanceMeasurement,
-temperatureMeasurement, relativeHumidityMeasurement, presenceSensor,
-alarm, waterSensor, threeAxisMeasurement, polling, configuration,
-thermostatHeatingSetpoint, thermostatCoolingSetpoint,
-thermostatSetpoint, thermostatMode, thermostatFanMode
+::
 
-Primitive Input Types
+    input "temperature1", "number", title: "Temperature"
 
-Other types of user inputted data. Depending on the type, the user will
-be shown a different interface upon app installation. A keyboard for
-'text', a number pad for 'number' or 'phone', and a time picker for
-'time'
+The second form explicitly specifies the name of each argument
 
-Supported Types:
+::
 
-text, number, decimal, time, phone
+    input(name: "color", type: "enum", title: "Color", options: ["Red","Green","Blue","Yellow"])
 
-.. TODO: Make this auto pull (Philip Grey)
+As with all Groovy method calls the parentheses are optional, in most cases. The supported input element arguments are:
+
+**Input Element Arguments**
+
+===========================  ===========================================================================================
+**Name**                     **Function**
+---------------------------  -------------------------------------------------------------------------------------------
+name                         Name of the variable injected into the SmartApp to reference this input
+type                         One of the names from the Input Types table below
+title                        Text that appears on the preferences page identifying this element
+description                  Text that appears in place of the element value when it has yet to be set
+multiple                     ``true`` to allow multiple values or ``false`` to allow only one value. Not supported for
+                             all element types
+required                     ``true`` to require an entry to save the page or ``false`` if the input is optional
+options                      Used in conjunction with the enum input type to specify the values the user can choose from.
+                             Example: options: ["choice 1", "choice 2", "choice 3"]
+===========================  ===========================================================================================
+
+The currently supported input element types are:
+
+**Input Types**
+
+===========================  ===========================================================================================
+**Name**                     **Function**
+---------------------------  -------------------------------------------------------------------------------------------
+cacapability.capabilityName  Prompts for all the devices that match the specified capability.
+                             See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
+                             table for possible values.
+device.deviceTypeName        Prompts for all devices of the specified type.
+boolean                      A ``true`` or ``false`` value
+date                         A calendar date value
+decimal                      A floating point number, i.e. one that can contain a decimal point
+email                        An email address
+enum                         One of a set of possible values. Use the *options* element to define the possible values.
+hub                          Prompts for the selection of a hub
+icon                         Prompts for the selection of an icon image
+number                       An integer number, i.e. one without decimal point
+password                     A password string. The value is obscured in the UI and encrypted before storage
+phone                        A phone number
+time                         A time of day
+text                         A text value
+===========================  ===========================================================================================
+
+
+
+Dynamic Preferences
+-------------------
+
+One of the most powerful features of multi-page preferences is the ability to dynamically generate the content of a page
+based on previous selections or external inputs, such as the data elements returned from a web services call. The
+following example shows how to create a two preference page SmartApp where the content of the second page depends
+on the selections made on the first page.
+
+::
+
+     preferences {
+        page(name: "page1", title: "Select sensor and actuator types", nextPage: "page2", uninstall: true) {
+            section {
+                input("sensorType", "enum", options: [
+                    "contactSensor":"Open/Closed Sensor",
+                    "motionSensor":"Motion Sensor",
+                    "switch": "Switch",
+                    "moistureSensor": "Moisture Sensor"])
+
+                input("actuatorType", "enum", options: [
+                    "switch": "Light or Switch",
+                    "lock": "Lock"]
+                )
+            }
+        }
+
+        page(name: "page2", title: "Select devices and action", install: true, uninstall: true)
+
+    }
+
+    def page2() {
+        dynamicPage(name: "page2") {
+            section {
+                input(name: "sensor", type: "capability.$sensorType", title: "If the $sensorType device")
+                input(name: "action", type: "enum", title: "is", options: attributeValues(sensorType))
+            }
+            section {
+                input(name: "actuator", type: "capability.$actuatorType", title: "Set the $actuatorType")
+                input(name: "action", type: "enum", title: "to", options: actions(actuatorType))
+             }
+
+        }
+    }
+
+    private attributeValues(attributeName) {
+        switch(attributeName) {
+            case "switch":
+                return ["on","off"]
+            case "contactSensor":
+                return ["open","closed"]
+            case "motionSensor":
+                return ["active","inactive"]
+            case "moistureSensor":
+                return ["wet","dry"]
+            default:
+                return ["UNDEFINED"]
+        }
+    }
+
+    private actions(attributeName) {
+        switch(attributeName) {
+            case "switch":
+                return ["on","off"]
+            case "lock":
+                return ["lock","unlock"]
+            default:
+                return ["UNDEFINED"]
+        }
+    }
 
