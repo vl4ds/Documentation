@@ -2,9 +2,9 @@ Anatomy & Life-Cycle of a SmartApp
 ==================================
 
 SmartApps are applications that allow users to tap into the capabilities of
-their devices to automate their lives. Most SmartApps installed by the user via the
+their devices to automate their lives. Most SmartApps are installed by the user via the
 SmartThings mobile client application, though some come pre-installed. Generally
-speaking there are three different kinds of SmartApps, *Event-Handlers*,
+speaking, there are three different kinds of SmartApps: *Event-Handlers*,
 *Solution Modules*, and *Service Managers*.
 
 Types of SmartApps
@@ -50,11 +50,10 @@ Manager SmartApp that is installed when pairing with a Sonos.
 SmartApp Structure
 ------------------
 
-SmartApps currently take the form of a single `Groovy <http://groovy.codehaus.org/>`__ script.
-It the future we plan to support other languages and
-reusable modules, but for now each SmartApp is a single Groovy file. A typical SmartApp script is composed of four
-sections, its *Definition*, *Preferences*, *Predefined Callbacks*, and *Event Handlers* sections. There is also
-a *Mappings* section that's required for cloud-connected SmartApps that will be described later.
+SmartApps take the form of a single `Groovy <http://groovy.codehaus.org/>`__ script.
+A typical SmartApp script is composed of four
+sections: *Definition*, *Preferences*, *Predefined Callbacks*, and *Event Handlers*. There is also
+a *Mappings* section that is required for cloud-connected SmartApps that will be described later.
 
 .. image:: ../img/smartapps/demo-app.png
     :class: with-border
@@ -68,7 +67,7 @@ describes it.
 
 The *preferences* section is responsible for defining the screens that appear in the mobile app when a SmartApp is
 installed or updated. These screens allow the user to specify which devices the SmartApp interacts with along with
-other configuration options that affect it's behavior.
+other configuration options that affect its behavior.
 
 **Pre-defined Callbacks**
 
@@ -77,7 +76,7 @@ The following methods, if present, are automatically called at various times dur
 1. **installed()** - Called when a SmartApp is first installed
 2. **updated()** - Called when the preferences of an installed smart app are updated
 3. **uninstalled()** - Called when a SmartApp is uninstalled.
-4. **childUninstalled()** - Called for the parent app when a child is uninstalled
+4. **childUninstalled()** - Called for the parent app when a child app is uninstalled
 
 The installed and updated methods are commonly found in all apps. Since the selected devices may have changed when an
 app is updated, both of these methods typically set up the same event subscriptions, so it is common practice to put
@@ -118,21 +117,23 @@ Device Preferences
 ------------------
 
 The most common type of input in the preferences section specifies what kind of devices a SmartApp works with. For
-example, to specify that an app requires one contact sensor write:
+example, to specify that an app requires one contact sensor:
 
 ::
 
     input "contact1", "capability.contactSensor"
 
-The result of this declaration will be the generation of an input element in the mobile UI that prompts for the selection
-of a single contact sensor, and the exposing of a variable in the SmartApp named `contact1` that provides access to the
-selected device in the app. Device inputs can also prompt for more than one device, so to ask for the selection of one
-or more switches write:
+This will generate an input element in the mobile UI that prompts for the selection
+of a single contact sensor (`capability.contactSensor`). `contact1` is the name of a variable that provides access to the device in the SmartApp.
+
+Device inputs can also prompt for more than one device, so to ask for the selection of one
+or more switches:
 
 ::
 
     input "switch1", "capability.switch", multiple: true
 
+You can find more information about SmartApp preferences `here <preferences-and-settings.html>`__
 
 Event Subscriptions
 -------------------
@@ -162,6 +163,6 @@ SmartApp Sandboxing
 
 SmartApps are developed in a sandboxed environment. The sandbox is a way
 to limit developers to a specific subset of the Groovy language for
-performance and security. We `have
-documented <smartthings-sandbox-groovy-limitations.html>`__ the main ways
+performance and security. We have
+`documented <smartthings-sandbox-groovy-limitations.html>`__ the main ways
 this should affect you.
