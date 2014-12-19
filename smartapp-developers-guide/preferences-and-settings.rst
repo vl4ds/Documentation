@@ -122,10 +122,12 @@ name                         Name of the variable injected into the SmartApp to 
 type                         One of the names from the Input Types table below
 title                        Text that appears on the preferences page identifying this element
 description                  Text that appears in place of the element value when it has yet to be set
-multiple                     ``true`` to allow multiple values or ``false`` to allow only one value. Not supported for
-                             all element types
+multiple                     ``true`` to allow multiple values or ``false`` to allow only one value. 
+
+                             Not supported for all element types.
 required                     ``true`` to require an entry to save the page or ``false`` if the input is optional
 options                      Used in conjunction with the enum input type to specify the values the user can choose from.
+
                              Example: options: ["choice 1", "choice 2", "choice 3"]
 ===========================  ===========================================================================================
 
@@ -137,6 +139,7 @@ The currently supported input element types are:
 **Name**                     **Function**
 ---------------------------  -------------------------------------------------------------------------------------------
 cacapability.capabilityName  Prompts for all the devices that match the specified capability.
+
                              See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
                              table for possible values.
 device.deviceTypeName        Prompts for all devices of the specified type.
