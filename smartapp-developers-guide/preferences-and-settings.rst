@@ -76,8 +76,10 @@ The valid options are:
     String - The display title of this page
 *nextPage*
     String - Used on multi-page preferences only. Should be the name of the page to navigate to next.
+*install*
+    Boolean - Set to ``true`` to allow the user to install this app from this page. Defaults to ``false``. Not necessary for single-page preferences.
 *uninstall*
-    Boolean - Set to ``true`` to allow the user to uninstall from this page. Not necessary for single-page preferences.
+    Boolean - Set to ``true`` to allow the user to uninstall from this page. Defualts to false. Not necessary for single-page preferences.
 
 
 We will see more in-depth examples of pages in the following sections.
@@ -124,6 +126,10 @@ Sections can be created in a few different ways:
 
 The valid options are:
 
+*hideable*
+    Boolean - Pass ``true`` to allow the section to be collapsed. Defaults to ``false``.
+*hidden*
+    Boolean - Pass ``true`` to specify the section is collapsed by default. Used in conjunction with ``hidden``. Defaults to ``false``. 
 *mobileOnly*
     Boolean - Pass ``true`` to suppress this section from the IDE simulator. Defaults to ``false``.
 
@@ -185,7 +191,7 @@ Here's an example that defines three pages:
                 input "switches", "capability.switch", multiple: true
             }
         }
-        page(name: "pageThree", title: "Name app and configure modes", uninstall: true) {
+        page(name: "pageThree", title: "Name app and configure modes", install: true, uninstall: true) {
             section([mobileOnly:true]) {
                 label title: "Assign a name", required: false
                 mode title: "Set for specific mode(s)", required: false
