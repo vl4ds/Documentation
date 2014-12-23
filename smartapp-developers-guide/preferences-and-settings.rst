@@ -462,8 +462,6 @@ Valid input options:
 
 *name*
     String - name of variable that will be created in this SmartApp to reference this input
-*type*
-    String - one of the names from the Input Types table below.
 *title*
     String - title text of this element.
 *description*
@@ -472,33 +470,30 @@ Valid input options:
     Boolean - ``true`` to allow multiple values or ``false`` to allow only one value. Not valid for all input types.
 *options*
     List - used in conjunction with the enum input type to specify the values the user can choose from. Example: ``options: ["choice 1", "choice 2", "choice 3"]``
+*type*
+    String - one of the names from the following table:
 
+    ===========================  ===========================================================================================
+    **Name**                     **Comment**
+    ---------------------------  -------------------------------------------------------------------------------------------
+    cacapability.capabilityName  Prompts for all the devices that match the specified capability.
 
-The currently supported input element types are:
-
-*Input Types*
-
-===========================  ===========================================================================================
-**Name**                     **Comment**
----------------------------  -------------------------------------------------------------------------------------------
-cacapability.capabilityName  Prompts for all the devices that match the specified capability.
-
-                             See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
-                             table for possible values.
-device.deviceTypeName        Prompts for all devices of the specified type.
-boolean                      A ``true`` or ``false`` value
-date                         A calendar date value
-decimal                      A floating point number, i.e. one that can contain a decimal point
-email                        An email address
-enum                         One of a set of possible values. Use the *options* element to define the possible values.
-hub                          Prompts for the selection of a hub
-icon                         Prompts for the selection of an icon image
-number                       An integer number, i.e. one without decimal point
-password                     A password string. The value is obscured in the UI and encrypted before storage
-phone                        A phone number
-time                         A time of day
-text                         A text value
-===========================  ===========================================================================================
+                                 See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
+                                 table for possible values.
+    device.deviceTypeName        Prompts for all devices of the specified type.
+    boolean                      A ``true`` or ``false`` value
+    date                         A calendar date value
+    decimal                      A floating point number, i.e. one that can contain a decimal point
+    email                        An email address
+    enum                         One of a set of possible values. Use the *options* element to define the possible values.
+    hub                          Prompts for the selection of a hub
+    icon                         Prompts for the selection of an icon image
+    number                       An integer number, i.e. one without decimal point
+    password                     A password string. The value is obscured in the UI and encrypted before storage
+    phone                        A phone number
+    time                         A time of day
+    text                         A text value
+    ===========================  ===========================================================================================
 
 
 Dynamic Preferences
