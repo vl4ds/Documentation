@@ -7,11 +7,138 @@ application to run. Inputs for each of these are presented to the user
 during installation of the SmartApp from the mobile UI.  You can present all of these
 inputs on a single page, or break them up into multiple pages. 
 
+As usual, the best way to become comfortable with something is through trying it yourself.
+So, fire up the `web IDE <http://ide.smartthings.com>`__ and try things out!
+
+Preferences Overview
+--------------------
+
+Preferences are made up of one or more pages, which contain one or more sections, which in turn contain
+one more elements. The general form of creating preferences looks like:
+
+::
+
+    preferences {
+        page() {
+            section() {
+                paragraph "some text"
+                input "motionSensors", "capability.motionSensor",
+                    title: "Motions sensors?", multiple: true
+            }
+            section() {
+                ...
+            }
+        }
+        page() {
+            ...
+        }
+    }
+
+Page Definition
+---------------
+
+Pages can be defined a couple different ways:
+
+*page(String pageName, String pageTitle) {}*
+
+::
+
+    preferences {
+        // page with name and title
+        page("page name", "page title") {
+            // sections go here
+        }
+    }
+
+*page(options) {}*
+
+This form takes a comma-separated list of name-value arguments. 
+
+.. note::
+
+    this is a common Groovy pattern that allows for named arguments to be passed to a method. More info can be found `here <http://groovy.codehaus.org/Extended+Guide+to+Method+Signatures>`__.
+
+::
+
+    preferences {
+        page(name: "pageName", title: "page title", 
+             nextPage: "nameOfSomeOtherPage", uninstall: true) {
+            // sections go here
+        }
+    }
+
+
+The valid options are:
+
+*name* (required)
+    String - Identifier for this page.
+*title*
+    String - The display title of this page
+*nextPage*
+    String - Used on multi-page preferences only. Should be the name of the page to navigate to next.
+*install*
+    Boolean - Set to ``true`` to allow the user to install this app from this page. Defaults to ``false``. Not necessary for single-page preferences.
+*uninstall*
+    Boolean - Set to ``true`` to allow the user to uninstall from this page. Defualts to false. Not necessary for single-page preferences.
+
+
+We will see more in-depth examples of pages in the following sections.
+
+Section Definition
+------------------
+
+Pages can have one or more sections. Think of sections as way to group the input you want to gather from the user.
+
+Sections can be created in a few different ways:
+
+*section{}*
+
+::
+
+    preferences {
+        // section with no title
+        section {
+            // elements go here
+        }
+    }
+
+
+*section(String sectionTitle){}*
+
+::
+
+    preferences {
+        // section with title
+        section("section title") {
+            // elements go here
+        }
+    }
+
+
+*section(options, String sectionTitle) {}*
+
+::
+
+    preferences {
+        // section will not display in IDE
+        section(mobileOnly: true, "section title")
+    }
+
+The valid options are:
+
+*hideable*
+    Boolean - Pass ``true`` to allow the section to be collapsed. Defaults to ``false``.
+*hidden*
+    Boolean - Pass ``true`` to specify the section is collapsed by default. Used in conjunction with ``hidden``. Defaults to ``false``. 
+*mobileOnly*
+    Boolean - Pass ``true`` to suppress this section from the IDE simulator. Defaults to ``false``.
+
+
 Single Preferences Page
 -----------------------
 
 A single page preferences declaration is composed of one or more *section* elements, which in turn contain one or more
-*input* elements. Here's an example:
+*elements*. Note that there is no *page* defined in the example below. When creating a single-page preferences app, there's no need to define the page explicitly - it's implied. Here's an example:
 
 ::
 
@@ -33,6 +160,8 @@ Which would be rendered in the mobile app UI as:
 
 .. image:: ../img/smartapps/single-page-preferences.png
 
+Note that in the above example, we did not specify the name or mode input, yet they appeared on our preferences page.
+When defining single-page preferences, name and mode are automatically added.
 
 Multiple Preferences Pages
 --------------------------
@@ -75,88 +204,302 @@ uninstall button on the first and third pages:
 
 .. image:: ../img/smartapps/multiple-page-preferences.png
 
-
 Preference Elements & Inputs
 ----------------------------
 
 Preference pages (single or multiple) are composed of one or more sections, each of which contains one or more of the
-following elements.
+following elements:
 
-**Element Types**
+**paragraph**
 
-============  ==========================================================================================================
-**Name**      **Purpose**
-------------  ----------------------------------------------------------------------------------------------------------
-app           Provides user-initiated installation of child apps. Typically used in solution modules
-input         Allows the user to select devices or enter values to be used during execution of the smart app
-label         Allows the user to name the app installation. Automatically generated by non-page preferences.
-mode          Allows the user to select which modes the app executes in. Automatically generated by non-page preferences
-paragraph     Text that's displayed on the page for messaging and instructional purposes
-icon          Allows the user to select an icon to be used when displaying the app in the mobile UI
-href          A control that selects another preference page or external HTML page
-============  ==========================================================================================================
+Text that's displayed on the page for messaging and instructional purposes.
+
+Example::
+
+    preferences {
+        section("paragraph") {
+            paragraph "This us how you can make a paragraph element"
+            paragraph image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png", 
+                      title: "paragraph title", 
+                      required: true, 
+                      "This is a long description that rambles on and on and on..."
+        }
+    }
+
+
+
+The above preferences definition would render as:
+
+.. image:: ../img/smartapps/prefs-paragraph.png
+
+Valid options:
+
+*title*
+    String - The title of the paragraph
+*image*
+    String - URL of image to use, if desired
+*required* 
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+
+
+**icon**
+
+Allows the user to select an icon to be used when displaying the app in the mobile UI
+
+Example::
+
+    preferences {
+        section("paragraph") {
+            icon(title: "required:true", 
+                 required: true)
+        }
+    }
+
+The above preferences definition would render as:
+
+.. image:: ../img/smartapps/prefs-icon.png
+
+Tapping the element would then allow the user to choose an icon:
+
+.. image:: ../img/smartapps/prefs-icon-chooser.png
+
+Valid options:
+
+*title*
+    String - The title of the icon
+*required*
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+
+
+**href**
+
+A control that selects another preference page or external HTML page.
+
+Example of using href to visit a URL::
+
+
+    preferences {
+        section("external") {
+            href(name: "hrefNotRequired", 
+                 title: "SmartThings", 
+                 required: false, 
+                 style: "external", 
+                 url: "http://smartthings.com/", 
+                 description: "tap to view SmartThings website in mobile browser")
+        }
+        section("embedded") {
+            href(name: "hrefWithImage", title: "This element has an image and a long title.", 
+                 description: "tap to view SmartThings website inside SmartThings app", 
+                 required: false, 
+                 image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png", 
+                 url: "http://smartthings.com/")
+        }
+    }
+
+
+The above preferences would render as:
+
+.. image:: ../img/smartapps/prefs-href-external-embedded.png
+
+Example of using href to link to another preference page (dynamic pages are discussed later in this section)::
+
+
+    preferences {
+        page(name: "hrefPage")
+        page(name: "deadEnd")
+    }
+
+    def hrefPage() {
+        dynamicPage(name: "hrefPage", title: "href example page", uninstall: true) {
+            section("page") {
+                href(name: "href", 
+                     title: "dead end page", 
+                     required: false,
+                     page: "deadEnd")
+            }
+        }
+    }
+
+    def deadEnd() {
+        dynamicPage(name: "deadEnd", title: "dead end page") {
+            section("dead end") {
+                paragraph "this is a simple paragraph element."
+            }
+        }
+    }
+
+
+Valid options:
+
+*title*
+    String - the title of the element
+*required*
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+*description*
+    String - the secondary text of the element
+*external*
+    Boolean - ``true`` to open URL in mobile browser application, ``false`` to open URL within the SmartThings app.
+*url*
+    String - The URL of the page to visit. You can use query parameters to pass additional information to the URL (For example, \http://someurl.com?param1=value1&param2=value1\)
+*page*
+    String - Used to link to another preferences page. Not compatible with the external option.
+*image*
+    String - URL of an image to use, if desired.  
+
+
+
+**mode**
+
+Allows the user to select which modes the app executes in. Automatically generated by single-page preferences.
+
+Example::
+
+    preferences {
+        page(name: "pageOne", title: "page one", nextPage: "pageTwo", uninstall: true) {
+            section("section one") {
+                paragraph "just some text"
+            }
+        }
+        page(name: "pageTwo", title: "page two") {
+            section("page two section one") {
+                mode(name: "modeMultiple", 
+                     title: "pick some modes", 
+                     required: false)
+                mode(name: "modeWithImage", 
+                     title: "This element has an image and a long title.", 
+                     required: false, 
+                     multiple: false, 
+                     image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png")
+            }
+        }
+    }
+
+
+The second page of the above example would render as:
+
+.. image:: ../img/smartapps/prefs-label.png
+
+Valid options:
+
+*title*
+    String - the title of the mode field
+*required*
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+*multiple*
+    Boolean - ``true`` or ``false`` to specify this input allows selection of multiple values. Defaults to ``true``.
+*image*
+    String - URL of an image to use, if desired.
+
+
+**label**
+
+Allows the user to name the app installation. Automatically generated by single-page preferences.
+
+Example::
+
+    preferences {
+        section("labels") {
+            label(name: "label", 
+                  title: "required:false, 
+                  multiple:false", 
+                  required: false, 
+                  multiple: false)
+            label(name: "labelRequired",
+                  title: "required:true", 
+                  required: true, 
+                  multiple: false)
+            label(name: "labelWithImage", 
+                  title: "This element has an image and a title.", 
+                  description: "image and a title", 
+                  required: false, 
+                  image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png")
+        }
+    }
+
+The above preferences definition would render as:
+
+.. image:: ../img/smartapps/prefs-label.png
+
+Valid options:
+
+*title*
+    String - the title of the label field
+*description*
+    String - the default text in the input field
+*required*
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. Defaults to ``true``.
+*image*
+    String - URL to an image to use, if desired
+
+
+**app**
+
+Provides user-initiated installation of child apps. Typically used in `dashboard solution SmartApps <dashboard-solution-smartapps.html>`__
+
+**input**
+
+Allows the user to select devices or enter values to be used during execution of the smart app.
 
 Inputs are the most commonly used preference elements. They can be used to prompt the user to select devices that
 provide a certain capability, devices of a specific type, or constants of various kinds. Input element method calls
-take two forms. The "shorthand" form passes in the name and type unnamed as the require first two parameters, and any
+take two forms. The "shorthand" form passes in the name and type unnamed as the required first two parameters, and any
 other arguments as named options:
 
 ::
 
-    input "temperature1", "number", title: "Temperature"
+    preferences {
+        section("section title") {
+            // name is "temperature1", type is "number"
+            input "temperature1", "number", title: "Temperature"
+        }
+    }
 
-The second form explicitly specifies the name of each argument
+The second form explicitly specifies the name of each argument:
 
 ::
 
-    input(name: "color", type: "enum", title: "Color", options: ["Red","Green","Blue","Yellow"])
+    preferences {
+        section("section title") {
+            input(name: "color", type: "enum", title: "Color", options: ["Red","Green","Blue","Yellow"])
+        }
+    }
 
-As with all Groovy method calls the parentheses are optional, in most cases. The supported input element arguments are:
+Valid input options:
 
-**Input Element Arguments**
+*name*
+    String - name of variable that will be created in this SmartApp to reference this input
+*title*
+    String - title text of this element.
+*description*
+    String - default value of the input element
+*multiple*
+    Boolean - ``true`` to allow multiple values or ``false`` to allow only one value. Not valid for all input types.
+*options*
+    List - used in conjunction with the enum input type to specify the values the user can choose from. Example: ``options: ["choice 1", "choice 2", "choice 3"]``
+*type*
+    String - one of the names from the following table:
 
-===========================  ===========================================================================================
-**Name**                     **Function**
----------------------------  -------------------------------------------------------------------------------------------
-name                         Name of the variable injected into the SmartApp to reference this input
-type                         One of the names from the Input Types table below
-title                        Text that appears on the preferences page identifying this element
-description                  Text that appears in place of the element value when it has yet to be set
-multiple                     ``true`` to allow multiple values or ``false`` to allow only one value. 
+    ===========================  ===========================================================================================
+    **Name**                     **Comment**
+    ---------------------------  -------------------------------------------------------------------------------------------
+    cacapability.capabilityName  Prompts for all the devices that match the specified capability.
 
-                             Not supported for all element types.
-required                     ``true`` to require an entry to save the page or ``false`` if the input is optional
-options                      Used in conjunction with the enum input type to specify the values the user can choose from.
-
-                             Example: options: ["choice 1", "choice 2", "choice 3"]
-===========================  ===========================================================================================
-
-The currently supported input element types are:
-
-**Input Types**
-
-===========================  ===========================================================================================
-**Name**                     **Function**
----------------------------  -------------------------------------------------------------------------------------------
-cacapability.capabilityName  Prompts for all the devices that match the specified capability.
-
-                             See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
-                             table for possible values.
-device.deviceTypeName        Prompts for all devices of the specified type.
-boolean                      A ``true`` or ``false`` value
-date                         A calendar date value
-decimal                      A floating point number, i.e. one that can contain a decimal point
-email                        An email address
-enum                         One of a set of possible values. Use the *options* element to define the possible values.
-hub                          Prompts for the selection of a hub
-icon                         Prompts for the selection of an icon image
-number                       An integer number, i.e. one without decimal point
-password                     A password string. The value is obscured in the UI and encrypted before storage
-phone                        A phone number
-time                         A time of day
-text                         A text value
-===========================  ===========================================================================================
-
+                                 See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
+                                 table for possible values.
+    device.deviceTypeName        Prompts for all devices of the specified type.
+    boolean                      A ``true`` or ``false`` value
+    date                         A calendar date value
+    decimal                      A floating point number, i.e. one that can contain a decimal point
+    email                        An email address
+    enum                         One of a set of possible values. Use the *options* element to define the possible values.
+    hub                          Prompts for the selection of a hub
+    icon                         Prompts for the selection of an icon image
+    number                       An integer number, i.e. one without decimal point
+    password                     A password string. The value is obscured in the UI and encrypted before storage
+    phone                        A phone number
+    time                         A time of day
+    text                         A text value
+    ===========================  ===========================================================================================
 
 
 Dynamic Preferences
@@ -164,7 +507,7 @@ Dynamic Preferences
 
 One of the most powerful features of multi-page preferences is the ability to dynamically generate the content of a page
 based on previous selections or external inputs, such as the data elements returned from a web services call. The
-following example shows how to create a two preference page SmartApp where the content of the second page depends
+following example shows how to create a two-page preferences SmartApp where the content of the second page depends
 on the selections made on the first page.
 
 ::
