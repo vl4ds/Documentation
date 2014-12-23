@@ -377,7 +377,7 @@ Example::
 
 The second page of the above example would render as:
 
-.. image:: ../img/smartapps/prefs-label.png
+.. image:: ../img/smartapps/prefs-mode.png
 
 Valid options:
 
