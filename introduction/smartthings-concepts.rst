@@ -26,7 +26,7 @@ Our basic methodology towards executing a command, such as turning a light switc
 
 You cannot be guaranteed that your command has been executed, because another SmartApp could interact with your end device, and change its state. For example, you might turn a light switch on, but another app might sneak in and turn it off.
 
-If you needed to know if a command was executed, you can subscribe to an event trigged by the command you executed and check its timestamp to ensure it fired after you told it to. You will, however, still have latency issues to take into consideration, so it's impossible to know the exact current status at any given time.
+If you needed to know if a command was executed, you can subscribe to an event triggered by the command you executed and check its timestamp to ensure it fired after you told it to. You will, however, still have latency issues to take into consideration, so it's impossible to know the exact current status at any given time.
 
 The SmartApps platform follows eventually consistent programming, meaning that responses to a request for a value in SmartApps will eventually be the same, but in the short term they might differ.
 
