@@ -1,6 +1,11 @@
 Preferences & Settings
 ======================
 
+.. note::
+
+    This topic discusses preferences and settings as it pertains to SmartApps. Information about device type preferences can be found in the `Device Type Developer's Guide <../device-type-developers-guide/index.html>`__
+
+
 The preferences section of a SmartApp specifies what
 kinds of devices and other information is needed in order for the
 application to run. Inputs for each of these are presented to the user
@@ -210,6 +215,8 @@ Preference Elements & Inputs
 Preference pages (single or multiple) are composed of one or more sections, each of which contains one or more of the
 following elements:
 
+----
+
 **paragraph**
 
 Text that's displayed on the page for messaging and instructional purposes.
@@ -241,6 +248,7 @@ Valid options:
 *required* 
     Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
 
+----
 
 **icon**
 
@@ -270,6 +278,7 @@ Valid options:
 *required*
     Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
 
+----
 
 **href**
 
@@ -346,7 +355,7 @@ Valid options:
 *image*
     String - URL of an image to use, if desired.  
 
-
+----
 
 **mode**
 
@@ -390,6 +399,7 @@ Valid options:
 *image*
     String - URL of an image to use, if desired.
 
+----
 
 **label**
 
@@ -431,10 +441,13 @@ Valid options:
 *image*
     String - URL to an image to use, if desired
 
+----
 
 **app**
 
 Provides user-initiated installation of child apps. Typically used in `dashboard solution SmartApps <dashboard-solution-smartapps.html>`__
+
+----
 
 **input**
 
