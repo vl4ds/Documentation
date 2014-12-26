@@ -11,7 +11,7 @@ At its core, however, a switch is any device that can be turned On or
 Off.
 
 When a SmartApp interacts with the virtual representation of a device,
-it knows that the device supports certain actions based on it’s
+it knows that the device supports certain actions based on its
 capabilities. A device that has the ‘switch’ capability must support
 both the ‘on’ and ‘off’ actions. In this way, all switches are the same,
 and it doesn’t matter to the SmartApp what kind of switch is actually
