@@ -292,7 +292,7 @@ Example of using href to visit a URL::
             href(name: "hrefNotRequired", 
                  title: "SmartThings", 
                  required: false, 
-                 style: "external", 
+                 external: true, 
                  url: "http://smartthings.com/", 
                  description: "tap to view SmartThings website in mobile browser")
         }
@@ -347,7 +347,7 @@ Valid options:
 *description*
     String - the secondary text of the element
 *external*
-    Boolean - ``true`` to open URL in mobile browser application, ``false`` to open URL within the SmartThings app.
+    Boolean - ``true`` to open URL in mobile browser application, ``false`` to open URL within the SmartThings app. Defaults to ``false``
 *url*
     String - The URL of the page to visit. You can use query parameters to pass additional information to the URL (For example, \http://someurl.com?param1=value1&param2=value1\)
 *page*
