@@ -43,7 +43,7 @@ commands you intend to handle:
     def zwaveEvent(physicalgraph.zwave.commands.basicv1.BasicReport cmd)
     {
         def result
-        if (value == 0) {
+        if (cmd.value == 0) {
             result = createEvent(name: "switch", value: "off")
         } else {
             result = createEvent(name: "switch", value: "on")
