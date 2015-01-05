@@ -28,7 +28,7 @@ from the user:
 
 Each of these inputs corresponds into a preferences section:
 
-::
+.. code-block:: groovy
 
     preferences {
         section("When all of these people leave home") {
@@ -91,7 +91,7 @@ to the appropriate events, and take action when they are triggered.
 
 We do this through the required `installed` method:
 
-::
+.. code-block:: groovy
 
     def installed() {
         log.debug "Installed with settings: ${settings}"
@@ -111,7 +111,7 @@ developer. Good logging is invaluable when trying to debug/troubleshoot your app
 
 Let's define our presence method.
 
-::
+.. code-block:: groovy
 
     def presence(evt) {
         log.debug "evt.name: $evt.value"
@@ -196,7 +196,7 @@ it returns ten minutes as the default.
 
 Now we need to define our *takeAction* method:
 
-::
+.. code-block:: groovy
 
     def takeAction() {
         if (everyoneIsAway()) {
@@ -271,7 +271,7 @@ the user changes any of their configurations. When this method is called,
 we need to call the `unsubscribe` method, and then `subscribe`, to
 effectively reset our app.
 
-::
+.. code-block:: groovy
 
     def updated() {
         log.debug "Updated with settings: ${settings}"
@@ -285,7 +285,7 @@ Bon Voyage app:
 
 **Complete Code Listing**
 
-::
+.. code-block:: groovy
 
     /**
      *  Bon Voyage
