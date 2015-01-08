@@ -43,7 +43,7 @@ Executes the specified method in the specified number of seconds from now:
 
     [overwrite: ``true`` or ``false``]
 
-    By default, if a method is scheduled to run in the future, and then another call to runIn with the same method is made, the last one overwrites the previously scheduled method. This is usually preferable. Consider the situation if we have a switch scheduled to turn off after five minutes of a door closing. If, after the initial call to runIn to schedule the switch to turn off in five minutes, but before the specified method is called, another event schedules the same method, if we don't overwrite the previous scheduled method, the method will be called twice. If you do specify ``[overwrite: false]``, be sure to write your handler so that it can handle multiple calls.
+    By default, if a method is scheduled to run in the future, and then another call to runIn with the same method is made, the last one overwrites the previously scheduled method. This is usually preferable. Consider the situation if we have a switch scheduled to turn off after five minutes of a door closing. First, the door closes at 2:50 and we schedule the switch to turn off after five minutes (2:55). Then two minutes later (2:52), the door opens and closes again - another call to runIn will be made to schedule the switch to turn off in five minutes from now (2:57). If we specified ``[overwrite: false]``, we'd now have two schedules to turn off the switch - one at 2:55, and one at 2:57. So, if you do specify ``[overwrite: false]``, be sure to write your handler so that it can handle multiple calls.
 
 .. code-block:: groovy
 
@@ -112,9 +112,9 @@ Creates a scheduled job that calls the handlerMethod according to the specified 
 .. code-block:: groovy
 
     
-    def someEventHanler(evt) {
+    def someEventHandler(evt) {
         // execute handlerMethod every hour on the half hour.
-        schedule("0, 30, * * * ?", handlerMethod)
+        schedule("0 30 * * * ?", handlerMethod)
     }
 
     def handlerMethod() {
@@ -124,6 +124,32 @@ Creates a scheduled job that calls the handlerMethod according to the specified 
 Scheduled jobs are limited to running no more often than once per minute.
 
 For information on cron expressions, see `this page <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
+
+----
+
+**schedule(dateString, method)**
+
+Creates a scheduled job that calls the handlerMethod according to the specified dateString. This is
+typically used when gathering the execution time from the app preferences. 
+
+.. code-block:: groovy
+
+    
+    preferences {
+        section("Time to run") {
+            input "time1", "time"
+        }
+    }
+
+    ...
+
+    def someEventHandler(evt) {
+        schedule(time1, handlerMethod)
+    }
+
+    def handlerMethod() {
+        ...
+    }
 
 ----
 
