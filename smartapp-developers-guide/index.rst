@@ -12,6 +12,7 @@ SmartApp Developer's Guide
    calling-web-services-in-smartapps
    querying-events-in-smartapps
    generating-events-in-smartapps
+   scheduling
    example-bon-voyage
    submitting-smartapps-for-publication
 
