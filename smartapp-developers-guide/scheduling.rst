@@ -3,12 +3,13 @@ Scheduling
 
 SmartApps often have the need to schedule certain actions to take place at a given point in time. For example, an app may want to turn off the lights five minutes after someone leaves. Or maybe an app wants to turn the lights on every day at a certain time.
 
-Broadly speaking, there are a couple different ways we might want to schedule something to happen:
+Broadly speaking, there are a few different ways we might want to schedule something to happen:
 
 - Do something after a certain time amount from now.
-- Do something at certain time in the future.
+- Do something once at certain time in the future.
+- Do something on a recurring schedule.
 
-We'll look at each scenario in detail.
+We'll look at each scenario in detail, and what methods SmartThings makes available to address these requirements.
 
 Schedule From Now
 -----------------
@@ -19,7 +20,7 @@ A SmartApp may want to take some action in a certain amount of time after some e
 - When everyone leaves, adjust the thermostat after ten minutes.
 - If a door opens and is not shut after five minutes, send a notification.
 
-All these scenarios follow a common pattern: when a certain event happens, take some action after a given amount of time. In SmartApps, we accomplish this by using the ``runIn`` method.
+All these scenarios follow a common pattern: when a certain event happens, take some action after a given amount of time. This can be accomplished this by using the *runIn* method.
 
 **runIn(seconds, method, options)**
 
@@ -62,26 +63,43 @@ Executes the specified method in the specified number of seconds from now:
 
     You should not write your SmartApp expecting second-level granularity. You may find that it is accurate to the second-level in your case, but it cannot be guaranteed. 
 
-    This is especially important for calls to runIn with values less than one minute. 
+
+Run Once in the Future
+----------------------
+
+Some SmartApps may need to schedule certain actions to happen *once* at a specific time and date. runOnce handles this case.
+
+.. note::
+
+    You may notice that some of the scheduling APIs accept a string to represent the the date/time to be executed. This is mostly an artifact of the fact that when you define a preference input of the "time" type, it uses a String representation of the value entered. When using this value later to set up a schedule, the APIs need to be able to handle this type of argument.
+
+    When simply using the input from preferences, you don't need to know the details of the specific date format being used. But, if you wish to use the APIs with string inputs directly, you will need to understand their expected format.
+
+    SmartThings uses the Java standard format of "yyyy-MM-dd'T'HH:mm:ss.SSSZ". More technical readers may recognize this format as ISO-8601 (Java does not fully conform to this format, but it is very similar). Full discussion of this format is beyond the scope of this documentation, but a few examples may help:
+
+    January 09, 2015 3:50:32 GMT-6 (Central Standard Time): "2015-01-09T15:50:32.000-0600"
+
+    February 09, 2015 3:50:32:254 GMT-6 (Central Standard Time): "2015-01-09T15:50:32.254-0600"
+
+    For more information about date formatting, you can review the `SimpleDateFormat JavaDoc <http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html>`__. 
 
 
+**runOnce(dateTime, handlerMethod, options)**
 
-Schedule at a Certain Time
---------------------------
+Executes the handlerMethod once at the specified date and time. The dateTime argument can be either a Date object or a date string. 
 
-Some SmartApps may need to schedule certain actions to happen at a specific time and date. This is typically useful for apps that want to set up a recurring schedule (turn the lights of at 11:30 PM, for example).
+*options*
+    Optional. Map of options. Valid options:
 
-There are a few different methods available to us to handle these requirements.
+    [overwrite: ``true`` or ``false``]
 
-**runOnce(dateTime, handlerMethod)**
-
-Executes the handlerMethod once at the specified date and time. The dateTime argument can be either a Date object or an ISO-8601 date string. 
+    Specify [overwrite: false] if you do not want the most recently created job for the handlerMethod to overwrite an existing job. See the discussion in the runIn documentation above for more information.
 
 .. code-block:: groovy
 
     
-    // execute handler tomorrow, at the current time
     def someEventHandler(evt) {
+        // execute handler tomorrow, at the current time
         runOnce(new Date() + 1, handler)
     }
 
@@ -89,12 +107,13 @@ Executes the handlerMethod once at the specified date and time. The dateTime arg
         switch.off()
     }
 
+
 .. code-block:: groovy
 
     
     def someEventHandler(evt) {
-        // execute handler at 4 PM GMT on October 21, 2015 (e.g., Back to the Future 2 Day!)
-        runOnce("2015-10-21T16:00:00.000Z", handler)
+        // execute handler at 4 PM CST on October 21, 2015 (e.g., Back to the Future 2 Day!)
+        runOnce("2015-10-21T16:00:00.000-0600", handler)
     }
 
     def handler() {
@@ -102,35 +121,16 @@ Executes the handlerMethod once at the specified date and time. The dateTime arg
     }
 
 
+Run on a Schedule
+-----------------
 
-----
+Oftentimes, there is a need to schedule a job to run on a specific schedule. For example, maybe you want to turn the lights off at 11 PM every night. SmartThings provides the *schedule* method to allow you to create recurring schedules.
 
-**schedule(cronExpression, method)**
+**schedule(dateTime, handlerMethod)**
 
-Creates a scheduled job that calls the handlerMethod according to the specified cronExpression. 
+Creates a scheduled job that calls the handlerMethod every day at the time specified by the dateTime argument. The dateTime argument can be a String, Date, or number (to schedule based on Unix epoch time). Only the time information will be used to derive the recurring schedule.
 
-.. code-block:: groovy
-
-    
-    def someEventHandler(evt) {
-        // execute handlerMethod every hour on the half hour.
-        schedule("0 30 * * * ?", handlerMethod)
-    }
-
-    def handlerMethod() {
-        ...
-    }
-
-Scheduled jobs are limited to running no more often than once per minute.
-
-For information on cron expressions, see `this page <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
-
-----
-
-**schedule(dateString, method)**
-
-Creates a scheduled job that calls the handlerMethod according to the specified dateString. This is
-typically used when gathering the execution time from the app preferences. 
+Here's how you might use a preference to set up a daily scheduled job:
 
 .. code-block:: groovy
 
@@ -151,22 +151,73 @@ typically used when gathering the execution time from the app preferences.
         ...
     }
 
-----
-
-**schedule(dateTime, method)**
-
-Creates a scheduled job that calls the handlerMethod once per day according to the specified dateTime.
+Of course, you can create and pass the dateTime string explicitly:
 
 .. code-block:: groovy
 
+
     def someEventHandler(evt) {
-        // execute handlerMethod every day at this time
+        // call handlerMethod every day at 3:36 PM CST
+        schedule("2015-01-09T15:36:32-06:00", handlerMethod)
+    }
+
+    def handlerMethod() {
+        ...
+    }
+
+You can also pass a Groovy Date object. Only the time portion of the passed in date will be used to create the recurring schedule:
+
+.. code-block:: groovy
+
+    
+    def someEventHandler(evt) {
+        // call handlerMethod every day at the current time
         schedule(new Date(), handlerMethod)
     }
 
     def handlerMethod() {
         ...
     }
+
+Finally, you can pass a Long representing the desired time in milliseconds (using `Unix time <http://en.wikipedia.org/wiki/Unix_time>`__) to schedule:
+
+.. code-block:: groovy
+
+
+    def someEventHandler(evt) {
+        // call handlerMethod every day, at two minutes from the current time
+        schedule(now() + 120000, handlerMethod)
+    } 
+
+    def handlerMethod() {
+        ...
+    }
+
+----
+
+Scheduling jobs to execute at a particular time is useful, but what if we want to execute a job at some other interval? What if, for example, we want a method to execute at fifteen minutes past the hour, every hour?
+
+SmartThings allows you to pass a cron expression to the schedule method to accomplish this. A cron expression is based on the cron UNIX tool, and is a way to specify a recurring schedule. They are extremely powerful, but can be pretty confusing. For more information on cron expressions, see `this page <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
+
+**schedule(cronExpression, handlerMethod)**
+
+Creates a scheduled job that calls the handlerMethod according to the specified cronExpression. 
+
+.. code-block:: groovy
+
+    
+    def someEventHandler(evt) {
+        // execute handlerMethod every hour on the half hour.
+        schedule("0 30 * * * ?", handlerMethod)
+    }
+
+    def handlerMethod() {
+        ...
+    }
+
+.. note::
+
+    Scheduled jobs are limited to running no more often than once per minute.
 
 
 Other Scheduling-related Methods
@@ -210,10 +261,10 @@ unschedule can also be called with no arguments to unschedule all jobs.
 
 .. _limitations_best_practices:
 
-Scheduling Limitations and Best Practices
------------------------------------------
+Scheduling Limitations, Best Practices, and Things Good to Know
+---------------------------------------------------------------
 
-When using any of the scheduling APIs, it's important to understand some limitations and best practices. These limitations are due in part to the fact that execution occurs in the cloud, and are thus subject to limiting factors like load, network connectivity, etc.
+When using any of the scheduling APIs, it's important to understand some limitations and best practices. These limitations are due in part to the fact that execution occurs in the cloud, and are thus subject to limiting factors like load, network connectivity, etc. 
 
 ----
 
@@ -221,7 +272,13 @@ When using any of the scheduling APIs, it's important to understand some limitat
 
 SmartThings will *try* to execute your scheduled job at the specified time, but cannot guarantee it will execute at that exact moment. As a general rule of thumb, you should expect that your job will be called within the minute of scheduled execution. For example, if you schedule a job at 5:30:20 (20 seconds past 5:30) to execute in five minutes, we expect it to be executed at some point in the 5:35 minute. 
 
-When using ``runIn`` with less than one minute from now, your mileage will vary.
+----
+
+**Do not use runIn to set up a recurring schedule of less than sixty seconds**
+
+You may have noticed that none of the schedule APIs allow you to schedule jobs for less than sixty second intervals. You may be tempted to work around this limitation by using runIn to create such a schedule (i.e., a handler method that reschedules itself). This is discouraged, and at some point may be prevented by the SmartThings framework.
+
+The primary reason for discouraging jobs that run more often than every sixty seconds is overall system resource utilization. Using runIn to circumvent this is problematic because any failure to execute, even once, will cause the scheduled event to stop triggering. 
 
 ----
 
@@ -235,6 +292,13 @@ To prevent any one SmartApp or device-type handler from using too many resources
 
 While there are some limitations in place to prevent excessive scheduling, it's important to note that excessive polling or scheduling is discouraged. It is one of the items we look for when reviewing community-developed SmartApps or device-type handlers.
 
+----
+
+**Missed job executions will not accumulate**
+
+Due to a variety of issues (perhaps the local Internet connection has been dropped, or there is heavy load on the SmartThings server, or some other extreme circumstance), it's possible that a scheduled job could be missed. For example, say you have set up a job to execute every minute, and for some reason, it doesn't execute for three minutes. 
+
+When the job does execute again, it will resume its schedule (once every minute) - your handler won't suddenly be called three times, for example.
 
 Examples
 --------
