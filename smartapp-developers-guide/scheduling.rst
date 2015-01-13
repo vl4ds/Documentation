@@ -61,13 +61,11 @@ Executes the specified method in the specified number of seconds from now:
 
     It is important to note that you should not rely on the method being called in *exactly* the specified number of seconds. SmartThings will *attempt* to execute the method within a minute of the time specified, but cannot guarantee it. See the :ref:`limitations_best_practices` topic below for more information.
 
-    You should not write your SmartApp expecting second-level granularity. You may find that it is accurate to the second-level in your case, but it cannot be guaranteed. 
-
 
 Run Once in the Future
 ----------------------
 
-Some SmartApps may need to schedule certain actions to happen *once* at a specific time and date. runOnce handles this case.
+Some SmartApps may need to schedule certain actions to happen *once* at a specific time and date. *runOnce* handles this case.
 
 .. note::
 
@@ -126,9 +124,14 @@ Run on a Schedule
 
 Oftentimes, there is a need to schedule a job to run on a specific schedule. For example, maybe you want to turn the lights off at 11 PM every night. SmartThings provides the *schedule* method to allow you to create recurring schedules.
 
+The various *schedule* methods follow a similar form - they take an argument representing the desired schedule, and the method to be called on this schedule. 
+Each SmartApp or device-type handler can only have one handler method scheduled at any time. This means that, unlike *runIn* or *runOnce*, a job created with *schedule* must either execute or be canceled with the *unschedule* method before you can schedule another job with the same method. The *schedule* method does not accept the overwrite option like *runOnce* and *runIn*.
+
 **schedule(dateTime, handlerMethod)**
 
-Creates a scheduled job that calls the handlerMethod every day at the time specified by the dateTime argument. The dateTime argument can be a String, Date, or number (to schedule based on Unix epoch time). Only the time information will be used to derive the recurring schedule.
+Creates a scheduled job that calls the handlerMethod every day at the time specified by the dateTime argument. The dateTime argument can be a String, Date, or number (to schedule based on Unix epoch time). 
+
+Only the time information will be used to derive the recurring schedule.
 
 Here's how you might use a preference to set up a daily scheduled job:
 
@@ -165,7 +168,7 @@ Of course, you can create and pass the dateTime string explicitly:
         ...
     }
 
-You can also pass a Groovy Date object. Only the time portion of the passed in date will be used to create the recurring schedule:
+You can also pass a Groovy Date object:
 
 .. code-block:: groovy
 
@@ -215,9 +218,8 @@ Creates a scheduled job that calls the handlerMethod according to the specified 
         ...
     }
 
-.. note::
 
-    Scheduled jobs are limited to running no more often than once per minute.
+Scheduled jobs are limited to running no more often than once per minute.
 
 
 Other Scheduling-related Methods
@@ -268,7 +270,7 @@ When using any of the scheduling APIs, it's important to understand some limitat
 
 ----
 
-**Do not expect second-level granularity in scheduled jobs**
+**Do not expect exact execution time in scheduled jobs**
 
 SmartThings will *try* to execute your scheduled job at the specified time, but cannot guarantee it will execute at that exact moment. As a general rule of thumb, you should expect that your job will be called within the minute of scheduled execution. For example, if you schedule a job at 5:30:20 (20 seconds past 5:30) to execute in five minutes, we expect it to be executed at some point in the 5:35 minute. 
 
