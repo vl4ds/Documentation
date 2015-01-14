@@ -274,6 +274,8 @@ When using any of the scheduling APIs, it's important to understand some limitat
 
 SmartThings will *try* to execute your scheduled job at the specified time, but cannot guarantee it will execute at that exact moment. As a general rule of thumb, you should expect that your job will be called within the minute of scheduled execution. For example, if you schedule a job at 5:30:20 (20 seconds past 5:30) to execute in five minutes, we expect it to be executed at some point in the 5:35 minute. 
 
+When using ``runIn`` with values less than one minute, your mileage will vary. 
+
 ----
 
 **Do not use runIn to set up a recurring schedule of less than sixty seconds**
