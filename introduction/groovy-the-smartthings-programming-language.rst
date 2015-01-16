@@ -29,7 +29,7 @@ Note, however, that because of the application “sandboxing” that we do in th
 Groovy Sandboxing
 -----------------
 
-SmartThings runs with a sandboxed environment. This means that not all features of the Groovy programming language are availble to SmartThings developers. This is done for reasons of security and simplicity. 
+SmartThings runs with a sandboxed environment. This means that not all features of the Groovy programming language are available to SmartThings developers. This is done for reasons of security and simplicity. 
 
 Here are some of the restrictions:
 
@@ -69,7 +69,7 @@ Due to the way builders are implemented using closures, they will not work in Sm
 
 **Restricted methods**
 
-You cannot use any of the following methods in SmartThings:
+Some of the methods you cannot use in SmartThings:
 
 - getClass
 - getMetaClass
@@ -98,9 +98,111 @@ A few other things you cannot do in SmartThings:
 - Create and use new threads
 - Use System methods, like System.out
 
+Tips & Tricks
+-------------
 
+To get comfortable with Groovy, it's recommended you install it and try it out. The `Groovy Console`_ is a great place to try things out.
 
+You can also use this handy `Groovy web console`_ if you don't have Groovy installed locally. Some features may not be available, but it's a handy way to try things out quick. 
 
+A full discussion of Groovy is obviously beyond the scope of this document, but there are a few key language features that you'll see often in the SmartThings platform that are worth brief discussion here.
+
+----
+
+**GStrings**
+
+Groovy Strings. What were you thinking?
+
+GStrings are declared inside double-quotes, and may include expressions. Among other things, this allows us to build strings dynamically without having to worry about concatenation. 
+
+Expressions are defined using the ``${...}`` syntax.
+
+.. code-block:: groovy
+
+    def currentDateString = "The current date is ${new Date()}"
+
+Properties can be referenced directly without the brackets:
+
+.. code-block:: groovy
+
+    def awesomePlatform = "SmartThings"
+    def newString = "Programming with $awesomePlatform is fun!"
+
+----
+
+**Optional Parentheses**
+
+Method invocations with arguments in Groovy do not always require the arguments to be enclosed in parentheses. 
+
+These are equivalent:
+
+.. code-block:: groovy
+
+    "SmartThings".contains "Smart"
+    "SmartThings".contains("Smart")
+
+----
+
+**Optional Return Statements**
+
+The return statement may be omitted from a method. The value of the last statement in a method will be the returned value, if the return keyword is not present.
+
+These two methods are equivalent:
+
+.. code-block:: groovy
+
+    def yell() {
+        return "all caps".toUpperCase()
+    }
+
+    def yellAgain() {
+        "all caps".toUpperCase()
+    }
+
+----
+
+**Closures**
+
+One of the more powerful features of Groovy is its support for closures. We'll leave the exact definition of closures to computer scientists (See the Google machine if you're interested), but for our purposes, think of closures as a way to pass a function to another function.
+
+Why would you want to do that? It allows us to be more expressive in our code, and focus on the *what*, not the *how*. 
+
+The Groovy Collections APIs make heavy use of closures. Consider this example:
+
+.. code-block:: groovy
+
+    def names = ['Erlich', 'Richard', 'Gilfoyle', 'Dinesh', 'Big Head']
+    def programmers = names.findAll {
+        it != 'Erlich'
+    }
+    // programmers => ['Richard', 'Gilfoyle', 'Dinesh', 'Big Head']
+
+If you're new to Groovy or functional-style programming, the above code block may look pretty strange. We'll break it down a bit.
+
+The findAll method accepts a closure as an argument. The closure is defined between the brackets. findAll will call the closure (``it != 'Erlich'``) on each element in ``names``. If the item does not equal 'Erlich', it will be added to the returned list (remember the optional return statement).
+
+``it`` is the default variable name for each item the closure will be called with. We can specify a different name if we wish by providing a name followed by ``->``:
+
+.. code-block:: groovy
+
+    def names = ['Erlich', 'Richard', 'Gilfoyle', 'Dinesh', 'Big Head']
+    def programmers = names.findAll {dude ->
+        dude != 'Erlich'
+    }
+
+References and Resources
+------------------------
+
+Groovy is simple enough to be able to jump in and start writing code quickly, but powerful enough to get yourself stuck pretty quickly.
+
+Here are a few resources you can use to sharpen your Groovy skills:
+
+- `Groovy Documentation Portal`_
+- `Groovy Quick Start`_
+- `Groovy Beginners Tutorial`_
+- `Groovy Closures`_
+- `Groovy Collections`_
+- `Groovy Web Console`_
 
 .. _domain-specific language: http://en.wikipedia.org/wiki/Domain-specific_language
 .. _Groovy programming language: http://groovy.codehaus.org/
@@ -121,3 +223,6 @@ A few other things you cannot do in SmartThings:
 .. _Groovy Collections: http://groovy.codehaus.org/JN1015-Collections
 .. _Groovy Closures: http://groovy.codehaus.org/Tutorial+2+-+Code+as+data%2C+or+closures
 .. _Groovy builder pattern: http://groovy.codehaus.org/Builders
+.. _Groovy Console: http://groovy.codehaus.org/Groovy+Console
+.. _Groovy web console: https://groovyconsole.appspot.com/
+.. _Groovy Documentation Portal: http://groovy.codehaus.org/Documentation
