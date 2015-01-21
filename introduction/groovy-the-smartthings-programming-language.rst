@@ -78,7 +78,7 @@ Some of the methods you cannot use in SmartThings:
 - methodMissing
 - invokeMethod
 - println
-- sleep (you can use the SmartThings *pause(milliseconds)* method, for anything less than 15000 milliseconds)
+- sleep 
 
 ----
 
