@@ -41,8 +41,5 @@ commands required of that capability.
 Custom Capabilities
 -------------------
 
-If you are integrating or building a device that requires a capability
-that isn’t listed here, no problem! You can add a custom capability to
-the platform yourself, and we will then look for common threads across
-new custom capabilities in order to determine which ones should be made
-part of the standard taxonomy.
+We do not currently support creating custom capabilities. You can, however,
+create a device-type handler that exposes custom commands or attributes.
