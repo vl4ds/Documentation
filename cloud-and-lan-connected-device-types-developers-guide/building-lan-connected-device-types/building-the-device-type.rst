@@ -78,8 +78,15 @@ You can use the ``parseLanMessage`` method to parse the incoming message.
         def headersAsString = msg.header // => headers as a string
         def headerMap = msg.headers      // => headers as a Map
         def body = msg.body              // => request body as a string
+        def status = msg.status          // => http status code of the response
+        def json = msg.json              // => any JSON included in response body, as a data structure of lists and maps
+        def xml = msg.xml                // => any XML included in response body, as a document tree structure
+        def data = msg.data              // => either JSON or XML in response body (whichever is specified by content-type header in response)
+
         ...
     }
+
+For more information about the JSON or XML response formats, see the Groovy `JsonSlurper <http://groovy.codehaus.org/gapi/groovy/json/JsonSlurper.html>`__ and `XmlSlurper <http://groovy.codehaus.org/api/groovy/util/XmlSlurper.html>`__ documentation.
 
 ----
 
