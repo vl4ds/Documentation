@@ -5,14 +5,12 @@ Event Handler SmartApps
 -----------------------
 
 Event Handler SmartApps are the most common apps developed by our
-community. They allow you to subscribe to events from devices and call a
-handler method upon their firing. This method can then do a variety of
-things, most commonly invoking a command on another device. We're
-confident that if you are familiar with back end development of web
-sites, then you will be more than capable of developing SmartApps.
+community. They allow you to do things in response to device events 
+or schedules. A very simple example would be a SmartApp that turns the
+lights off when everyone leaves. 
 
-A very simple example of a SmartApp would involve you opening a
-door and having the lights turn on automatically.
+We're confident that if you are familiar with back-end development of web
+sites, you will be more than capable of developing SmartApps.
 
 Solution Module SmartApps
 -------------------------
@@ -24,15 +22,14 @@ go together. One example of this would be the "Home & Family" section of
 the dashboard which allows you to see the comings and goings of your
 family.
 
-Solution Module SmartApps have traditionally been built by our internal
-team, but we will be opening them up for external development in the
-near future.
+Solution Module SmartApps are currently only built by our internal
+team, but we plan to open them up for external development in the future.
 
 Service Manager SmartApps
 -------------------------
 
 Service Manager SmartApps are used to connect to LAN or cloud devices,
-such as Sonos or Belkin WeMo. They are the connecting glue betweenthe 
+such as Sonos or Belkin WeMo. They are the connecting glue between the 
 unique protocols of your external devices and a device type handler
 you'd create for those devices. They discover devices and then continue
 to maintain the connection for those devices.

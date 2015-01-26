@@ -97,5 +97,3 @@ custom commands, you are limited to running only commands that fall
 within your devices cumulative list of relevant commands, which is built
 dependent on your capabilities.
 
-Next Article: `Dashboard Solution SmartApps
-➞ <dashboard-solution-smartapps.html>`__
