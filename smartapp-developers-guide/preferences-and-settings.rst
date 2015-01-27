@@ -457,7 +457,7 @@ Valid options:
 
 **app**
 
-Provides user-initiated installation of child apps. Typically used in `dashboard solution SmartApps <dashboard-solution-smartapps.html>`__
+Provides user-initiated installation of child apps. Typically used in dashbard solution SmartApps, which are currently not supported for community development.
 
 ----
 
