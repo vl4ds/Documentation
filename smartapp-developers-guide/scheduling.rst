@@ -221,6 +221,25 @@ Creates a scheduled job that calls the handlerMethod according to the specified 
 
 Scheduled jobs are limited to running no more often than once per minute.
 
+In addition to creating schedules using cron expressions, SmartThings also provides some convenience methods to set up the schedule for you. They are in the form of *runEveryXMinutes(handlerMethod)*  or *runEveryXHours(handlerMethod)*. 
+
+These methods work by creating a random start time in the X minutes or hours, and then every X minutes or hours after that. For example, ``runEvery5Minutes(handlerMethod)`` will execute ``handlerMethod`` at a random time in the next five minutes, and then run every five minutes from then.
+
+These methods have the advantage of randomizing the start time for schedules, which can reduce the load on the SmartThings cloud. As such, they should be preferred over cron expressions when available.
+
+The currently available methods are:
+
+**runEvery5Minutes(handlerMethod)**
+
+**runEvery10Minutes(handlerMethod)**
+
+**runEvery15Minutes(handlerMethod)**
+
+**runEvery30Minutes(handlerMethod)**
+
+**runEvery1Hour(handlerMethod)**
+
+**runEvery3Hours(handlerMethod)**
 
 Other Scheduling-related Methods
 --------------------------------
