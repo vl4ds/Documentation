@@ -161,7 +161,7 @@ Of course, you can create and pass the dateTime string explicitly:
 
     def someEventHandler(evt) {
         // call handlerMethod every day at 3:36 PM CST
-        schedule("2015-01-09T15:36:32-06:00", handlerMethod)
+        schedule("2015-01-09T15:36:00.000-0600", handlerMethod)
     }
 
     def handlerMethod() {
