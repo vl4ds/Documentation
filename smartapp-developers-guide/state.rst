@@ -1,58 +1,88 @@
 State
 =====
 
-What is SmartApp State?
------------------------
+Recall that SmartApps are not always running, but rather execute according to a certain schedule or in response to events being triggered. But what if we need our SmartApp to retain some information between executions? 
 
-State is used to store arbitrary data for the SmartApp between events
-and over time. Because SmartApps aren't always running, you need state
-to hold your persistent data.
-
-| If you want to save a variable that will be persisted between events,
-you must use the application state. You can assign Strings, Numbers,
-Lists, Maps, Booleans, etc. to arbitrary key names in the form:
-|  state.key = value
-
-As far as practical applications go, you might use state to store the
-last time something was run, or perhaps history on how you've messaged
-to the enduser. Use it for anything that needs to persist and won't
-already be saved by your preferences.
+SmartApps are all provided a ``state`` variable that will allow you to store data across executions.
 
 Using SmartApp State
 --------------------
 
-To use state, simply use the predefined object **state**, and define any
-properties you'd like to use. They will then be accessible anywhere
-within your SmartApp.
+To use SmartApp state, simply use the ``state`` variable that is injected into every SmartApp. You can think of it as a map that will persist its value across executions.
 
-::
+You can use SmartApp state to store strings, numbers, lists, boolean values, maps, etc. Behind the scenes, SmartThings serializes state data into JSON. This means that there are certain types that are not amenable to being stored in state. This is discussed further in the `State Limitations`_ section.
 
-    def installed()
-    {
-      state.count = 0
-      state.myMap = [foo:"bar"]
-      state.name = "SmartThings"
-    }
+Typically SmartApps will use or update SmartApp state values in an event handler.
 
-    def event(evt) {
-      log.debug "Foo is: ${state.myMap.foo}" //Will print out "Foo is: bar"
-      log.debug "Name is: ${state.name}" //Will print out "Name is: SmartThings"
-      state.count = state.count + 1
-      log.debug "Count is: ${state.count}" //Will print out "Count is: 1", and will increase every time event gets called
-    }
+As usual, the best way to describe code is by showing code itself. 
+
+.. code-block:: groovy
+
+  def installed() {
+    // simple number to keep track of executions
+    state.count = 0
+
+    // we can store maps in state
+    state.myMap = [foo: "bar", baz: "fee"]
+
+    // booleans are ok of course
+    state.myBoolean = true
+
+    // we can use array index notation if we want
+    state['key'] = 'value'
+
+    // we can store lists and maps, so we can make some interesting structures
+    state.myListOfMaps = [[key1: "val1", bool1: true],
+                          [otherKey: ["string 1", "string 2"]]]
+
+  }
+
+  def someEventHandler(evt) {
+
+    // increment by 1
+    state.count = state.count + 1
+
+    log.debug "this event handler has been called ${state.count} times since installed"
+
+    log.debug "state.myMap.foo: ${state.myMap.foo}" // => prints "bar"
+
+    // we can access state value using array notation if we wish
+    log.debug "state['myBoolean']: ${state['myBoolean']}"
+
+    // we can navigate our list of maps
+    state.myListOfMaps.each { map ->
+      log.debug "entry: $map"
+      map.each {
+        log.debug "key: ${it.key}, value: ${it.value}"
+      }
+    }  
 
 State Limitations
 -----------------
 
-The main limitation of SmartApp state is that, because we use JSON to
-store state, your data types might not persist after being saved and
-returned. Strings and numbers should have no issues, but be aware of
-this, in particular when it comes to storing dates. This would be one
-way to deal with parsing a date string after it comes back from state.
+SmartApp state is stored in JSON format. For most data types this works fine, but for more complex object types this may cause issues.
 
-::
+This is particularly worth noting when working with dates. If you need to store time information, consider using an epoch time stamp, conveniently available via the ``now()`` method:
 
-    it.sentDate.toSystemDate()
+.. code-block:: groovy
 
-You could also just store the time in milliseconds using an epoch
-timestamp.
+  def installed() {
+    state.installedAt = now()
+  }
+
+  def someEventHandler(evt) {
+    def millisSinceInstalled = now() - state.installedAt
+    log.debug "this app was installed ${millisSinceInstalled / 1000} seconds ago"
+
+    // you can also create a Date object back from epoch time:
+    log.debug "this app was installed at ${new Date(state.installedAt)}"
+  }
+
+Examples
+--------
+
+Here are some SmartApps that make use of state. You can find them in the IDE along with the other example SmartApps.
+
+- "Smart Nightlight" - shows using state to store time information.
+- "Laundry Monitor" - uses state to store boolean state and time information.
+- "Good Night" - shows using state to store time information, including constructing a Date object from a value stored in state. 
