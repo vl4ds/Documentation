@@ -12,6 +12,7 @@ SmartApp Developer's Guide
    querying-events-in-smartapps
    generating-events-in-smartapps
    scheduling
+   sunset-and-sunrise
    example-bon-voyage
    submitting-smartapps-for-publication
 
