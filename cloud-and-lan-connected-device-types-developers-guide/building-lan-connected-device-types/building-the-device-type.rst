@@ -19,9 +19,7 @@ for communicating with the device.
 When you create an instance of a ``HubAction``, you provide details about the 
 request, such as the request method, headers, and path. By itself, ``HubAction`` is little more than a wrapper for these request details.
 
-You might be asking yourself "what good is it then?" 
-
-Good question.
+It is when an instance of a ``HubAction`` is returned from a command method that it becomes useful.
 
 When a command method of your device handler returns an instance of a ``HubAction``, the SmartThings platform will use the request information within it to actually perform the request. It will then call the device-handler's ``parse`` method with any response data.
 
@@ -93,7 +91,9 @@ For more information about the JSON or XML response formats, see the Groovy `Jso
 Getting the Addresses
 ---------------------
 
-To use HubAction, you will need the IP address of the device, and sometimes the hub. There's currently not a public API to get this information easily, so until there is, you will need to handle this in your device-type handler. Consider using helper methods like these to get this information:
+To use HubAction, you will need the IP address of the device, and sometimes the hub. 
+
+How the device IP and port are stored my vary depending on the device type. There's currently not a public API to get this information easily, so until there is, you will need to handle this in your device-type handler. Consider using helper methods like these to get this information:
 
 .. code-block:: groovy
 
@@ -104,10 +104,21 @@ To use HubAction, you will need the IP address of the device, and sometimes the 
 
     // gets the address of the device
     private getHostAddress() {
-        def parts = device.deviceNetworkId.split(":")
-        def ip = convertHexToIP(parts[0])
-        def port = convertHexToInt(parts[1])
-        return ip + ":" + port
+        def ip = getDataValue("ip")
+        def port = getDataValue("port")
+
+        if (!ip || !port) {
+            def parts = device.deviceNetworkId.split(":")
+            if (parts.length == 2) {
+                ip = parts[0]
+                port = parts[1]
+            } else {
+                log.warn "Can't figure out ip and port for device: ${device.id}"
+            }
+        }
+
+        log.debug "Using IP: $ip and port: $port for device: ${device.id}"
+        return convertHexToIP(ip) + ":" + convertHexToInt(port)
     }
 
     private Integer convertHexToInt(hex) {
