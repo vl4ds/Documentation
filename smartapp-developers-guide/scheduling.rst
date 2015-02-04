@@ -265,7 +265,7 @@ returns ``true`` if a job can be scheduled, ``false`` otherwise. Only four jobs 
 
 **unschedule(nameOfMethod = '')**
 
-Removes the method from the schedule queue, if specified.
+Removes the method from the schedule queue, if specified. Note that this is not specific to jobs created with any of the ``schedule`` methods - any job scheduled for the future (using ``runIn``, ``runOnce``, or any of other scheduling methods) may be canceled using ``unschedule``.
 
 .. code-block:: groovy
 
