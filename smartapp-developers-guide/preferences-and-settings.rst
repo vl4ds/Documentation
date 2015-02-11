@@ -513,7 +513,6 @@ Valid input options:
                                  table for possible values.
     device.deviceTypeName        Prompts for all devices of the specified type.
     boolean                      A ``true`` or ``false`` value
-    date                         A calendar date value
     decimal                      A floating point number, i.e. one that can contain a decimal point
     email                        An email address
     enum                         One of a set of possible values. Use the *options* element to define the possible values.
