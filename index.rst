@@ -18,6 +18,7 @@ This documentation is organized into a few sections:
 * :ref:`device_type_developers_guide`
 * :ref:`cloud_conected_developers_guide`
 * :ref:`web_services_developers_guide`
+* :ref:`arduino`
 * :ref:`reference_material`
 
 
@@ -87,6 +88,17 @@ SmartApp Web Services Developer's Guide
 	:maxdepth: 3
 	
 	smartapp-web-services-developers-guide/index
+
+.. _arduino:
+
+Arduino ThingShield
+~~~~~~~~~~~~~~~
+
+.. toctree::
+   :maxdepth: 2
+
+   arduino/index
+
 
 .. _reference_material:
 
