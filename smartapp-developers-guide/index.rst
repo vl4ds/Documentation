@@ -8,11 +8,10 @@ SmartApp Developer's Guide
    preferences-and-settings
    state
    simple-event-handler-smartapps
-   calling-web-services-in-smartapps
-   querying-events-in-smartapps
-   generating-events-in-smartapps
+   devices
    scheduling
    sunset-and-sunrise
+   calling-web-services-in-smartapps
    example-bon-voyage
    submitting-smartapps-for-publication
 
