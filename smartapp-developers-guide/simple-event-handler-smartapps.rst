@@ -1,99 +1,152 @@
-Event-Handler SmartApps
-=======================
+========================
+Events and Subscriptions
+========================
 
-What Are Events?
-----------------
+Turn on a light when a door opens. Turn the lights off at sunrise. Send a message if a door opens when you're not home. These are all examples of event-handler SmartApps. They follow a common pattern - subscribe to some event, and take action when the event happens. 
 
-Technically speaking, events are a report of a change in or update to
-one of a device’s attributes. For you, that means a door opening, the
-temperature changing, sound detected or countless other happenings in
-the physical graph.
+This section will discuss events and how you can subscribe to them in your SmartApp. 
 
-Subscribing to Events
----------------------
+Subscribe to Specific Device Events
+-----------------------------------
 
-There are plenty of events going off throughout your physical graph, but
-you don't need to know about all of them. You need to specifically
-subscribe to the ones you want.
+The most common use case for event subscriptions is for device events:
 
-To subscribe, you define what device you'd like to observe, what event
-you'd to listen for, and a handler method to call when that event fires
-(indicating an attribute has changed).
+**subscribe(deviceName, "eventToSubscribeTo", handlerMethodName)**
 
-::
+.. code-block:: groovy 
 
-    subscribe(contact1,"contact",contactHandler)
-
-    contactHandler(evt){
-
+    preferences {
+        section {
+            input "theSwitch", "capability.switch"
+        }
     }
 
-You can also subscribe to specific states of events. For example, if you
-only want to subscribe to events for a door opening but not closing, you
-could subscribe to just those events.
-
-::
-
-    subscribe(contact1,"contact.open",contactOpenHandler)
-
-    contactOpenHandler(evt){
-
+    def install() {
+        subscribe(theSwitch, "switch.on", switchOnHandler)
     }
 
-.. ADD Link
-
-Events versus Current Value
----------------------------
-
-When you subscribe to an event, your handler will be passed the event
-for you to read the current attribute value.
-
-There are often cases, however, where you'd like to observe a different
-device's attributes within your handler method.
-
-You can query attributes of any devices defined in your preferences.
-When querying attributes, you can either request just the current value
-for the attribute or the event as a whole.
-
-**String latestValue(String attribute)** 
-
-Returns the latest value for a specific attribute of the device. For
-example, if you wanted to know whether a switch was on or off.
-
-::
-
-    def myHandler(evt) {
-        def latestValue = device1.latestValue("attributeName")
+    def switchOnHandler(evt) {
+        log.debug "switch turned on!"
     }
 
-**String latestState(String attribute)** 
+The handler method must accept an event parameter. The `Event <https://graph.api.smartthings.com/ide/doc/event>`__ object will be discussed later.
 
-Returns the most recent event for the specified attribute, which
-provides you meta information along with the latest value. For example,
-if you wanted to know when a switch was turned on or off.
+You can find the possible events to subscribe to by referring to the Attributes column for a capability in the `Capabilities Taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__. The general form we use is "<attributeName>.<attributeValue>". If the attribute does not have any possible values (for example, "battery"), you would just use the attribute name. 
 
-::
+In the example above, the switch capability has the attribute "switch", with possible values "on" and "off". Putting these together, we use "switch.on".
 
-    def foo(evt) {
-        def latestState = device1.latestState("attributeName")
-        def latestStateDate = latestState.dateCreated
+.. note::
+
+Subscribe to All Device Events
+------------------------------
+
+You can also subscribe to all states by just specifying the attribute name:
+
+.. code-block:: groovy
+    
+    subscribe(theSwitch, "switch", switchHandler)
+
+    def switchHandler(evt) {
+        if (evt.value == "on") {
+            log.debug "switch turned on!"
+        } else if (evt.value == "off") {
+            log.debug "switch turned off!"
+        }
     }
 
-Invoking Commands on a Device
+
+In this case, the ``switchHandler`` method will be called for both the "on" and "off" events.
+
+Subscribe to Multiple Devices
 -----------------------------
 
-Let's make something happen. When you want to interface with a device,
-you can invoke commands on it. For example, you might want your SmartApp
-to turn on a light.
+If your SmartApp allows multiple devices, you can subscribe to events for all the devices:
 
-::
+.. code-block:: groovy
 
-    switch.on()
+    preferences {
+        section {
+            input "switches", "capability.switch", multiple: true
+        }
+    }
 
-That's it. The light will now turn on.
+    def installed() {
+        subscribe(switches, "switch", switchesHandler)
+    }
 
-Every capability contains a list of relevant commands. Unless you define
-custom commands, you are limited to running only commands that fall
-within your devices cumulative list of relevant commands, which is built
-dependent on your capabilities.
+    def switchesHandler(evt) {
+        log.debug "one of the configured switches changed states"
+    }
 
+Subscribe to Location Events
+----------------------------
+
+In addition to subscribing to device events, you can also subscribe to events for the user's location.
+
+You can subscribe to the following location events:
+
+*mode*
+    Triggered when the mode changes.
+*position*
+    Triggered when the geofence position changes for this location. Does not get triggered when the fence is widened or narrowed - only fired when the position changes.
+*sunset*
+    Triggered at sunset for this location.
+*sunrise*
+    Triggered at sunrise for this location.
+*sunriseTime*
+    Triggered around sunrise time. Used to get the time of the next sunrise for this location.
+*sunsetTime*
+    Triggered around sunset time. Used to get the time of the next sunset for this location.
+
+Pass in the location property automatically injected into every SmartApp as the first parameter to the subscribe method.
+
+.. code-block:: groovy
+
+    subscribe(location, "mode", modeChangeHandler)
+
+    // shortcut for mode change handler
+    subscribe(location, modeChangeHandler)
+
+    subscribe(location, "position", positionChange)
+    subscribe(location, "sunset", sunsetHandler)
+    subscribe(location, "sunrise", sunriseHandler)
+    subscribe(location, "sunsetTime", sunsetTimeHandler)
+    subscribe(location, "sunriseTime", sunriseTimeHandler)
+
+Refer to the `Sunset and Sunrise <http://docs.smartthings.com/en/latest/smartapp-developers-guide/sunset-and-sunrise.html>`__ section for more information about sunrise and sunset.
+
+The Event Object
+----------------
+
+Event-handler methods must accept a single parameter, the event itself.
+
+The full documentation of the Event object is found `here <https://graph.api.smartthings.com/ide/doc/event>`__.
+
+A few of the common ways of using the event:
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        // get the event name, e.g., "switch"
+        log.debug "This event name is ${evt.name}"
+
+        // get the value of this event, e.g., "on" or "off"
+        log.debug "The value of this event is ${evt.value}"
+
+        // get the Date this event happened at
+        log.debug "This event happened at ${evt.date}"
+        
+        // did the value of this event change from its previous state?
+        log.debug "The value of this event is different from its previous value: ${evt.isStateChange()}"
+    }
+
+.. note:: 
+    The contents of each Event instance will vary depending on the exact event. If you refer to the Event reference documentation, you will see different value methods, like "floatValue" or "dateValue". These may or may not be populated depending on the specific event, and may even throw exceptions if not applicable. 
+
+See Also
+--------
+
+ - `Sunset and Sunrise <sunset-and-sunrise.html>`__
+ - `Event Class Documentation <https://graph.api.smartthings.com/ide/doc/event>`__ 
+ - `Location Class Documentation <https://graph.api.smartthings.com/ide/doc/location>`__
+ - `Interacting with Devices <devices.html>`__
