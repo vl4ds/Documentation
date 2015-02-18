@@ -267,6 +267,12 @@ returns ``true`` if a job can be scheduled, ``false`` otherwise. Only four jobs 
 
 Removes the method from the schedule queue, if specified. Note that this is not specific to jobs created with any of the ``schedule`` methods - any job scheduled for the future (using ``runIn``, ``runOnce``, or any of other scheduling methods) may be canceled using ``unschedule``.
 
+.. note::
+
+    Due to the way that the scheduling service is currently implemented, ``unschedule`` is a fairly expensive operation, and may take many seconds to execute.
+
+    We plan to address this in the future, but until then, you should be aware of the potential performance impacts.
+
 .. code-block:: groovy
 
     // unschedule the someHandlerMethod 
@@ -322,6 +328,14 @@ While there are some limitations in place to prevent excessive scheduling, it's 
 Due to a variety of issues (perhaps the local Internet connection has been dropped, or there is heavy load on the SmartThings server, or some other extreme circumstance), it's possible that a scheduled job could be missed. For example, say you have set up a job to execute every minute, and for some reason, it doesn't execute for three minutes. 
 
 When the job does execute again, it will resume its schedule (once every minute) - your handler won't suddenly be called three times, for example.
+
+----
+
+**unschedule can take several seconds to execute**
+
+As discussed above, ``unschedule`` is currently a potentially expensive operation. 
+
+We plan to address this in the near future. Until we do, be aware of the potential performance impacts of calling ``unschedule``.
 
 Examples
 --------
