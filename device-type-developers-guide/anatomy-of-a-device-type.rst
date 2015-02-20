@@ -245,7 +245,7 @@ could show other fields, and they'll be editable by tapping the
 "preferences" tile in the device details. This is a fairly uncommon
 scenario, but would be handled by the following code. You can find out
 more about preferences
-`here <../smartapp-developers-guide/preferences-&-settings.html>`__.
+`here <../smartapp-developers-guide/preferences-and-settings.html>`__.
 
 ::
 
