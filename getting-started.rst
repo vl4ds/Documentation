@@ -1,23 +1,20 @@
 Getting Started
 ===============
 
-Welcome, new SmartThings developer! This guide is intended to get you 
-up and running with the SmartThings development platform as quickly as possible. 
+This tutorial is intended to get you up and running with the SmartThings development platform - we'll walk through from setup to running your own SmartApp. 
 
-SmartThings allows developers to program the physical world. We think that's pretty cool, 
-and think you will too.
+SmartApps are Groovy-based programs that allow a user to tap into the capabilities of their devices to automate their lives. Think of them as the intelligence between our physical devices.
 
 What You Need
 -------------
 
 - A SmartThings hub that has been configured. Some devices would be good too, but not required.
 - Experience with some form of programming. SmartThings uses the `Groovy programming language <http://groovy.codehaus.org>`__. You don't need to be a Groovy Ninja, but some familiarity with programming is assumed.
-- A sense of adventure and a willingness to learn!
 
 What We Will Build
 ------------------
 
-We'll walk you through setup to running your own SmartApp. SmartApps are Groovy-based programs that allow a user to tap into the capabilities of their devices to automate their lives. Think of them as the intelligence between our physical devices.
+We are going to build a SmartApp that turns on a light when a door opens.
 
 Here's the recipe for our app: *When a door opens, turn on a light. When the door closes, turn the light off.*
 
@@ -25,25 +22,27 @@ Let's build it!
 
 .. note:: 
 
-
     The example app we'll walk through here is discussed in greater detail in the `Building Your First SmartApp <introduction/introduction-to-the-ide/building-your-first-smartapp.html>`__ section of the `Introduction <introduction/index.html>`__.
 
 Walkthrough
 -----------
 
-**Step 1: Register a developer account**
+Step 1: Register a developer account
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you haven't already, `Register for a developer account <https://graph.api.smartthings.com/register/developer>`__
 
 ---- 
 
-**Step 2: Go the developer environment page**
+Step 2: Go the developer environment page
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Head over to the `developer environment page <https://graph.api.smartthings.com>`__. This is where you can manage your hubs, devices, view logging, and more. We're going to use the web-based IDE to create a SmartApp.
 
 ----
 
-**Step 3: Create your SmartApp**
+Step 3: Create your SmartApp
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Click on the "My SmartApps" link:
 
@@ -71,12 +70,11 @@ At a high level, our app will need to:
 
 #. Gather the devices (door and light) to use for this app
 #. Monitor the door device - if it is opened, turn the light on. If it is closed, turn it off.
-
-It's not much more complicated than that!
         
 ----
 
-**Step 4: Fill in the preferences block**
+Step 4: Fill in the preferences block
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The first thing we need to do is gather the sensors and switches we want this SmartApp to work with. We do this through the ``preferences`` definition.
 
@@ -101,12 +99,14 @@ Click the "Save" button above the editor.
 
 .. note::
 
+    When interacting with devices, SmartApps should use capabilities to ensure maximum flexibility (that's the "capability.contactSensor" above). The available capabilities can be found `here <https://graph.api.smartthings.com/ide/doc/capabilities>`__
 
     More information about preferences can be found in the `Preferences and Settings section <smartapp-developers-guide/preferences-and-settings.html>`__ of the `SmartApp Developer's Guide <smartapp-developers-guide/index.html>`__. 
 
 ----
 
-**Step 5: Subscribe to events**
+Step 5: Subscribe to events
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In the IDE, note that there is an empty ``initialize`` method defined for you. This method is called from both the ``installed`` and ``updated`` methods. 
 
@@ -124,9 +124,15 @@ Note the arguments to the subscribe method. The first argument, "contact1", corr
 
 (don't forget to click the "Save" button!)
 
+.. note::
+
+
+    More information about events and subscriptions can be found in the `Events and Subscriptions section <smartapp-developers-guide/simple-event-handler-smartapps.html>`__ of the `SmartApp Developer's Guide <smartapp-developers-guide/index.html>`__. 
+
 ----
 
-**Step 6: Define the event handler**
+Step 6: Define the event handler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Add the following code to the bottom of your SmartApp:
 
@@ -150,7 +156,8 @@ Click the "Save" button, and let's try it out!
 
 ----
 
-**Step 7: Run it in the simulator!**
+Step 7: Run it in the simulator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To the right of the editor in the IDE, you should see a "Location" field:
 
@@ -172,7 +179,8 @@ Also note the log statements in the log console. Logging is extremely useful for
 
 ----
 
-**Bonus Step: Publish your SmartApp (for you only)**
+Bonus Step: Publish your SmartApp (for you only)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We've run our app in the simulator, which is a great way to test as we develop. But we can also publish our app so we 
 can use it from our smart phone, just like other SmartApps. Let's walk through those steps.
@@ -194,10 +202,9 @@ In the SmartSetup screen, scroll all the way to the right to select "My Apps". Y
 Next Steps
 ----------
 
-This tutorial has shown you how to set up a developer account, use the IDE to create a simple SmartApp, use the simulator to test your SmartApp, and publish your SmartApp to your mobile phone. We hope you learned a thing or two, and even had some fun!
+This tutorial has shown you how to set up a developer account, use the IDE to create a simple SmartApp, use the simulator to test your SmartApp, and publish your SmartApp to your mobile phone. 
 
 In addition to using this documentation, the best way to learn is by looking at existing code and writing your own. In the IDE, there are several templates that you can review. These are great sources for learning SmartThings development! In fact, the SmartApp we built borrows heavily from (OK, it's a total clone) the "Let There Be Light" SmartApp. 
-
 
 
 
