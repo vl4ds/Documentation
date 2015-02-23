@@ -158,12 +158,12 @@ string and supplies a HubAction:
 
     def zwaveEvent(physicalgraph.zwave.commands.wakeupv1.WakeUpNotification cmd)
     {
+        sendEvent(descriptionText: "${device.displayName} woke up", displayed: false)
         def result = []
-        result << createEvent(descriptionText: "${device.displayName} woke up", displayed: false)]
-        result << response(zwave.batteryV1.batteryGet())
-        result << response("delay 1200")
-        result << response(zwave.wakeUpV1.wakeUpNoMoreInformation())
-        return result
+        result << zwave.batteryV1.batteryGet().format()
+        result << "delay 1200"
+        result << zwave.wakeUpV1.wakeUpNoMoreInformation().format()
+        response(result) // returns the result of reponse()
     }
 
 The above example uses the ``response`` helper to send Z-Wave commands
