@@ -138,7 +138,7 @@ Add the following code to the bottom of your SmartApp:
 
 .. code-block:: groovy
 
-    // event hanlders are passed the event itself
+    // event handlers are passed the event itself
     def contactHandler(evt) { 
         log.debug "$evt.value"
     
