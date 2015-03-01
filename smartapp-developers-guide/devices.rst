@@ -235,6 +235,6 @@ See Also
 
 .. _Capabilities Reference: https://graph.api.smartthings.com/ide/doc/capabilities
 .. _Preferences and Settings: :doc:`preferences-and-settings`
-.. _Device Class Documentation: https://graph.api.smartthings.com/ide/doc/device>
+.. _Device Class Documentation: https://graph.api.smartthings.com/ide/doc/device
 .. _Event Class Documentation: https://graph.api.smartthings.com/ide/doc/event
 .. _State Class Documentation: https://graph.api.smartthings.com/ide/doc/state
