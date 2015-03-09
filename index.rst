@@ -13,6 +13,7 @@ New to SmartThings development? Check out our `Getting Started Guide <getting-st
 This documentation is organized into a few sections:
 
 * :ref:`getting-started`
+* :ref:`quickstarts`
 * :ref:`introduction`
 * :ref:`smartapp_developers_guide`
 * :ref:`device_type_developers_guide`
@@ -38,6 +39,16 @@ Getting Started
    :maxdepth: 2
 
    getting-started
+
+.. _quickstarts:
+
+Quick Starts
+~~~~~~~~~~~~
+
+.. toctree::
+    :maxdepth: 2
+
+    quickstarts/index
 
 .. _introduction:
 
@@ -89,6 +100,7 @@ SmartApp Web Services Developer's Guide
 	
 	smartapp-web-services-developers-guide/index
 
+<<<<<<< Updated upstream
 .. _arduino:
 
 Arduino ThingShield
@@ -99,6 +111,17 @@ Arduino ThingShield
 
    arduino/index
 
+=======
+.. _reference_material_new:
+
+Reference Material (new):
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. toctree::
+    :maxdepth: 3
+
+    reference-material/index
+>>>>>>> Stashed changes
 
 .. _reference_material:
 

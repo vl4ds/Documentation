@@ -9,7 +9,7 @@ Read
 
 Read gets the devices current state and is formatted like this:
 
-::
+.. code-block:: groovy
 
     def refresh() {
         "st rattr 0x${device.deviceNetworkId} 1 0xB04 0x50B"
@@ -40,7 +40,7 @@ Write
 
 Write sets an attribute of a ZigBee device and is formatted like this:
 
-::
+.. code-block:: groovy
 
     def configure() {
             "st wattr 0x${device.deviceNetworkId} 1 8 0x10 0x21 {1400}"
@@ -77,7 +77,7 @@ Command
 
 Command invokes a command on a ZigBee device and is formatted like this:
 
-::
+.. code-block:: groovy
 
     def on() {
         "st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
@@ -92,7 +92,7 @@ the empty brackets are still required.
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
 +===============================+=============================+
-|st cmd                         |SmartThings Command         |
+|st cmd                         |SmartThings Command          |
 +-------------------------------+-----------------------------+
 |0x${device.deviceNetworkId}    |Device Network ID            |
 +-------------------------------+-----------------------------+
@@ -111,7 +111,7 @@ Zdo Bind
 Bind instructs a device to notify us when an attribute changes and is
 formatted like this:
 
-::
+.. code-block:: groovy
 
     def configure() {
         "zdo bind 0x${device.deviceNetworkId} 1 1 6 {${device.zigbeeId}} {}"
