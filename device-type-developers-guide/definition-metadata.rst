@@ -1,7 +1,7 @@
 Definition
 ==========
 
-The definition metadata defines core information about your device type. The initial values are set from the values entered when creating your device type.
+The definition metadata defines core information about your device handler. The initial values are set from the values entered when creating your device handler.
 
 Example definition metadata:
 
@@ -29,13 +29,13 @@ The definition method takes a map of parameters, and a closure.
 The supported parameters are:
 
 *name*
-    The name of the device type
+    The name of the device handler
 *namespace*
-    The namespace for this device type. This should be your github user name. This is used when looking up device types by name to ensure the correct one is found, even if someone else has used the same name. 
+    The namespace for this device handler. This should be your github user name. This is used when looking up device handlers by name to ensure the correct one is found, even if someone else has used the same name. 
 *author*
-    The author of this device type.
+    The author of this device handler.
 
-The closure defines the capabilities, attributes, commands, and fingerprint information for your device type.
+The closure defines the capabilities, attributes, commands, and fingerprint information for your device handler.
 
 Capabilities
 ------------
@@ -55,7 +55,7 @@ The argument to the ``capability`` method is the Capability name.
 Attributes
 ----------
 
-If you need to define a custom attribute for your device type, call the ``attribute`` method in the closure passed to the ``definition`` method:
+If you need to define a custom attribute for your device handler, call the ``attribute`` method in the closure passed to the ``definition`` method:
 
 **attribute(String attributeName, String attributeType, List possibleValues = null)**
 
@@ -81,12 +81,12 @@ If you need to define a custom attribute for your device type, call the ``attrib
 Commands
 --------
 
-To define a custom command for your device type, call the ``command`` method in the closure passed to the ``definition`` method:
+To define a custom command for your device handler, call the ``command`` method in the closure passed to the ``definition`` method:
 
 **command(String commandName, List parameterTypes = [])**
 
 *commandName*
-    The name of the command. You must also define a method in your device type handler with the same name.
+    The name of the command. You must also define a method in your device handler with the same name.
 *parameterTypes*
     Optional. An ordered list of the parameter types for the command method, if needed. 
 
@@ -115,7 +115,7 @@ To define a custom command for your device type, call the ``command`` method in 
 Fingerprinting
 --------------
 
-When trying to connect your device to the SmartThings hub, we need a way to identify and join a particular device type to the hub. This process is known as a "join" process, or "fingerprinting".
+When trying to connect your device to the SmartThings hub, we need a way to identify and join a particular device to the hub. This process is known as a "join" process, or "fingerprinting".
 
 The fingerprinting process is dependent on the type of device you are
 looking to pair. SmartThings attempts to match devices coming in based on

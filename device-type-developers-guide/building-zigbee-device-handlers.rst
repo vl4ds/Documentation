@@ -1,5 +1,5 @@
-Building ZigBee Device-Types
-============================
+Building ZigBee Device Handlers
+===============================
 
 There are four common ZigBee commands that you will use to integrate
 SmartThings with your ZigBee Devices.

@@ -3,10 +3,10 @@ Z-Wave Primer
 
 This document covers some important aspects of the Z-Wave
 application-level standard that you may come in contact with when
-developing device type handlers for Z-Wave devices. If you are already
+developing device handlers for Z-Wave devices. If you are already
 familiar with Z-Wave development, you can learn how SmartThings
 integrates with it in `Building Z-Wave Device
-Types <building-z-wave-device-types.html>`__.
+Handlers <building-z-wave-device-handlers.html>`__.
 
 Command Classes
 ---------------
@@ -139,10 +139,9 @@ the device's manual or technical documentation.
 
 The SmartThings hub automatically adds itself to association group 1
 when a device that supports association joins the network. If this is
-inappropriate for your device type, your device type handler can use
+inappropriate for your device type, your device handler can use
 `AssociationRemove <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2/associationRemove>`__
-to undo it. To associate to a group higher than 1, the device type
-handler can send
+to undo it. To associate to a group higher than 1, the device handler can send
 `AssociationSet <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2/associationSet>`__.
-The hub's node ID is provided to device type handler code in the
+The hub's node ID is provided to device handler code in the
 variable ``zwaveHubNodeId``.

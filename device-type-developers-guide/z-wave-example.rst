@@ -1,8 +1,7 @@
 Z-Wave Example
 ==============
 
-This is a device type code sample with examples of many common commands
-and parsed events. 
+Below is a device handler code sample with examples of many common commands and parsed events. 
 
 You can also view this example in GitHub `here <https://github.com/SmartThingsCommunity/Code/blob/master/device-types/z-wave-example.groovy>`__.
 

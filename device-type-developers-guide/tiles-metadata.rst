@@ -1,7 +1,7 @@
 Tiles
 =====
 
-When creating a device type, you define how it will appear for the user on their "Things" screen. This is done by configuring different tiles. 
+When creating a device handler, you define how it will appear for the user on their "Things" screen. This is done by configuring different tiles. 
 
 Tiles are rendered using a grid system that has three columns and unlimited rows. If you look in your "Things" view in the mobile app, those are tiles:
 
@@ -16,7 +16,7 @@ Tiles are defined inside the metadata block.
 Overview
 --------
 
-The tiles block is composed of tile definitions, and layout information (the ``main`` and ``details`` method). There are three types of tiles that you can use within your device types. Each tile serves a different purpose.
+The tiles block is composed of tile definitions, and layout information (the ``main`` and ``details`` method). There are three types of tiles that you can use within your device handler. Each tile serves a different purpose.
 
 Consider this example for a switch:
 
@@ -71,7 +71,7 @@ All tiles support the following parameters:
 
 .. note::
 
-    You may see device-type handlers that use the *inactiveLabel* property. This is deprecated and has no effect.
+    You may see device handlers that use the *inactiveLabel* property. This is deprecated and has no effect.
 
 State
 -----
@@ -102,7 +102,7 @@ State Selection
 The following algorithm is used to determine which state to display, when there are multiple states:
 
 #. If a state is defined for the attribute's current value, it will render that.
-#. If no state exists for the attribute value, it will render a state that has specified ``defaultState: true``. Use this in place of the "default" state name that you may see in some device-type handlers.
+#. If no state exists for the attribute value, it will render a state that has specified ``defaultState: true``. Use this in place of the "default" state name that you may see in some device handlers.
 #. If no state matches the above rules, it will render the first state declaration.
 
 State Parameters
@@ -189,7 +189,7 @@ This renders as:
 
 .. note::
 
-    You may see other tile types in existing device-type handlers. Tile types that are not documented here should be considered experimental, and subject to change. 
+    You may see other tile types in existing device handlers. Tile types that are not documented here should be considered experimental, and subject to change. 
 
     When they are ready to be opened up for wider community development, we will document them.
 

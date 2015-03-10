@@ -1,11 +1,11 @@
 Parse & Events
 ==============
 
-The ``parse`` method is the core method in a typical device-type handler. 
+The ``parse`` method is the core method in a typical device handler. 
 
 All messages from the device are passed to the ``parse`` method. It is responsible for turning those messages into something the SmartThings platform can understand.
 
-Because the ``parse`` method is responsible for handling raw device messages, their implementations vary greatly across different device-types. This guide will not discuss all these different scenarios (see the `Z-Wave device-type guide <building-z-wave-device-types.html>`__ or `ZibBee device-type guide <building-zigbee-device-types.html>`__ for protocol-specific information). 
+Because the ``parse`` method is responsible for handling raw device messages, their implementations vary greatly across different device types. This guide will not discuss all these different scenarios (see the `Z-Wave Device Handler Guide <building-z-wave-device-handlers.html>`__ or `ZibBee Device Handler guide <building-zigbee-device-handlers.html>`__ for protocol-specific information). 
 
 Consider an example of a simplified ``parse`` method (modified from the CentraLite Switch):
 
@@ -36,12 +36,12 @@ Parse, Events, and Attributes
 
 Recall that the "switch" capability specifies an attribute of "switch", with possible values "on" and "off". *The* ``parse`` *method is responsible for creating events for the attributes of that device's capabililities.*
 
-That is a critical point to understand about device-type handlers - it is what allows SmartApps to respond to event subscriptions!
+That is a critical point to understand about device handlers - it is what allows SmartApps to respond to event subscriptions!
 
 Creating Events
 ~~~~~~~~~~~~~~~
 
-Use the ``createEvent`` method to create events in your device-type handler. It takes a map of parameters as an argument. You should provide the ``name`` and ``value`` at a minimum.
+Use the ``createEvent`` method to create events in your device handler. It takes a map of parameters as an argument. You should provide the ``name`` and ``value`` at a minimum.
 
 .. note::
 

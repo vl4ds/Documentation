@@ -1,16 +1,15 @@
-Building Z-Wave Device-Types
-============================
+Building Z-Wave Device Handlers
+===============================
 
 Z-Wave is a proprietary protocol, so we cannot document the full details
-of the interface. Instead, device type handlers use command objects that
+of the interface. Instead, device handlers use command objects that
 represent the standard commands and messages that Z-Wave devices use to
 send and request information.
 
 Parsing Events
 --------------
 
-When events from Z-Wave devices are passed into your device type
-handler's parse method, they are in an encoded string format. The first
+When events from Z-Wave devices are passed into your device handler's parse method, they are in an encoded string format. The first
 thing your parse method should do is call ``zwave.parse`` on the
 description string to convert it to a Z-Wave command object. The
 object's class is one of the subclasses of

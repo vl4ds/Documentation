@@ -1,11 +1,6 @@
 Overview
 ========
 
-The *things* that are integrated with the SmartThings platform are
-generally referred to as *devices*. Devices are of a specific
-*device type*. A device type can be generic (e.g., a thermostat) or it
-can manufacturer and even model specific (e.g., a Honeywell Thermostat).
-
 The SmartThings architecture provides a unique abstraction of devices
 from their distinct capabilities and attributes in a way that allows
 developers to build applications that are insulated from the specifics
@@ -20,20 +15,20 @@ both the "on" and "off" actions. In this way, all switches are the same,
 and it doesn't matter to the SmartApp what kind of switch is actually
 involved. 
 
-This virtual representation of the device is called a device-type handler.
+This virtual representation of the device is called a device handler, or SmartDevice.
 
 .. note::
 
-    This layer of abstraction is key to the successful function and flexibility of the SmartThings platform. Architecturally, device-type handlers are the bridge between generic capabilities and the device or protocol specific interface actually used to communicate with the device.
+    This layer of abstraction is key to the successful function and flexibility of the SmartThings platform. Architecturally, device handlers are the bridge between generic capabilities and the device or protocol specific interface actually used to communicate with the device.
 
-The diagram below depicts where device-type handlers sit in the
+The diagram below depicts where device handlers sit in the
 SmartThings architecture.
 
 .. figure:: ../img/device-types/smartthings-architecture.png
    :alt: Smart Things Architecture
 
 
-In the example shown above, the job of the device-type handler (that is
+In the example shown above, the job of the device handler (that is
 implementing the "switch" capability) is to parse incoming,
 protocol-specific status messages from the device and turn them into
 normalized "events". It is also responsible for accepting normalized
@@ -56,13 +51,12 @@ Whereas the device status reported to the SmartThings platform for the
 device is literally just a simple "on" or "off".
 
 Similarly, when a SmartApp or the mobile app invoked an "on" or "off"
-command for a switch device, the command that is sent to the device-type
-handler is just that simple: "on" or "off". The device-type handler must
+command for a switch device, the command that is sent to the device handler is just that simple: "on" or "off". The device handler must
 turn that simple command into a protocol-specific message that can be
 sent down to the device to affect the desired action.
 
 The table below shows the actual Z-Wave commands that are sent to a
-Z-Wave switch by the device-type handler.
+Z-Wave switch by the device handler.
 
 ==============	=================================
 Device Command	Protocol-Specific Command Message
@@ -74,7 +68,7 @@ Off				200100
 Core Concepts
 -------------
 
-To understand how device-type handlers work, a few core concepts need to be discussed.
+To understand how device handlers work, a few core concepts need to be discussed.
 
 Capabilities
 ~~~~~~~~~~~~
@@ -84,7 +78,7 @@ Capabilities are the interactions that a device allows. We have a
 document <https://graph.api.smartthings.com/ide/doc/capabilities>`__
 that lists all available capabilities. 
 
-Device-type handlers may declare that they support one or many capabilities. A device type for a switch may support the "Switch" and "Actuator" capabilities, for example.
+Device handlers may declare that they support one or many capabilities. A device type for a switch may support the "Switch" and "Actuator" capabilities, for example.
 
 Capabilities may have attributes and commands (discussed below). When your device type defines capabilities, you are stating that your device supports the given capability and its associated attributes and commands.
 
@@ -101,11 +95,11 @@ Commands
 
 Commands are the actions to be taken on your device. If your device type defines capabilities, those capabilities may define commands. A device type may also define custom capabilities.
 
-The device type must implement all the commands supported by the device - whether they are defined by the capability, or defined by the device-type handler itself.
+The device type must implement all the commands supported by the device - whether they are defined by the capability, or defined by the device handler itself.
 
 Protocols
 ---------
 
 SmartThings currently supports both the `Z-Wave <http://en.wikipedia.org/wiki/Z-Wave>`__ and `ZigBee <http://en.wikipedia.org/wiki/ZigBee>`__ wireless protocols. Bluetooth support is planned for our next generation hub. 
 
-Since the device-type handler is responsible for communicating between the device and the SmartThings platform, it is usually necessary to understand and communicate in whatever protocol the device supports. This guide will discuss both Z-Wave and ZibBee protocols at a high level.
+Since the device handler is responsible for communicating between the device and the SmartThings platform, it is usually necessary to understand and communicate in whatever protocol the device supports. This guide will discuss both Z-Wave and ZibBee protocols at a high level.

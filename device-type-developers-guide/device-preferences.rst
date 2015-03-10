@@ -22,6 +22,6 @@ When you add a device, in addition to the “name your device” field you could
     }
     
 
-Device type preferences are limited to input elements, and do not support multiple pages or sections.
+Device preferences are limited to input elements, and do not support multiple pages or sections.
 
 
