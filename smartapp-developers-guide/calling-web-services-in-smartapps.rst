@@ -4,10 +4,7 @@ Calling Web Services in SmartApps
 Within SmartApps you will often have to make calls to external web
 services, so we have provided a variety of mechanisms for doing that.
 
-When calling an external web service it's important to stay within the
-bounds of execution time for a SmartApp. You are limited to 20 seconds.
-If your web service takes longer than this to run, then your request
-will timeout.
+The timeout limit for the web services APIs is 10 seconds. If your request takes longer than this, it will timeout.
 
 Here are the helper methods available to you with a few examples below.
 
