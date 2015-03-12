@@ -67,7 +67,7 @@ All tiles support the following parameters:
 *canChangeBackground*
     boolean - ``true`` to allow a user to choose their own background image for the tile. Defaults to ``false``.
 *decoration*
-    String - specify "flat" for the tile to render without a ring. Defaults to "ring".
+    String - specify "flat" for the tile to render without a ring. 
 
 .. note::
 
@@ -111,14 +111,15 @@ State Parameters
 The valid parameters are:
 
 *action*
-    String - The action to take when this tile is pressed. The form is <tileName>.<command>. 
+    String - The action to take when this tile is pressed. The form is <capabilityReference>.<command>. 
 *backgroundColor*
-    String or List - A hexadecimal color code to use for the background color.
-    Use a string for one background color all the time for this state. You can also pass a list of maps to specify different colors for different values.This is often useful for numeric data like temperature or humidity. Values between two specified values will render as a gradient between the specified colors. See the example below for more information. 
+    String - A hexadecimal color code to use for the background color. This has no effect if the tile has ``decoration: "flat"``.
+*backgroundColors*
+     List - Specify a list of maps of attribute values and colors. The mobile app will match and interpolate between these entries to select a color based on the value of the attribute.
 *defaultState*
     boolean - Specify ``true`` if this state should be the active state displayed for this tile. See the `State Selection`_ topic above for more information.
 *icon*
-    String - The identifier of the icon to use for this tile. You can view the icon options `here <http://scripts.3dgo.net/smartthings/icons>`__. iOS devices support specifying a URL to a custom image (not currently supported on Android)
+    String - The identifier of the icon to use for this state. You can view the icon options `here <http://scripts.3dgo.net/smartthings/icons>`__. iOS devices support specifying a URL to a custom image (not currently supported on Android)
 *label*
     String - The label for this state.
 
@@ -190,8 +191,6 @@ This renders as:
 .. note::
 
     You may see other tile types in existing device handlers. Tile types that are not documented here should be considered experimental, and subject to change. 
-
-    When they are ready to be opened up for wider community development, we will document them.
 
 Tile Layouts
 ------------
