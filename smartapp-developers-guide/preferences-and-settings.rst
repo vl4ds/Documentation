@@ -302,7 +302,7 @@ Example of using href to visit a URL:
             href(name: "hrefNotRequired", 
                  title: "SmartThings", 
                  required: false, 
-                 external: true, 
+                 style: "external", 
                  url: "http://smartthings.com/", 
                  description: "tap to view SmartThings website in mobile browser")
         }
@@ -392,8 +392,14 @@ Valid options:
     Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
 *description*
     String - the secondary text of the element
-*external*
+*external* (**deprecated - use style instead**)
     Boolean - ``true`` to open URL in mobile browser application, ``false`` to open URL within the SmartThings app. Defaults to ``false``
+*style*
+    String - Controls how the link will be handled. Specify "external" to launch the link in the mobile device's browser. Specify "embedded" to launch the link within the SmartThings mobile application. Specify "page" to indicate this is a preferences page. 
+
+    If ``style`` is not specified, but ``page`` is, then ``style:"page"`` is assumed. If ``style`` is not specified, but ``url`` is, then ``style:"embedded"`` is assumed.
+
+    Currently, Android does not support the "external" style option.
 *url*
     String - The URL of the page to visit. You can use query parameters to pass additional information to the URL (For example, \http://someurl.com?param1=value1&param2=value1\)
 *params*
