@@ -3,6 +3,14 @@ Arduino ThingShield
 
 Using the SmartThings Arduino Shield (ThingShield), you can add SmartThings capability to any Arduino compatible board with the R3 pinout, including the Uno, Mega, Duemilanove, and Leonardo.
 
+Specs:
+
+ - Works with: Uno, Mega, Duemilanove, Leonardo
+ - Dimensions: 2.5 x 1.9 x 0.3”
+ - Weight: 8 ounces
+
+The ThingShield is available for purchase on our `online shop <https://shop.smartthings.com/#!/products/smartthings-shield-arduino>`__.
+
 Installing the Library
 ----------------------
 
