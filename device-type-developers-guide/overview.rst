@@ -73,29 +73,65 @@ To understand how device handlers work, a few core concepts need to be discussed
 Capabilities
 ~~~~~~~~~~~~
 
-Capabilities are the interactions that a device allows. We have a
-`reference
-document <https://graph.api.smartthings.com/ide/doc/capabilities>`__
-that lists all available capabilities. 
+Capabilities are the interactions that a device allows. They provide an abstraction layer that allows SmartApps to work with devices based on the capabilities they support, and not be tied to a specific manufacturer or model. 
 
-Device handlers may declare that they support one or many capabilities. A device type for a switch may support the "Switch" and "Actuator" capabilities, for example.
+Consider the example of the "Switch" capability. There are many unique switch devices - in-wall switches, Z-Wave switches, ZigBee switches, etc. All these unique devices have a device handler, and the device handlers support the "Switch" capability. This allows SmartApps to only require a device that supports the "Switch" capability, and thus work with a variety of manufacturer and model-specific switches. 
 
-Capabilities may have attributes and commands (discussed below). When your device type defines capabilities, you are stating that your device supports the given capability and its associated attributes and commands.
+This code illustrates how a SmartApp might interact with a device that supports the "Switch" capability:
+
+.. code-block:: groovy
+
+    preferences() {
+        section("Control this switch"){
+            input "theSwitch", "capability.switch", multiple: false 
+        }
+    }
+
+    def someEventHandler(evt) {
+        if (someCondition) {
+            switch.on()
+        } else {
+            switch.off()
+        }
+
+        // logs either "switch is on" or "switch is off"
+        log.debug "switch is ${switch.currentSwitch}"
+    }
+
+The above example illustrates how a SmartApp requests a device that supports the "Switch" capability. It can then work with the device knowing that it will support all the commands and attributes that the "Switch" capability supports.
+
+There is a `reference
+document <https://graph.api.smartthings.com/ide/doc/capabilities>`__ that outlines all the supported capabilities.
+
+Commands and attributes deserve their own discussion - let's dive in.
+
+Commands
+~~~~~~~~
+
+Commands are the actions that your device can do. For example, a switch can turn on or off, a lock can lock or unlock, and a valve can open or close. In the example above, we issue the "on" and "off" command on the switch by invoking the ``on()`` or ``off()`` methods.
+
+Commands are implemented as methods on the device handler. When a device supports a capability, it is responsible for implementing all the supported command methods.
 
 Attributes
 ~~~~~~~~~~
 
 Attributes represent particular state values for your device. For example, the switch capability defines the attribute "switch", with possible values of "on" and "off". 
 
-Attributes are often used in SmartApps that use a particular device. Continuing the example above, a SmartApp using a device that supports the switch capability can get the value of the switch by invoking the "current<attributeName>" method (``currentSwitch`` in this case).
+In the example above, we get the value of the "switch" attribute by using the "current<attributeName>" property (``currentSwitch``). 
 
+Attribute values are set by creating events where the attribute name is the name of the event, and the attribute value is the value of the event. This is discussed more in the `Parse and Events documentation <parse.html#parse-events-and-attributes>`__
 
-Commands
-~~~~~~~~
+Like commands, when a device supports a capability, it is responsible for ensuring that all the capability's attributes are implemented.
 
-Commands are the actions to be taken on your device. If your device type defines capabilities, those capabilities may define commands. A device type may also define custom capabilities.
+.. note::
 
-The device type must implement all the commands supported by the device - whether they are defined by the capability, or defined by the device handler itself.
+    If you look at the `Capabilities taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__, you'll notice two capabilities that have no attributes or commands - "Actuator" and "Sensor".
+
+    These capabilities are "marker" or "tagging" capabilities (if you're familiar with Java, think of the Cloneable interface - it defines no state or behavior). 
+
+    The "Actuator" capability defines that a device has commands. The "Sensor" capability defines that a device has attributes.
+
+    If you are writing a device handler, it is a best practice to support the "Actuator" capability if your device has commands, and the "Sensor" capability if it has attributes. This is why you'll see most device handlers supporting one of, or both, of these capabilities.
 
 Protocols
 ---------
