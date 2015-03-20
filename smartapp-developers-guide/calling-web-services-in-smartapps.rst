@@ -39,14 +39,14 @@ Here's a simple example of making an HTTP GET request:
         log.error "something went wrong: $e"
     }
 
-Configuring the Request
+Configuring The Request
 -----------------------
 
 The various APIs for making HTTP requests all accept a map of parameters that define various information about the request. 
 
 The valid parameters to define your request can be found `here <http://groovy.codehaus.org/modules/http-builder/apidocs/groovyx/net/http/HTTPBuilder.RequestConfigDelegate.html#setPropertiesFromMap(java.util.Map)>`__.
 
-Handling the Response
+Handling The Response
 ---------------------
 
 The HTTP APIs accept a closure that will be called with the response information from the reqeust.
@@ -59,7 +59,7 @@ The closure is passed an instance of a `HttpResponseDecorator <http://groovy.cod
 
 When making HTTP requests, consider any error conditions and handle them appropriately via a try/catch block. 
 
-Try it Out
+Try It Out
 ----------
 
 If you're interested in experimenting with the various HTTP APIs, there are a few tools you can use to try out the APIs without signing up for any API keys.
