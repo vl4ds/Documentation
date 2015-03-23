@@ -49,13 +49,13 @@ SmartThings allows only certain classes to be used in the sandbox. A SecurityExc
 
 **Closure restrictions**
 
-One of the more powerful features of the Groovy programming language is its support of closures_. Closures (among other things) allow for expressive and succinct programming expression.
-
 In SmartThings, you cannot define closures outside of methods. For example, you cannot do this:
 
 .. code-block:: groovy
 
     def squareItClosure = {it * it} 
+
+More information about closures can be found in the Tips & Tricks section below.
 
 ----
 
