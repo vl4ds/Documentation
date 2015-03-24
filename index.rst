@@ -6,30 +6,55 @@
 SmartThings Developer Documentation
 ===================================
 
+.. note::
+
+    This documentation is a work in progress. Bear with us as we fill in some of the gaps, add clarifications, and expand out the content. It may mean that bookmarks break as we iterate and continually improve our documentation.
+
+    We appreciate your understanding and patience as we work to improve our developer experience!
+
+
 Welcome to the SmartThings developer documentation. Here you will find information about creating for the SmartThings platform.
 
-New to SmartThings development? Check out our `Getting Started Guide <getting-started.html>`__. We'll get you up and running with your first SmartApp.
+This documentation is organized into a few different sections:
 
-This documentation is organized into a few sections:
+`Getting Started`_
+    Get up and running quickly with the SmartThings platform. Start here if this is your first time developing for SmartThings.
 
-* :ref:`getting-started`
-* :ref:`introduction`
-* :ref:`smartapp_developers_guide`
-* :ref:`device_type_developers_guide`
-* :ref:`cloud_conected_developers_guide`
-* :ref:`web_services_developers_guide`
-* :ref:`arduino`
-* :ref:`reference_material`
+Introduction_
+    This chapter discusses some of the core SmartThings concepts, architecture, and includes a brief tour of the IDE. It also introduces the SmartThings programming language - Groovy.
 
+`SmartApp Guide`_
+    This guide is all about developing SmartApps. It is primarily focused on event-based SmartApps.
 
+`Device Handler Guide`_
+    This guide will teach you what a Device Handler is, why they are important, and how to develop one. 
+
+`Cloud and LAN-Connected Guide`_
+    This guide covers developing with Cloud-connected and LAN devices.
+
+`SmartApp Web Services Guide`_
+    This guide covers creating a SmartApp that exposes its own RESTful endpoints. 
+
+`Arduino Guide`_
+    This guide discusses developing for the Arduino using our SmartThings Shield for Arduino.
+
+`Reference Material`_
+    This is where you'll find the details of the various capabilities, as well as the detailed API documentation. 
+
+.. _Getting Started: getting-started.html
+.. _Introduction: introduction/index.html
+.. _SmartApp Guide: smartapp-developers-guide/index.html
+.. _Device Handler Guide: device-type-developers-guide/index.html
+.. _Cloud and LAN-Connected Guide: cloud-and-lan-connected-device-types-developers-guide/index.html
+.. _SmartApp Web Services Guide: smartapp-web-services-developers-guide/index.html
+.. _Arduino Guide: arduino/index.html
+.. _Reference Material: reference-material.html
 
 Find a bug, typo, or just want to make an improvement? This documentation is open source and available on `GitHub <https://github.com/SmartThingsCommunity/Documentation/>`__. We like contributions!
 
 
 Contents
 --------
-
-.. _getting-started:
 
 Getting Started
 ~~~~~~~~~~~~~~~
@@ -39,8 +64,6 @@ Getting Started
 
    getting-started
 
-.. _introduction:
-
 Introduction
 ~~~~~~~~~~~~
 
@@ -48,8 +71,6 @@ Introduction
    :maxdepth: 3
    
    introduction/index
-
-.. _smartapp_developers_guide:
 
 SmartApp Developer's Guide
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,8 +80,6 @@ SmartApp Developer's Guide
 	
 	smartapp-developers-guide/index
 
-.. _device_type_developers_guide:
-
 Device Type Developer's Guide
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -68,8 +87,6 @@ Device Type Developer's Guide
 	:maxdepth: 3
 	
 	device-type-developers-guide/index
-
-.. _cloud_conected_developers_guide:
 
 Cloud-Connected & LAN-Connected Device Type Developer's Guide
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -79,8 +96,6 @@ Cloud-Connected & LAN-Connected Device Type Developer's Guide
 	
 	cloud-and-lan-connected-device-types-developers-guide/index
 
-.. _web_services_developers_guide:
-
 SmartApp Web Services Developer's Guide
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -88,8 +103,6 @@ SmartApp Web Services Developer's Guide
 	:maxdepth: 3
 	
 	smartapp-web-services-developers-guide/index
-
-.. _arduino:
 
 Arduino ThingShield
 ~~~~~~~~~~~~~~~
@@ -100,8 +113,6 @@ Arduino ThingShield
    arduino/index
 
 
-.. _reference_material:
-
 Reference Material
 ~~~~~~~~~~~~~~~~~~
 
@@ -110,8 +121,4 @@ Reference Material
 	
 	reference-material
 
-Search
-======
-
-* :ref:`search`
 
