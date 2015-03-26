@@ -21,7 +21,7 @@ By basing our first programming language on Groovy, we provide the benefits of a
 Python.
 
 For more documentation on the syntax, structure, and capabilities of Groovy,
-visit http://groovy.codehaus.org/Documentation. If you're new to Groovy, we recommend checking out the `Groovy Quick Start`_ and the `Groovy Beginners Tutorial`_. 
+visit the `Groovy Documentation <http://groovy-lang.org/documentation.html>`__. There you will find information for getting started with Groovy, and comprehensive language documentation.
 
 Note, however, that because of the application “sandboxing” that we do in the SmartThings Cloud, some features of Groovy are disabled for security reasons. We will discuss this more in the `Groovy Sandboxing`_ topic below.
 
@@ -101,7 +101,7 @@ A few other things you cannot do in SmartThings:
 Tips & Tricks
 -------------
 
-To get comfortable with Groovy, it's recommended you install it and try it out. The `Groovy Console`_ is a great place to try things out.
+To get comfortable with Groovy, it's recommended you install it and try it out. You can find information about installing Groovy `here <http://groovy-lang.org/install.html>`__.
 
 You can also use this handy `Groovy web console`_ if you don't have Groovy installed locally. Some features may not be available, but it's a handy way to try things out quick. 
 
@@ -198,14 +198,12 @@ Groovy is simple enough to be able to jump in and start writing code quickly, bu
 Here are a few resources you can use to sharpen your Groovy skills:
 
 - `Groovy Documentation Portal`_
-- `Groovy Quick Start`_
-- `Groovy Beginners Tutorial`_
 - `Groovy Closures`_
 - `Groovy Collections`_
 - `Groovy Web Console`_
 
 .. _domain-specific language: http://en.wikipedia.org/wiki/Domain-specific_language
-.. _Groovy programming language: http://groovy.codehaus.org/
+.. _Groovy programming language: http://www.groovy-lang.org/
 .. _object-oriented: http://en.wikipedia.org/wiki/Object-oriented_programming
 .. _Java platform: http://en.wikipedia.org/wiki/Java_platform 
 .. _dynamic language: http://en.wikipedia.org/wiki/Dynamic_programming_language 
@@ -218,11 +216,10 @@ Here are a few resources you can use to sharpen your Groovy skills:
 .. _bytecode: http://en.wikipedia.org/wiki/Bytecode
 .. _bracket syntax: http://en.wikipedia.org/wiki/Curly_bracket_programming_language
 .. _closures: http://en.wikipedia.org/wiki/Closure_%28computer_programming%29
-.. _Groovy Quick Start: http://groovy.codehaus.org/Quick+Start
 .. _Groovy Beginners Tutorial: http://groovy.codehaus.org/Beginners+Tutorial
-.. _Groovy Collections: http://groovy.codehaus.org/JN1015-Collections
-.. _Groovy Closures: http://groovy.codehaus.org/Tutorial+2+-+Code+as+data%2C+or+closures
-.. _Groovy builder pattern: http://groovy.codehaus.org/Builders
+.. _Groovy Collections: http://groovy-lang.org/groovy-dev-kit.html#_working_with_collections
+.. _Groovy Closures: http://groovy-lang.org/closures.html
+.. _Groovy builder pattern: http://groovy-lang.org/dsls.html#_builders
 .. _Groovy Console: http://groovy.codehaus.org/Groovy+Console
 .. _Groovy web console: https://groovyconsole.appspot.com/
-.. _Groovy Documentation Portal: http://groovy.codehaus.org/Documentation
+.. _Groovy Documentation Portal: http://groovy-lang.org/documentation.html
