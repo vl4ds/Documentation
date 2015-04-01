@@ -200,7 +200,7 @@ Finally, you can pass a Long representing the desired time in milliseconds (usin
 
 Scheduling jobs to execute at a particular time is useful, but what if we want to execute a job at some other interval? What if, for example, we want a method to execute at fifteen minutes past the hour, every hour?
 
-SmartThings allows you to pass a cron expression to the schedule method to accomplish this. A cron expression is based on the cron UNIX tool, and is a way to specify a recurring schedule. They are extremely powerful, but can be pretty confusing. For more information on cron expressions, see `this page <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
+SmartThings allows you to pass a cron expression to the schedule method to accomplish this. A cron expression is based on the cron UNIX tool, and is a way to specify a recurring schedule. They are extremely powerful, but can be pretty confusing. 
 
 **schedule(cronExpression, handlerMethod)**
 
@@ -221,6 +221,10 @@ Creates a scheduled job that calls the handlerMethod according to the specified 
 
 Scheduled jobs are limited to running no more often than once per minute.
 
+.. note::
+
+    Full documentation of the cron expression format can be found at in the `Quartz Cron Trigger Tutorial <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
+    
 In addition to creating schedules using cron expressions, SmartThings also provides some convenience methods to set up the schedule for you. They are in the form of *runEveryXMinutes(handlerMethod)*  or *runEveryXHours(handlerMethod)*. 
 
 These methods work by creating a random start time in the X minutes or hours, and then every X minutes or hours after that. For example, ``runEvery5Minutes(handlerMethod)`` will execute ``handlerMethod`` at a random time in the next five minutes, and then run every five minutes from then.
