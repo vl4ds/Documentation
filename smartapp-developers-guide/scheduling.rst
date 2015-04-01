@@ -206,6 +206,10 @@ SmartThings allows you to pass a cron expression to the schedule method to accom
 
 Creates a scheduled job that calls the handlerMethod according to the specified cronExpression. 
 
+.. note::
+
+    Full documentation of the cron expression format can be found in the `Quartz Cron Trigger Tutorial <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
+
 .. code-block:: groovy
 
     
@@ -220,10 +224,6 @@ Creates a scheduled job that calls the handlerMethod according to the specified 
 
 
 Scheduled jobs are limited to running no more often than once per minute.
-
-.. note::
-
-    Full documentation of the cron expression format can be found at in the `Quartz Cron Trigger Tutorial <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
     
 In addition to creating schedules using cron expressions, SmartThings also provides some convenience methods to set up the schedule for you. They are in the form of *runEveryXMinutes(handlerMethod)*  or *runEveryXHours(handlerMethod)*. 
 
