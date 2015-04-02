@@ -1,8 +1,12 @@
-Reference Z-Wave Device Type
-============================
+Z-Wave Example
+==============
 
-This is a device type code sample with examples of many common commands
-and parsed events::
+Below is a device handler code sample with examples of many common commands and parsed events. 
+
+You can also view this example in GitHub `here <https://github.com/SmartThingsCommunity/Code/blob/master/device-types/z-wave-example.groovy>`__.
+
+
+.. code-block:: groovy
 
 	metadata {
 		definition (name: "Z-Wave Device Reference", author: "SmartThings") {
@@ -16,27 +20,49 @@ and parsed events::
 		}
 
 		simulator {
-			// These show up in the IDE simulator "messages" drop-down to test sending event messages to your device handler
-			status "basic report on"		 : zwave.basicV1.basicReport(value:0xFF).incomingMessage()
-			status "basic report off"		 : zwave.basicV1.basicReport(value:0).incomingMessage()
-			status "dimmer switch on at 70%" : zwave.switchMultilevelV1.switchMultilevelReport(value:70).incomingMessage()
-			status "basic set on"			 : zwave.basicV1.basicSet(value:0xFF).incomingMessage()
-			status "temperature report 70°F" : zwave.sensorMultilevelV2.sensorMultilevelReport(scaledSensorValue: 70.0, precision: 1, sensorType: 1, scale: 1).incomingMessage()
-			status "low battery alert"		 : zwave.batteryV1.batteryReport(batteryLevel:0xFF).incomingMessage()
-			status "multichannel sensor"	 : zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1).encapsulate(zwave.sensorBinaryV1.sensorBinaryReport(sensorValue:0)).incomingMessage()
+			// These show up in the IDE simulator "messages" drop-down to test 
+			// sending event messages to your device handler
+			status "basic report on": 
+			       zwave.basicV1.basicReport(value:0xFF).incomingMessage()
+			status "basic report off": 
+			        zwave.basicV1.basicReport(value:0).incomingMessage()
+			status "dimmer switch on at 70%": 
+			       zwave.switchMultilevelV1.switchMultilevelReport(value:70).incomingMessage()
+			status "basic set on":
+				   zwave.basicV1.basicSet(value:0xFF).incomingMessage()
+			status "temperature report 70°F":
+					zwave.sensorMultilevelV2.sensorMultilevelReport(scaledSensorValue: 70.0, precision: 1, sensorType: 1, scale: 1).incomingMessage()
+			status "low battery alert": 
+			       zwave.batteryV1.batteryReport(batteryLevel:0xFF).incomingMessage()
+			status "multichannel sensor": 
+			       zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1).encapsulate(zwave.sensorBinaryV1.sensorBinaryReport(sensorValue:0)).incomingMessage()
+
+			// simulate turn on            
+			reply "2001FF,delay 5000,2002": "command: 2503, payload: FF"
+
+			// simulate turn off
+			reply "200100,delay 5000,2002": "command: 2503, payload: 00"
 		}
 
 		tiles {
-			standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
-				state "on", label: '${name}', action: "switch.off", icon: "st.unknown.zwave.device", backgroundColor: "#79b821"
-				state "off", label: '${name}', action: "switch.on", icon: "st.unknown.zwave.device", backgroundColor: "#ffffff"
+			standardTile("switch", "device.switch", width: 2, height: 2,
+			            canChangeIcon: true) {
+				state "on", label: '${name}', action: "switch.off", 
+				      icon: "st.unknown.zwave.device", backgroundColor: "#79b821"
+				state "off", label: '${name}', action: "switch.on", 
+				      icon: "st.unknown.zwave.device", backgroundColor: "#ffffff"
 			}
-			standardTile("refresh", "command.refresh", inactiveLabel: false, decoration: "flat") {
-				state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
+			standardTile("refresh", "command.refresh", inactiveLabel: false, 
+			             decoration: "flat") {
+				state "default", label:'', action:"refresh.refresh", 
+				      icon:"st.secondary.refresh"
 			}
-			valueTile("battery", "device.battery", inactiveLabel: false, decoration: "flat") {
+			
+			valueTile("battery", "device.battery", inactiveLabel: false, 
+			          decoration: "flat") {
 				state "battery", label:'${currentValue}% battery', unit:""
 			}
+
 			valueTile("temperature", "device.temperature") {
 				state("temperature", label:'${currentValue}°',
 					backgroundColors:[
@@ -73,34 +99,39 @@ and parsed events::
 		def result = []
 		result << createEvent(name:"switch", value: cmd.value ? "on" : "off")
 
-		// For a multilevel switch, cmd.value can be from 1-99 to represent dimming levels
-		result << createEvent(name:"level", value: cmd.value, unit:"%", descriptionText:"${device.displayName} dimmed ${cmd.value==255 ? 100 : cmd.value}%")
+		// For a multilevel switch, cmd.value can be from 1-99 to represent 
+		// dimming levels
+		result << createEvent(name:"level", value: cmd.value, unit:"%", 
+		            descriptionText:"${device.displayName} dimmed ${cmd.value==255 ? 100 : cmd.value}%")
 
 		result
 	}
 
-	def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd)
-	{
+	def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cmd) {
 		createEvent(name:"switch", value: cmd.value ? "on" : "off")
 	}
-
-	def zwaveEvent(physicalgraph.zwave.commands.switchmultilevelv3.SwitchMultilevelReport cmd)
-	{
+	
+	def zwaveEvent(physicalgraph.zwave.commands.switchmultilevelv3.SwitchMultilevelReport cmd) {
 		def result = []
 		result << createEvent(name:"switch", value: cmd.value ? "on" : "off")
-		result << createEvent(name:"level", value: cmd.value, unit:"%", descriptionText:"${device.displayName} dimmed ${cmd.value==255 ? 100 : cmd.value}%")
+		result << createEvent(name:"level", value: cmd.value, unit:"%", 
+		             descriptionText:"${device.displayName} dimmed ${cmd.value==255 ? 100 : cmd.value}%")
 		result
 	}
 
 	def zwaveEvent(physicalgraph.zwave.commands.meterv1.MeterReport cmd) {
 		def result
 		if (cmd.scale == 0) {
-			result = createEvent(name: "energy", value: cmd.scaledMeterValue, unit: "kWh")
+			result = createEvent(name: "energy", value: cmd.scaledMeterValue, 
+			                     unit: "kWh")
 		} else if (cmd.scale == 1) {
-			result = createEvent(name: "energy", value: cmd.scaledMeterValue, unit: "kVAh")
+			result = createEvent(name: "energy", value: cmd.scaledMeterValue, 
+			                     unit: "kVAh")
 		} else {
-			result = createEvent(name: "power", value: Math.round(cmd.scaledMeterValue), unit: "W")
+			result = createEvent(name: "power", 
+			                     value: Math.round(cmd.scaledMeterValue), unit: "W")
 		}
+
 		result
 	}
 
@@ -108,9 +139,11 @@ and parsed events::
 		def map = null
 		if (cmd.meterType == 1) {
 			if (cmd.scale == 0) {
-				map = [name: "energy", value: cmd.scaledMeterValue, unit: "kWh"]
+				map = [name: "energy", value: cmd.scaledMeterValue, 
+				       unit: "kWh"]
 			} else if (cmd.scale == 1) {
-				map = [name: "energy", value: cmd.scaledMeterValue, unit: "kVAh"]
+				map = [name: "energy", value: cmd.scaledMeterValue, 
+				       unit: "kVAh"]
 			} else if (cmd.scale == 2) {
 				map = [name: "power", value: cmd.scaledMeterValue, unit: "W"]
 			} else {
@@ -134,48 +167,59 @@ and parsed events::
 		}
 	}
 
-	def zwaveEvent(physicalgraph.zwave.commands.sensorbinaryv2.SensorBinaryReport cmd)
-	{
+	def zwaveEvent(physicalgraph.zwave.commands.sensorbinaryv2.SensorBinaryReport cmd) {
 		def result
 		switch (cmd.sensorType) {
 			case 2:
-				result = createEvent(name:"smoke", value: cmd.sensorValue ? "detected" : "closed")
+				result = createEvent(name:"smoke", 
+					value: cmd.sensorValue ? "detected" : "closed")
 				break
 			case 3:
-				result = createEvent(name:"carbonMonoxide", value: cmd.sensorValue ? "detected" : "clear")
+				result = createEvent(name:"carbonMonoxide", 
+					value: cmd.sensorValue ? "detected" : "clear")
 				break
 			case 4:
-				result = createEvent(name:"carbonDioxide", value: cmd.sensorValue ? "detected" : "clear")
+				result = createEvent(name:"carbonDioxide", 
+					value: cmd.sensorValue ? "detected" : "clear")
 				break
 			case 5:
-				result = createEvent(name:"temperature", value: cmd.sensorValue ? "overheated" : "normal")
+				result = createEvent(name:"temperature", 
+					value: cmd.sensorValue ? "overheated" : "normal")
 				break
 			case 6:
-				result = createEvent(name:"water", value: cmd.sensorValue ? "wet" : "dry")
+				result = createEvent(name:"water", 
+					value: cmd.sensorValue ? "wet" : "dry")
 				break
 			case 7:
-				result = createEvent(name:"temperature", value: cmd.sensorValue ? "freezing" : "normal")
+				result = createEvent(name:"temperature", 
+					value: cmd.sensorValue ? "freezing" : "normal")
 				break
 			case 8:
-				result = createEvent(name:"tamper", value: cmd.sensorValue ? "detected" : "okay")
+				result = createEvent(name:"tamper", 
+					value: cmd.sensorValue ? "detected" : "okay")
 				break
 			case 9:
-				result = createEvent(name:"aux", value: cmd.sensorValue ? "active" : "inactive")
+				result = createEvent(name:"aux", 
+					value: cmd.sensorValue ? "active" : "inactive")
 				break
 			case 0x0A:
-				result = createEvent(name:"contact", value: cmd.sensorValue ? "open" : "closed")
+				result = createEvent(name:"contact", 
+					value: cmd.sensorValue ? "open" : "closed")
 				break
 			case 0x0B:
 				result = createEvent(name:"tilt", value: cmd.sensorValue ? "detected" : "okay")
 				break
 			case 0x0C:
-				result = createEvent(name:"motion", value: cmd.sensorValue ? "active" : "inactive")
+				result = createEvent(name:"motion", 
+					value: cmd.sensorValue ? "active" : "inactive")
 				break
 			case 0x0D:
-				result = createEvent(name:"glassBreak", value: cmd.sensorValue ? "detected" : "okay")
+				result = createEvent(name:"glassBreak", 
+					value: cmd.sensorValue ? "detected" : "okay")
 				break
 			default:
-				result = createEvent(name:"sensor", value: cmd.sensorValue ? "active" : "inactive")
+				result = createEvent(name:"sensor", 
+					value: cmd.sensorValue ? "active" : "inactive")
 				break
 		}
 		result
@@ -246,8 +290,9 @@ and parsed events::
 		createEvent(map)
 	}
 
-	// Many sensors send BasicSet commands to associated devices. This is so you can associate them with
-	// a switch-type device and they can directly turn it on/off when the sensor is triggered.
+	// Many sensors send BasicSet commands to associated devices. 
+	// This is so you can associate them with a switch-type device 
+	// and they can directly turn it on/off when the sensor is triggered.
 	def zwaveEvent(physicalgraph.zwave.commands.basicv1.BasicSet cmd)
 	{
 		createEvent(name:"sensor", value: cmd.value ? "active" : "inactive")
@@ -267,9 +312,11 @@ and parsed events::
 		createEvent(map)
 	}
 
-	// Battery powered devices can be configured to periodically wake up and check in. They send this
-	// command and stay awake long enough to receive commands, or until they get a WakeUpNoMoreInformation
-	// command that instructs them that there are no more commands to receive and they can stop listening
+	// Battery powered devices can be configured to periodically wake up and 
+	// check in. They send this command and stay awake long enough to receive 
+	// commands, or until they get a WakeUpNoMoreInformation command that 
+	// instructs them that there are no more commands to receive and they can 
+	// stop listening.
 	def zwaveEvent(physicalgraph.zwave.commands.wakeupv2.WakeUpNotification cmd)
 	{
 		def result = [createEvent(descriptionText: "${device.displayName} woke up", isStateChange: false)]
@@ -295,28 +342,38 @@ and parsed events::
 		result
 	}
 
-	// Devices that support the Security command class can send messages in an encrypted form;
-	// they arrive wrapped in a SecurityMessageEncapsulation command and must be unencapsulated
+	// Devices that support the Security command class can send messages in an 
+	// encrypted form; they arrive wrapped in a SecurityMessageEncapsulation 
+	// command and must be unencapsulated
 	def zwaveEvent(physicalgraph.zwave.commands.securityv1.SecurityMessageEncapsulation cmd) {
-		def encapsulatedCommand = cmd.encapsulatedCommand([0x98: 1, 0x20: 1]) // can specify command class versions here like in zwave.parse
+		def encapsulatedCommand = cmd.encapsulatedCommand([0x98: 1, 0x20: 1]) 
+
+		// can specify command class versions here like in zwave.parse
 		if (encapsulatedCommand) {
 			return zwaveEvent(encapsulatedCommand)
 		}
 	}
 
-	// MultiChannelCmdEncap and MultiInstanceCmdEncap are ways that devices can indicate that a message
-	// is coming from one of multiple subdevices or "endpoints" that would otherwise be indistinguishable
+	// MultiChannelCmdEncap and MultiInstanceCmdEncap are ways that devices 
+	// can indicate that a message is coming from one of multiple subdevices 
+	// or "endpoints" that would otherwise be indistinguishable
 	def zwaveEvent(physicalgraph.zwave.commands.multichannelv3.MultiChannelCmdEncap cmd) {
-		def encapsulatedCommand = cmd.encapsulatedCommand([0x30: 1, 0x31: 1]) // can specify command class versions here like in zwave.parse
+		def encapsulatedCommand = cmd.encapsulatedCommand([0x30: 1, 0x31: 1]) 
+
+		// can specify command class versions here like in zwave.parse
 		log.debug ("Command from endpoint ${cmd.sourceEndPoint}: ${encapsulatedCommand}")
+		
 		if (encapsulatedCommand) {
 			return zwaveEvent(encapsulatedCommand)
 		}
 	}
 
 	def zwaveEvent(physicalgraph.zwave.commands.multichannelv3.MultiInstanceCmdEncap cmd) {
-		def encapsulatedCommand = cmd.encapsulatedCommand([0x30: 1, 0x31: 1]) // can specify command class versions here like in zwave.parse
+		def encapsulatedCommand = cmd.encapsulatedCommand([0x30: 1, 0x31: 1]) 
+
+		// can specify command class versions here like in zwave.parse
 		log.debug ("Command from instance ${cmd.instance}: ${encapsulatedCommand}")
+		
 		if (encapsulatedCommand) {
 			return zwaveEvent(encapsulatedCommand)
 		}
@@ -354,21 +411,27 @@ and parsed events::
 		], 1200)
 	}
 
-	// If you add the Polling capability to your device type, this command will be called approximately
-	// every 5 minutes to check the device's state
+	// If you add the Polling capability to your device type, this command 
+	// will be called approximately every 5 minutes to check the device's state
 	def poll() {
 		zwave.basicV1.basicGet().format()
 	}
 
-	// If you add the Configuration capability to your device type, this command will be called right
-	// after the device joins to set device-specific configuration commands.
+	// If you add the Configuration capability to your device type, this 
+	// command will be called right after the device joins to set 
+	// device-specific configuration commands.
 	def configure() {
 		delayBetween([
-			// Note that configurationSet.size is 1, 2, or 4 and generally must match the size the device uses in its configurationReport
+			// Note that configurationSet.size is 1, 2, or 4 and generally 
+			// must match the size the device uses in its configurationReport
 			zwave.configurationV1.configurationSet(parameterNumber:1, size:2, scaledConfigurationValue:100).format(),
-			// Can use the zwaveHubNodeId variable to add the hub to the device's associations:
+			
+			// Can use the zwaveHubNodeId variable to add the hub to the 
+			// device's associations:
 			zwave.associationV1.associationSet(groupingIdentifier:2, nodeId:zwaveHubNodeId).format(),
-			// Make sure sleepy battery-powered sensors send their WakeUpNotifications to the hub every 4 hours:
+			
+			// Make sure sleepy battery-powered sensors send their 
+			// WakeUpNotifications to the hub every 4 hours:
 			zwave.wakeUpV1.wakeUpIntervalSet(seconds:4 * 3600, nodeid:zwaveHubNodeId).format(),
 		])
 	}

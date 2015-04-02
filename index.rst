@@ -80,8 +80,8 @@ SmartApp Developer's Guide
 	
 	smartapp-developers-guide/index
 
-Device Type Developer's Guide
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Device Handler Developer's Guide
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
 	:maxdepth: 3
@@ -105,13 +105,12 @@ SmartApp Web Services Developer's Guide
 	smartapp-web-services-developers-guide/index
 
 Arduino ThingShield
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
    :maxdepth: 2
 
    arduino/index
-
 
 Reference Material
 ~~~~~~~~~~~~~~~~~~

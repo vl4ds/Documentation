@@ -1,24 +1,18 @@
-Device Type Example
-===================
+ZigBee Example
+==============
 
+An example of a ZibBee device-type is the CentraLite Switch. You can find the code in the IDE in the "Browse Device Types" menu.
 
+You can also find the source code in GitHub `here <https://github.com/SmartThingsCommunity/Code/blob/master/device-types/zigbee-example.groovy>`__, and below.
 
-Example: Centralite Switch::
+.. code-block:: groovy
 
-    /**
-     *  CentraLite Switch
-     *
-     *  Author: SmartThings
-     *  Date: 2013-12-02
-     */
     metadata {
         // Automatically generated. Make future change here.
-        definition (name: "CentraLite Switch", namespace: "", author: "SmartThings") {
-
-Define the device type name, namespace, and author.
-
-::
-
+        definition (name: "CentraLite Switch", namespace: "smarttthings", 
+            author: "SmartThings") {
+            
+            //These are the capabilities that the device can do.
             capability "Actuator"
             capability "Switch"
             capability "Power Meter"
@@ -26,38 +20,22 @@ Define the device type name, namespace, and author.
             capability "Refresh"
             capability "Sensor"
 
-These are the capabilities that the device can do.
-
-::
-
             fingerprint profileId: "0104", inClusters: "0000,0003,0004,0005,0006,0B04,0B05", outClusters: "0019"
-      }
-
-This section defines the device fingerprint
-
-::
+        }
 
         // simulator metadata
         simulator {
-            // status messages
-            status "on": "on/off: 1"
-            status "off": "on/off: 0"
+            // 'on' and 'off' will appear in the messages dropdown, and send "on/off: 1 to the parse method"
+           status "on": "on/off: 1"
+           status "off": "on/off: 0"
 
-            // reply messages
-            reply "zcl on-off on": "on/off: 1"
-            reply "zcl on-off off": "on/off: 0"
-      }
+           // simulate reply messages from the device
+           reply "zcl on-off on": "on/off: 1"
+           reply "zcl on-off off": "on/off: 0"
+        }
 
-This section informs the simulator, for testing of your SmartApp without
-the actual device. On and off populate a status dropdown. If you choose
-them, they send the specified message ("on/off: 1", for example) to the
-parse method of the Device Type.
-
-::
-
-        // UI tile definitions
         tiles {
-            standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {          
+            standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
                 state "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
                 state "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#79b821"
             }
@@ -84,29 +62,29 @@ parse method of the Device Type.
             if (descMap.cluster == "0006" && descMap.attrId == "0000") {
                 name = "switch"
                 value = descMap.value.endsWith("01") ? "on" : "off"
-            } else {
-                def reportValue = description.split(",").find {it.split(":")[0].trim() == "value"}?.split(":")[1].trim()
-                name = "power"
+                } else {
+                    def reportValue = description.split(",").find {it.split(":")[0].trim() == "value"}?.split(":")[1].trim()
+                    name = "power"
                 // assume 16 bit signed for encoding and power divisor is 10
                 value = Integer.parseInt(reportValue, 16) / 10
             }
-        } else if (description?.startsWith("on/off:")) {
-            log.debug "Switch command"
-            name = "switch"
-            value = description?.endsWith(" 1") ? "on" : "off"
+            } else if (description?.startsWith("on/off:")) {
+                log.debug "Switch command"
+                name = "switch"
+                value = description?.endsWith(" 1") ? "on" : "off"
+            }
+
+            def result = createEvent(name: name, value: value)
+            log.debug "Parse returned ${result?.descriptionText}"
+            return result
         }
 
-        def result = createEvent(name: name, value: value)
-        log.debug "Parse returned ${result?.descriptionText}"
-        return result
-    }
-
-    def parseDescriptionAsMap(description) {
-        (description - "read attr - ").split(",").inject([:]) { map, param ->
-            def nameAndValue = param.split(":")
-            map += [(nameAndValue[0].trim()):nameAndValue[1].trim()]
+        def parseDescriptionAsMap(description) {
+            (description - "read attr - ").split(",").inject([:]) { map, param ->
+                def nameAndValue = param.split(":")
+                map += [(nameAndValue[0].trim()):nameAndValue[1].trim()]
+            }
         }
-    }
 
     // Commands to device
     def on() {
@@ -127,9 +105,7 @@ parse method of the Device Type.
 
     def configure() {
         [
-            "zdo bind 0x${device.deviceNetworkId} 1 1 6 {${device.zigbeeId}} {}", "delay 200",
-            "zdo bind 0x${device.deviceNetworkId} 1 1 0xB04 {${device.zigbeeId}} {}"
+        "zdo bind 0x${device.deviceNetworkId} 1 1 6 {${device.zigbeeId}} {}", "delay 200",
+        "zdo bind 0x${device.deviceNetworkId} 1 1 0xB04 {${device.zigbeeId}} {}"
         ]
     }
-
-For a Z-Wave example, see the `Reference Z-Wave Device Type <building-z-wave-device-types/z-wave-device-reference.html>`__.

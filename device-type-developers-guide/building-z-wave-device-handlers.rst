@@ -1,25 +1,24 @@
-Building Z-Wave Device-Types
-============================
+Building Z-Wave Device Handlers
+===============================
 
 Z-Wave is a proprietary protocol, so we cannot document the full details
-of the interface. Instead, device type handlers use command objects that
+of the interface. Instead, device handlers use command objects that
 represent the standard commands and messages that Z-Wave devices use to
 send and request information.
 
 Parsing Events
 --------------
 
-When events from Z-Wave devices are passed into your device type
-handler's parse method, they are in an encoded string format. The first
+When events from Z-Wave devices are passed into your device handler's parse method, they are in an encoded string format. The first
 thing your parse method should do is call ``zwave.parse`` on the
 description string to convert it to a Z-Wave command object. The
 object's class is one of the subclasses of
 ``physicalgraph.zwave.Command`` that can be found in the `Z-Wave Command
-Reference <http://build.smartthings.com/zwave.html>`__. If the description string
+Reference <https://graph.api.smartthings.com/ide/doc/zwave-utils.html>`__. If the description string
 does not represent a valid Z-Wave command, ``zwave.parse`` will return
 ``null``.
 
-.. code:: groovy
+.. code-block:: groovy
 
     def parse(String description) {
         def result = null
@@ -38,7 +37,7 @@ pass it to a overloaded function such as ``zwaveEvent`` used in this
 example, with different argument types for the different types of
 commands you intend to handle:
 
-.. code:: groovy
+.. code-block:: groovy
 
     def zwaveEvent(physicalgraph.zwave.commands.basicv1.BasicReport cmd)
     {
@@ -71,10 +70,9 @@ commands you intend to handle:
 
 Remember that when you use ``createEvent`` to build an event, the
 resulting map must be returned from ``parse`` for the event to be sent.
-For information about ``createEvent``, see `Anatomy of a Device
-Type <http://http://smartthings.readthedocs.org/en/latest/device-type-developers-guide/anatomy-of-a-device-type.html>`__.
+For information about ``createEvent``, see the `Creating Events <parse.html#creating-events>`__ section.
 
-As the `Z-Wave Command Reference <http://build.smartthings.com/zwave.html>`__
+As the `Z-Wave Command Reference <https://graph.api.smartthings.com/ide/doc/zwave-utils.html>`__
 shows, many Z-Wave command classes have multiple versions. By default,
 ``zwave.parse`` will parse a command using the highest version of the
 command class. If the device is sending an earlier version of the
@@ -83,7 +81,7 @@ and return ``null``. To fix this, you can pass in a map as the second
 argument to ``zwave.parse`` to tell it which version of each command
 class to use:
 
-.. code:: groovy
+.. code-block:: groovy
 
     zwave.parse(description, [0x26: 1, 0x70: 1])
 
@@ -97,7 +95,7 @@ To send a Z-Wave command to the device, you must create the command
 object, call ``format`` on it to convert it to the encoded string
 representation, and return it from the command method.
 
-.. code:: groovy
+.. code-block:: groovy
 
     def on() {
         return zwave.basicV1.basicSet(value: 0xFF).format()
@@ -124,7 +122,7 @@ command. To add a delay between commands, include a string of the form
 helper method ``delayBetween`` that will take a list of commands and
 insert delay commands between them:
 
-.. code:: groovy
+.. code-block:: groovy
 
     def off() {
         delayBetween([
@@ -154,7 +152,7 @@ methods. The easiest way to send a command to a device in response to an
 event is the ``response`` helper, which takes a Z-Wave command or encoded
 string and supplies a HubAction:
 
-.. code:: groovy
+.. code-block:: groovy
 
     def zwaveEvent(physicalgraph.zwave.commands.wakeupv1.WakeUpNotification cmd)
     {
@@ -173,37 +171,4 @@ device is temporarily listening for commands. In addition to creating a
 hidden event, the handler will send a BatteryGet request, wait 1.2
 seconds for a response, and then issue a WakeUpNoMoreInformation command
 to tell the device it can go back to sleep to save battery.
-
-Join Fingerprints
------------------
-
-To have the device get assigned to your device type when it's added to the
-SmartThings hub you have to add a fingerprint to the definition section.
-Fingerprinting of Z-Wave devices is currently based only on the device
-class ID and the supported/controlled command classes of the device. A
-Z-Wave device provides this information when it is included into the
-network, and it can be found in the SmartThings developer tools in the
-device details view as the *Raw Descripiton*. The device class ID is the
-four digit hexadecimal number (eg. 0x1001) and the command classes are the
-two digit hexadecimal numbers.
-
-So if the raw description is ::
-
-    0 0 0x1104 0 0 0 8 0x26 0x2B 0x2C 0x27 0x73 0x70 0x86 0x72
-
-The fingerprint will be ::
-
-    fingerprint deviceId:"0x1104", inClusters:"0x26, 0x2B, 0x2C, 0x27, 0x73, 0x70, 0x86, 0x72"
-
-If the raw description has two lists of command classes separated by a single digit 'count' number, 
-the second list is the outClusters. So for the raw description ::
-
-    0 0 0x2001 0 8 0x30 0x71 0x72 0x86 0x85 0x84 0x80 0x70 1 0x20
-
-The fingerprint will be ::
-
-    fingerprint deviceId:"0x2001", inClusters:"0x30, 0x71, 0x72, 0x86, 0x85, 0x84, 0x80, 0x70", outClusters: "0x20"
-
-Note that the fingerprint clusters lists are comma separated while the raw description is not.
-
 
