@@ -123,19 +123,22 @@ Attribute values are set by creating events where the attribute name is the name
 
 Like commands, when a device supports a capability, it is responsible for ensuring that all the capability's attributes are implemented.
 
-.. note::
+Actuator and Sensor
+~~~~~~~~~~~~~~~~~~~
 
-    If you look at the `Capabilities taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__, you'll notice two capabilities that have no attributes or commands - "Actuator" and "Sensor".
+If you look at the `Capabilities taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__, you'll notice two capabilities that have no attributes or commands - "Actuator" and "Sensor".
 
-    These capabilities are "marker" or "tagging" capabilities (if you're familiar with Java, think of the Cloneable interface - it defines no state or behavior). 
+These capabilities are "marker" or "tagging" capabilities (if you're familiar with Java, think of the Cloneable interface - it defines no state or behavior). 
 
-    The "Actuator" capability defines that a device has commands. The "Sensor" capability defines that a device has attributes.
+The "Actuator" capability defines that a device has commands. The "Sensor" capability defines that a device has attributes.
 
-    If you are writing a device handler, it is a best practice to support the "Actuator" capability if your device has commands, and the "Sensor" capability if it has attributes. This is why you'll see most device handlers supporting one of, or both, of these capabilities.
+If you are writing a device handler, it is a best practice to support the "Actuator" capability if your device has commands, and the "Sensor" capability if it has attributes. This is why you'll see most device handlers supporting one of, or both, of these capabilities.
+
+The reason for this is convention and forward-looking abilities - it can allow the SmartThings platform to interact with a variety of devices if they *do* something ("Actuator"), or if they report something ("Sensor").
 
 Protocols
 ---------
 
-SmartThings currently supports both the `Z-Wave <http://en.wikipedia.org/wiki/Z-Wave>`__ and `ZigBee <http://en.wikipedia.org/wiki/ZigBee>`__ wireless protocols. Bluetooth support is planned for our next generation hub. 
+SmartThings currently supports both the `Z-Wave <http://en.wikipedia.org/wiki/Z-Wave>`__ and `ZigBee <http://en.wikipedia.org/wiki/ZigBee>`__ wireless protocols. 
 
 Since the device handler is responsible for communicating between the device and the SmartThings platform, it is usually necessary to understand and communicate in whatever protocol the device supports. This guide will discuss both Z-Wave and ZibBee protocols at a high level.

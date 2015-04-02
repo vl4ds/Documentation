@@ -119,7 +119,7 @@ The valid parameters are:
 *defaultState*
     boolean - Specify ``true`` if this state should be the active state displayed for this tile. See the `State Selection`_ topic above for more information.
 *icon*
-    String - The identifier of the icon to use for this state. You can view the icon options `here <http://scripts.3dgo.net/smartthings/icons>`__. iOS devices support specifying a URL to a custom image (not currently supported on Android)
+    String - The identifier of the icon to use for this state. You can view the icon options `here <http://scripts.3dgo.net/smartthings/icons>`__. iOS devices support specifying a URL to a custom image.
 *label*
     String - The label for this state.
 
@@ -172,6 +172,15 @@ In addition to name and attribute parameters, ``controlTile`` requires a third a
 This renders as:
 
 .. figure:: ../img/device-types/control-tile.png
+
+You can also specify a custom range by using a ``range`` parameter. It is a string, and is in the form ``"(<lower bound>..<upper bound>)"``
+
+.. code-block:: groovy
+
+    controlTile("levelSliderControl", "device.level", "slider", height: 1,
+                 width: 2, inactiveLabel: false, range:"(0..100)") {
+        state "level", action:"switch level.setLevel"
+    }
 
 valueTile()
 ~~~~~~~~~~~

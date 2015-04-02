@@ -34,16 +34,20 @@ Our ``parse`` method inspects the passed-in description, and creates an event wi
 Parse, Events, and Attributes
 -----------------------------
 
-Recall that the "switch" capability specifies an attribute of "switch", with possible values "on" and "off". *The* ``parse`` *method is responsible for creating events for the attributes of that device's capabililities.*
+Recall that the "switch" capability specifies an attribute of "switch", with possible values "on" and "off". *The* ``parse`` *method is responsible for creating events for the attributes of that device's capabilities.*
 
 That is a critical point to understand about device handlers - it is what allows SmartApps to respond to event subscriptions!
+
+.. note::
+
+    Only events that constitute a state change are propagated through the SmartThings platform. A state change is when a particular attribute of the device changes. This is handled automatically by the platform, but should you want to override that behavior, you can do so by specifying the ``isStateChange`` parameter discussed below.
 
 Creating Events
 ~~~~~~~~~~~~~~~
 
 Use the ``createEvent`` method to create events in your device handler. It takes a map of parameters as an argument. You should provide the ``name`` and ``value`` at a minimum.
 
-.. note::
+.. important::
 
     The createEvent just creates a data structure (a Map) with information about the event. *It does not actually fire an event.* 
 
@@ -89,3 +93,7 @@ Generating Events Outside of parse
 
 If you need to generate an event outside of the ``parse`` method, you can use the ``sendEvent`` method. It simply calls ``createEvent`` *and* fires the event. You pass in the same parameters as you do to ``createEvent``.
 
+Tips
+----
+
+When creating a device handler, determining what messages need to be handled by the ``parse`` method varies by device. A common practice to figure out what messages need to be handled is to simply log the messages in your ``parse`` method (``log.debug "description: $description"). This allows you to see what the incoming message is for various actuations or states.

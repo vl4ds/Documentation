@@ -72,7 +72,7 @@ SmartApp Developer's Guide
 
 .. _device_type_developers_guide:
 
-Device Type Developer's Guide
+Device Handler Developer's Guide
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
