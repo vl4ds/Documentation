@@ -77,7 +77,7 @@ Some SmartApps may need to schedule certain actions to happen *once* at a specif
 
     January 09, 2015 3:50:32 GMT-6 (Central Standard Time): "2015-01-09T15:50:32.000-0600"
 
-    February 09, 2015 3:50:32:254 GMT-6 (Central Standard Time): “2015-02-09T15:50:32.254-0600”
+    February 09, 2015 3:50:32:254 GMT-6 (Central Standard Time): "2015-02-09T15:50:32.254-0600"
 
     For more information about date formatting, you can review the `SimpleDateFormat JavaDoc <http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html>`__. 
 
