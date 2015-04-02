@@ -197,6 +197,21 @@ This renders as:
 
 .. figure:: ../img/device-types/value-tile-power.png
 
+
+carouselTile()
+~~~~~~~~~~~~~~
+
+A carousel tile is often used in conjuction with the Image Capture capability, to allow users to scroll through recent pictures.
+
+.. code-block:: groovy
+
+    carouselTile("cameraDetails", "device.image", width: 3, height: 2) { }
+
+
+.. figure:: ../img/device-types/carouselTile.jpg
+
+Many of the camera device handlers will make use of the ``carouselTile``.
+
 .. note::
 
     You may see other tile types in existing device handlers. Tile types that are not documented here should be considered experimental, and subject to change. 
