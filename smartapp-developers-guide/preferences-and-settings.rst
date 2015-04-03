@@ -571,7 +571,7 @@ Valid input options:
     number                       An integer number, i.e. one without decimal point
     password                     A password string. The value is obscured in the UI and encrypted before storage
     phone                        A phone number
-    time                         A time of day
+    time                         A time of day. The value will be stored as a string in the Java `SimpleDateFormat <http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html>`__ (e.g., "2015-01-09T15:50:32.000-0600")
     text                         A text value
     ===========================  ===========================================================================================
 
