@@ -75,7 +75,7 @@ Capabilities
 
 Capabilities are the interactions that a device allows. They provide an abstraction layer that allows SmartApps to work with devices based on the capabilities they support, and not be tied to a specific manufacturer or model. 
 
-Consider the example of the "Switch" capability. There are many unique switch devices - in-wall switches, Z-Wave switches, ZigBee switches, etc. All these unique devices have a device handler, and the device handlers support the "Switch" capability. This allows SmartApps to only require a device that supports the "Switch" capability, and thus work with a variety of manufacturer and model-specific switches. 
+Consider the example of the "Switch" capability. In simple terms, a switch is a device that can turn on and off. It may be be a switch in the traditional sense (an in-wall light switch, for example), or a connected bulb (a Hue or Cree bulb, for example), or even a music player. All of these unique devices have a device handler, and those device handler's support the "Switch" capability. This allows SmartApps to only require a device that supports the "Switch" capability, and thus work with a variety of devices, including different manufacturer and model-specific "switches". The SmartApp can then interact with the device knowing that it supports the "on" and "off" command (more on commands below), without caring about the specific device being used.
 
 This code illustrates how a SmartApp might interact with a device that supports the "Switch" capability:
 
@@ -98,10 +98,12 @@ This code illustrates how a SmartApp might interact with a device that supports 
         log.debug "switch is ${switch.currentSwitch}"
     }
 
-The above example illustrates how a SmartApp requests a device that supports the "Switch" capability. It can then work with the device knowing that it will support all the commands and attributes that the "Switch" capability supports.
+The above example illustrates how a SmartApp requests a device that supports the "Switch" capability. When installing the SmartApp, the user will be able to select any device that supports the "Switch" capability - be it an in-wall light switch, a connected bulb, a music player, or any other device that supports the "Switch" capability.
 
 There is a `reference
 document <https://graph.api.smartthings.com/ide/doc/capabilities>`__ that outlines all the supported capabilities.
+
+Device handlers typically support more than one capability. A device handler for a Hue bulb would support the "Switch" capability as well as the "Color Control" capability. This allows SmartApps to be written in a very flexible manner.
 
 Commands and attributes deserve their own discussion - let's dive in.
 
