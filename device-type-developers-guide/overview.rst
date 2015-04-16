@@ -144,3 +144,11 @@ Protocols
 SmartThings currently supports both the `Z-Wave <http://en.wikipedia.org/wiki/Z-Wave>`__ and `ZigBee <http://en.wikipedia.org/wiki/ZigBee>`__ wireless protocols. 
 
 Since the device handler is responsible for communicating between the device and the SmartThings platform, it is usually necessary to understand and communicate in whatever protocol the device supports. This guide will discuss both Z-Wave and ZibBee protocols at a high level.
+
+Rate Limiting
+-------------
+
+Like SmartApps, Device Handlers are restricted to executing no more than 250 times in a 60 second window. Execution attempts exceeding this limit will be prevented, and a message will be logged indicating that the limit has been reached. The count will start over when the current time window closes, and the next begins.
+
+Common causes for exceeding this limit are a SmartApp that sends many commands to one device by receiving a large number of event subscriptions (if that doesn’t first hit the limit for SmartApps). For example, DLNA players that are extremely chatty or devices that bind to frequently changing energy/power values may also encounter this limit. 
+

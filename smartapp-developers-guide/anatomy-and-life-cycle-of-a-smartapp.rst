@@ -158,6 +158,8 @@ event values, so to call a handler only when the contact sensor opens write:
 The *subscribe* method call accepts either a device or a list of devices, so you don't need to explicitly iterate over
 each device in a list when you specify `multiple: true` in an input preference.
 
+You can learn more about subscribing to device events in the `Events and Subscriptions <smartapp-developers-guide/simple-event-handler-smartapps.html>`__ section.
+
 SmartApp Sandboxing
 -------------------
 
@@ -166,3 +168,16 @@ to limit developers to a specific subset of the Groovy language for
 performance and security. We have
 `documented <../introduction/groovy-the-smartthings-programming-language.html#groovy-sandboxing>`__ the main ways
 this should affect you.
+
+Rate Limiting
+-------------
+
+Because SmartApps execute in the cloud, limitations must exist to protect against SmartApps that execute excessively, thus consuming too much of our shared cloud resources. 
+
+All rate limiting is based on an execution limit within a particular time window for an installed SmartApp or Device Handler. When the execution limit has been reached within the time window, no further executions will occur until the next time window. There will be an entry in the logs that will show the SmartApp or Device Type has been rate limited.
+
+*SmartApps are limited to executing 250 times in 60 seconds.*
+
+The common cause for exceeding this limit is excessive subscriptions. This may be an infinite loop of events (for example, subscribing to an "on" and "off" event, and the "on" command actually triggers the "off" event and vice versa - leading to a never-ending chain of event handlers being called). It's also possible that a SmartApp that subscribes to a very large number of particularly "chatty" devices may run into this limit.
+
+Additional rate limiting restrictions apply to SmartApps or Device Handlers that expose endpoints via the ``mappings`` definitions. You can learn about those in the `SmartApp Web Services Guide <../smartapp-web-services-developers-guide/overview.html>`__.
