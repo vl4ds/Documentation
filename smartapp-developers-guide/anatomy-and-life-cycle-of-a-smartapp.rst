@@ -1,3 +1,5 @@
+.. _anatomy-and-lifecycle-of-a-smartapp:
+
 Anatomy & Life-Cycle of a SmartApp
 ==================================
 
