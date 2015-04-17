@@ -12,6 +12,7 @@ Reference Material
 	- `Event <https://graph.api.smartthings.com/ide/doc/event>`__	
 	- `Location <https://graph.api.smartthings.com/ide/doc/location>`__		
 	- `Mode <https://graph.api.smartthings.com/ide/doc/mode>`__		
-	- `State <https://graph.api.smartthings.com/ide/doc/state>`__			
+	- `State <https://graph.api.smartthings.com/ide/doc/state>`__
+- `Z-Wave Utility Reference <https://graph.api.smartthings.com/ide/doc/zwave-utils.html>`__
 
 	
