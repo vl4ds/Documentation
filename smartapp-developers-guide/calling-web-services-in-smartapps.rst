@@ -95,6 +95,8 @@ For testing POST requests, you can use `PostCatcher <http://postcatcher.in/>`__.
 See Also
 --------
 
+A simple example using ``httpGet`` that connects a SmartSense Temp/Humidity to your Weather Underground personal weather station can be found `here <https://github.com/SmartThingsCommunity/Code/blob/e8a6b6926fb32df1e8d79bfe09a1ad063682396a/smartapps/wunderground-pws-connect.groovy>`_.
+
 You can browse some templates in the IDE that use the various HTTP APIs. The Ecobee Service Manager is an example that uses both ``httpGet()`` and ``httpPost()``.
 
 Groovy references:
