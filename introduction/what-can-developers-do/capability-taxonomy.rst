@@ -1,22 +1,17 @@
 Capability Taxonomy
 ===================
 
-`Capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
-represent the common taxonomy that allows us to link SmartApps with
-Device Types. An application interacts with devices based on their
+Capabilities represent the common taxonomy that allows us to link SmartApps with Device Handlers. An application interacts with devices based on their
 capabilities, so once we understand the capabilities that are needed by
 a SmartApp, and the capabilities that are provided by a device, we can
 understand which devices (based on their device type and inherent
 capabilities) are eligible for use within a specific SmartApp.
 
-The `capability
-taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__ is
+The :ref:`capabilities_taxonomy` is
 evolving and is heavily influenced by existing standards like ZigBee
 and Z-Wave.
 
-`Capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
-themselves may decompose into both ‘Actions’ or ‘Commands’ (these are
-synonymous), and Attributes. Actions represent ways in which you can
+Capabilities themselves may decompose into both ‘Actions’ or ‘Commands’ (these are synonymous), and Attributes. Actions represent ways in which you can
 control or actuate the device, whereas Attributes represent state
 information or properties of the device.
 

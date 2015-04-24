@@ -559,7 +559,7 @@ Valid input options:
     ---------------------------  -------------------------------------------------------------------------------------------
     cacapability.capabilityName  Prompts for all the devices that match the specified capability.
 
-                                 See the *Preferences Reference* column of the `capabilities <https://graph.api.smartthings.com/ide/doc/capabilities>`__
+                                 See the *Preferences Reference* column of the :ref:`capabilities_taxonomy`
                                  table for possible values.
     device.deviceTypeName        Prompts for all devices of the specified type.
     boolean                      A ``true`` or ``false`` value

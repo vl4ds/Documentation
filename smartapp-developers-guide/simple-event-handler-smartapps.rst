@@ -29,9 +29,11 @@ The most common use case for event subscriptions is for device events:
         log.debug "switch turned on!"
     }
 
-The handler method must accept an event parameter. The `Event <https://graph.api.smartthings.com/ide/doc/event>`__ object will be discussed later.
+The handler method must accept an event parameter. 
 
-You can find the possible events to subscribe to by referring to the Attributes column for a capability in the `Capabilities Taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__. The general form we use is "<attributeName>.<attributeValue>". If the attribute does not have any possible values (for example, "battery"), you would just use the attribute name. 
+Refer to the :ref:`event_ref` API documentation for more information about the Event object.
+
+You can find the possible events to subscribe to by referring to the Attributes column for a capability in the :ref:`capabilities_taxonomy`. The general form we use is "<attributeName>.<attributeValue>". If the attribute does not have any possible values (for example, "battery"), you would just use the attribute name. 
 
 In the example above, the switch capability has the attribute "switch", with possible values "on" and "off". Putting these together, we use "switch.on".
 
@@ -120,7 +122,7 @@ The Event Object
 
 Event-handler methods must accept a single parameter, the event itself.
 
-The full documentation of the Event object is found `here <https://graph.api.smartthings.com/ide/doc/event>`__.
+Refer to the :ref:`event_ref` API documentation for more information.
 
 A few of the common ways of using the event:
 
@@ -147,6 +149,6 @@ See Also
 --------
 
  - `Sunset and Sunrise <sunset-and-sunrise.html>`__
- - `Event Class Documentation <https://graph.api.smartthings.com/ide/doc/event>`__ 
- - `Location Class Documentation <https://graph.api.smartthings.com/ide/doc/location>`__
+ - :ref:`event_ref` API Documentation
+ - :ref:`location_ref` API Documentation
  - `Interacting with Devices <devices.html>`__

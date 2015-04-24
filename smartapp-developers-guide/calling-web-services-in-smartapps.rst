@@ -5,7 +5,7 @@ SmartApps or device handlers may need to make calls to external web services. Th
 
 The various APIs are named for the underlying HTTP method they will use. ``httpGet()`` makes an HTTP GET request, for example.
 
-The following methods are available for making HTTP requests. You can read more about each of them in the `SmartApp reference documentation <https://graph.api.smartthings.com/ide/doc/smartApp>`__.
+The following methods are available for making HTTP requests. You can read more about each of them in the :ref:`smartapp_ref` API documentation.
 
  - httpDelete()
  - httpGet()

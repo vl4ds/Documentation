@@ -28,7 +28,7 @@ To allow the user to select devices that support a given capability, we use the 
 
 The above example will allow the user to select any device that supports the presence sensor capability. This could be a mobile phone, or a `SmartSense presence sensor <https://shop.smartthings.com/#!/products/smartsense-presence>`__. We don't care about the specific device - we just declare we want a device that supports the presence sensor capability.
 
-You can refer to the `Capabilities Reference <https://graph.api.smartthings.com/ide/doc/capabilities>`__ for information on all the supported capabilities. The "Preferences Reference" column tells you what to use in your preferences for a given capability.
+You can refer to the :ref:`capabilities_taxonomy` for information on all the supported capabilities. The "Preferences Reference" column tells you what to use in your preferences for a given capability.
 
 Interacting with Devices
 ------------------------
@@ -52,7 +52,7 @@ Device Attributes
 
 Attributes represent the state of a device. A device that supports the "temperatureMeasurement" capability has a "temperature" attribute, for example. 
 
-Attributes have state -  the "temperature" attribute has an associated `State <https://graph.api.smartthings.com/ide/doc/state>`__ object that contains information about the temperature (its value, the date it was recorded, etc.)
+Attributes have state -  the "temperature" attribute has an associated :ref:`state_ref` object that contains information about the temperature (its value, the date it was recorded, etc.)
 
 Device Commands
 ---------------
@@ -67,7 +67,7 @@ Getting Device Current Values
 
 You can retrieve information about a device's current state in a few ways.
 
-The ``currentState`` method and ``<attributeName>State`` properties both return a `State <https://graph.api.smartthings.com/ide/doc/state>`__ object representing the current state of this device.
+The ``currentState`` method and ``<attributeName>State`` properties both return a :ref:`state_ref` object representing the current state of this device.
 
 .. code-block:: groovy
 
@@ -150,14 +150,14 @@ To get a list of events between two dates, use the ``eventsBetween`` method:
 
 Similar date-constrained methods exist for getting State information for a device. 
 
-Refer to the full `Device class reference <https://graph.api.smartthings.com/ide/doc/device>`__ for more information.
+Refer to the full :ref:`device_ref` API documentation for more information.
 
 Sending Commands
 ----------------
 
 SmartApps often need to send commands to a device - tell a switch to turn on, or a lock to unlock, for example. 
 
-The commands available to your device will vary by device. You can refer to the `Capabilities Reference`_ to see the available commands for a given capability.
+The commands available to your device will vary by device. You can refer to the :ref:`capabilities_taxonomy` to see the available commands for a given capability.
 
 Sending a command is as simple as calling the command method on the device:
 
@@ -224,17 +224,12 @@ Here's a simple example of getting all switch state values and logging the switc
 See Also
 --------
 
- - `Capabilities Reference`_
+ - :ref:`capabilities_taxonomy`
  - `Preferences and Settings <preferences-and-settings>`__
  - `Events and Subscriptions <simple-event-handler-smartapps.html>`__
- - `Device Class Documentation`_
- - `Event Class Documentation`_
- - `State Class Documentation`_
+ - :ref:`device_ref` API Docuementation
+ - :ref:`event_ref` API Documentation
+ - :ref:`state_ref` API Documentation
 
 
-
-.. _Capabilities Reference: https://graph.api.smartthings.com/ide/doc/capabilities
 .. _Preferences and Settings: :doc:`preferences-and-settings`
-.. _Device Class Documentation: https://graph.api.smartthings.com/ide/doc/device
-.. _Event Class Documentation: https://graph.api.smartthings.com/ide/doc/event
-.. _State Class Documentation: https://graph.api.smartthings.com/ide/doc/state
