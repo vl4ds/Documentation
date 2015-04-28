@@ -55,8 +55,8 @@ The Capabilities quick reference table below lists all capabilities. The various
                                                                      - "off"                               both()
 
                                                                      - "both"
-Battery                       capability.battery     
-Beacon                        capability.beacon                      presence
+:ref:`battery`                capability.battery                     battery
+:ref:`beacon`                 capability.beacon                      presence
 
                                                                      - "present"
 
@@ -270,9 +270,11 @@ Acceleration Sensor
 
 The Acceleration Sensor capability allows for acceleration detection.
 
-**Capability Name:** Acceleration Sensor
-
-**SmartApp Preferences Reference:** capability.accelerationSensor
+==================== =====================
+Capability Name      Preferences Reference
+==================== =====================
+Acceleration Sensor  capability.accelerationSensor
+==================== =====================
 
 **Attributes:**
 
@@ -288,7 +290,7 @@ acceleration String ``"active"`` if acceleration is detected.
 
 None.
 
-**SmartApp Code Example**
+**SmartApp Example**
 
 .. code-block:: groovy
     
@@ -364,7 +366,7 @@ alarm       String      ``"strobe"`` if the alarm is strobing.
 *off()*
     Turn the alarm (siren and strobe) off
 
-**SmartApp Code Example:**
+**SmartApp Example:**
 
 .. code-block:: groovy
     
@@ -398,3 +400,89 @@ alarm       String      ``"strobe"`` if the alarm is strobing.
             log.debug "unexpected event: ${evt.value}"
         }
     }
+
+----
+
+.. _battery: 
+
+Battery
+-------
+
+Defines that the device has a battery.
+
+**Attributes:**
+
+========== ======= ===============
+Attribute  Type    Possible Values
+========== ======= ===============
+battery    Number  A number that represents the value of the specified battery.
+========== ======= ===============
+
+**Commands:**
+
+None
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "thebattery", "capability.battery"
+        }
+    }
+
+    def installed() {
+        def batteryValue = thebattery.latestValue("battery")
+        log.debug "latest battery value: $batteryValue"
+
+        subscribe(thebattery, "battery", batteryHandler)
+    }
+
+    def batteryHandler(evt) {
+        log.debug "battery attribute changed to ${evt.value}"
+    }
+
+----
+
+.. _beacon: 
+
+Beacon
+------
+
+**Attributes:**
+
+=========== ======= =================
+Attribute   Type    Possible Values
+=========== ======= =================
+presence    String  ``"present"``
+                    
+                    ``"not present"``
+=========== ======= =================
+
+**Commands:**
+
+None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "thebeacon", "capability.beacon"
+        }
+    }
+
+    def installed() {
+        def currBeacon = thebeacon.currentValue("presence")
+        log.debug "beacon is currently: $currBeacon"
+
+        subscribe(thebeacon, "presence", beaconHandler)
+    }
+
+    def beaconHandler(evt) {
+        log.debug "beacon presence is: ${evt.value}"
+    }
+
+----

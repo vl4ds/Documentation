@@ -15,3 +15,8 @@
 .wy-nav-content {
     max-width: 950px; !important;
 }
+
+/* consistent font with SmartThings website */
+body {
+    font-family: "Swiss 721 W01","Helvetica Neue",Helvetica,Arial,sans-serif; !important;
+}

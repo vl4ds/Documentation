@@ -52,8 +52,8 @@ Introduction_
 .. _Cloud and LAN-Connected Guide: cloud-and-lan-connected-device-types-developers-guide/index.html
 .. _SmartApp Web Services Guide: smartapp-web-services-developers-guide/index.html
 .. _Arduino Guide: arduino/index.html
-.. _Capabilities Taxonomy: :ref:`capabilities_taxonomy`
-.. _API Documentation: :ref:`ref_docs`
+.. _Capabilities Taxonomy: capabilities-reference.html
+.. _API Documentation: ref-docs/reference.html
 
 Find a bug, typo, or just want to make an improvement? This documentation is open source and available on `GitHub <https://github.com/SmartThingsCommunity/Documentation/>`__. We like contributions!
 

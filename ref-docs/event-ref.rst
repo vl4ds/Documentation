@@ -736,6 +736,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
 .. _Double: https://docs.oracle.com/javase/7/docs/api/java/lang/Double.html?is-external=true
 .. _Float: https://docs.oracle.com/javase/7/docs/api/java/lang/Float.html
 .. _Integer: https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html
+.. _Object: http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 .. _String: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html
 .. _Map: http://docs.oracle.com/javase/7/docs/api/java/util/Map.html
 .. _Number: http://docs.oracle.com/javase/7/docs/api/java/lang/Number.html

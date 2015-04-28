@@ -18,6 +18,10 @@ The following methods should be defined by all SmartApps. They are called by the
 installed()
 ~~~~~~~~~~~
 
+.. note::
+    
+    This method is expected to be defined by SmartApps.
+
 Called when an instance of the app is installed. Typically subscribes to events from the configured devices and creates any scheduled jobs.
 
 **Signature:**
@@ -41,6 +45,11 @@ Called when an instance of the app is installed. Typically subscribes to events 
 updated()
 ~~~~~~~~~
 
+.. note::
+    
+    This method is expected to be defined by SmartApps.
+    
+
 Called when the preferences of an installed app are updated. Typically unsubscribes and re-subscribes to events from the configured devices and unschedules/reschedules jobs.
 
 **Signature:**
@@ -62,6 +71,11 @@ Called when the preferences of an installed app are updated. Typically unsubscri
 
 uninstalled()
 ~~~~~~~~~~~~~
+
+.. note::
+    
+    This method may be defined by SmartApps.
+    
 
 Called, if declared, when an app is uninstalled. Does not need to be declared unless you have some external cleanup to do. subscriptions and scheduled jobs are automatically removed when an app is uninstalled, so you don't need to do that here.
 
@@ -223,9 +237,9 @@ Gets a map containing the local sunrise and sunset times.
     locationString  | `String`_ - any location string supported by the Weather Underground APIs.
                     | If not specified then the coordinates of the hub location are used
     sunriseOffset   | `String`_ - adjust the sunrise time by this amount. 
-                    | See timeOffset for supported formats
+                    | See `timeOffset()`_ for supported formats
     sunsetOffset    | `String`_ - adjust the sunset time by this amount.
-                    | See timeOffset for supported formats
+                    | See `timeOffset()`_ for supported formats
     ==============  ===========
 
 **Returns:** 
@@ -950,9 +964,9 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
 
 **Parameters:**
 
-    ``dateTime`` - A `Date`_ object, an ISO-8601 formatted date time string, or a cron expression.
+    ``dateTime`` - A `Date`_ object, an ISO-8601 formatted date time string.
     
-    ``cronExpression`` - A cron expression that specifies the schedule to execute on.
+    `String`_ ``cronExpression`` - A cron expression that specifies the schedule to execute on.
     
     ``handlerMethod`` - The method to call. This can be a reference to the method itself, or the method name as a string.
 
@@ -1102,8 +1116,8 @@ Sends the specified message and displays it in the *Hello, Home* portion of the 
 
     sendNotification("test notification - no params")
     sendNotification("test notification - push", [method: "push"])
-    sendNotification("test notification - sms", [method: "phone", phone: "6512307918"])
-    sendNotification("test notification - both", [method: "both", phone: "6512307918"])
+    sendNotification("test notification - sms", [method: "phone", phone: "1234567890"])
+    sendNotification("test notification - both", [method: "both", phone: "1234567890"])
     sendNotification("test notification - no event", [event: false])
 
 ----
@@ -1485,7 +1499,7 @@ Gets a `Date`_ object for today's date, for the specified time in the date-time 
     ``Date timeToday(String timeString [, TimeZone timeZone])``
 
 **Parameters:**
-    `String` ``timeString`` - Either an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
+    `String`_ ``timeString`` - Either an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
 
     `TimeZone`_ ``timeZone`` *(optional)* - The time zone to use for determining the current day.
 
@@ -1662,7 +1676,6 @@ Typically should be called in the `updated()`_ method, since device preferences 
     }
 
 ----
-
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html
