@@ -1,10 +1,6 @@
 Device Handler
 ==============
 
-.. warning::
-
-    This document is under active construction. Some of the methods are not documented at this time. Please refer to the old documentation `here <https://graph.api.smartthings.com/ide/doc/deviceType>`__ for any methods not currently documented.
-
 Device Handlers, or Device Types, are the virtual representation of a physical device. They are created by creating a new *SmartDevice* in the IDE.
 
 A Device Handler defines a `metadata()`_ method that defines the device's definition, UX information, as well as how it should behave in the IDE simulator.
