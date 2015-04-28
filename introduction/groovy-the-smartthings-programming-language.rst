@@ -201,6 +201,7 @@ Here are a few resources you can use to sharpen your Groovy skills:
 - `Groovy Closures`_
 - `Groovy Collections`_
 - `Groovy Web Console`_
+- `Learn Groovy in 5 Minutes`_
 
 .. _domain-specific language: http://en.wikipedia.org/wiki/Domain-specific_language
 .. _Groovy programming language: http://www.groovy-lang.org/
@@ -223,3 +224,4 @@ Here are a few resources you can use to sharpen your Groovy skills:
 .. _Groovy Console: http://groovy.codehaus.org/Groovy+Console
 .. _Groovy web console: https://groovyconsole.appspot.com/
 .. _Groovy Documentation Portal: http://groovy-lang.org/documentation.html
+.. _Learn Groovy in 5 Minutes: http://learnxinyminutes.com/docs/groovy/
