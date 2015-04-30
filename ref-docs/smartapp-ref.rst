@@ -640,12 +640,13 @@ Parses a Base64-encoded LAN message received from the hub into a map with header
 **Returns:**
     `Map`_  - a map with the following structure:
 
-    ======== =====
-    key      Value
-    ======== =====
-    header   The headers of the request as a single string
-    headers  A Map of string/name value pairs for each header
-    body     The request body as a string
+    ======== ============== ===================
+    key      type           description
+    ======== ============== ===================
+    header   `String`_      the headers of the request as a single string
+    headers  `Map`_         a Map of string/name value pairs for each header
+    body     `String`_      the request body as a string
+    ======== ============== ===================
 
 ----
 
@@ -663,14 +664,15 @@ Parses a Base64-encoded LAN message received from the hub into a map with header
 **Returns:**
     `Map`_ - A map with the following structure:
 
-    ======== =====
-    key      Value
-    ======== =====
-    header   The headers of the request as a single string
-    headers  A Map of string/name value pairs for each header
-    body     The request body as a string
-    xml      The request body as a `GPathResult`_ object
-    xmlError Error message from parsing the body, if any
+    ======== ============== ===================
+    key      type           description
+    ======== ============== ===================
+    header   `String`_      the headers of the request as a single string
+    headers  `Map`_         a Map of string/name value pairs for each header
+    body     `String`_      the request body as a string
+    xml      `GPathResult`_ the request body as a `GPathResult`_ object
+    xmlError `String`_      error message from parsing the body, if any
+    ======== ============== ===================
 
 ----
 

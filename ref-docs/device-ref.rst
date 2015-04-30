@@ -124,6 +124,8 @@ Some commands may take parameters; you will pass those parameters to the command
     ...
 ----
 
+.. _currentAttributeName:
+
 current<Uppercase attribute name>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -756,6 +758,8 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute since 
     ...
 
 ----
+
+.. _supportedAttributes:
 
 supportedAttributes
 ~~~~~~~~~~~~~~~~~~~
