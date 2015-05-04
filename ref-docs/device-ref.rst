@@ -146,11 +146,9 @@ For example, the Carbon Monoxide Detector capability has an attribute "carbonMon
 **Returns:**
     `Object`_ - the latest reported values for the specified attribute. The specific type of object returned will vary depending on the specific attribute.
 
-.. warning::
+.. tip::
     
-    The exact returned type for various attributes is not adequately documented at this time.
-
-    Until they are, we recommend that you save often and experiment, or even look at the specific Device Handler for the device you are working with.
+    The exact returned type for various attributes depends upon the underlying capability and Device Handler.
 
 **Example:**
 

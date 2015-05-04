@@ -370,7 +370,7 @@ Value of the Event as a parsed JSON data structure.
 
 .. warning::
     
-    ``jsonValue`` throws an Exception if the value of the Event cannot be parsed to a Long.
+    ``jsonValue`` throws an Exception if the value of the Event cannot be parsed into a JSON object.
 
     You should wrap calls in a try/catch block.
 
