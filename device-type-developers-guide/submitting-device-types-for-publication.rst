@@ -42,8 +42,9 @@ Reasons for Rejection
 
 - The device type adds minor addition or change that may be changed with a core product or UX change in a future update.
 - SmartThings is already developing a first-party integration and will not accept a device type for this device. 
-- The device type should actually be a  SmartApp instead, because it's actuating or changing a device.
+- The device type should actually be a SmartApp instead, because it's actuating or changing a device.
 - Suggested change does not fit our philosophy.
+- No discovery mechanism is provided. For LAN-Connected devices, a `Service Manager SmartApp <http://docs.smartthings.com/en/latest/cloud-and-lan-connected-device-types-developers-guide/understanding-the-service-manage-device-handler-design-pattern.html>`_ should serve to discover and create the device.
 - Multiple community submissions exist and we’re rolling several improvements together, so this specific one is being rejected.
 
 
