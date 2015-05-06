@@ -9,10 +9,10 @@ They allow us to abstract specific devices into their underlying capabilities.
 
 An application interacts with devices based on their capabilities, so once we understand the capabilities that are needed by a SmartApp, and the capabilities that are provided by a device, we can understand which devices (based on the Device's declared capabilities) are eligible for use within a specific SmartApp.
 
-Capabilities themselves are decomposee into both Commands and Attributes.
+Capabilities themselves are decomposed into both Commands and Attributes.
 Commands represent ways in which you can control or actuate the device, whereas Attributes represent state information or properties of the device.
 
-Capabililities are created and maintained by the SmartThings internal development team. 
+Capabilities are created and maintained by the SmartThings internal development team. 
 
 
 This page serves as a reference for the supported capabilities.
@@ -20,7 +20,7 @@ This page serves as a reference for the supported capabilities.
 .. note::
 
     This document is a work in progress. 
-    Many capabiltiies are not yet fully documented (those that don't have links to more information).
+    Many capabilities are not yet fully documented (those that don't have links to more information).
     We are continually working to document all the capabilities.
 
 Quick Reference
@@ -266,9 +266,11 @@ Water Sensor                  capability.waterSensor                 water
 .. _acceleration-sensor:
 
 Acceleration Sensor
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 The Acceleration Sensor capability allows for acceleration detection.
+
+Some use cases for SmartApps using this capability would be detecting if a washing machine is vibrating, or if a case has moved (particularly useful for knowing if a weapon case has been moved).
 
 ==================== =====================
 Capability Name      Preferences Reference
@@ -317,7 +319,7 @@ None.
 .. _actuator:
 
 Actuator
---------
+~~~~~~~~
 
 The Actuator capability is a "tagging" capability. It defines no attributes or commands.
 
@@ -328,9 +330,14 @@ In SmartThings terms, it represents that a Device has commands.
 .. _alarm:
 
 Alarm
------
+~~~~~
 
 The Alarm capability allows for interacting with devices that serve as alarms.
+
+.. note::
+
+    Z-Wave sometimes uses the term "Alarm" to refer to an important notification.
+    The *Alarm* Capability is used in SmartThings to define a device that acts as an Alarm in the traditional sense (e.g., has a siren and such).
 
 +------------------+--------------------------------+
 | Capability Name  | SmartApp Preferences Reference |
@@ -406,9 +413,15 @@ alarm       String      ``"strobe"`` if the alarm is strobing.
 .. _battery: 
 
 Battery
--------
+~~~~~~~
 
 Defines that the device has a battery.
+
+================ ==============================
+Capability Name  SmartApp Preferences Reference
+================ ==============================
+Alarm            capability.alarm          
+================ ==============================
 
 **Attributes:**
 
@@ -448,7 +461,13 @@ None
 .. _beacon: 
 
 Beacon
-------
+~~~~~~
+
+================ ==============================
+Capability Name  SmartApp Preferences Reference
+================ ==============================
+Beacon           capability.beacon          
+================ ==============================
 
 **Attributes:**
 
