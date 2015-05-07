@@ -273,10 +273,10 @@ alarm       String      ``"strobe"`` if the alarm is strobing.
 
         // subscribe to all alarm events
         subscribe(alarm, "alarm", allAlarmHandler)
+    }
 
-        def strobeHandler(evt) {
-            log.debug "${evt.value}" // => "strobe"
-        }
+    def strobeHandler(evt) {
+        log.debug "${evt.value}" // => "strobe"
     }
 
     def allAlarmHandler(evt) {
