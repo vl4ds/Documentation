@@ -38,7 +38,7 @@ Introduction_
 `Arduino Guide`_
     This guide discusses developing for the Arduino using our SmartThings Shield for Arduino.
 
-`Capabilities Taxonomy`_
+`Capabilities Reference`_
     This is where you find information on all the supported SmartThings capabilities.
 
 `API Documentation`_
@@ -52,7 +52,7 @@ Introduction_
 .. _Cloud and LAN-Connected Guide: cloud-and-lan-connected-device-types-developers-guide/index.html
 .. _SmartApp Web Services Guide: smartapp-web-services-developers-guide/index.html
 .. _Arduino Guide: arduino/index.html
-.. _Capabilities Taxonomy: capabilities-reference.html
+.. _Capabilities Reference: capabilities-reference.html
 .. _API Documentation: ref-docs/reference.html
 
 Find a bug, typo, or just want to make an improvement? This documentation is open source and available on `GitHub <https://github.com/SmartThingsCommunity/Documentation/>`__. We like contributions!
@@ -117,8 +117,8 @@ Arduino ThingShield
 
    arduino/index
 
-Capabilities Taxonomy
-~~~~~~~~~~~~~~~~~~~~~
+Capabilities Reference
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
     :maxdepth: 1
