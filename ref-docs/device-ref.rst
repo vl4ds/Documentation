@@ -25,8 +25,6 @@ Device objects cannot be instantiated, but are created by the SmartThings platfo
 
     Event history is limited to the last seven days. Methods that query devices for event history will only query the last seven days. This will be called out in those methods, but is good to be generally aware of.
 
-.. contents::
-
 ----
 
 <attribute name>State

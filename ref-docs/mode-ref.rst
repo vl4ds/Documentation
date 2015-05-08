@@ -15,8 +15,6 @@ SmartThings developers cannot create a new Mode. The most common way to interact
     // Get a list of all Modes for this location
     def allModesForLocation = location.modes
 
-.. contents::
-
 ----
 
 id

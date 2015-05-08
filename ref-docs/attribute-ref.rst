@@ -19,8 +19,6 @@ You can get the supported Attributes of a Device through the Device's :ref:`supp
 
 You can view the available attributes for all Capabilities in our :ref:`capabilities_taxonomy`.
 
-.. contents::
-
 ----
 
 dataType

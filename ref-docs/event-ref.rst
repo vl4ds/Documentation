@@ -13,8 +13,6 @@ Event instances are not created directly by SmartApp or Device Handlers. They ar
 
 The reference documentation here lists all properties and methods available on an Event object instance.
 
-.. contents::
-
 ----
 
 date

@@ -13,8 +13,6 @@ A Capability object cannot be created. You can get the Capabilities for a given 
 
 For documentation for the available Capabilities, you can refer to the :ref:`capabilities_taxonomy`.
 
-.. contents::
-
 ----
 
 name

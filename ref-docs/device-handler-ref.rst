@@ -15,8 +15,6 @@ For more information about the structure of Device Handlers, refer to the `Devic
 
     Writing a Device Handler is considered a somewhat advanced topic. Understanding of how a Device Handler is organized and operates is assumed in this reference documentation. You should be familiar with the contents of the `Device Handler's Guide <../device-type-developers-guide/index.html>`__ to get the most out of this documentation.
 
-.. contents::
-
 ----
 
 Methods expected to be defined by Device Handlers:

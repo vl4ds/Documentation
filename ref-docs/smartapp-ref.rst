@@ -9,8 +9,6 @@ They are created through the "New SmartApp" action in the IDE. There is no "clas
 
 When a SmartApp executes, it executes in the context of a certain installation instance. That is, a user installs a SmartApp on their mobile application, and configures it with devices or rules unique to them. A SmartApp is not continuously running; it is executed in response to various schedules or subscribed-to events. 
 
-.. contents::
-
 ----
 
 The following methods should be defined by all SmartApps. They are called by the SmartThings platform at various points in the SmartApp lifecycle.

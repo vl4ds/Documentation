@@ -27,8 +27,6 @@ An instance of a Command object encapsulates information about that Command. You
         log.debug "-- Command name: ${comm.name}"
     }
 
-.. contents::
-
 ----
 
 arguments

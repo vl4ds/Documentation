@@ -28,8 +28,6 @@ A few ways to get a State object instance from a device (See the :ref:`device_re
     // get a list of states between two dates
     def recentStates = thecontact.statesBetween(new Date() - 5, new Date())
 
-.. contents::
-
 ----
 
 date
