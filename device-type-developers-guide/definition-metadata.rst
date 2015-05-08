@@ -31,7 +31,7 @@ The supported parameters are:
 *name*
     The name of the device handler
 *namespace*
-    The namespace for this device handler. This should be your github user name. This is used when looking up device handlers by name to ensure the correct one is found, even if someone else has used the same name. 
+    The namespace for this device handler. This should be your github user name. This is used when looking up device handlers by name to ensure the correct one is found, even if someone else has used the same name.
 *author*
     The author of this device handler.
 
@@ -40,7 +40,7 @@ The closure defines the capabilities, attributes, commands, and fingerprint info
 Capabilities
 ------------
 
-To define that your defice supports a capability, simply call the ``capability`` method in the closure passed to ``definition``. 
+To define that your device supports a capability, simply call the ``capability`` method in the closure passed to ``definition``.
 
 The argument to the ``capability`` method is the Capability name.
 
@@ -88,7 +88,7 @@ To define a custom command for your device handler, call the ``command`` method 
 *commandName*
     The name of the command. You must also define a method in your device handler with the same name.
 *parameterTypes*
-    Optional. An ordered list of the parameter types for the command method, if needed. 
+    Optional. An ordered list of the parameter types for the command method, if needed.
 
 .. code-block:: groovy
 
@@ -145,12 +145,12 @@ An example of a ZigBee fingerprint definition:
 Z-Wave Fingerprinting
 ~~~~~~~~~~~~~~~~~~~~~
 
-For Z-Wave devices, the fingerprint should include the deviceId of the 
-device and the command classes it supports in the inClusters list. The 
-easiest way to find these values is by adding the actual device to 
-SmartThings and looking for the *Raw Description* in its details view in 
-the SmartThings developer tools. The device class ID is the four-digit 
-hexadecimal number (eg. 0x1001) and the command classes are the two-digit 
+For Z-Wave devices, the fingerprint should include the deviceId of the
+device and the command classes it supports in the inClusters list. The
+easiest way to find these values is by adding the actual device to
+SmartThings and looking for the *Raw Description* in its details view in
+the SmartThings developer tools. The device class ID is the four-digit
+hexadecimal number (eg. 0x1001) and the command classes are the two-digit
 hexadecimal numbers. So if the raw description is ::
 
     0 0 0x1104 0 0 0 8 0x26 0x2B 0x2C 0x27 0x73 0x70 0x86 0x72
@@ -161,22 +161,22 @@ The fingerprint will be
 
     fingerprint deviceId:"0x1104", inClusters:"0x26, 0x2B, 0x2C, 0x27, 0x73, 0x70, 0x86, 0x72"
 
-If the raw description has two lists of command classes separated by a 
-single digit 'count' number, the second list is the outClusters. So for 
+If the raw description has two lists of command classes separated by a
+single digit 'count' number, the second list is the outClusters. So for
 the raw description ::
 
     0 0 0x2001 0 8 0x30 0x71 0x72 0x86 0x85 0x84 0x80 0x70 1 0x20
 
-The fingerprint will be 
+The fingerprint will be
 
 .. code-block:: groovy
 
     fingerprint deviceId:"0x2001", inClusters:"0x30, 0x71, 0x72, 0x86, 0x85, 0x84, 0x80, 0x70", outClusters: "0x20"
 
-Note that the fingerprint clusters lists are comma separated while the raw 
+Note that the fingerprint clusters lists are comma separated while the raw
 description is not.
 
-The order of the inClusters and outClusters lists is not important. A 
-device will match to the *longest* fingerprint for which it matches the 
-deviceId and supports all of the clusters – it can have more than the 
+The order of the inClusters and outClusters lists is not important. A
+device will match to the *longest* fingerprint for which it matches the
+deviceId and supports all of the clusters – it can have more than the
 fingerprint and still match.

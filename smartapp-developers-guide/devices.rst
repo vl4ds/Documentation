@@ -50,7 +50,7 @@ After you have declared the devices your SmartApp needs to interact with, a Devi
 Device Attributes
 -----------------
 
-Attributes represent the state of a device. A device that supports the "temperatureMeasurement" capability has a "temperature" attribute, for example. 
+Attributes represent the state of a device. A device that supports the "temperatureMeasurement" capability has a "temperature" attribute, for example.
 
 Attributes have state -  the "temperature" attribute has an associated `State <https://graph.api.smartthings.com/ide/doc/state>`__ object that contains information about the temperature (its value, the date it was recorded, etc.)
 
@@ -78,7 +78,7 @@ The ``currentState`` method and ``<attributeName>State`` properties both return 
     }
 
     def someEventHandler(evt) {
-        
+
         def currentState = tempSensor.currentState("temperature")
         log.debug "temperature value as a string: ${currentState.value}"
         log.debug "time this temperature record was created: ${currentState.date}"
@@ -103,12 +103,12 @@ You can get the current value directly by using the ``currentValue(attributeName
         def currentValue = myLock.currentValue("lock")
         log.debug "the current value of myLock is $currentValue"
 
-        // Lock capability has "lock" attribute. 
+        // Lock capability has "lock" attribute.
         // <deviceName>.current<uppercase attribute name>:
         def anotherCurrentValue = myLock.currentLock
         log.debug "the current value of myLock using shortcut is: $anotherCurrentValue"
     }
-    
+
 
 Querying Event History
 ----------------------
@@ -128,7 +128,7 @@ To get a list of events in reverse chronological order (newest first), use the `
 To get a list of events in reverse chronological order (newest first) since a given date, use the ``eventsSince`` method:
 
 .. code-block:: groovy
-    
+
     // get all events for this device since yesterday (maximum of 1000 events)
     myDevice.eventsSince(new Date() - 1)
 
@@ -148,14 +148,14 @@ To get a list of events between two dates, use the ``eventsBetween`` method:
     // get the most recent 50 events in the last week
     myDevice.eventsBetween(new Date() - 7, new Date(), [max: 50])
 
-Similar date-constrained methods exist for getting State information for a device. 
+Similar date-constrained methods exist for getting State information for a device.
 
 Refer to the full `Device class reference <https://graph.api.smartthings.com/ide/doc/device>`__ for more information.
 
 Sending Commands
 ----------------
 
-SmartApps often need to send commands to a device - tell a switch to turn on, or a lock to unlock, for example. 
+SmartApps often need to send commands to a device - tell a switch to turn on, or a lock to unlock, for example.
 
 The commands available to your device will vary by device. You can refer to the `Capabilities Reference`_ to see the available commands for a given capability.
 
@@ -212,15 +212,15 @@ Here's a simple example of getting all switch state values and logging the switc
 
     def someEventHandler(evt) {
         // returns a list of the values for all switches
-        def currSwitches = mySwitches.currentSwitch
-    
+        def currSwitches = switches.currentSwitch
+
         def onSwitches = currSwitches.findAll { switchVal ->
             switchVal == "on" ? true : false
         }
 
         log.debug "${onSwitches.size() out of ${switches.size()} switches are on"
     }
-    
+
 See Also
 --------
 
