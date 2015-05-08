@@ -10,7 +10,7 @@ The preferences section of a SmartApp specifies what
 kinds of devices and other information is needed in order for the
 application to run. Inputs for each of these are presented to the user
 during installation of the SmartApp from the mobile UI.  You can present all of these
-inputs on a single page, or break them up into multiple pages. 
+inputs on a single page, or break them up into multiple pages.
 
 As usual, the best way to become comfortable with something is through trying it yourself.
 So, fire up the `web IDE <http://ide.smartthings.com>`__ and try things out!
@@ -57,7 +57,7 @@ Pages can be defined a couple different ways:
 
 *page(options) {}*
 
-This form takes a comma-separated list of name-value arguments. 
+This form takes a comma-separated list of name-value arguments.
 
 .. note::
 
@@ -66,7 +66,7 @@ This form takes a comma-separated list of name-value arguments.
 .. code-block:: groovy
 
     preferences {
-        page(name: "pageName", title: "page title", 
+        page(name: "pageName", title: "page title",
              nextPage: "nameOfSomeOtherPage", uninstall: true) {
             // sections go here
         }
@@ -84,7 +84,7 @@ The valid options are:
 *install*
     Boolean - Set to ``true`` to allow the user to install this app from this page. Defaults to ``false``. Not necessary for single-page preferences.
 *uninstall*
-    Boolean - Set to ``true`` to allow the user to uninstall from this page. Defualts to false. Not necessary for single-page preferences.
+    Boolean - Set to ``true`` to allow the user to uninstall from this page. Defaults to false. Not necessary for single-page preferences.
 
 
 We will see more in-depth examples of pages in the following sections.
@@ -134,7 +134,7 @@ The valid options are:
 *hideable*
     Boolean - Pass ``true`` to allow the section to be collapsed. Defaults to ``false``.
 *hidden*
-    Boolean - Pass ``true`` to specify the section is collapsed by default. Used in conjunction with ``hideable``. Defaults to ``false``. 
+    Boolean - Pass ``true`` to specify the section is collapsed by default. Used in conjunction with ``hideable``. Defaults to ``false``.
 *mobileOnly*
     Boolean - Pass ``true`` to suppress this section from the IDE simulator. Defaults to ``false``.
 
@@ -230,9 +230,9 @@ Example:
     preferences {
         section("paragraph") {
             paragraph "This us how you can make a paragraph element"
-            paragraph image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png", 
-                      title: "paragraph title", 
-                      required: true, 
+            paragraph image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+                      title: "paragraph title",
+                      required: true,
                       "This is a long description that rambles on and on and on..."
         }
     }
@@ -249,8 +249,8 @@ Valid options:
     String - The title of the paragraph
 *image*
     String - URL of image to use, if desired
-*required* 
-    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+*required*
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``.
 
 ----
 
@@ -266,7 +266,7 @@ Example:
 
     preferences {
         section("paragraph") {
-            icon(title: "required:true", 
+            icon(title: "required:true",
                  required: true)
         }
     }
@@ -284,7 +284,7 @@ Valid options:
 *title*
     String - The title of the icon
 *required*
-    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``.
 
 ----
 
@@ -299,18 +299,18 @@ Example of using href to visit a URL:
 
     preferences {
         section("external") {
-            href(name: "hrefNotRequired", 
-                 title: "SmartThings", 
-                 required: false, 
-                 style: "external", 
-                 url: "http://smartthings.com/", 
+            href(name: "hrefNotRequired",
+                 title: "SmartThings",
+                 required: false,
+                 style: "external",
+                 url: "http://smartthings.com/",
                  description: "tap to view SmartThings website in mobile browser")
         }
         section("embedded") {
-            href(name: "hrefWithImage", title: "This element has an image and a long title.", 
-                 description: "tap to view SmartThings website inside SmartThings app", 
-                 required: false, 
-                 image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png", 
+            href(name: "hrefWithImage", title: "This element has an image and a long title.",
+                 description: "tap to view SmartThings website inside SmartThings app",
+                 required: false,
+                 image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
                  url: "http://smartthings.com/")
         }
     }
@@ -332,8 +332,8 @@ Example of using href to link to another preference page (dynamic pages are disc
     def hrefPage() {
         dynamicPage(name: "hrefPage", title: "href example page", uninstall: true) {
             section("page") {
-                href(name: "href", 
-                     title: "dead end page", 
+                href(name: "href",
+                     title: "dead end page",
                      required: false,
                      page: "deadEnd")
             }
@@ -359,22 +359,22 @@ You can use the params option to pass data to dynamic pages:
 
     def firstPage() {
         def hrefParams = [
-            foo: "bar", 
+            foo: "bar",
             someKey: "someVal"
         ]
-    
+
         dynamicPage(name: "firstPage", uninstall: true) {
-            section {        
-                href(name: "toSecondPage", 
-                     page: "secondPage", 
-                     params: hrefParams, 
+            section {
+                href(name: "toSecondPage",
+                     page: "secondPage",
+                     params: hrefParams,
                      description: "includes params: ${hrefParams}")
             }
         }
     }
 
     // page def must include a parameter for the params map!
-    def secondPage(params) {   
+    def secondPage(params) {
         log.debug "params: ${params}"
         dynamicPage(name: "secondPage", uninstall: true, install: true) {
             section {
@@ -389,13 +389,13 @@ Valid options:
 *title*
     String - the title of the element
 *required*
-    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``.
 *description*
     String - the secondary text of the element
 *external* (**deprecated - use style instead**)
     Boolean - ``true`` to open URL in mobile browser application, ``false`` to open URL within the SmartThings app. Defaults to ``false``
 *style*
-    String - Controls how the link will be handled. Specify "external" to launch the link in the mobile device's browser. Specify "embedded" to launch the link within the SmartThings mobile application. Specify "page" to indicate this is a preferences page. 
+    String - Controls how the link will be handled. Specify "external" to launch the link in the mobile device's browser. Specify "embedded" to launch the link within the SmartThings mobile application. Specify "page" to indicate this is a preferences page.
 
     If ``style`` is not specified, but ``page`` is, then ``style:"page"`` is assumed. If ``style`` is not specified, but ``url`` is, then ``style:"embedded"`` is assumed.
 
@@ -403,11 +403,11 @@ Valid options:
 *url*
     String - The URL of the page to visit. You can use query parameters to pass additional information to the URL (For example, \http://someurl.com?param1=value1&param2=value1\)
 *params*
-    Map - Use this to pass parameters to other preference pages. If doing this, make sure your page definition method accepts a single parameter (that will be this params map). See the page-params-by-href example at the end of this document for more information. 
+    Map - Use this to pass parameters to other preference pages. If doing this, make sure your page definition method accepts a single parameter (that will be this params map). See the page-params-by-href example at the end of this document for more information.
 *page*
     String - Used to link to another preferences page. Not compatible with the external option.
 *image*
-    String - URL of an image to use, if desired.  
+    String - URL of an image to use, if desired.
 
 ----
 
@@ -428,13 +428,13 @@ Example:
         }
         page(name: "pageTwo", title: "page two") {
             section("page two section one") {
-                mode(name: "modeMultiple", 
-                     title: "pick some modes", 
+                mode(name: "modeMultiple",
+                     title: "pick some modes",
                      required: false)
-                mode(name: "modeWithImage", 
-                     title: "This element has an image and a long title.", 
-                     required: false, 
-                     multiple: false, 
+                mode(name: "modeWithImage",
+                     title: "This element has an image and a long title.",
+                     required: false,
+                     multiple: false,
                      image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png")
             }
         }
@@ -450,7 +450,7 @@ Valid options:
 *title*
     String - the title of the mode field
 *required*
-    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. 
+    Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``.
 *multiple*
     Boolean - ``true`` or ``false`` to specify this input allows selection of multiple values. Defaults to ``true``.
 *image*
@@ -469,19 +469,19 @@ Example:
 
     preferences {
         section("labels") {
-            label(name: "label", 
-                  title: "required:false, 
-                  multiple:false", 
-                  required: false, 
+            label(name: "label",
+                  title: "required:false,
+                  multiple:false",
+                  required: false,
                   multiple: false)
             label(name: "labelRequired",
-                  title: "required:true", 
-                  required: true, 
+                  title: "required:true",
+                  required: true,
                   multiple: false)
-            label(name: "labelWithImage", 
-                  title: "This element has an image and a title.", 
-                  description: "image and a title", 
-                  required: false, 
+            label(name: "labelWithImage",
+                  title: "This element has an image and a title.",
+                  description: "image and a title",
+                  required: false,
                   image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png")
         }
     }
