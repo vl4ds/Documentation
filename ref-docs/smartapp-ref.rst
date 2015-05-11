@@ -1400,7 +1400,7 @@ subscribeToCommand()
 Subscribes to device commands that are sent to a device or devices. The specified ``handlerMethod`` will be called whenever the specified ``command`` is sent.
 
 **Signature:**
-    ``void subscribeToCommand(deviceOrDevices, commandName, handlerMethod)
+    ``void subscribeToCommand(deviceOrDevices, commandName, handlerMethod)``
 
 **Parameters:**
 
