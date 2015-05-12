@@ -334,6 +334,27 @@ The value of this Event as an Integer.
 
 ----
 
+isDigital()
+~~~~~~~~~~~
+
+``true`` if the Event is from the digital actuation (non-physical) of a Device, ``false`` otherwise.
+
+**Signature:**
+    ``Boolean physical()``
+
+**Returns:**
+    `Boolean`_ - ``true`` if the Event is from the digital actuation of a Device, ``false`` otherwise.
+
+**Example:**
+    
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "event from digital actuation? ${evt.isDigital()}"
+    }
+
+----
+
 isoDate
 ~~~~~~~
 
@@ -352,6 +373,48 @@ Acquisition time of this Event as an ISO-8601 String.
     def eventHandler(evt) {
         log.debug "event isoDate: ${evt.isoDate}"
     }    
+
+----
+
+isPhysical()
+~~~~~~~~~~~~
+
+``true`` if the Event is from the physical actuation of a Device, ``false`` otherwise.
+
+**Signature:**
+    ``Boolean physical()``
+
+**Returns:**
+    `Boolean`_ - ``true`` if the Event is from the physical actuation of a Device, ``false`` otherwise.
+
+**Example:**
+    
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "event from physical actuation? ${evt.isPhysical()}"
+    }
+
+----
+
+isStateChange()
+~~~~~~~~~~~~~~~
+
+``true`` if the Attribute value for this Event is different than the previous one.
+
+**Signature:**
+    ``Boolean stateChange()``
+
+**Returns:**
+    `Boolean`_ - ``true`` if the Attribute value for this Event is different than the previous one.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "Is this event a state change? ${evt.isStateChange()}"
+    }
 
 ----
 
@@ -551,26 +614,6 @@ The value of this Event as a Number.
         }    
     }
     
-
-physical
-~~~~~~~~
-
-``true`` if the Event is from the physical actuation of a Device, ``false`` otherwise.
-
-**Signature:**
-    ``Boolean physical``
-
-**Returns:**
-    `Boolean`_ - ``true`` if the Event is from the physical actuation of a Device, ``false`` otherwise.
-
-**Example:**
-    
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "event from physical actuation? ${evt.physical}"
-    }
-
 ----
 
 source
@@ -602,27 +645,6 @@ The source of the Event.
 
     def eventHandler(evt) {
         log.debug "The source of this event is: ${evt.source}"
-    }
-
-----
-
-stateChange
-~~~~~~~~~~~
-
-``true`` if the Attribute value for this Event is different than the previous one.
-
-**Signature:**
-    ``Boolean stateChange``
-
-**Returns:**
-    `Boolean`_ - ``true`` if the Attribute value for this Event is different than the previous one.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "Is this event a state change? ${evt.stateChange}"
     }
 
 ----

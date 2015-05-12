@@ -35,11 +35,11 @@ This powerful feature can make documenting all available methods difficult, sinc
 
 All methods and properties are listed in alphabetical order, with the exception of SmartApp and Device Handler methods that are expected to be defined by SmartApps and Device Handlers - those will be listed first.
 
-Methods are listed with a ``()`` after the name. Properties do not have a ``()``. For example: ``getWeatherFeature()`` is a method, ``floatValue`` is a property.
+Methods are listed with a ``()`` after the name. Properties do not have a ``()``. For example: ``subscribe()`` is a method, ``floatValue`` is a property.
 
 .. note::
     
-    Groovy follows the JavaBean convention, and adds some syntactic sugar on top. Some properties *could* be called as methods. For example, on the ``Event`` class there is the ``physical`` Boolean property. This can be accessed more verbosely as ``isPhysical()``. When property access is supported, it will be documented simply as the property name. That is the form that is conventionally used.
+    Groovy follows the JavaBean convention, and adds some syntactic sugar on top. Any zero-arg getter can be retrieved via property access directly. For example, ``isPhysical()`` *could* be invoked as ``physical``. Because this relies upon details of the backing internal object, we recommend that you use the documented version.
 
 Some methods may have many signatures. For example, the ``schedule`` method available to SmartApps can be called with a variety of arguments. We have documented all forms in one location (``schedule()``). All supported signatures will be listed, as well as all parameters for the various signatures.
 
