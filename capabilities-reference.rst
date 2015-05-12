@@ -403,17 +403,55 @@ Button           capability.button
 
 **Attributes:**
 
-=========== ======= =================
+=========== ======= ====================================
 Attribute   Type    Possible Values
-=========== ======= =================
-button      String  ``"held"``
-                    ``"pushed"``
-=========== ======= =================
+=========== ======= ====================================
+button      String  ``"held"`` if the button is held (longer than a push)
+                    
+                    ``"pushed"`` if the button is pushed
+=========== ======= ====================================
 
 **Commands:**
 
 None.
 
+**SmartApp Code Example:**
+
+.. code-block:: groovy
+
+    preferences {
+          section() {
+              input "thebutton", "capability.button"
+          }
+    }
+
+    def installed() {
+        // subscribe to any change to the "button" attribute
+        // if we wanted to only subscribe to the button be held, we would use
+        // subscribe(thebutton, "button.held", buttonHeldHandler), for example.
+        subscribe(thebutton, "button", buttonHandler)
+    }
+
+    def buttonHandler(evt) {
+        if (evt.value == "held") {
+            log.debug "button was held"
+        } else if (evt.value == "pushed") {
+            log.debug "button was pushed"
+        }
+
+        // Some button devices may have more than one button. While the 
+        // specific implementation varies for different devices, there may be 
+        // button number information in the jsonData of the event:
+        try {
+            def data = evt.jsonData
+            def buttonNumber = data.buttonNumber as Integer
+            log.debug "evt.jsonData: $data"
+            log.debug "button number: $buttonNumber"
+        } catch (e) {
+            log.warn "caught exception getting event data as json: $e"
+        }
+    }
+  
 ----
 
 .. _c_m_detector:
