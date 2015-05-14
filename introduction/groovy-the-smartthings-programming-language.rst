@@ -33,6 +33,10 @@ SmartThings runs with a sandboxed environment. This means that not all features 
 
 Here are some of the restrictions:
 
+**Including custom classes or JARs is not supported**
+
+You cannot upload or import your own classes or JARs. 
+
 **Class restrictions**
 
 You cannot define your own classes within the SmartThings platform, or include any of your own classes. You cannot do this:
