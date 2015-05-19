@@ -441,6 +441,24 @@ carbonMonoxide  String  ``"tested"``
 
 None.
 
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "smoke", "capability.smokeDetector", title: "Smoke Detected", required: false, multiple: true
+        }
+    }
+
+    def installed() {
+        subscribe(smoke, "carbonMonoxide.detected", smokeHandler)
+    }
+
+    def smokeHandler(evt) {
+        log.debug "carbon alert: ${evt.value}"
+    }
+
 ----
 
 .. _color_control:
@@ -456,13 +474,23 @@ Color Control               capability.colorControl
 
 **Attributes:**
 
-=============== ======= =================
+=============== ======= =========================================
 Attribute       Type    Possible Values
-=============== ======= =================
-hue             Number  0-255
-saturation      Number  0-255
+=============== ======= =========================================
+hue             Number  ``0-100`` (percent)
+saturation      Number  ``0-100`` (percent)
 color           Map
-=============== ======= =================
+                        ============= ===========================
+                        key           value
+                        ============= ===========================
+                        hue           ``0-100 (percent)``
+                        saturation    ``0-100 (percent)``
+                        color         ``#000000 - #FFFFFF (Hex)``
+                        level         ``0-100 (percent)``
+                        switch        ``on`` or ``off``
+                        ============= ===========================
+
+=============== ======= =========================================
 
 **Commands:**
 
