@@ -33,7 +33,7 @@ TRACE ``log.trace(string)`` | Most detailed information.
 Logging Examples
 ----------------
 
-Consider the following simple SmartApp which simple sets up some switch devices
+Consider the following simple SmartApp which sets up some switch devices
 and has an event handler method that will log how many switches are currently
 turned on.
 
