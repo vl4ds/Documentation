@@ -456,6 +456,26 @@ Valid options:
 *image*
     String - URL of an image to use, if desired.
 
+.. note::
+    There are a couple of different ways to use modes that are worth pointing out. The first way is to use modes as a type of enum input like this:
+
+    .. code-block:: groovy
+
+        input "modes", "mode", title: "only when mode is", multiple: true, required: false
+
+    This method will automatically list the defined modes as the options. Keep in mind when using modes in this way that the modes are just data
+    and can be accessed in the SmartApp as such.
+    This does not effect SmartApp execution. In this scenario, it is up to the SmartApp itself to react to the mode changes.
+
+    The second example actually controls whether the app is executed based on the modes selected:
+
+    .. code-block:: groovy
+
+        mode(title: "set for specific mode(s)")
+
+    Both of these methods of using modes are valid. The impact on SmartApp execution is different in each scenario and
+    it is up to the SmartApp developer to properly label whichever form is used and code the app accordingly.
+
 ----
 
 label
