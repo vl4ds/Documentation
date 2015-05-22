@@ -474,23 +474,23 @@ Color Control               capability.colorControl
 
 **Attributes:**
 
-=============== ======= =========================================
+=============== ======= =============================================
 Attribute       Type    Possible Values
-=============== ======= =========================================
+=============== ======= =============================================
 hue             Number  ``0-100`` (percent)
 saturation      Number  ``0-100`` (percent)
 color           Map
-                        ============= ===========================
+                        ============= ===============================
                         key           value
-                        ============= ===========================
+                        ============= ===============================
                         hue           ``0-100 (percent)``
                         saturation    ``0-100 (percent)``
-                        color         ``#000000 - #FFFFFF (Hex)``
+                        hex           ``"#000000" - "#FFFFFF" (Hex)``
                         level         ``0-100 (percent)``
-                        switch        ``on`` or ``off``
-                        ============= ===========================
+                        switch        ``"on"`` or ``"off"``
+                        ============= ===============================
 
-=============== ======= =========================================
+=============== ======= =============================================
 
 **Commands:**
 
@@ -501,12 +501,44 @@ color           Map
 *setColor(color_map)*
     Sets the color to the passed in maps values
 
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+	    section("Title") {
+            input "contact", "capability.contactSensor", title: "contact sensor", required: true, multiple: false
+		    input "bulb", "capability.colorControl", title: "pick a bulb", required: true, multiple: false
+	    }
+    }
+
+    def installed() {
+        subscribe(contact, "contact", contactHandler)
+    }
+
+    def contactHandler(evt) {
+        if("open" == "$evt.value") {
+            bulb.on()  // Turn the bulb on when open
+            bulb.setHue(80)
+            bulb.setSaturation(100)  // Set the color to something fancy
+            bulb.setLevel(100)  // Make sure the light brightness is 100%
+        } else {
+            bulb.off()  // Turn the bulb off when closed
+        }
+    }
+
 ----
 
 .. _configuration:
 
 Configuration
 -------------
+
+.. note::
+    This capability is meant to be used only in device handlers. The implementation of the
+    ``configure()`` method will be very specific to the physical device. The commands that
+    populate the ``configure()`` method will most likely be found in the device manufacturer's
+    documentation.
 
 =========================   ==============================
 Capability Name             SmartApp Preferences Reference
@@ -521,7 +553,24 @@ None.
 **Commands:**
 
 *configure()*
-    Configure
+    This is where the device specific configuration commands can be implemented.
+
+**Device Handler Example:**
+
+.. code-block:: groovy
+
+    def configure() {
+        def cmd = delayBetween([
+            zwave.configurationV1.configurationSet(parameterNumber: 101, size: 4, scaledConfigurationValue: 4).format(), // combined power in watts
+            zwave.configurationV1.configurationSet(parameterNumber: 111, size: 4, scaledConfigurationValue: 300).format(), // every 5 min
+            zwave.configurationV1.configurationSet(parameterNumber: 102, size: 4, scaledConfigurationValue: 8).format(), // combined energy in kWh
+            zwave.configurationV1.configurationSet(parameterNumber: 112, size: 4, scaledConfigurationValue: 300).format(), // every 5 min
+            zwave.configurationV1.configurationSet(parameterNumber: 103, size: 4, scaledConfigurationValue: 0).format(), // no third report
+            zwave.configurationV1.configurationSet(parameterNumber: 113, size: 4, scaledConfigurationValue: 300).format() // every 5 min
+        ])
+        log.debug cmd
+        cmd
+    }
 
 ----
 
@@ -548,6 +597,29 @@ contact         String  ``"open"``
 **Commands:**
 
 None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+	    section("Contact Example") {
+		    input "contact", "capability.contactSensor", title: "pick a contact sensor", required: true, multiple: false
+	    }
+    }
+
+    def installed() {
+	    subscribe(contact, "contact", contactHandler)
+    }
+
+    def contactHandler(evt) {
+        if("open" == evt.value)
+            // contact was opened, turn on a light maybe?
+            log.debug "Contact is in ${evt.value} state"
+        if("closed" == evt.value)
+            // contact was closed, turn off the light?
+            log.debug "Contact is in ${evt.value} state"
+    }
 
 ----
 
