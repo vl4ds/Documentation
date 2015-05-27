@@ -671,12 +671,29 @@ Energy Meter                capability.energyMeter
 ========= ======= =================
 Attribute Type    Possible Values
 ========= ======= =================
-door
+energy    Number  ``numeric value representing energy consumption``
 ========= ======= =================
 
 **Commands:**
 
 None.
+
+.. code-block:: groovy
+
+    preferences {
+	    section("Title") {
+		    input "outlet", "capability.switch", title: "outlet", required: true, multiple: false
+	    }
+    }
+
+    def installed() {
+	    subscribe(outlet, "energy", myHandler)
+        subscribe(outlet, "switch", myHandler)
+    }
+
+    def myHandler(evt) {
+        log.debug "$outlet.currentEnergy"
+    }
 
 ----
 
@@ -696,12 +713,39 @@ Illuminance Measurement     capability.illuminanceMeasurement
 =========== ======= =================
 Attribute   Type    Possible Values
 =========== ======= =================
-illuminance
+illuminance Number  ``numeric value representing illuminance``
 =========== ======= =================
 
 **Commands:**
 
 None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+	    section("Title") {
+		    input "lightSensor", "capability.illuminanceMeasurement"
+		    input "light", "capability.switch"
+	    }
+    }
+
+    def installed() {
+	    subscribe(lightSensor, "illuminance", myHandler)
+    }
+
+    def myHandler(evt) {
+	    def lastStatus = state.lastStatus
+	    if (lastStatus != "on" && evt.integerValue < 30) {
+		    light.on()
+		    state.lastStatus = "on"
+	    }
+	    else if (lastStatus != "off" && evt.integerValue > 50) {
+		    light.off()
+		    state.lastStatus = "off"
+	    }
+    }
 
 ----
 
@@ -721,13 +765,38 @@ Image Capture               capability.imageCapture
 ========= ======= =================
 Attribute Type    Possible Values
 ========= ======= =================
-image
+image     String  ``string value representing the image captured``
 ========= ======= =================
 
 **Commands:**
 
 *take()*
     Capture an image
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+	    section("Choose one or more, when..."){
+		    input "motion", "capability.motionSensor", title: "Motion Here", required: false, multiple: true
+	    }
+	    section("Take a burst of pictures") {
+		    input "camera", "capability.imageCapture"
+	    }
+    }
+
+    def installed() {
+	    subscribe(motion, "motion.active", takePhotos)
+    }
+
+    def takePhotos(evt) {
+        camera.take()
+	    (1..4).each {
+		    camera.take(delay: (1000 * it))
+	    }
+	    log.debug "$camera.currentImage"
+    }
 
 ----
 
