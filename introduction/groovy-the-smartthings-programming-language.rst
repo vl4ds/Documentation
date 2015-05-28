@@ -33,6 +33,10 @@ SmartThings runs with a sandboxed environment. This means that not all features 
 
 Here are some of the restrictions:
 
+**Including custom classes or JARs is not supported**
+
+You cannot upload or import your own classes or JARs. 
+
 **Class restrictions**
 
 You cannot define your own classes within the SmartThings platform, or include any of your own classes. You cannot do this:
@@ -201,6 +205,7 @@ Here are a few resources you can use to sharpen your Groovy skills:
 - `Groovy Closures`_
 - `Groovy Collections`_
 - `Groovy Web Console`_
+- `Learn Groovy in 5 Minutes`_
 
 .. _domain-specific language: http://en.wikipedia.org/wiki/Domain-specific_language
 .. _Groovy programming language: http://www.groovy-lang.org/
@@ -223,3 +228,4 @@ Here are a few resources you can use to sharpen your Groovy skills:
 .. _Groovy Console: http://groovy.codehaus.org/Groovy+Console
 .. _Groovy web console: https://groovyconsole.appspot.com/
 .. _Groovy Documentation Portal: http://groovy-lang.org/documentation.html
+.. _Learn Groovy in 5 Minutes: http://learnxinyminutes.com/docs/groovy/

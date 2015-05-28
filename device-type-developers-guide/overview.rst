@@ -6,14 +6,14 @@ from their distinct capabilities and attributes in a way that allows
 developers to build applications that are insulated from the specifics
 of which device they are using. For example, there are lots of
 wirelessly controllable “switches”. A switch is any device that can be
-turned On or Off. 
+turned On or Off.
 
 When a SmartApp interacts with the virtual representation of a device,
 it knows that the device supports certain actions based on its
 capabilities. A device that has the "switch" capability must support
 both the "on" and "off" actions. In this way, all switches are the same,
 and it doesn't matter to the SmartApp what kind of switch is actually
-involved. 
+involved.
 
 This virtual representation of the device is called a device handler, or SmartDevice.
 
@@ -73,9 +73,9 @@ To understand how device handlers work, a few core concepts need to be discussed
 Capabilities
 ~~~~~~~~~~~~
 
-Capabilities are the interactions that a device allows. They provide an abstraction layer that allows SmartApps to work with devices based on the capabilities they support, and not be tied to a specific manufacturer or model. 
+Capabilities are the interactions that a device allows. They provide an abstraction layer that allows SmartApps to work with devices based on the capabilities they support, and not be tied to a specific manufacturer or model.
 
-Consider the example of the "Switch" capability. In simple terms, a switch is a device that can turn on and off. It may be be a switch in the traditional sense (an in-wall light switch, for example), or a connected bulb (a Hue or Cree bulb, for example), or even a music player. All of these unique devices have a device handler, and those device handler's support the "Switch" capability. This allows SmartApps to only require a device that supports the "Switch" capability, and thus work with a variety of devices, including different manufacturer and model-specific "switches". The SmartApp can then interact with the device knowing that it supports the "on" and "off" command (more on commands below), without caring about the specific device being used.
+Consider the example of the "Switch" capability. In simple terms, a switch is a device that can turn on and off. It may be that a switch in the traditional sense (for example an in-wall light switch), a connected bulb (a Hue or Cree bulb), or even a music player. All of these unique devices have a device handler, and those device handler's support the "Switch" capability. This allows SmartApps to only require a device that supports the "Switch" capability and thus work with a variety of devices including different manufacturer and model-specific "switches". The SmartApp can then interact with the device knowing that it supports the "on" and "off" command (more on commands below), without caring about the specific device being used.
 
 This code illustrates how a SmartApp might interact with a device that supports the "Switch" capability:
 
@@ -83,7 +83,7 @@ This code illustrates how a SmartApp might interact with a device that supports 
 
     preferences() {
         section("Control this switch"){
-            input "theSwitch", "capability.switch", multiple: false 
+            input "theSwitch", "capability.switch", multiple: false
         }
     }
 
@@ -116,9 +116,9 @@ Commands are implemented as methods on the device handler. When a device support
 Attributes
 ~~~~~~~~~~
 
-Attributes represent particular state values for your device. For example, the switch capability defines the attribute "switch", with possible values of "on" and "off". 
+Attributes represent particular state values for your device. For example, the switch capability defines the attribute "switch", with possible values of "on" and "off".
 
-In the example above, we get the value of the "switch" attribute by using the "current<attributeName>" property (``currentSwitch``). 
+In the example above, we get the value of the "switch" attribute by using the "current<attributeName>" property (``currentSwitch``).
 
 Attribute values are set by creating events where the attribute name is the name of the event, and the attribute value is the value of the event. This is discussed more in the `Parse and Events documentation <parse.html#parse-events-and-attributes>`__
 
@@ -129,7 +129,7 @@ Actuator and Sensor
 
 If you look at the :ref:`capabilities_taxonomy` , you'll notice two capabilities that have no attributes or commands - "Actuator" and "Sensor".
 
-These capabilities are "marker" or "tagging" capabilities (if you're familiar with Java, think of the Cloneable interface - it defines no state or behavior). 
+These capabilities are "marker" or "tagging" capabilities (if you're familiar with Java, think of the Cloneable interface - it defines no state or behavior).
 
 The "Actuator" capability defines that a device has commands. The "Sensor" capability defines that a device has attributes.
 
@@ -140,7 +140,7 @@ The reason for this is convention and forward-looking abilities - it can allow t
 Protocols
 ---------
 
-SmartThings currently supports both the `Z-Wave <http://en.wikipedia.org/wiki/Z-Wave>`__ and `ZigBee <http://en.wikipedia.org/wiki/ZigBee>`__ wireless protocols. 
+SmartThings currently supports both the `Z-Wave <http://en.wikipedia.org/wiki/Z-Wave>`__ and `ZigBee <http://en.wikipedia.org/wiki/ZigBee>`__ wireless protocols.
 
 Since the device handler is responsible for communicating between the device and the SmartThings platform, it is usually necessary to understand and communicate in whatever protocol the device supports. This guide will discuss both Z-Wave and ZibBee protocols at a high level.
 
@@ -149,5 +149,5 @@ Rate Limiting
 
 Like SmartApps, Device Handlers are restricted to executing no more than 250 times in a 60 second window. Execution attempts exceeding this limit will be prevented, and a message will be logged indicating that the limit has been reached. The count will start over when the current time window closes, and the next begins.
 
-Common causes for exceeding this limit are a SmartApp that sends many commands to one device by receiving a large number of event subscriptions (if that doesn’t first hit the limit for SmartApps). For example, DLNA players that are extremely chatty or devices that bind to frequently changing energy/power values may also encounter this limit. 
+Common causes for exceeding this limit are a SmartApp that sends many commands to one device by receiving a large number of event subscriptions (if that doesn’t first hit the limit for SmartApps). For example, DLNA players that are extremely chatty or devices that bind to frequently changing energy/power values may also encounter this limit.
 

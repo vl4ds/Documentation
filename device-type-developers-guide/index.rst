@@ -32,3 +32,4 @@ Table of Contents:
    zigbee-primer
    building-zigbee-device-handlers
    zigbee-example
+   submitting-device-types-for-publication
