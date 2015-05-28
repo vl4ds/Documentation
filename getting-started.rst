@@ -99,7 +99,7 @@ Click the "Save" button above the editor.
 
 .. note::
 
-    When interacting with devices, SmartApps should use capabilities to ensure maximum flexibility (that's the "capability.contactSensor" above). The available capabilities can be found `here <https://graph.api.smartthings.com/ide/doc/capabilities>`__
+    When interacting with devices, SmartApps should use capabilities to ensure maximum flexibility (that's the "capability.contactSensor" above). The available capabilities can be found on the :ref:`capabilities_taxonomy` page.
 
     More information about preferences can be found in the `Preferences and Settings section <smartapp-developers-guide/preferences-and-settings.html>`__ of the `SmartApp Developer's Guide <smartapp-developers-guide/index.html>`__. 
 

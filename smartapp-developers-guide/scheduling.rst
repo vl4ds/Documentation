@@ -1,6 +1,8 @@
 Scheduling
 ==========
 
+.. contents:: Topics
+
 SmartApps often have the need to schedule certain actions to take place at a given point in time. For example, an app may want to turn off the lights five minutes after someone leaves. Or maybe an app wants to turn the lights on every day at a certain time.
 
 Broadly speaking, there are a few different ways we might want to schedule something to happen:

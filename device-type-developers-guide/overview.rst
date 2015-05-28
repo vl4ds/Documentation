@@ -100,8 +100,7 @@ This code illustrates how a SmartApp might interact with a device that supports 
 
 The above example illustrates how a SmartApp requests a device that supports the "Switch" capability. When installing the SmartApp, the user will be able to select any device that supports the "Switch" capability - be it an in-wall light switch, a connected bulb, a music player, or any other device that supports the "Switch" capability.
 
-There is a `reference
-document <https://graph.api.smartthings.com/ide/doc/capabilities>`__ that outlines all the supported capabilities.
+The :ref:`capabilities_taxonomy` outlines all the supported capabilities.
 
 Device handlers typically support more than one capability. A device handler for a Hue bulb would support the "Switch" capability as well as the "Color Control" capability. This allows SmartApps to be written in a very flexible manner.
 
@@ -128,7 +127,7 @@ Like commands, when a device supports a capability, it is responsible for ensuri
 Actuator and Sensor
 ~~~~~~~~~~~~~~~~~~~
 
-If you look at the `Capabilities taxonomy <https://graph.api.smartthings.com/ide/doc/capabilities>`__, you'll notice two capabilities that have no attributes or commands - "Actuator" and "Sensor".
+If you look at the :ref:`capabilities_taxonomy` , you'll notice two capabilities that have no attributes or commands - "Actuator" and "Sensor".
 
 These capabilities are "marker" or "tagging" capabilities (if you're familiar with Java, think of the Cloneable interface - it defines no state or behavior).
 

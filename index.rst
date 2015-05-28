@@ -38,8 +38,12 @@ Introduction_
 `Arduino Guide`_
     This guide discusses developing for the Arduino using our SmartThings Shield for Arduino.
 
-`Reference Material`_
-    This is where you'll find the details of the various capabilities, as well as the detailed API documentation. 
+`Capabilities Reference`_
+    This is where you find information on all the supported SmartThings capabilities.
+
+`API Documentation`_
+    This is the detailed API documentation for the various SmartThings objects.
+
 
 .. _Getting Started: getting-started.html
 .. _Introduction: introduction/index.html
@@ -48,7 +52,8 @@ Introduction_
 .. _Cloud and LAN-Connected Guide: cloud-and-lan-connected-device-types-developers-guide/index.html
 .. _SmartApp Web Services Guide: smartapp-web-services-developers-guide/index.html
 .. _Arduino Guide: arduino/index.html
-.. _Reference Material: reference-material.html
+.. _Capabilities Reference: capabilities-reference.html
+.. _API Documentation: ref-docs/reference.html
 
 Find a bug, typo, or just want to make an improvement? This documentation is open source and available on `GitHub <https://github.com/SmartThingsCommunity/Documentation/>`__. We like contributions!
 
@@ -112,12 +117,23 @@ Arduino ThingShield
 
    arduino/index
 
-Reference Material
-~~~~~~~~~~~~~~~~~~
+Capabilities Reference
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. toctree::
-	:maxdepth: 3
-	
-	reference-material
+    :maxdepth: 1
 
+    capabilities-reference
+    
+API Documentation
+~~~~~~~~~~~~~~~~~
 
+.. toctree::
+    :maxdepth: 3
+
+    ref-docs/reference
+
+Search
+======
+
+* :ref:`search`
