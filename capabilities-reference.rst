@@ -861,7 +861,7 @@ lock            String  ``"locked"``
     preferences {
 	    section("Title") {
 		    input "lock", "capability.lock", title:"door lock", required: true, multiple: false
-            input "motion", "capability.motionSensor", title:"motion", required: true, multiple: false
+		    input "motion", "capability.motionSensor", title:"motion", required: true, multiple: false
 	    }
     }
 
@@ -928,6 +928,27 @@ None.
 *push()*
     Press the momentary switch
 
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+	    section("Title") {
+		    input "doorOpener", "capability.momentary", title: "Door Opener", required: true, multiple: false
+		    input "presence", "capability.presenceSensor", title: "presence", required: true, multiple: false
+	    }
+    }
+
+    def installed() {
+        subscribe(presence, "presence", myHandler)
+    }
+
+    def myHandler(evt) {
+        if("present" == evt.value) {
+            doorOpener.push()
+        }
+    }
+
 ----
 
 .. _motion_sensor:
@@ -953,6 +974,29 @@ motion          String  ``"active"``
 **Commands:**
 
 None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+    preferences {
+	    section("Choose one or more, when..."){
+		    input "motion", "capability.motionSensor", title: "Motion Here", required: true, multiple: true
+		    input "myswitch", "capability.switch", title: "switch", required: true, multiple: false
+	    }
+    }
+
+    def installed() {
+	    subscribe(motion, "motion", myHandler)
+    }
+
+    def myHandler(evt) {
+        if("active" == evt.value) {
+            myswitch.on()
+        } else if("inactive" == evt.value) {
+            myswitch.off()
+        }
+    }
 
 ----
 
