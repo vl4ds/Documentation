@@ -396,7 +396,7 @@ Button           capability.button
 Attribute   Type    Possible Values
 =========== ======= ====================================
 button      String  ``"held"`` if the button is held (longer than a push)
-                    
+
                     ``"pushed"`` if the button is pushed
 =========== ======= ====================================
 
@@ -428,8 +428,8 @@ None.
             log.debug "button was pushed"
         }
 
-        // Some button devices may have more than one button. While the 
-        // specific implementation varies for different devices, there may be 
+        // Some button devices may have more than one button. While the
+        // specific implementation varies for different devices, there may be
         // button number information in the jsonData of the event:
         try {
             def data = evt.jsonData
@@ -440,7 +440,7 @@ None.
             log.warn "caught exception getting event data as json: $e"
         }
     }
-  
+
 ----
 
 .. _c_m_detector:
@@ -545,12 +545,12 @@ color           Map
 
     def contactHandler(evt) {
         if("open" == "$evt.value") {
-            bulb.on()  // Turn the bulb on when open
+            bulb.on()  // Turn the bulb on when open (this method does not come directly from the colorControl capability)
             bulb.setHue(80)
             bulb.setSaturation(100)  // Set the color to something fancy
             bulb.setLevel(100)  // Make sure the light brightness is 100%
         } else {
-            bulb.off()  // Turn the bulb off when closed
+            bulb.off()  // Turn the bulb off when closed (this method does not come directly from the colorControl capability)
         }
     }
 
