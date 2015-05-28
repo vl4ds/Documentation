@@ -63,19 +63,8 @@ Commands:
 :ref:`energy_meter`           capability.energyMeter                 - energy
 :ref:`illuminance_mesurmnt`   capability.illuminanceMeasurement      - illuminance
 :ref:`image_capture`          capability.imageCapture                - image                               - take()
-:ref:`indicator`              capability.indicator                   - indicatorStatus                     - indicatorWhenOn()
-                                                                                                           - indicatorWhenOff()
-                                                                                                           - indicatorNever()
-:ref:`location_mode`          capability.locationMode                - mode
 :ref:`lock`                   capability.lock                        - lock                                - lock()
                                                                                                            - unlock()
-:ref:`lock_codes`             capability.lockCodes                   - lock                                - lock()
-                                                                     - codeReport                          - unlock()
-                                                                     - codeChanged                         - updateCodes(json_object)
-                                                                                                           - setCode(number\, string)
-                                                                                                           - deleteCode(number)
-                                                                                                           - requestCode(number)
-                                                                                                           - reloadAllCodes()
 :ref:`media_controller`       capability.mediaController             - activities                          - startActivity(string)
                                                                      - currentActivity                     - getAllActivities()
                                                                                                            - getCurrentActivity()
@@ -800,62 +789,6 @@ image     String  ``string value representing the image captured``
 
 ----
 
-.. _indicator:
-
-Indicator
----------
-
-=========================   ==============================
-Capability Name             SmartApp Preferences Reference
-=========================   ==============================
-Indicator                   capability.indicator
-=========================   ==============================
-
-**Attributes:**
-
-=============== ======= =================
-Attribute       Type    Possible Values
-=============== ======= =================
-indicatorStatus String  ``"when on"``
-                        ``"never"``
-                        ``"when off"``
-=============== ======= =================
-
-**Commands:**
-
-*indicatorWhenOn()*
-
-*indicatorWhenOff()*
-
-*indicatorNever()*
-
-----
-
-.. _location_mode:
-
-Location Mode
--------------
-
-=========================   ==============================
-Capability Name             SmartApp Preferences Reference
-=========================   ==============================
-Location Mode               capability.locationMode
-=========================   ==============================
-
-**Attributes:**
-
-========= ======= =================
-Attribute Type    Possible Values
-========= ======= =================
-mode
-========= ======= =================
-
-**Commands:**
-
-None.
-
-----
-
 .. _lock:
 
 Lock
@@ -883,45 +816,26 @@ lock            String  ``"locked"``
 *unlock()*
     Unlock the device
 
-----
+**SmartApp Example:**
 
-.. _lock_codes:
+.. code-block:: groovy
 
-Lock Codes
-----------
+    preferences {
+	    section("Title") {
+		    input "lock", "capability.lock", title:"door lock", required: true, multiple: false
+            input "motion", "capability.motionSensor", title:"motion", required: true, multiple: false
+	    }
+    }
 
-=========================   ==============================
-Capability Name             SmartApp Preferences Reference
-=========================   ==============================
-Lock Codes                  capability.lockCodes
-=========================   ==============================
+    def installed() {
+        subscribe(motion, "motion", myHandler)
+    }
 
-**Attributes:**
-
-=============== ======= =================
-Attribute       Type    Possible Values
-=============== ======= =================
-lock
-codeReport
-codeChanged
-=============== ======= =================
-
-**Commands:**
-
-*lock()*
-    Lock the device
-*unlock()*
-    Unlock the device
-*updateCodes(json_object)*
-    Update the lock code with the given json object
-*setCode(number, string)*
-    Set the lock code
-*deleteCode(number)*
-    Delete a lock code
-*requestCode(number)*
-    Request a lock code
-*reloadAllCodes()*
-    Reload all lock codes
+    def myHandler(evt) {
+        if(!("locked" == lock.currentLock) && "active" == evt.value) {
+            lock.lock()
+        }
+    }
 
 ----
 
