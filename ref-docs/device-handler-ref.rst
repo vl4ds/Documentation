@@ -513,14 +513,12 @@ Called within the `definition()`_ method to define the information necessary to 
 
 See the `Fingerprinting Section <../device-type-developers-guide/definition-metadata.html#fingerprinting>`__ of the Device Handler guide for more information.
 
+----
+
 httpDelete()
 ~~~~~~~~~~~~
 
-.. warning::
-
-    This method and all of its supporting parameters is not adequately documented at this time.
-
-Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one HttpResposeDecorator argument from which the response content and header information can be extracted.
+Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 **Signature:** 
     ``void httpDelete(String uri, Closure closure)``
@@ -530,27 +528,31 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 **Parameters:**
     `String`_ ``uri`` - The URI to make the HTTP DELETE call to.
 
-    `Map`_ ``params`` - A map of parameters for configuring the request. 
+    `Map`_ ``params`` - A map of parameters for configuring the request. The valid parameters are:
+
+    =================== ==============
+    Parameter           Description
+    =================== ==============
+    uri                 Either a URI or URL of of the endpoint to make a request from.
+    path                Request path that is merged with the URI.
+    query               Map of URL query parameters.
+    headers             Map of HTTP headers.
+    contentType         Request content type and Accept header.
+    requestContentType  Content type for the request, if it is different from the expected response content-type.
+    body                Request body that will be encoded based on the given contentType.
+    =================== ==============
 
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
 
 **Returns:**
     void
 
-.. note::
-    
-    SmartThings makes use of the Groovy library HTTPBuilder for making HTTP requests. You can read about it, including the various parameters and response processing, `here <https://github.com/jgritman/httpbuilder/wiki>`__.
-
 ----
 
 httpGet()
 ~~~~~~~~~
 
-.. warning::
-
-    This method and all of its supporting parameters is not adequately documented at this time.
-
-Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one HttpResposeDecorator argument from which the response content and header information can be extracted.
+Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -562,14 +564,22 @@ If the response content type is JSON, the response data will automatically be pa
 **Parameters:**
     `String`_ ``uri`` - The URI to make the HTTP GET call to
 
-    `Map`_ ``params`` - A map of parameters for configuring the request.
+    `Map`_ ``params`` - A map of parameters for configuring the request. The valid parameters are:
+
+    =================== ==============
+    Parameter           Description
+    =================== ==============
+    uri                 Either a URI or URL of of the endpoint to make a request from.
+    path                Request path that is merged with the URI.
+    query               Map of URL query parameters.
+    headers             Map of HTTP headers.
+    contentType         Request content type and Accept header.
+    requestContentType  Content type for the request, if it is different from the expected response content-type.
+    body                Request body that will be encoded based on the given contentType.
+    =================== ==============
 
     `Closure`_ - ``closure`` - The closure that will be called with the response of the request.
 
-   
-.. note::
-    
-    SmartThings makes use of the Groovy library HTTPBuilder for making HTTP requests. You can read about it, including the various parameters and response processing, `here <https://github.com/jgritman/httpbuilder/wiki>`__.
 
 **Example:**
 
@@ -587,7 +597,6 @@ If the response content type is JSON, the response data will automatically be pa
         }
         log.debug "response contentType: ${resp.contentType}"
         log.debug "response data: ${resp.data}"
-    }
     } catch (e) {
         log.error "something went wrong: $e"
     }
@@ -597,11 +606,7 @@ If the response content type is JSON, the response data will automatically be pa
 httpHead()
 ~~~~~~~~~
 
-.. warning::
-
-    This method and all of its supporting parameters is not adequately documented at this time.
-
-Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one HttpResposeDecorator argument from which the response content and header information can be extracted.
+Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 **Signature:** 
     ``void httpHead(String uri, Closure closure)``
@@ -611,25 +616,28 @@ Executes an HTTP HEAD request and passes control to the specified closure. The c
 **Parameters:**
     `String`_ ``uri`` - The URI to make the HTTP HEAD call to
 
-    `Map`_ ``params`` - A map of parameters for configuring the request.
+    `Map`_ ``params`` - A map of parameters for configuring the request. The valid parameters are:
+
+    =================== ==============
+    Parameter           Description
+    =================== ==============
+    uri                 Either a URI or URL of of the endpoint to make a request from.
+    path                Request path that is merged with the URI.
+    query               Map of URL query parameters.
+    headers             Map of HTTP headers.
+    contentType         Request content type and Accept header.
+    requestContentType  Content type for the request, if it is different from the expected response content-type.
+    body                Request body that will be encoded based on the given contentType.
+    =================== ==============
 
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
 
-   
-.. note::
-    
-    SmartThings makes use of the Groovy library HTTPBuilder for making HTTP requests. You can read about it, including the various parameters and response processing, `here <https://github.com/jgritman/httpbuilder/wiki>`__.
- 
 ----
 
 httpPost()
 ~~~~~~~~~~
 
-.. warning::
-
-    This method and all of its supporting parameters is not adequately documented at this time.
-
-Executes an HTTP POST request and passes control to the specified closure. The closure is passed one HttpResposeDecorator argument from which the response content and header information can be extracted.
+Executes an HTTP POST request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -643,22 +651,34 @@ If the response content type is JSON, the response data will automatically be pa
 
     `String`_ ``body`` - The body of the request
 
-    `Map`_ ``params`` - A map of parameters for configuring the request.
+    `Map`_ ``params`` - A map of parameters for configuring the request. The valid parameters are:
+
+    =================== ==============
+    Parameter           Description
+    =================== ==============
+    uri                 Either a URI or URL of of the endpoint to make a request from.
+    path                Request path that is merged with the URI.
+    query               Map of URL query parameters.
+    headers             Map of HTTP headers.
+    contentType         Request content type and Accept header.
+    requestContentType  Content type for the request, if it is different from the expected response content-type.
+    body                Request body that will be encoded based on the given contentType.
+    =================== ==============
 
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
 
-   
-.. note::
-    
-    SmartThings makes use of the Groovy library HTTPBuilder for making HTTP requests. You can read about it, including the various parameters and response processing, `here <https://github.com/jgritman/httpbuilder/wiki>`__.
- 
+
 **Example:**
 
 .. code-block:: groovy
-    
-    httpPost("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
-        log.debug "response data: ${resp.data}"
-        log.debug "response contentType: ${resp.contentType}"
+  
+    try {  
+        httpPost("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
+            log.debug "response data: ${resp.data}"
+            log.debug "response contentType: ${resp.contentType}"
+        }
+    } catch (e) {
+        log.debug "something went wrong: $e"
     }
 
 ----
@@ -666,11 +686,7 @@ If the response content type is JSON, the response data will automatically be pa
 httpPostJson()
 ~~~~~~~~~~~~~~
 
-.. warning::
-
-    This method and all of its supporting parameters is not adequately documented at this time.
-
-Executes an HTTP POST request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one HttpResposeDecorator argument from which the response content and header information can be extracted.
+Executes an HTTP POST request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -686,15 +702,22 @@ If the response content type is JSON, the response data will automatically be pa
 
     `String`_ ``body`` - The body of the request
 
-    `Map`_ ``params`` - A map of parameters for configuring the request.
+    `Map`_ ``params`` - A map of parameters for configuring the request. The valid parameters are:
+
+    =================== ==============
+    Parameter           Description
+    =================== ==============
+    uri                 Either a URI or URL of of the endpoint to make a request from.
+    path                Request path that is merged with the URI.
+    query               Map of URL query parameters.
+    headers             Map of HTTP headers.
+    contentType         Request content type and Accept header.
+    requestContentType  Content type for the request, if it is different from the expected response content-type.
+    body                Request body that will be encoded based on the given contentType.
+    =================== ==============
 
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
 
-   
-.. note::
-    
-    SmartThings makes use of the Groovy library HTTPBuilder for making HTTP requests. You can read about it, including the various parameters and response processing, `here <https://github.com/jgritman/httpbuilder/wiki>`__.
- 
 **Example:**
 
 .. code-block:: groovy
@@ -724,11 +747,7 @@ If the response content type is JSON, the response data will automatically be pa
 httpPut()
 ~~~~~~~~~
 
-.. warning::
-
-    This method and all of its supporting parameters is not adequately documented at this time.
-
-Executes an HTTP PUT request and passes control to the specified closure. The closure is passed one HttpResposeDecorator argument from which the response content and header information can be extracted.
+Executes an HTTP PUT request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -742,22 +761,33 @@ If the response content type is JSON, the response data will automatically be pa
 
     `String`_ ``body`` - The body of the request
 
-    `Map`_ ``params`` - A map of parameters for configuring the request.
+    `Map`_ ``params`` - A map of parameters for configuring the request. The valid parameters are:
+
+    =================== ==============
+    Parameter           Description
+    =================== ==============
+    uri                 Either a URI or URL of of the endpoint to make a request from.
+    path                Request path that is merged with the URI.
+    query               Map of URL query parameters.
+    headers             Map of HTTP headers.
+    contentType         Request content type and Accept header.
+    requestContentType  Content type for the request, if it is different from the expected response content-type.
+    body                Request body that will be encoded based on the given contentType.
+    =================== ==============
 
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
-
-   
-.. note::
-    
-    SmartThings makes use of the Groovy library HTTPBuilder for making HTTP requests. You can read about it, including the various parameters and response processing, `here <https://github.com/jgritman/httpbuilder/wiki>`__.
  
 **Example:**
 
 .. code-block:: groovy
     
-    httpPut("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
-        log.debug "response data: ${resp.data}"
-        log.debug "response contentType: ${resp.contentType}"
+    try {
+        httpPut("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
+            log.debug "response data: ${resp.data}"
+            log.debug "response contentType: ${resp.contentType}"
+        }
+    } catch (e) {
+        log.error "something went wrong: $e"
     }
 
 ----
@@ -765,11 +795,7 @@ If the response content type is JSON, the response data will automatically be pa
 httpPutJson()
 ~~~~~~~~~~~~~
 
-.. warning::
-
-    This method and all of its supporting parameters is not adequately documented at this time.
-
-Executes an HTTP PUT request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one HttpResposeDecorator argument from which the response content and header information can be extracted.
+Executes an HTTP PUT request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -785,14 +811,21 @@ If the response content type is JSON, the response data will automatically be pa
 
     `String`_ ``body`` - The body of the request
 
-    `Map`_ ``params`` - A map of parameters for configuring the request.
+    `Map`_ ``params`` - A map of parameters for configuring the request. The valid parameters are:
+
+    =================== ==============
+    Parameter           Description
+    =================== ==============
+    uri                 Either a URI or URL of of the endpoint to make a request from.
+    path                Request path that is merged with the URI.
+    query               Map of URL query parameters.
+    headers             Map of HTTP headers.
+    contentType         Request content type and Accept header.
+    requestContentType  Content type for the request, if it is different from the expected response content-type.
+    body                Request body that will be encoded based on the given contentType.
+    =================== ==============
 
     `Closure`_ `closure` - The closure that will be called with the response of the request.
-
-   
-.. note::
-    
-    SmartThings makes use of the Groovy library HTTPBuilder for making HTTP requests. You can read about it, including the various parameters and response processing, `here <https://github.com/jgritman/httpbuilder/wiki>`__.
 
 ----
 
@@ -1270,3 +1303,4 @@ The utility class for parsing and formatting Z-Wave command messages.
 .. _Number: http://docs.oracle.com/javase/7/docs/api/java/lang/Number.html
 .. _Long: https://docs.oracle.com/javase/7/docs/api/java/lang/Long.
 .. _Object: http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
+.. _HttpResponseDecorator: http://javadox.com/org.codehaus.groovy.modules.http-builder/http-builder/0.6/groovyx/net/http/HttpResponseDecorator.html
