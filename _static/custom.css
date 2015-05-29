@@ -13,7 +13,7 @@
 /* A little hacky... sets the width large enough to fit the capabilities 
    taxonomy table.*/
 .wy-nav-content {
-    max-width: 950px; !important;
+    max-width: 950px !important;
 }
 
 /* consistent font with SmartThings website */
