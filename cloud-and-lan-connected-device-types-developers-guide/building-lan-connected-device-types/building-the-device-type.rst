@@ -84,7 +84,7 @@ You can use the ``parseLanMessage`` method to parse the incoming message.
         ...
     }
 
-For more information about the JSON or XML response formats, see the Groovy `JsonSlurper <http://groovy.codehaus.org/gapi/groovy/json/JsonSlurper.html>`__ and `XmlSlurper <http://groovy.codehaus.org/api/groovy/util/XmlSlurper.html>`__ documentation.
+For more information about the JSON or XML response formats, see the Groovy `JsonSlurper <http://docs.groovy-lang.org/latest/html/gapi/groovy/json/JsonSlurper.html>`__ and `XmlSlurper <http://docs.groovy-lang.org/latest/html/api/groovy/util/XmlSlurper.html>`__ documentation.
 
 ----
 
