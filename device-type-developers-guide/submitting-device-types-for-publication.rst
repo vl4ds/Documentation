@@ -1,9 +1,6 @@
 Submitting Device Types for Publication
 =======================================
 
-Overview
---------
-
 To submit your Device Types for consideration for publication to the SmartThings Platform, you 
 can create a Publication Request by clicking on the `My Publication Requests <https://graph.api.smartthings.com/ide/submissions>`__ 
 tab in the `SmartThings IDE <http://ide.smartthings.com>`__, then clicking on the *New Request* 

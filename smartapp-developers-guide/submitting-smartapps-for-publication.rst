@@ -1,23 +1,51 @@
 Submitting SmartApps for Publication
 ====================================
 
-Overview
---------
-
 To submit your SmartApps for consideration for publication to the SmartThings Platform, you 
 can create a Publication Request by clicking on the `My Publication Requests <https://graph.api.smartthings.com/ide/submissions>`__ 
 tab in the `SmartThings IDE <http://ide.smartthings.com>`__, then clicking on the *New Request* 
 button in the upper-right-hand corner of the screen.
 
-Review Guidelines
------------------
 
-Once submitted, your SmartApp will undergo a review and approval process.  For the greatest likelihood of success, follow these guidelines:
+Review Process
+--------------
 
-General
-~~~~~~~
+Once submitted, your SmartApp will undergo a review. Here is a detailed outline of the approval process:
 
-- Make sure your SmartApp compiles and runs. Do one last check before submitting!
+
+Functional Review
+~~~~~~~~~~~~~~~~~
+
+- Does this SmartApp duplicate an existing SmartApp? If so, does it improve the current SmartApp?
+- Does it have a good title, description, and configuration preferences? Will the user understand how it works?
+- Does the SmartApp work as expected?
+
+
+Code Review
+~~~~~~~~~~~
+
+- In the ``preferences`` section, are all inputs used?
+- Naming conventions: do variable and function names appropriately describe their use?
+- All ``subscribe()`` calls have corresponding ``unsubscribe()`` method.
+- All ``schedule()`` calls have corresponding ``unschedule()`` as needed.
+- Scheduling: check for any ``runIn()``, ``schedule()``, ``runDaily()``, etc and make sure they are not running too often.
+- When communicating with web services, follow best practices below.
+- Avoid redundant code and infinite loops.
+- Comment your code!
+
+
+Publication
+~~~~~~~~~~~
+
+Once your app has been approved, it will be published in our mobile app.
+
+
+Best Practices
+--------------
+
+For the greatest likelihood of success, follow these guidelines:
+
+- For greatest communication between yourself and the SmartThings reviewer, add your Github username as the namespace.
 - Do not use offensive, profane, or libelous language.
 - No advertising or sponsorships.
 
@@ -30,7 +58,6 @@ Web Services
 Devices and Preferences
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-- Use capabilities, not device wildcards when gathering device inputs from the user.
 - Label your SmartApp preferences to match the devices that you are asking for access to.
 - Use the *password* input type whenever you are asking a user for a password.
 
