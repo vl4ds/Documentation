@@ -9,7 +9,7 @@ What You Need
 -------------
 
 - A SmartThings hub that has been configured. Some devices would be good too, but not required.
-- Experience with some form of programming. SmartThings uses the `Groovy programming language <http://groovy.codehaus.org>`__. You don't need to be a Groovy Ninja, but some familiarity with programming is assumed.
+- Experience with some form of programming. SmartThings uses the `Groovy programming language <http://www.groovy-lang.org/>`__. You don't need to be a Groovy Ninja, but some familiarity with programming is assumed.
 
 What We Will Build
 ------------------

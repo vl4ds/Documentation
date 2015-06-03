@@ -253,7 +253,7 @@ since this event exceeds our threshold, we add it to the `awayLongEnough`
 collection by returning true in our closure (note that we could omit
 the "return" keyword, as it is implied in Groovy). For more information
 about the findAll method, or how Groovy utilizes closures, consult the 
-Groovy documentation at http://groovy.codehaus.org/Documentation
+Groovy documentation at http://www.groovy-lang.org/documentation.html
 
 If the number of people away long enough equals the total number of
 people configured for this app, we send a message (we'll look at that
