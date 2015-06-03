@@ -1532,7 +1532,7 @@ Switch Level                capability.switchLevel
 =============== ======= =================
 Attribute       Type    Possible Values
 =============== ======= =================
-level
+level           Number  A number that represents the current light level, usually ``0 - 100`` in percent
 =============== ======= =================
 
 **Commands:**
@@ -1581,12 +1581,38 @@ Temperature Measurement     capability.temperatureMeasurement
 ======================== ======= =================
 Attribute                Type    Possible Values
 ======================== ======= =================
-temperature
+temperature              Number  A number that usually represents the current temperature
 ======================== ======= =================
 
 **Commands:**
 
 None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Cooling based on the following devices") {
+      input "sensor", "capability.temperatureMeasurement", title: "Temp Sensor", required: true, multiple: false
+      input "outlet", "capability.switch", title: "outlet", required: true, multiple: false
+    }
+    section("Set the desired temperature to cool to..."){
+      input "setpoint", "decimal", title: "Set Temp"
+    }
+  }
+
+  def installed() {
+    subscribe(sensor, "temperature", myHandler)
+  }
+
+  def myHandler(evt) {
+    if(evt.doubleValue > setpoint && "off" == outlet.currentSwitch) {
+      outlet.on()
+    } else if(evt.doubleValue < setpoint && "on" == outlet.currentSwitch) {
+      outlet.off()
+    }
+  }
 
 ----
 
