@@ -170,23 +170,21 @@ None.
 
 .. code-block:: groovy
 
-    // preferences reference
-    preferences {
-        input "accelerationSensor", "capability.accelerationSensor"
-    }
+  // preferences reference
+  preferences {
+    input "accelerationSensor", "capability.accelerationSensor"
+  }
 
-    def installed() {
-        // subscribe to active acceleration
-        subscribe(accelerationSensor, "acceleration.active",
-                  accelerationActiveHandler)
+  def installed() {
+    // subscribe to active acceleration
+    subscribe(accelerationSensor, "acceleration.active", accelerationActiveHandler)
 
-        // subscribe to inactive acceleration
-        subscribe(accelerationSensor, "acceleration.inactive",
-                  accelerationInactiveHandler)
+    // subscribe to inactive acceleration
+    subscribe(accelerationSensor, "acceleration.inactive", accelerationInactiveHandler)
 
-        // subscribe to all acceleration events
-        subscribe(accelerationSensor, "acceleration", accelerationBothHandler)
-    }
+    // subscribe to all acceleration events
+    subscribe(accelerationSensor, "acceleration", accelerationBothHandler)
+  }
 
 
 
@@ -251,36 +249,35 @@ alarm       String      ``"strobe"`` if the alarm is strobing.
 
 .. code-block:: groovy
 
-    // preferences reference
-    preferences {
-        input "alarm", "capability.alarm"
-    }
+  // preferences reference
+  preferences {
+    input "alarm", "capability.alarm"
+  }
 
-    def installed() {
-        // subscribe to alarm strobe
-        subscribe(alarm, "alarm.strobe", strobeHandler)
+  def installed() {
+    // subscribe to alarm strobe
+    subscribe(alarm, "alarm.strobe", strobeHandler)
+    // subscribe to all alarm events
+    subscribe(alarm, "alarm", allAlarmHandler)
+  }
 
-        // subscribe to all alarm events
-        subscribe(alarm, "alarm", allAlarmHandler)
-    }
+  def strobeHandler(evt) {
+    log.debug "${evt.value}" // => "strobe"
+  }
 
-    def strobeHandler(evt) {
-        log.debug "${evt.value}" // => "strobe"
+  def allAlarmHandler(evt) {
+    if (evt.value == "strobe") {
+      log.debug "alarm strobe"
+    } else if (evt.value == "siren") {
+      log.debug "alarm siren"
+    } else if (evt.value == "both") {
+      log.debug "alarm siren and alarm"
+    } else if (evt.value == "off") {
+      log.debug "alarm turned off"
+    } else {
+      log.debug "unexpected event: ${evt.value}"
     }
-
-    def allAlarmHandler(evt) {
-        if (evt.value == "strobe") {
-            log.debug "alarm strobe"
-        } else if (evt.value == "siren") {
-            log.debug "alarm siren"
-        } else if (evt.value == "both") {
-            log.debug "alarm siren and alarm"
-        } else if (evt.value == "off") {
-            log.debug "alarm turned off"
-        } else {
-            log.debug "unexpected event: ${evt.value}"
-        }
-    }
+  }
 
 ----
 
@@ -313,22 +310,21 @@ None
 
 .. code-block:: groovy
 
-    preferences {
-        section() {
-            input "thebattery", "capability.battery"
-        }
+  preferences {
+    section() {
+      input "thebattery", "capability.battery"
     }
+  }
 
-    def installed() {
-        def batteryValue = thebattery.latestValue("battery")
-        log.debug "latest battery value: $batteryValue"
+  def installed() {
+    def batteryValue = thebattery.latestValue("battery")
+    log.debug "latest battery value: $batteryValue"
+    subscribe(thebattery, "battery", batteryHandler)
+  }
 
-        subscribe(thebattery, "battery", batteryHandler)
-    }
-
-    def batteryHandler(evt) {
-        log.debug "battery attribute changed to ${evt.value}"
-    }
+  def batteryHandler(evt) {
+    log.debug "battery attribute changed to ${evt.value}"
+  }
 
 ----
 
@@ -360,22 +356,21 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-        section() {
-            input "thebeacon", "capability.beacon"
-        }
+  preferences {
+    section() {
+      input "thebeacon", "capability.beacon"
     }
+  }
 
-    def installed() {
-        def currBeacon = thebeacon.currentValue("presence")
-        log.debug "beacon is currently: $currBeacon"
+  def installed() {
+    def currBeacon = thebeacon.currentValue("presence")
+    log.debug "beacon is currently: $currBeacon"
+    subscribe(thebeacon, "presence", beaconHandler)
+  }
 
-        subscribe(thebeacon, "presence", beaconHandler)
-    }
-
-    def beaconHandler(evt) {
-        log.debug "beacon presence is: ${evt.value}"
-    }
+  def beaconHandler(evt) {
+    log.debug "beacon presence is: ${evt.value}"
+  }
 
 ----
 
@@ -408,38 +403,38 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-          section() {
-              input "thebutton", "capability.button"
-          }
+  preferences {
+    section() {
+      input "thebutton", "capability.button"
+    }
+  }
+
+  def installed() {
+    // subscribe to any change to the "button" attribute
+    // if we wanted to only subscribe to the button be held, we would use
+    // subscribe(thebutton, "button.held", buttonHeldHandler), for example.
+    subscribe(thebutton, "button", buttonHandler)
+  }
+
+  def buttonHandler(evt) {
+    if (evt.value == "held") {
+      log.debug "button was held"
+    } else if (evt.value == "pushed") {
+      log.debug "button was pushed"
     }
 
-    def installed() {
-        // subscribe to any change to the "button" attribute
-        // if we wanted to only subscribe to the button be held, we would use
-        // subscribe(thebutton, "button.held", buttonHeldHandler), for example.
-        subscribe(thebutton, "button", buttonHandler)
+    // Some button devices may have more than one button. While the
+    // specific implementation varies for different devices, there may be
+    // button number information in the jsonData of the event:
+    try {
+      def data = evt.jsonData
+      def buttonNumber = data.buttonNumber as Integer
+      log.debug "evt.jsonData: $data"
+      log.debug "button number: $buttonNumber"
+    } catch (e) {
+      log.warn "caught exception getting event data as json: $e"
     }
-
-    def buttonHandler(evt) {
-        if (evt.value == "held") {
-            log.debug "button was held"
-        } else if (evt.value == "pushed") {
-            log.debug "button was pushed"
-        }
-
-        // Some button devices may have more than one button. While the
-        // specific implementation varies for different devices, there may be
-        // button number information in the jsonData of the event:
-        try {
-            def data = evt.jsonData
-            def buttonNumber = data.buttonNumber as Integer
-            log.debug "evt.jsonData: $data"
-            log.debug "button number: $buttonNumber"
-        } catch (e) {
-            log.warn "caught exception getting event data as json: $e"
-        }
-    }
+  }
 
 ----
 
@@ -472,19 +467,19 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-        section() {
-            input "smoke", "capability.smokeDetector", title: "Smoke Detected", required: false, multiple: true
-        }
+  preferences {
+    section() {
+      input "smoke", "capability.smokeDetector", title: "Smoke Detected", required: false, multiple: true
     }
+  }
 
-    def installed() {
-        subscribe(smoke, "carbonMonoxide.detected", smokeHandler)
-    }
+  def installed() {
+    subscribe(smoke, "carbonMonoxide.detected", smokeHandler)
+  }
 
-    def smokeHandler(evt) {
-        log.debug "carbon alert: ${evt.value}"
-    }
+  def smokeHandler(evt) {
+    log.debug "carbon alert: ${evt.value}"
+  }
 
 ----
 
@@ -532,27 +527,27 @@ color           Map
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Title") {
-            input "contact", "capability.contactSensor", title: "contact sensor", required: true, multiple: false
-		    input "bulb", "capability.colorControl", title: "pick a bulb", required: true, multiple: false
-	    }
+  preferences {
+    section("Title") {
+      input "contact", "capability.contactSensor", title: "contact sensor", required: true, multiple: false
+      input "bulb", "capability.colorControl", title: "pick a bulb", required: true, multiple: false
     }
+  }
 
-    def installed() {
-        subscribe(contact, "contact", contactHandler)
-    }
+  def installed() {
+    subscribe(contact, "contact", contactHandler)
+  }
 
-    def contactHandler(evt) {
-        if("open" == "$evt.value") {
-            bulb.on()  // Turn the bulb on when open (this method does not come directly from the colorControl capability)
-            bulb.setHue(80)
-            bulb.setSaturation(100)  // Set the color to something fancy
-            bulb.setLevel(100)  // Make sure the light brightness is 100%
-        } else {
-            bulb.off()  // Turn the bulb off when closed (this method does not come directly from the colorControl capability)
-        }
+  def contactHandler(evt) {
+    if("open" == "$evt.value") {
+      bulb.on()  // Turn the bulb on when open (this method does not come directly from the colorControl capability)
+      bulb.setHue(80)
+      bulb.setSaturation(100)  // Set the color to something fancy
+      bulb.setLevel(100)  // Make sure the light brightness is 100%
+    } else {
+      bulb.off()  // Turn the bulb off when closed (this method does not come directly from the colorControl capability)
     }
+  }
 
 ----
 
@@ -586,18 +581,18 @@ None.
 
 .. code-block:: groovy
 
-    def configure() {
-        def cmd = delayBetween([
-            zwave.configurationV1.configurationSet(parameterNumber: 101, size: 4, scaledConfigurationValue: 4).format(), // combined power in watts
-            zwave.configurationV1.configurationSet(parameterNumber: 111, size: 4, scaledConfigurationValue: 300).format(), // every 5 min
-            zwave.configurationV1.configurationSet(parameterNumber: 102, size: 4, scaledConfigurationValue: 8).format(), // combined energy in kWh
-            zwave.configurationV1.configurationSet(parameterNumber: 112, size: 4, scaledConfigurationValue: 300).format(), // every 5 min
-            zwave.configurationV1.configurationSet(parameterNumber: 103, size: 4, scaledConfigurationValue: 0).format(), // no third report
-            zwave.configurationV1.configurationSet(parameterNumber: 113, size: 4, scaledConfigurationValue: 300).format() // every 5 min
-        ])
-        log.debug cmd
-        cmd
-    }
+  def configure() {
+    def cmd = delayBetween([
+      zwave.configurationV1.configurationSet(parameterNumber: 101, size: 4, scaledConfigurationValue: 4).format(), // combined power in watts
+      zwave.configurationV1.configurationSet(parameterNumber: 111, size: 4, scaledConfigurationValue: 300).format(), // every 5 min
+      zwave.configurationV1.configurationSet(parameterNumber: 102, size: 4, scaledConfigurationValue: 8).format(), // combined energy in kWh
+      zwave.configurationV1.configurationSet(parameterNumber: 112, size: 4, scaledConfigurationValue: 300).format(), // every 5 min
+      zwave.configurationV1.configurationSet(parameterNumber: 103, size: 4, scaledConfigurationValue: 0).format(), // no third report
+      zwave.configurationV1.configurationSet(parameterNumber: 113, size: 4, scaledConfigurationValue: 300).format() // every 5 min
+    ])
+    log.debug cmd
+    cmd
+  }
 
 ----
 
@@ -629,24 +624,24 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Contact Example") {
-		    input "contact", "capability.contactSensor", title: "pick a contact sensor", required: true, multiple: false
-	    }
+  preferences {
+    section("Contact Example") {
+      input "contact", "capability.contactSensor", title: "pick a contact sensor", required: true, multiple: false
     }
+  }
 
-    def installed() {
-	    subscribe(contact, "contact", contactHandler)
-    }
+  def installed() {
+    subscribe(contact, "contact", contactHandler)
+  }
 
-    def contactHandler(evt) {
-        if("open" == evt.value)
-            // contact was opened, turn on a light maybe?
-            log.debug "Contact is in ${evt.value} state"
-        if("closed" == evt.value)
-            // contact was closed, turn off the light?
-            log.debug "Contact is in ${evt.value} state"
-    }
+  def contactHandler(evt) {
+    if("open" == evt.value)
+      // contact was opened, turn on a light maybe?
+      log.debug "Contact is in ${evt.value} state"
+    if("closed" == evt.value)
+      // contact was closed, turn off the light?
+      log.debug "Contact is in ${evt.value} state"
+  }
 
 ----
 
@@ -707,20 +702,20 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Title") {
-		    input "outlet", "capability.switch", title: "outlet", required: true, multiple: false
-	    }
+  preferences {
+    section("Title") {
+      input "outlet", "capability.switch", title: "outlet", required: true, multiple: false
     }
+  }
 
-    def installed() {
-	    subscribe(outlet, "energy", myHandler)
-        subscribe(outlet, "switch", myHandler)
-    }
+  def installed() {
+    subscribe(outlet, "energy", myHandler)
+    subscribe(outlet, "switch", myHandler)
+  }
 
-    def myHandler(evt) {
-        log.debug "$outlet.currentEnergy"
-    }
+  def myHandler(evt) {
+    log.debug "$outlet.currentEnergy"
+  }
 
 ----
 
@@ -751,28 +746,28 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Title") {
-		    input "lightSensor", "capability.illuminanceMeasurement"
-		    input "light", "capability.switch"
-	    }
+  preferences {
+    section("Title") {
+      input "lightSensor", "capability.illuminanceMeasurement"
+      input "light", "capability.switch"
     }
+  }
 
-    def installed() {
-	    subscribe(lightSensor, "illuminance", myHandler)
-    }
+  def installed() {
+    subscribe(lightSensor, "illuminance", myHandler)
+  }
 
-    def myHandler(evt) {
-	    def lastStatus = state.lastStatus
-	    if (lastStatus != "on" && evt.integerValue < 30) {
-		    light.on()
-		    state.lastStatus = "on"
-	    }
-	    else if (lastStatus != "off" && evt.integerValue > 50) {
-		    light.off()
-		    state.lastStatus = "off"
-	    }
+  def myHandler(evt) {
+    def lastStatus = state.lastStatus
+    if (lastStatus != "on" && evt.integerValue < 30) {
+      light.on()
+      state.lastStatus = "on"
     }
+    else if (lastStatus != "off" && evt.integerValue > 50) {
+      light.off()
+      state.lastStatus = "off"
+    }
+  }
 
 ----
 
@@ -804,26 +799,26 @@ image     String  ``string value representing the image captured``
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Choose one or more, when..."){
-		    input "motion", "capability.motionSensor", title: "Motion Here", required: false, multiple: true
-	    }
-	    section("Take a burst of pictures") {
-		    input "camera", "capability.imageCapture"
-	    }
+  preferences {
+    section("Choose one or more, when..."){
+      input "motion", "capability.motionSensor", title: "Motion Here", required: false, multiple: true
     }
+    section("Take a burst of pictures") {
+      input "camera", "capability.imageCapture"
+    }
+  }
 
-    def installed() {
-	    subscribe(motion, "motion.active", takePhotos)
-    }
+  def installed() {
+    subscribe(motion, "motion.active", takePhotos)
+  }
 
-    def takePhotos(evt) {
-        camera.take()
-	    (1..4).each {
-		    camera.take(delay: (1000 * it))
-	    }
-	    log.debug "$camera.currentImage"
+  def takePhotos(evt) {
+    camera.take()
+    (1..4).each {
+      camera.take(delay: (1000 * it))
     }
+    log.debug "$camera.currentImage"
+  }
 
 ----
 
@@ -858,22 +853,22 @@ lock            String  ``"locked"``
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Title") {
-		    input "lock", "capability.lock", title:"door lock", required: true, multiple: false
-		    input "motion", "capability.motionSensor", title:"motion", required: true, multiple: false
-	    }
+  preferences {
+    section("Title") {
+      input "lock", "capability.lock", title:"door lock", required: true, multiple: false
+      input "motion", "capability.motionSensor", title:"motion", required: true, multiple: false
     }
+  }
 
-    def installed() {
-        subscribe(motion, "motion", myHandler)
-    }
+  def installed() {
+    subscribe(motion, "motion", myHandler)
+  }
 
-    def myHandler(evt) {
-        if(!("locked" == lock.currentLock) && "active" == evt.value) {
-            lock.lock()
-        }
+  def myHandler(evt) {
+    if(!("locked" == lock.currentLock) && "active" == evt.value) {
+      lock.lock()
     }
+  }
 
 ----
 
@@ -932,22 +927,22 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Title") {
-		    input "doorOpener", "capability.momentary", title: "Door Opener", required: true, multiple: false
-		    input "presence", "capability.presenceSensor", title: "presence", required: true, multiple: false
-	    }
+  preferences {
+    section("Title") {
+      input "doorOpener", "capability.momentary", title: "Door Opener", required: true, multiple: false
+      input "presence", "capability.presenceSensor", title: "presence", required: true, multiple: false
     }
+  }
 
-    def installed() {
-        subscribe(presence, "presence", myHandler)
-    }
+  def installed() {
+    subscribe(presence, "presence", myHandler)
+  }
 
-    def myHandler(evt) {
-        if("present" == evt.value) {
-            doorOpener.push()
-        }
+  def myHandler(evt) {
+    if("present" == evt.value) {
+      doorOpener.push()
     }
+  }
 
 ----
 
@@ -979,24 +974,24 @@ None.
 
 .. code-block:: groovy
 
-    preferences {
-	    section("Choose one or more, when..."){
-		    input "motion", "capability.motionSensor", title: "Motion Here", required: true, multiple: true
-		    input "myswitch", "capability.switch", title: "switch", required: true, multiple: false
-	    }
+  preferences {
+    section("Choose one or more, when..."){
+      input "motion", "capability.motionSensor", title: "Motion Here", required: true, multiple: true
+      input "myswitch", "capability.switch", title: "switch", required: true, multiple: false
     }
+  }
 
-    def installed() {
-	    subscribe(motion, "motion", myHandler)
-    }
+  def installed() {
+    subscribe(motion, "motion", myHandler)
+  }
 
-    def myHandler(evt) {
-        if("active" == evt.value) {
-            myswitch.on()
-        } else if("inactive" == evt.value) {
-            myswitch.off()
-        }
+  def myHandler(evt) {
+    if("active" == evt.value) {
+      myswitch.on()
+    } else if("inactive" == evt.value) {
+      myswitch.off()
     }
+  }
 
 ----
 
@@ -1004,6 +999,10 @@ None.
 
 Music Player
 ------------
+
+.. note::
+    The music player capability is still under development. It currently supports the Sonos system
+    and as such is implemented in a way that is tailored to Sonos.
 
 =========================   ==============================
 Capability Name             SmartApp Preferences Reference
@@ -1016,10 +1015,10 @@ Music Player                capability.musicPlayer
 ================ ======= =================
 Attribute        Type    Possible Values
 ================ ======= =================
-status
-level
-trackDescription
-trackData
+status           String  ``state of the music player as a string``
+level            Number  ``0-100`` (percent)
+trackDescription String  ``description of the current playing track``
+trackData        JSON    ``a JSON data structure that represents current track data``
 mute             String  ``"muted"``
                          ``"unmuted"``
 ================ ======= =================
@@ -1035,11 +1034,11 @@ mute             String  ``"muted"``
 *nextTrack()*
     Advance to next track
 *playTrack(string)*
-    Play the track matching the given string
+    Play the track matching the given string (the string is a URI for the track to be played)
 *setLevel(number)*
-    Set the volume to the specified level
+    Set the volume to the specified level (the number represents a percent)
 *playText(string)*
-    Set the text of the currently playing track
+    play the given string as text to speech
 *mute()*
     Mute playback
 *previousTrack()*
@@ -1047,11 +1046,32 @@ mute             String  ``"muted"``
 *unmute()*
     Unmute playback
 *setTrack(string)*
-    Set the track text to the string passed in
-*resumeTrack(string)*
-    Resume music playback
-*restoreTrack(string)*
-    Restore the track with the given name
+    Set the track to be played (does not play the track)
+*resumeTrack(map)*
+    Set and play the given track and maintain queue position
+*restoreTrack(map)*
+    Restore the track with the given data
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Title") {
+      input "player", "capability.musicPlayer", title: "music player", required: true, multiple: false
+      input "frontDoor", "capability.contactSensor", title: "front door", required: true, multiple: false
+    }
+  }
+
+  def installed() {
+    subscribe(frontDoor, "contact", myHandler)
+  }
+
+  def myHandler(evt) {
+    if("open" == evt.value) {
+      player.playText("The front door is open")
+    }
+  }
 
 ----
 
@@ -1100,6 +1120,33 @@ power
 
 None.
 
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section {
+      input(name: "meter", type: "capability.powerMeter", title: "When This Power Meter...", required: true, multiple: false, description: null)
+      input(name: "threshold", type: "number", title: "Reports Above...", required: true, description: "in either watts or kw.")
+    }
+    section {
+      input(name: "switches", type: "capability.switch", title: "Turn Off These Switches", required: true, multiple: true, description: null)
+    }
+  }
+
+  def installed() {
+    subscribe(meter, "power", meterHandler)
+  }
+
+  def meterHandler(evt) {
+    def meterValue = evt.value as double
+    def thresholdValue = threshold as int
+    if (meterValue > thresholdValue) {
+      log.debug "${meter} reported energy consumption above ${threshold}. Turning of switches."
+      switches.off()
+    }
+  }
+
 ----
 
 .. _presence_sensor:
@@ -1125,6 +1172,29 @@ Presence        String  ``"present"``
 **Commands:**
 
 None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Title") {
+      input "presence", "capability.presenceSensor", title: "presence", required: true, multiple: false
+      input "myswitch", "capability.switch", title: "switch", required: true, multiple: true
+    }
+  }
+
+  def installed() {
+    subscribe(presence, "presence", myHandler)
+  }
+
+  def myHandler(evt) {
+    if("present" == evt.value) {
+      myswitch.on()
+    } else {
+      myswitch.off()
+    }
+  }
 
 ----
 
@@ -1172,6 +1242,29 @@ humidity
 **Commands:**
 
 None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Bathroom humidity sensor") {
+      input "bathroom", "capability.relativeHumidityMeasurement", title: "Which humidity sensor?"
+    }
+    section("Coffee maker to turn on") {
+      input "coffee", "capability.switch", title: "Which switch?"
+    }
+  }
+
+  def installed() {
+    subscribe(bathroom, "humidity", coffeeMaker)
+  }
+
+  def coffeeMaker(shower) {
+    if (shower.value.toInteger() > 50) {
+      coffee.on()
+    }
+  }
 
 ----
 
@@ -1241,8 +1334,8 @@ Signal Strength             capability.signalStrength
 =============== ======= =================
 Attribute       Type    Possible Values
 =============== ======= =================
-lqi
-rssi
+lqi             Number  A number representing the Link Quality Indication
+rssi            Number  A number representing the Received Signal Strength Indication
 =============== ======= =================
 
 **Commands:**
@@ -1301,6 +1394,26 @@ smoke           String  ``"detected"``
 **Commands:**
 
 None.
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Title") {
+      input "smoke", "capability.smokeDetector", title: "smoke", required: true, multiple: false
+    }
+  }
+
+  def installed() {
+    subscribe(smoke, "smoke", myHandler)
+  }
+
+  def myHandler(evt) {
+    if("detected" == evt.value) {
+      // Sound an alarm! Send a SMS! or Change a HUE bulb color
+    }
+  }
 
 ----
 
@@ -1378,6 +1491,29 @@ switch          String  ``"off"``
 *off()*
     Turn the switch off
 
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Title") {
+      input "myswitch", "capability.switch", title: "switch", required: true, multiple: false
+      input "motion", "capability.motionSensor", title: "motion", required: true, multiple: false
+    }
+  }
+
+  def installed() {
+    subscribe(motion, "motion", myHandler)
+  }
+
+  def myHandler(evt) {
+    if("active" == evt.value && "on" != myswitch.currentSwitch) {
+      myswitch.on()
+    } else if ("inactive" == evt.value && "off" != myswitch.currentSwitch) {
+      myswitch.off()
+    }
+  }
+
 ----
 
 .. _switch_level:
@@ -1403,6 +1539,29 @@ level
 
 *setLevel(number, number)*
     Set the level to the given numbers
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Title") {
+      input "myswitch", "capability.switchLevel", title: "switch", required: true, multiple: false
+      input "motion", "capability.motionSensor", title: "motion", required: true, multiple: false
+    }
+  }
+
+  def installed() {
+    subscribe(motion, "motion", myHandler)
+  }
+
+  def myHandler(evt) {
+    if("active" == evt.value && "on" != myswitch.currentSwitch) {
+      myswitch.setLevel(90) // also turns on the switch
+    } else if ("inactive" == evt.value && "off" != myswitch.currentSwitch) {
+      myswitch.setLevel(10)
+    }
+  }
 
 ----
 
