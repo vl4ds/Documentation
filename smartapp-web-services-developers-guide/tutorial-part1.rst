@@ -1,7 +1,7 @@
 .. _smartapp_as_web_service_part_1:
 
-SmartThings Web Services Tutorial - Part 1
-==========================================
+Building a Web Services SmartApp - Part 1
+=========================================
 
 This is the first part of two that will teach you how to build a WebServices SmartApp.
 
@@ -19,8 +19,8 @@ Part 1 of this tutorial will build a simple SmartApp that exposes endpoints to g
 
 ----
 
-Step 1 - Create a new SmartApp
-------------------------------
+Create a new SmartApp
+---------------------
 
 Create a new SmartApp in the IDE. Fill in the required fields, and make sure to click on *Enable OAuth in SmartApp* to receive an auto-generated client ID and secret.
 
@@ -28,8 +28,8 @@ Note the Client ID and secret - they'll be used later (should you forget, you ca
 
 ----
 
-Step 2 - Define Preferences
----------------------------
+Define Preferences
+------------------
 
 SmartApps declare preferences metadata that is used at installation and configuration time, to allow the user to control what devices the SmartApp will have access to. 
 
@@ -54,8 +54,8 @@ Also ensure that you have an ``installed()`` and ``updated()`` method defined (t
 
 ----
 
-Step 3 - Specify Endpoints
---------------------------
+Specify Endpoints
+-----------------
 
 The ``mappings`` declaration allows developers to expose HTTP endpoints, and map the varous supported HTTP operations to an associated handler.
 
@@ -116,8 +116,8 @@ Go ahead and add empty methods for the various handlers. We'll fill these in in 
 
 ----
 
-Step 4 - GET Switch Information
--------------------------------
+GET Switch Information
+----------------------
 
 Now that we've defined our endpoints, we need to handle the requests in the handler methods we stubbed in above.
 
@@ -139,8 +139,8 @@ Our handler method returns a list of maps, which is then serialized by the Smart
 
 ----
 
-Step 5 - UPDATE the Switches
-----------------------------
+UPDATE the Switches
+-------------------
 
 We also need to handle a PUT request to the ``/switches/:command`` endpoint. ``/switches/on`` will turn the switches on, and ``/switches/off`` will turn the switches off.
 
@@ -180,15 +180,15 @@ If the configured switch does not support the specified command, we'll return a 
 
 ----
 
-Step 6 - Self-publish the SmartApp
-----------------------------------
+Self-publish the SmartApp
+-------------------------
 
 Publish the app for yourself, by clicking on the "Publish" button and selecting "For Me".
 
 ----
 
-Step 7 - Run the SmartApp in the Simulator
-------------------------------------------
+Run the SmartApp in the Simulator
+---------------------------------
 
 Using the simulator, we can quickly test our Web Services SmartApp.
 
@@ -198,8 +198,8 @@ Note that in the lower right of the simulator there is an API token and an API e
 
 ----
 
-Step 8 - Make API Calls to the SmartApp
----------------------------------------
+Make API Calls to the SmartApp
+------------------------------
 
 Using whatever tool you prefer for making web requests (this example will use curl, but `Apigee <http://apigee.com>`__ is a good UI-based tool for making requests), we will call one of our SmartApp endpoints.
 
@@ -233,8 +233,8 @@ Change the command value to ``"off"`` to turn the switch off. Try turning the sw
 
 ----
 
-Step 9 - Uninstall the SmartApp
--------------------------------
+Uninstall the SmartApp
+----------------------
 
 Finally, uninstall the SmartApp using the *Uninstall* button in the IDE simulator.
 

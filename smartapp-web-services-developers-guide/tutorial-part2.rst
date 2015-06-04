@@ -1,7 +1,7 @@
 .. _smartapp_as_web_service_part_2:
 
-SmartThings Web Services Tutorial - Part 2
-==========================================
+Building a Web Services SmartApp - Part 2
+=========================================
 
 In `Part 1 <./tutorial-part1.html>`__ of this tutorial, you learned how to create a simple Web Services SmartApp, and install it in the IDE simulator, and make web requests to it.
 
@@ -37,8 +37,8 @@ Visit the `Ruby <http://ruby-lang.org>`__ website to install Ruby, and the `Sina
 
 ----
 
-Step 1 - Bootstrap the Sinatra App
-----------------------------------
+Bootstrap the Sinatra App
+-------------------------
 
 Create a new directory for the Sinatra app, and change directories to it:
 
@@ -47,7 +47,7 @@ Create a new directory for the Sinatra app, and change directories to it:
     mkdir web-app-tutorial
     cd web-app-tutorial
 
-In your favorite text editor*, create a new file called ``server.rb`` and paste the following into it, and save it. Replace the ``client_id`` and ``api_key`` with the OAuth Client ID and OAuth Client Secret of your Web Services SmartApp.
+In your favorite text editor*, create a new file called ``server.rb`` and paste the following into it, and save it. 
 
 \*(*If your favorite text editor is vim or emacs, then our hat's off to you. We're impressed - maybe even a bit intimidated. If your favorite editor is notepad, well... we're not as impressed, or intimidated. :@)*)
 
@@ -136,8 +136,8 @@ We've handled the root URL to simply display a link that points to the ``/author
 
 ----
 
-Step 2 - Get an Authorization Code
-----------------------------------
+Get an Authorization Code
+-------------------------
 
 When the user clicks on the "Connect with SmartThings" link, we need to get our OAuth authorization code. 
 
@@ -179,8 +179,8 @@ This is our OAuth authorization code, and we'll use it to get our API token.
 
 ----
 
-Step 3 - Get an Access Token
-----------------------------
+Get an Access Token
+-------------------
 
 Now that we've received our OAuth authorization code, we can use it to obtain the API token we need to make requests to our Web Services SmartApp.
 
@@ -221,8 +221,8 @@ Restart your server, and try it out. Once authorized, you should be redirected t
 
 ----
 
-Step 4 - Discover the Endpoint
-------------------------------
+Discover the Endpoint
+---------------------
 
 Now that we have the OAuth token, we can use it to discover the endpoint of our WebServices SmartApp.
 
@@ -270,8 +270,8 @@ By now, you know the drill. Restart your server, refresh the page, and click the
 
 ----
 
-Step 5 - Make API Calls
------------------------
+Make API Calls
+--------------
 
 Now that we have our token and endpoint, we can (gasp!) make API calls to our SmartApp!
 
