@@ -119,11 +119,6 @@ Once the user authorizes access, the external system is provided with the 
 Rate Limiting
 -------------
 
-.. note::
-
-   Rate limiting for inbound API calls is currently not enforced (we are in "Learning" mode at the moment). The limitations documented below, as well as the headers and status code, will go into effect when we enforce the limit. At that time, this note will be removed.
-
-
 SmartApps or Device Handler's that expose web services are limited in the number of inbound requests they may receive in a time window. This is to ensure that no one SmartApp or Device Handler consumes too many resources in the SmartThings cloud. There are various headers available on every request that provide information about the current rate limit limits for a given installed SmartApp or Device Handler. These are discussed further below.
 
 SmartApps or Device Handlers that expose web APIs are limited to receiving 250 requests in 60 seconds.
