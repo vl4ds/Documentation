@@ -5,9 +5,9 @@ SmartThings Web Services Tutorial - Part 2
 
 In `Part 1 <./tutorial-part1.html>`__ of this tutorial, you learned how to create a simple Web Services SmartApp, and install it in the IDE simulator, and make web requests to it.
 
-In part 2, we'll build a simple web application that will integrate with SmartThings and the WebServices SmartApp we created in part 1.
+In Part 2, we'll build a simple web application that will integrate with SmartThings and the WebServices SmartApp we created in Part 1.
 
-In part 2 of this tutorial, you will learn:
+In Part 2 of this tutorial, you will learn:
 
 - How to get the API token.
 - How to discover the endpoints of a Web Services SmartApp.
@@ -18,7 +18,7 @@ In part 2 of this tutorial, you will learn:
 Overview
 --------
 
-In part 2 of this tutorial, we will build a simple Sinatra application that will make calls to the Web Services SmartApp we built in Part 1.
+In Part 2 of this tutorial, we will build a simple Sinatra application that will make calls to the Web Services SmartApp we built in Part 1.
 
 If you're not familiar with Sinatra, you are encouraged to try it out. It's not strictly necessary, however, as the application will simply make web requests to get the API token, and get the endpoint. 
 
@@ -30,10 +30,6 @@ If you're not familiar with Sinatra, you are encouraged to try it out. It's not 
 
 Prerequisites
 -------------
-
-.. tip::
-
-    Before starting this tutorial, it's a good idea to uninstall the Web Services SmartApp from the IDE simulator if still running. Also, change the OAuth client and secret by editing the SmartApp (Click the *App Settings* button, expand the OAuth section, and use the links to generate a new ID and secret. Note these, since they will be used later).
 
 Aside from completing Part 1 of this tutorial, you should have Ruby and Sinatra installed.
 
@@ -53,7 +49,7 @@ Create a new directory for the Sinatra app, and change directories to it:
 
 In your favorite text editor*, create a new file called ``server.rb`` and paste the following into it, and save it. Replace the ``client_id`` and ``api_key`` with the OAuth Client ID and OAuth Client Secret of your Web Services SmartApp.
 
-\*(*If your favorite text editor is vim or emacs, then our hats off to you. We're impressed - maybe even a bit intimidated. If your favorite editor is notepad, well... we're not as impressed, or intimidated. :@)*)
+\*(*If your favorite text editor is vim or emacs, then our hat's off to you. We're impressed - maybe even a bit intimidated. If your favorite editor is notepad, well... we're not as impressed, or intimidated. :@)*)
 
 .. code-block:: ruby
 
@@ -65,8 +61,8 @@ In your favorite text editor*, create a new file called ``server.rb`` and paste 
     require "uri"
 
     # Our client ID and secret, used to get the access token
-    client_id = 'YOUR_CLIENT_ID'
-    api_key = 'YOUR_CLIENT_SECRET'
+    CLIENT_ID = ENV['ST_CLIENT_ID']
+    CLIENT_SECRET = ENV['ST_CLIENT_SECRET']
 
     # This is the URI that will be called with our access 
     # code after we authenticate with our SmartThings account
@@ -75,11 +71,6 @@ In your favorite text editor*, create a new file called ``server.rb`` and paste 
     # This is the URI we will use to get the endpoints once we've received our token
     endpoints_uri = 'https://graph.api.smartthings.com/api/smartapps/endpoints'
 
-    # just store the token globally
-    # This is a HORRIBLE idea in a real application, of course.
-    # But, it works for our example
-    thetoken = ''
-
     options = {
       site: 'https://graph.api.smartthings.com',
       authorize_url: '/oauth/authorize',
@@ -87,7 +78,7 @@ In your favorite text editor*, create a new file called ``server.rb`` and paste 
     }
 
     # use the OAuth2 module to handle OAuth flow
-    client = OAuth2::Client.new(client_id, api_key, options)
+    client = OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, options)
 
     # handle requests to the application root
     get '/' do
@@ -131,6 +122,8 @@ Back at the command line, run bundle:
 
     bundle install
 
+You'll also want to set environment variables for you CLIENT_ID and CLIENT_SECRET. 
+
 Now, run the app on your local machine::
 
     ruby server.rb
@@ -149,6 +142,10 @@ Step 2 - Get an Authorization Code
 When the user clicks on the "Connect with SmartThings" link, we need to get our OAuth authorization code. 
 
 To do this, the user will need to authenticate with SmartThings, and authorize the devices this application can work with. Once that has been done, The user will be directed back to a specified ``redirect_url``, with the OAuth authorization code. This will be used (along with the Client ID and secret), to get the access token.
+
+.. note::
+    
+    By authorizing the application to work with SmartThings, the SmartApp will be installed into the user's account.
 
 Replace the ``/authorize`` route with the following:
 
@@ -187,6 +184,17 @@ Step 3 - Get an Access Token
 
 Now that we've received our OAuth authorization code, we can use it to obtain the API token we need to make requests to our Web Services SmartApp.
 
+We'll store the access token in the session. Add the following to ``server.rb``:
+
+.. code-block:: ruby
+
+    # We'll store the access token in the session
+    use Rack::Session::Pool, :cookie_only => false
+
+    def authenticated?
+        session[:access_token]
+    end
+
 Replace the ``/oauth/callback`` route with the following:
 
 .. code-block:: ruby
@@ -199,13 +207,13 @@ Replace the ``/oauth/callback`` route with the following:
       # Use the code to get the token.
       response = client.auth_code.get_token(code, redirect_uri: redirect_uri, scope: 'app')
       
-      # now that we have the access token, we can use it to get the endpoints
-      thetoken = response.token
+      # now that we have the access token, we will store it in the session
+      session[:access_token] = response.token
 
       redirect '/getswitch'
     end
 
-We first retrieve the access code from the parameters. We use this to get the token using the OAuth2 module. As noted, we're just storing the token in a local variable. This is not what you would do in a reall web application of course, since they should be stateless. But, for the purposes of this tutorial, it will suffice.
+We first retrieve the access code from the parameters. We use this to get the token using the OAuth2 module, and store it in the session.
 
 We then redirect to the ``/getswitch`` URL of our server. This is where we will retrieve the endpoint to call, and get the status of the configured switch.
 
@@ -213,8 +221,8 @@ Restart your server, and try it out. Once authorized, you should be redirected t
 
 ----
 
-Step 4 - Discover Endpoints
----------------------------
+Step 4 - Discover the Endpoint
+------------------------------
 
 Now that we have the OAuth token, we can use it to discover the endpoint of our WebServices SmartApp.
 
@@ -225,9 +233,11 @@ Replace the ``/getswitch`` route with the following:
     get '/getswitch' do
       # If we get to this URL without having gotten the access token
       # redirect back to root to go through authorization
-      if thetoken.empty?
+      if !authenticated?
         redirect '/'
       end
+
+      token = session[:access_token]
 
       # make a request to the SmartThins endpoint URI, using the token,
       # to get our endpoints
@@ -235,7 +245,7 @@ Replace the ``/getswitch`` route with the following:
       req = Net::HTTP::Get.new(url.request_uri)
 
       # we set a HTTP header of "Authorization: Bearer <API Token>"
-      req['Authorization'] = 'Bearer ' + thetoken
+      req['Authorization'] = 'Bearer ' + token
 
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = (url.scheme == "https")
@@ -249,7 +259,7 @@ Replace the ``/getswitch`` route with the following:
       # get the endpoint from the JSON:
       endpoint = json[0]['url']
 
-      '<h3>JSON Response</h3><br/>' + json.to_s + '<h3>Endpoint</h3><br/>' + endpoint 
+      '<h3>JSON Response</h3><br/>' + JSON.pretty_generate(json) + '<h3>Endpoint</h3><br/>' + endpoint 
     end
 
 The above code simply makes a GET request to the SmartThings API endpoints service at ``https://graph.api.smartthings.com/api/smartapps/endpoints``, setting the ``"Authorization"`` HTTP header with the API token.
@@ -273,7 +283,7 @@ Remove the line at the end of the ``getswitch`` route handler that outputs the r
 
   # now we can build a URL to our WebServices SmartApp
   # we will make a GET request to get information about the switch
-  switchUrl = 'https://graph.api.smartthings.com' + endpoint + '/switch?access_token=' + thetoken
+  switchUrl = 'https://graph.api.smartthings.com' + endpoint + '/switches?access_token=' + token
   
   # debug
   puts "SWITCH ENDPOINT: " + switchUrl
@@ -291,23 +301,24 @@ Remove the line at the end of the ``getswitch`` route handler that outputs the r
   puts 'RESPONSE BODY: ' + switchStatus.body
   puts 'SWITCH JSON: ' + switchJson.to_s
 
-  # Just print out the switch name and value 
-  switchJson['name'][0] + ' is ' + switchJson['value'][0]
+  # Just print out the returned value
+  JSON.pretty_generate(switchJson)
 
-The above code uses the endpoint for our SmartApp to build a URL, and then makes a GET request to the ``/switch`` endpoint. It simply displays the name of the configured switch, and its value.
+
+The above code uses the endpoint for our SmartApp to build a URL, and then makes a GET request to the ``/switches`` endpoint. It simply displays the JSON returned by the endpoint.
 
 .. note::
 
     Note that we used the ``access_token`` URL parameter to specify the API key this time, instead of the ``"Authorization"`` HTTP header. This is just to illustrate that you can use both methods of passing the API key.
 
-Restart your server and try it out. You should see status of your configured switch displayed!
+Restart your server and try it out. You should see status of your configured switches displayed!
 
 ----
 
 Summary
 -------
 
-In part 2 of this tutorial, we learned how an external application can work with SmartThings by getting an access token, discover endpoints, and make API calls to a WebServices SmartApp.
+In the second part of this tutorial, we learned how an external application can work with SmartThings by getting an access token, discover endpoints, and make API calls to a WebServices SmartApp.
 
 You are encouraged to explore further with this sample, including making different API calls to turn the configured switch on or off.
 
@@ -380,6 +391,6 @@ Make API Calls
 
 Now that you have the access token and the endpoint URL, you can make web requests to your SmartApp endpoint using whatever tool you prefer.
 
-Just make sure to preface ``http://graph.api.smartthings.com`` to the beginning of the URL returned above, and any endpoints your SmartApp exposes (e.g., ``/switch``) to the end of the URL.
+Just make sure to preface ``http://graph.api.smartthings.com`` to the beginning of the URL returned above, and any endpoints your SmartApp exposes (e.g., ``/switches``) to the end of the URL.
 
 You can either specify your access token via the ``access_token`` URL parameter as above, or (preferably) use the Authorization header (``"Authorization: Bearer <API TOKEN>"``).

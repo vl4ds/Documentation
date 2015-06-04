@@ -3,7 +3,9 @@
 SmartThings Web Services Tutorial - Part 1
 ==========================================
 
-In this tutorial, you will learn:
+This is the first part of two that will teach you how to build a WebServices SmartApp.
+
+In part 1 of this tutorial, you will learn:
 
 - How to develop a Web Services SmartApp that exposes endpoints.
 - How to call the Web Services SmartApp using simple API calls.
@@ -13,14 +15,14 @@ In this tutorial, you will learn:
 Overview
 --------
 
-Part 1 of this tutorial will build a simple SmartApp that exposes endpoints to get information about and control a switch.
+Part 1 of this tutorial will build a simple SmartApp that exposes endpoints to get information about and control switches.
 
 ----
 
 Step 1 - Create a new SmartApp
 ------------------------------
 
-Create a new SmartApp in the IDE. Make sure to click on *Enable OAuth in SmartApp* to receive an auto-generated client ID and secret.
+Create a new SmartApp in the IDE. Fill in the required fields, and make sure to click on *Enable OAuth in SmartApp* to receive an auto-generated client ID and secret.
 
 Note the Client ID and secret - they'll be used later (should you forget, you can get them by viewing the "App Settings" in the IDE).
 
@@ -31,7 +33,7 @@ Step 2 - Define Preferences
 
 SmartApps declare preferences metadata that is used at installation and configuration time, to allow the user to control what devices the SmartApp will have access to. 
 
-This is a configuration step, but also a secuirty step, whereby the users must explicitly select what devices the SmartApp can control.
+This is a configuration step, but also a security step, whereby the users must explicitly select what devices the SmartApp can control.
 
 Web Services SmartApps are no different, and this is part of the power
 of this approach. The end user controls exactly what devices the SmartApp
@@ -44,7 +46,7 @@ The preferences definition should look like this:
 
   preferences {
     section ("Allow external service to control these things...") {
-      input "theSwitch", "capability.switch", multiple: false, required: true
+      input "switches", "capability.switch", multiple: true, required: true
     }
   }
 
@@ -57,14 +59,14 @@ Step 3 - Specify Endpoints
 
 The ``mappings`` declaration allows developers to expose HTTP endpoints, and map the varous supported HTTP operations to an associated handler.
 
-The handler can process the HTTP reqeust and provide a response, including both the `HTTP status
+The handler can process the HTTP request and provide a response, including both the `HTTP status
 code <https://en.wikipedia.org/wiki/List_of_HTTP_status_codes>`__, as well as the response body.
 
 Our SmartApp will expose two endpoints:
 
-- The ``/switch`` endpoint will support a GET request. A GET request to this endpoint will return state information for the configured switch. 
+- The ``/switches`` endpoint will support a GET request. A GET request to this endpoint will return state information for the configured switches. 
 
-- The ``/switch/:command`` endpoint will support a PUT request. A PUT request to this endpoint will execute the specified command (``"on"`` or ``"off"``) on the configured switch.
+- The ``/switches/:command`` endpoint will support a PUT request. A PUT request to this endpoint will execute the specified command (``"on"`` or ``"off"``) on the configured switches.
 
 .. tip::
   
@@ -75,14 +77,14 @@ Here's the code for our mappings definition. This is defined at the top-level in
 .. code-block:: groovy
 
     mappings {
-      path("/switch") {
+      path("/switches") {
         action: [
-          GET: "listSwitch"
+          GET: "listSwitches"
         ]
       }
-      path("/switch/:command") {
+      path("/switches/:command") {
         action: [
-          PUT: "updateSwitch"
+          PUT: "updateSwitches"
         ]
       }
     }
@@ -95,12 +97,12 @@ Note the use of variable parameters in our PUT endpoint. Use the ``:`` prefix to
 
 .. tip::
 
-  Endpoints can support multiple REST methods. If we wanted the ``/switch`` endpoint to also support a PUT request, simply add another entry to the ``action`` configuration:
+  Endpoints can support multiple REST methods. If we wanted the ``/switches`` endpoint to also support a PUT request, simply add another entry to the ``action`` configuration:
 
   .. code-block:: groovy
 
     action: [
-      GET: "listSwitch",
+      GET: "listSwitches",
       PUT: "putHandlerMethodName"
     ]
 
@@ -108,9 +110,9 @@ Go ahead and add empty methods for the various handlers. We'll fill these in in 
 
 .. code-block:: groovy
 
-  def listSwitch() {}
+  def listSwitches() {}
 
-  def updateSwitch() {}
+  def updateSwitches() {}
 
 ----
 
@@ -119,43 +121,48 @@ Step 4 - GET Switch Information
 
 Now that we've defined our endpoints, we need to handle the requests in the handler methods we stubbed in above.
 
-Let's start with the handler for GET requests to the ``/switch`` endpoint. When a GET request to the ``/switch`` endpoint is called, we want to return the display name, and the current switch value (e.g., on or off) for the configured switch.
+Let's start with the handler for GET requests to the ``/switches`` endpoint. When a GET request to the ``/switches`` endpoint is called, we want to return the display name, and the current switch value (e.g., on or off) for the configured switch.
 
-Our handler method returns a map, which is then serialized by the SmartThings platform into JSON:
+Our handler method returns a list of maps, which is then serialized by the SmartThings platform into JSON:
 
 .. code-block:: groovy
 
-  def listSwitch() {
-      def resp = [:]
-      resp.name = theSwitch.displayName
-      resp.value = theSwitch.currentValue("switch")
+  // returns a list like 
+  // [[name: "kitchen lamp", value: "off"], [name: "bathroom", value: "on"]]
+  def listSwitches() {
+      def resp = []
+      switches.each {
+        resp << [name: it.displayName, value: it.currentValue("switch")]
+      }
       return resp
   }
 
 ----
 
-Step 5 - UPDATE the Switch
----------------------------
+Step 5 - UPDATE the Switches
+----------------------------
 
-We also need to handle a PUT request to the ``/switch/:command`` endpoint. ``/switch/on`` will turn the switch on, and ``/switch/off`` will turn the switch off.
+We also need to handle a PUT request to the ``/switches/:command`` endpoint. ``/switches/on`` will turn the switches on, and ``/switches/off`` will turn the switches off.
 
 If the configured switch does not support the specified command, we'll return a ``501`` HTTP error.
 
 
 .. code-block:: groovy
 
-    void updateSwitch() {
+    void updateSwitches() {
         // use the built-in request object to get the command parameter
         def command = params.command
         if (command) {
 
-            // check that this switch supports the specified command
+            // check that the switch supports the specified command
             // if it does, execute that command.
             // If not, return an error using httpError, providing a HTTP status code.
-            if (theSwitch.hasCommand(command)) {
-                theSwitch."$command"()
-            } else {
-                httpError(501, "$command is not a valid command for this switch") 
+            switches.each {
+                if (it.hasCommand(command)) {
+                    it."$command"()
+                } else {
+                    httpError(501, "$command is not a valid command for this switch") 
+                }
             }
         }
     }
@@ -216,13 +223,20 @@ To turn the switch on or off, call the /switch endpoint using a PUT request, pas
 
 .. code-block:: bash
 
-  curl -H "Authorization: Bearer <api token>" -H "Content-type: application/json" -X PUT <api endpoint>/switch/on
+  curl -H "Authorization: Bearer <api token>" -X PUT <api endpoint>/switch/on
 
 Change the command value to ``"off"`` to turn the switch off. Try turning the switch on and off, and then using curl to get the status, to see that it changed.
 
 .. tip::
 
   You can also pass the API token directly on the URL, via the ``access_token`` URL parameter, instead of using the Authorization header. This may be useful when you do not have the ability to set request headers.
+
+----
+
+Step 9 - Uninstall the SmartApp
+-------------------------------
+
+Finally, uninstall the SmartApp using the *Uninstall* button in the IDE simulator.
 
 ----
 
