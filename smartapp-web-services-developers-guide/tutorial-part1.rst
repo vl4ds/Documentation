@@ -144,26 +144,28 @@ UPDATE the Switches
 
 We also need to handle a PUT request to the ``/switches/:command`` endpoint. ``/switches/on`` will turn the switches on, and ``/switches/off`` will turn the switches off.
 
-If the configured switch does not support the specified command, we'll return a ``501`` HTTP error.
-
+If any of the configured switches does not support the specified command, we'll return a ``501`` HTTP error.
 
 .. code-block:: groovy
 
     void updateSwitches() {
         // use the built-in request object to get the command parameter
         def command = params.command
+
         if (command) {
 
             // check that the switch supports the specified command
-            // if it does, execute that command.
             // If not, return an error using httpError, providing a HTTP status code.
             switches.each {
-                if (it.hasCommand(command)) {
-                    it."$command"()
-                } else {
-                    httpError(501, "$command is not a valid command for this switch") 
-                }
+                if (!it.hasCommand(command)) {
+                    httpError(501, "$command is not a valid command for all switches specified")
+                } 
             }
+            
+            // all switches have the comand
+            // execute the command on all switches
+            // (note we can do this on the array - the command will be invoked on every element
+            switches."$command"()
         }
     }
 
@@ -217,7 +219,7 @@ To get information about the switch, we will call the /switch endpoint using a G
 
 This should return a JSON response like the following::
 
-  {"name":"Bathroom left","value":"off"}
+  [{"name":"Kitchen 2","value":"off"},{"name":"Living room window","value":"off"}]
 
 To turn the switch on or off, call the /switch endpoint using a PUT request, passing the command in the request body. Again, you'll need to substitute your unique endpoing and API key:
 

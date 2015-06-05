@@ -33,7 +33,7 @@ Prerequisites
 
 Aside from completing Part 1 of this tutorial, you should have Ruby and Sinatra installed.
 
-Visit the `Ruby <http://ruby-lang.org>`__ website to install Ruby, and the `Sinatra Getting Started Page <http://www.sinatrarb.com/intro.html>`__ website for information about installing Sinatra.
+Visit the `Ruby <http://ruby-lang.org>`__ website to install Ruby, and the `Sinatra Getting Started Page <http://www.sinatrarb.com/intro.html>`__ for information about installing Sinatra.
 
 ----
 
@@ -64,6 +64,9 @@ In your favorite text editor*, create a new file called ``server.rb`` and paste 
     CLIENT_ID = ENV['ST_CLIENT_ID']
     CLIENT_SECRET = ENV['ST_CLIENT_SECRET']
 
+    # We'll store the access token in the session
+    use Rack::Session::Pool, :cookie_only => false
+
     # This is the URI that will be called with our access 
     # code after we authenticate with our SmartThings account
     redirect_uri = 'http://localhost:4567/oauth/callback'
@@ -79,6 +82,11 @@ In your favorite text editor*, create a new file called ``server.rb`` and paste 
 
     # use the OAuth2 module to handle OAuth flow
     client = OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, options)
+
+    # helper method to know if we have an access token
+    def authenticated?
+      session[:access_token]
+    end
 
     # handle requests to the application root
     get '/' do
@@ -186,7 +194,7 @@ Now that we've received our OAuth authorization code, we can use it to obtain th
 
 We'll store the access token in the session. Add the following to ``server.rb``:
 
-.. code-block:: ruby
+.. code:
 
     # We'll store the access token in the session
     use Rack::Session::Pool, :cookie_only => false
@@ -210,10 +218,28 @@ Replace the ``/oauth/callback`` route with the following:
       # now that we have the access token, we will store it in the session
       session[:access_token] = response.token
 
+      # debug - inspect the running console for the 
+      # expires in (seconds from now), and the expires at (in epoch time)
+      puts 'TOKEN EXPIRES IN ' + response.expires_in.to_s
+      puts 'TOKEN EXPIRES AT ' + response.expires_at.to_s
       redirect '/getswitch'
     end
 
 We first retrieve the access code from the parameters. We use this to get the token using the OAuth2 module, and store it in the session.
+
+.. note::
+    
+    Requesting the token returns JSON which contains information about the token type and the token expiration, in addition to the token itself. The raw response looks something like this:
+
+    .. code:: 
+
+        {
+          "access_token": "43373fd2871641379ce8b35a9165e803",
+          "expires_in": 1576799999,
+          "token_type": "bearer"
+        }
+
+    The ``expires_in`` response is the time, in seconds from now, that this token will expire. The time for the token to expire is approximately 50 years from token grant; a refresh token is not sent, but the original token has a very long expiration date.
 
 We then redirect to the ``/getswitch`` URL of our server. This is where we will retrieve the endpoint to call, and get the status of the configured switch.
 
@@ -295,17 +321,11 @@ Remove the line at the end of the ``getswitch`` route handler that outputs the r
   getSwitchHttp.use_ssl = true
   
   switchStatus = getSwitchHttp.request(getSwitchReq)
-  switchJson = JSON.parse(switchStatus.body)
-
-  # debugging statements
-  puts 'RESPONSE BODY: ' + switchStatus.body
-  puts 'SWITCH JSON: ' + switchJson.to_s
-
-  # Just print out the returned value
-  JSON.pretty_generate(switchJson)
+  
+  '<h3>Response Code</h3>' + switchStatus.code + '<br/><h3>Response Headers</h3>' + switchStatus.to_hash.inspect + '<br/><h3>Response Body</h3>' + switchStatus.body
 
 
-The above code uses the endpoint for our SmartApp to build a URL, and then makes a GET request to the ``/switches`` endpoint. It simply displays the JSON returned by the endpoint.
+The above code uses the endpoint for our SmartApp to build a URL, and then makes a GET request to the ``/switches`` endpoint. It simply displays the the status, headers, and response body returned by our WebServices SmartApp.
 
 .. note::
 
