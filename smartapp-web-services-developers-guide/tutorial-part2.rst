@@ -20,7 +20,7 @@ Overview
 
 In Part 2 of this tutorial, we will build a simple Sinatra application that will make calls to the Web Services SmartApp we built in Part 1.
 
-If you're not familiar with Sinatra, you are encouraged to try it out. It's not strictly necessary, however, as the application will simply make web requests to get the API token, and get the endpoint. 
+If you're not familiar with Sinatra, you are encouraged to try it out. It's not strictly necessary, however, as our application will simply make web requests to get the API token and the endpoint. 
 
 .. note::
 
@@ -130,7 +130,7 @@ Back at the command line, run bundle:
 
     bundle install
 
-You'll also want to set environment variables for you CLIENT_ID and CLIENT_SECRET. 
+You'll also want to set environment variables for your ST_CLIENT_ID and ST_CLIENT_SECRET. 
 
 Now, run the app on your local machine::
 
@@ -179,22 +179,16 @@ Click the Authorize button, and you will be redirected back your server.
 
 You'll notice that we haven't implemented handling this URL yet, so we see "Not Implemented!". 
 
-But you can also see there is a URL parameter named "code" on the URL:
-
-.. figure:: ../img/smartapps/web-services/code.png
-
-This is our OAuth authorization code, and we'll use it to get our API token.
-
 ----
 
 Get an Access Token
 -------------------
 
-Now that we've received our OAuth authorization code, we can use it to obtain the API token we need to make requests to our Web Services SmartApp.
+When SmartThings redirects back to our application after authorizing, it passes a ``code`` parameter on the URL. This is the code that we will use to get the API token we need to make requests to our Web Servcies SmartApp.
 
-We'll store the access token in the session. Add the following to ``server.rb``:
+We'll store the access token in the session. Towards the top of ``server.rb``, we configure our app to use the session, and add a helper method to know if the user has authenticated:
 
-.. code:
+.. code-block:: ruby
 
     # We'll store the access token in the session
     use Rack::Session::Pool, :cookie_only => false
