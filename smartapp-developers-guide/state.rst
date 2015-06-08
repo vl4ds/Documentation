@@ -131,7 +131,11 @@ Because "Execution 1" hasn't finished executing by the time that "Execution 2" b
 
 Additionally, because the contents of ``state`` are only persisted when execution is complete, it's also possible to inadvertantly overwrite values (last finished execution "wins").
 
-To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` writes to the data store when a value is *set*, and reads from the data store when a value is *read* - not just when the application execution initializes and completes. 
+To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` writes to the data store when a value is *set*, and reads from the data store when a value is *read* - not just when the application execution initializes and completes. You use it just as you would use ``state``:
+
+.. code-block:: groovy
+
+  atomicState.counter = atomicState.counter + 1.
 
 .. important::
   
