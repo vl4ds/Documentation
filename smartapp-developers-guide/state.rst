@@ -143,6 +143,8 @@ To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` wri
 
   Use ``atomicState`` only if you are sure that using ``state`` will cause problems. 
 
+  It's also worth noting that you should **not** use both ``state`` and ``atomicState`` in the same SmartApp or Device Handler. Doing so will likely cause inconsistencies in in state values.
+
 Examples
 --------
 
