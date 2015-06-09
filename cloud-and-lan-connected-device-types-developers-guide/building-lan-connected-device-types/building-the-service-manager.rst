@@ -13,14 +13,14 @@ Play <http://en.wikipedia.org/wiki/Universal_Plug_and_Play>`__, which
 allows you easily connect new network devices to a system. To discovery
 new devices, you'd use something like this:
 
-::
+.. code-block:: groovy
 
     sendHubCommand(new physicalgraph.device.HubAction("lan discovery urn:schemas-upnp-org:device:ZonePlayer:1", physicalgraph.device.Protocol.LAN))
 
 This is an example of discovering devices using the LAN protocol. The
 main message to be sent through the hub is
 
-::
+.. code-block:: groovy
 
     lan discovery urn:schemas-upnp-org:device:ZonePlayer:1
 
@@ -64,13 +64,13 @@ documentation <https://developer.apple.com/library/mac/documentation/Cocoa/Conce
 
 Your discovery request would look like this:
 
-::
+.. code-block:: groovy
 
     sendHubCommand(new physicalgraph.device.HubAction("lan discover mdns/dns-sd ._smartthings._tcp._site", physicalgraph.device.Protocol.LAN))
 
 The main message to be sent through the hub is
 
-::
+.. code-block:: groovy
 
     lan discover mdns/dns-sd ._smartthings._tcp._site
 
@@ -91,7 +91,7 @@ events, but rather we listen for any location events, indicating a
 device has been added. Upon the event firing, a handler is called, in
 this case **locationHandler**.
 
-::
+.. code-block:: groovy
 
     if(!state.subscribe) {
       log.debug "subscribe to location"
@@ -109,7 +109,7 @@ part of the devices collection in your state. You can check this via any
 unique identifier of your device. If it's not already registered in your
 state, go ahead and add it.
 
-::
+.. code-block:: groovy
 
     def locationHandler(evt) {
       def description = evt.description
@@ -138,25 +138,25 @@ The example above uses SSDP, you could also use mDNS/DNS-SD. You just
 need to change what attributes are being used. For example, you could
 replace this:
 
-::
+.. code-block:: groovy
 
     if (parsedEvent?.ssdpTerm?.contains("urn:schemas-upnp-org:device:DeviceIdentifier:1"))
 
 with this:
 
-::
+.. code-block:: groovy
 
     if(parsedEvent?.mdnsPath)
 
 and this:
 
-::
+.. code-block:: groovy
 
     if (!(devices."${parsedEvent.ssdpUSN.toString()}"))
 
 with this:
 
-::
+.. code-block:: groovy
 
     if (!(devices."${parsedEvent?.mac?.toString()}"))
 
@@ -168,7 +168,7 @@ port information hasn't changed.
 
 Using SSDP:
 
-::
+.. code-block:: groovy
 
     if ((devices."${parsedEvent.ssdpUSN.toString()}")){
       def d = devices."${parsedEvent.ssdpUSN.toString()}"
@@ -183,7 +183,7 @@ Using SSDP:
 
 Using mDNS/DNS-SD:
 
-::
+.. code-block:: groovy
 
     if ((devices."${parsedEvent?.mac?.toString()}")) {
       def d = device."${parsedEvent.mac.toString()}"
@@ -199,7 +199,7 @@ Using mDNS/DNS-SD:
 If values did change, then you need to manually update your devices
 within the SmartApp.
 
-::
+.. code-block:: groovy
 
     if (deviceChangedValues) {
                 def children = getChildDevices()
@@ -229,7 +229,7 @@ installed, you need to add the device(s) the user has selected as a
 child device. You will iterate through a collection created from the
 user's input, and find just the devices they picked and add them.
 
-::
+.. code-block:: groovy
 
     selectedDevices.each { dni ->
         def d = getChildDevice(dni)
