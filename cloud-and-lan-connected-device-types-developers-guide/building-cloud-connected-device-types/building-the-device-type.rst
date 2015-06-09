@@ -16,7 +16,7 @@ Invoking Methods on the Parent Service Manager
 To invoke a method on the parent service manager, you simply need to
 call it in the following format:
 
-::
+.. code-block:: groovy
 
     parent.methodName()
 
@@ -30,7 +30,7 @@ service manager, who will make the direct connection to the third party
 cloud. You might for example want to turn a switch on, so you would call
 the following.
 
-::
+.. code-block:: groovy
 
     def on() {
       parent.on(this)
@@ -46,7 +46,7 @@ poll runs every 10 minutes for Service Manager SmartApps.
 
 In the device-type handler
 
-::
+.. code-block:: groovy
 
     def poll() {
         results = parent.pollChildren()
@@ -54,14 +54,14 @@ In the device-type handler
     }
 
     def parseEventData(Map results){
-        results.each { name, value -> 
+        results.each { name, value ->
             //Parse events and optionally create SmartThings events
         }
     }
 
 In the service manager
 
-::
+.. code-block:: groovy
 
     def pollChildren(){
         def pollParams = [
@@ -69,10 +69,10 @@ In the service manager
             path: "/device",
             requestContentType: "application/json",
             query: [format:"json",body: jsonRequestBody]
+            ]
 
-        httpGet(pollParams) { resp -> 
-            httpGet(pollParams) { resp -> 
-                state.devices = resp.data.devices { collector, stat -> 
+            httpGet(pollParams) { resp ->
+                state.devices = resp.data.devices { collector, stat ->
                 def dni = [ app.id, stat.identifier ].join('.')
                 def data = [
                     attribute1: stat.attributeValue,
@@ -93,13 +93,13 @@ For example:
 
 In the service manager
 
-::
+.. code-block:: groovy
 
     childName.generateEvent(data)
 
 In the device-type handler
 
-::
+.. code-block:: groovy
 
     def generateEvent(Map results) {
       results.each { name, value ->
@@ -118,11 +118,11 @@ similar to how you'd add preferences to a SmartApp. Learn more about
 preferences
 `here <http://smartthings.readthedocs.org/en/latest/smartapp-developers-guide/preferences-and-settings.html>`__.
 
-::
+.. code-block:: groovy
 
     preferences {
         input(type: "enum", name: "variableName", title: "Choose your value", options: variableOptions(), defaultValue: "Option1", style: "segmented")
     }
-        
+
 
 

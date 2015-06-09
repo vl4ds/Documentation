@@ -16,7 +16,7 @@ able to handle a response back with an access token.
 Within your service manager preferences, you create a page for
 authorization.
 
-::
+.. code-block:: groovy
 
     preferences {
         page(name: "Credentials", title: "Sample Authentication", content: "authPage", nextPage: "sampleLoggedInPage", install: false)
@@ -25,30 +25,30 @@ authorization.
 
 and define it within a method below.
 
-::
+.. code-block:: groovy
 
     def authPage() {}
 
 Check if an AccessToken hasn't been generated yet.
 
-::
+.. code-block:: groovy
 
     if(!state.sampleAccessToken)
 
 Call a helper method to set an accessToken if there isn't one set yet.
 
-::
+.. code-block:: groovy
 
     createAccessToken()
 
 Setup the params for your OAuth request.
 
-::
+.. code-block:: groovy
 
     state.oauthInitState = UUID.randomUUID().toString()
     def oauthParams = [
         response_type: "token",
-        client_id: "XXXXXXX",  
+        client_id: "XXXXXXX",
         redirect_uri: "https://graph.api.smartthings.com/api/token/${state.accessToken}/smartapps/installations/${app.id}/receiveToken"
     ]
     def redirectUrl = "https://api.thirdpartysite.com/v1/oauth2/authorize?"+ toQueryString(oauthParams)
@@ -56,7 +56,7 @@ Setup the params for your OAuth request.
 Return a new page, created by the redirect URL. Load up the OAuth
 initialization URL embedded within the app.
 
-::
+.. code-block:: groovy
 
     return dynamicPage(name: "Credentials", title: "Sample", nextPage:"sampleLoggedInPage", uninstall: uninstallOption, install:false) {
         section {
@@ -71,7 +71,7 @@ properly.
 To handle the callback, you can map a URL within your service manager.
 As specified, the callback will go to the following URL.
 
-::
+.. code-block:: groovy
 
     mappings {
         path("/receiveToken") {
@@ -88,7 +88,7 @@ time). This handler should also indicate to the end user that they need
 to click the done button to exit the external third party flow and go
 back to your SmartApp.
 
-::
+.. code-block:: groovy
 
     def receiveToken() {
         state.sampleAccessToken = params.access_token
@@ -151,7 +151,7 @@ often need to account for this, and if needed, refresh your
 access\_token. To do this, you need to store the refresh\_token in your
 state, like so:
 
-::
+.. code-block:: groovy
 
     def receiveToken() {
         state.sampleAccessToken = params.access_token
@@ -164,7 +164,7 @@ you can use your refresh\_token to get a new access\_token. To do this,
 you just need to post to a specified endpoint and handle the response
 properly.
 
-::
+.. code-block:: groovy
 
     private refreshAuthToken() {
         def refreshParams = [
@@ -211,7 +211,7 @@ APIs which all have unique parameters. Typically you will authenticate
 with the third party API using OAuth. Then call an API specific method.
 For example, it could be as simple as this:
 
-::
+.. code-block:: groovy
 
     def deviceListParams = [
         uri: "https://api.thirdpartysite.com",
@@ -228,11 +228,11 @@ For example, it could be as simple as this:
 Within a service manager SmartApp, you create child devices for all your
 respective cloud devices.
 
-::
+.. code-block:: groovy
 
     settings.devices.each {deviceId->
         def device = state.devices.find{it.id==deviceId}
-          if (device) {  
+          if (device) {
             def childDevice = addChildDevice("smartthings", "Device Name", deviceId, null, [name: "Device.${deviceId}", label: device.name, completedSetup: true])
       }
     }
@@ -248,7 +248,7 @@ method in your device type, and in this case, it is called immediately
 on initialization. Here is a very simple example, which doesn't take
 into account error checking for the http request.
 
-::
+.. code-block:: groovy
 
     def pollParams = [
         uri: "https://api.thirdpartysite.com",
@@ -256,8 +256,8 @@ into account error checking for the http request.
         requestContentType: "application/json",
         query: [format:"json",body: jsonRequestBody]
 
-    httpGet(pollParams) { resp -> 
-        state.devices = resp.data.devices { collector, stat -> 
+    httpGet(pollParams) { resp ->
+        state.devices = resp.data.devices { collector, stat ->
         def dni = [ app.id, stat.identifier ].join('.')
         def data = [
             attribute1: stat.attributeValue,
@@ -277,7 +277,7 @@ When you update your settings in a Service Manager to add additional
 devices, the Service Manager needs to respond by adding a new device
 in SmartThings.
 
-::
+.. code-block:: groovy
 
     updated(){
         initialize()
@@ -289,7 +289,7 @@ in SmartThings.
                 def existingDevice = getChildDevice(deviceId)
                 if(!existingDevice) {
                     def childDevice = addChildDevice("smartthings", "Device Name", deviceId, null, [name: "Device.${deviceId}", label: device.name, completedSetup: true])
-                } 
+                }
             } catch (e) {
                 log.error "Error creating device: ${e}"
             }
@@ -302,18 +302,18 @@ in SmartThings.
 Similarly when you remove devices within your Service Manager, they
 need to be removed from SmartThings.
 
-::
+.. code-block:: groovy
 
     def delete = getChildDevices().findAll { !settings.devices.contains(it.deviceNetworkId) }
 
-    delete.each { 
+    delete.each {
         deleteChildDevice(it.deviceNetworkId)
     }
 
 Also, when a Service Manager SmartApp is uninstalled, you need to remove
 its child devices.
 
-::
+.. code-block:: groovy
 
     def uninstalled() {
         removeChildDevices(getChildDevices())
