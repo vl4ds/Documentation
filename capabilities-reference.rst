@@ -560,7 +560,8 @@ Configuration
     This capability is meant to be used only in device handlers. The implementation of the
     ``configure()`` method will be very specific to the physical device. The commands that
     populate the ``configure()`` method will most likely be found in the device manufacturer's
-    documentation.
+    documentation. During the device installation lifecycle, the ``configure()`` method is called 
+    after the device has been assigned a Device Handler. 
 
 =========================   ==============================
 Capability Name             SmartApp Preferences Reference
@@ -582,6 +583,7 @@ None.
 .. code-block:: groovy
 
   def configure() {
+    // update reporting frequency 
     def cmd = delayBetween([
       zwave.configurationV1.configurationSet(parameterNumber: 101, size: 4, scaledConfigurationValue: 4).format(), // combined power in watts
       zwave.configurationV1.configurationSet(parameterNumber: 111, size: 4, scaledConfigurationValue: 300).format(), // every 5 min
