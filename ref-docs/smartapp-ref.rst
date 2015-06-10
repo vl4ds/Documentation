@@ -1117,6 +1117,8 @@ Sends a LOCATION event constructed from the specified properties. See the :ref:`
 
 ----
 
+.. _smartapp_send_notification:
+
 sendNotification()
 ~~~~~~~~~~~~~~~~~~
 
@@ -1152,6 +1154,8 @@ Sends the specified message and displays it in the *Hello, Home* portion of the 
     sendNotification("test notification - no event", [event: false])
 
 ----
+
+.. _smartapp_send_notification_event:
 
 sendNotificationEvent()
 ~~~~~~~~~~~~~~~~~~~~~~~
