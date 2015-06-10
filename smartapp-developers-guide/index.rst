@@ -23,6 +23,7 @@ The contents of this guide are below:
    scheduling
    sunset-and-sunrise
    calling-web-services-in-smartapps
+   sending-notifications
    example-bon-voyage
    submitting-smartapps-for-publication
 

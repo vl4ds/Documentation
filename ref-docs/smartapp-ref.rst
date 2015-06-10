@@ -1175,6 +1175,8 @@ Displays a message in *Hello, Home*, but does not send a push notification or SM
 
 ----
 
+.. _smartapp_send_push:
+
 sendPush()
 ~~~~~~~~~~
 
@@ -1197,6 +1199,8 @@ Sends the specified message as a push notification to users mobile devices and d
 
 ----
 
+.. _smartapp_send_push_message:
+
 sendPushMessage()
 ~~~~~~~~~~~~~~~~~
 
@@ -1218,6 +1222,8 @@ Sends the specified message as a push notification to users mobile devices but d
     sendPushMessage("some message")
 
 ----
+
+.. _smartapp_send_sms:
 
 sendSms()
 ~~~~~~~~~
@@ -1242,6 +1248,8 @@ Sends the message as an SMS message to the specified phone number and displays i
     sendSms("somePhoneNumber", "some message")
 
 ----
+
+.. _smartapp_send_sms_message:
 
 sendSmsMessage()
 ~~~~~~~~~~~~~~~~
