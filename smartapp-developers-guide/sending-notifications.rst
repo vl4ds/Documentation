@@ -7,6 +7,7 @@ In this guide, you will learn:
 
 - How to send push notifications to the mobile app
 - How to send SMS notifications
+- How to display messages in *Hello, Home*
 
 .. contents::
 
@@ -102,6 +103,40 @@ Extending the example above, let's add the ability for a user to (optionally) se
 
 SMS notifications will be sent from the number 844647 ("THINGS").
 
+Send Both Push and SMS Notifications
+------------------------------------
+
+The ``sendNotification()`` method allows you to send both push and/or SMS messages, in one convenient method call. It can also optionally display the message in *Hello, Home*.
+
+``sendNotification()`` takes a message parameter, and a map of options that control how the message should be sent, if the message should be displayed in *Hello, Home*, and a phone number to send an SMS to (if specified):
+
+.. code-block:: groovy
+
+    // sends a push notification, and displays it in Hello Home
+    sendNotification("test notification - no params")
+
+    // same as above, but explicitly specifies the push method (default is push)
+    sendNotification("test notification - push", [method: "push"])
+
+    // sends an SMS notification, and displays it in Hello Home
+    sendNotification("test notification - sms", [method: "phone", phone: "1234567890"])
+
+    // Sends a push and SMS message, and displays it in Hello Home
+    sendNotification("test notification - both", [method: "both", phone: "1234567890"])
+
+    // Sends a push message, and does not display it in Hello Home
+    sendNotification("test notification - no event", [event: false])
+
+Only Display Message in Hello, Home
+-----------------------------------
+
+Use the ``sendNotificationEvent()`` method to display a message in *Hello, Home*, without sending a push notification or SMS message:
+
+.. code-block:: groovy
+
+    sendNotificationEvent("Your home talks!")
+
+
 Examples
 --------
 
@@ -116,4 +151,6 @@ Related API Documentation
 - :ref:`smartapp_send_push_message`
 - :ref:`smartapp_send_sms`
 - :ref:`smartapp_send_sms_message`
+- :ref:`smartapp_send_notification`
+- :ref:`smartapp_send_notification_event`
 
