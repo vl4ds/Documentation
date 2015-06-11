@@ -190,13 +190,14 @@ htmlhelp_basename = 'SmartThingsDocumentationdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'letterpaper',
 
 # The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+'pointsize': '10pt',
 
 # Additional stuff for the LaTeX preamble.
-#'preamble': '',
+# Set TOC depth to 5 for a nice, deep TOC.
+'preamble': '\setcounter{tocdepth}{5}'
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
