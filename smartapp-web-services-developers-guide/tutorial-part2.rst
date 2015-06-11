@@ -22,9 +22,11 @@ In Part 2 of this tutorial, we will build a simple Sinatra application that will
 
 If you're not familiar with Sinatra, you are encouraged to try it out. It's not strictly necessary, however, as our application will simply make web requests to get the API token and the endpoint. 
 
+If you just want to see the manual steps to make requests to get the access token, discover endpoints, and start making calls, you can see the :ref:`appendix_just_the_urls`.
+
 .. note::
 
-    If you just want to see the manual steps to make requests to get the access token, discover endpoints, and start making calls, you can see the :ref:`appendix_just_the_urls`.
+  If Node is more your speed, check out the awesome SmartThings OAuth Node app written by community member John S (@schettj) `here <https://github.com/schettj/SmartThings>`__. It shows how you can get an access token using the OAuth flow for a WebServices SmartApp using Node.
 
 ----
 
