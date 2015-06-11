@@ -501,18 +501,20 @@ Attribute       Type    Possible Values
 =============== ======= =============================================
 hue             Number  ``0-100`` (percent)
 saturation      Number  ``0-100`` (percent)
-color           Map
-                        ============= ===============================
-                        key           value
-                        ============= ===============================
-                        hue           ``0-100 (percent)``
-                        saturation    ``0-100 (percent)``
-                        hex           ``"#000000" - "#FFFFFF" (Hex)``
-                        level         ``0-100 (percent)``
-                        switch        ``"on"`` or ``"off"``
-                        ============= ===============================
-
+color           Map     See the table below for the color options
 =============== ======= =============================================
+
+Color Options:
+
+============= ===============================
+key           value
+============= ===============================
+hue           ``0-100 (percent)``
+saturation    ``0-100 (percent)``
+hex           ``"#000000" - "#FFFFFF" (Hex)``
+level         ``0-100 (percent)``
+switch        ``"on"`` or ``"off"``
+============= ===============================
 
 **Commands:**
 
