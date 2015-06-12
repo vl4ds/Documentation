@@ -1,13 +1,75 @@
-Cloud-Connected Device Types: Building the Service Manager
-==========================================================
+Building the Service Manager
+============================
+
+The Service Manager's responsibilities are to:
+
+- Authenticate with the 3rd party cloud service
+- Device discovery
+- Add/Change/Delete device actions
+- Handle sending any messages that require the authentication obtained.
+
+We will look at a detailed example of what is outlined above. But first, let's see an example of how what we are trying to
+accomplish would look like in the SmartThings application.
 
 Authentication using OAuth
 --------------------------
 
-**Password Flow**
+Web Browser Flow
+~~~~~~~~~~~~~~~~
 
-When using a third-party cloud based service, you will need to
-authenticate with them over OAuth via your service manager.
+The experience for the end user will be fairly seamless. They will go
+through the following steps (illustrated using the Ecobee Thermostat)
+
+The user selects the Service Manager application from the SmartApps
+within the SmartThings app. Upon selection, they are prompted with an
+initial landing page, describing what the application does and a link to
+configure.
+
+.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/configure-screen.png
+:alt: Thermostat
+
+Authorization with the third party is the first part of the
+configuration process. The user is driven to a page which tells them
+about the authorization process and how it will work. They can then
+click a link to move forward.
+
+.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/click-to-login.png
+:alt: Thermostat
+
+The user will be driven to a third party site, embedded within the
+SmartThings application chrome. They will be required to put in their
+username and password for the third party service.
+
+.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-login.png
+:alt: Thermostat
+
+The third party server will show what SmartThings will have access to
+and give the user the opportunity to accept or decline.
+
+.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/authorize-ecobee.png
+:alt: Thermostat
+
+Upon acceptance, the user will be redirected to another page within the
+third party service. This page includes language about the end user
+clicking done on the top right of the SmartThings chrome.
+
+.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-authorization-complete.png
+:alt: Thermostat
+
+After done is clicked, the user will go back to the initial
+configuration screen, seeing that their device is now connected. They
+can then click next to continue, and any other configuration can be
+done.
+
+.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/st-authorization-complete.png
+:alt: Thermostat
+
+Password Flow
+~~~~~~~~~~~~~
+
+OAuth is the typical industry standard for authentication. The 3rd party service may use something other than OAuth.
+In that case, it is up to you to consult their documentation and implement it. The basic concepts will be the same as
+it is with OAuth. The following example will walk through what is necessary for OAuth authentication.
 
 The overall idea is that you will create a page that will call out to
 the third party API and then map a URL to a handlerLoads method to be
@@ -27,42 +89,35 @@ and define it within a method below.
 
 .. code-block:: groovy
 
-    def authPage() {}
+    def authPage() {
+        if(!state.sampleAccessToken)
+            createAccessToken()
+    }
 
-Check if an AccessToken hasn't been generated yet.
-
-.. code-block:: groovy
-
-    if(!state.sampleAccessToken)
-
-Call a helper method to set an accessToken if there isn't one set yet.
+The ``authPage`` method simply checks to see if there already is an access token. If not, we call a method to retrieve one.
+Lets take a look at the ``createAccessToken`` method next.
 
 .. code-block:: groovy
 
-    createAccessToken()
+    def createAccessToken() {
 
-Setup the params for your OAuth request.
+        state.oauthInitState = UUID.randomUUID().toString()
+        def oauthParams = [
+            response_type: "token",
+            client_id: "XXXXXXX",
+            redirect_uri: "https://graph.api.smartthings.com/api/token/${state.accessToken}/smartapps/installations/${app.id}/receiveToken"
+        ]
+        def redirectUrl = "https://api.thirdpartysite.com/v1/oauth2/authorize?"+ toQueryString(oauthParams)
 
-.. code-block:: groovy
-
-    state.oauthInitState = UUID.randomUUID().toString()
-    def oauthParams = [
-        response_type: "token",
-        client_id: "XXXXXXX",
-        redirect_uri: "https://graph.api.smartthings.com/api/token/${state.accessToken}/smartapps/installations/${app.id}/receiveToken"
-    ]
-    def redirectUrl = "https://api.thirdpartysite.com/v1/oauth2/authorize?"+ toQueryString(oauthParams)
-
-Return a new page, created by the redirect URL. Load up the OAuth
-initialization URL embedded within the app.
-
-.. code-block:: groovy
-
-    return dynamicPage(name: "Credentials", title: "Sample", nextPage:"sampleLoggedInPage", uninstall: uninstallOption, install:false) {
-        section {
-            href url:redirectUrl, style:"embedded", required:false, title:"Sample", description:"Click to enter Sample Credentials."
+        return dynamicPage(name: "Credentials", title: "Sample", nextPage:"sampleLoggedInPage", uninstall: uninstallOption, install:false) {
+            section {
+                href url:redirectUrl, style:"embedded", required:false, title:"Sample", description:"Click to enter Sample Credentials."
+            }
         }
     }
+
+First, setup the params for your OAuth request. Then return a new page, created by the redirect URL. Finally, load up the OAuth
+initialization URL embedded within the app.
 
 Once the user has authenticated through the third-party, they will be
 sent back to your SmartApp, and their callback needs to be handled
@@ -92,59 +147,11 @@ back to your SmartApp.
 
     def receiveToken() {
         state.sampleAccessToken = params.access_token
-        render contentType: 'text/html', data: "<html><body>Saved. Now click 'Done' to configure your Life360 users.</body></html>"
+        render contentType: 'text/html', data: "<html><body>Saved. Now click 'Done' to finish setup.</body></html>"
     }
 
-**Web Browser Flow**
-
-The experience for the end user will be fairly seamless. They will go
-through the following steps (illustrated using the Ecobee Thermostat)
-
-The user selects the Service Manager application from the SmartApps
-within the SmartThings app. Upon selection, they are prompted with an
-initial landing page, describing what the application does and a link to
-configure.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/configure-screen.png
-   :alt: Thermostat
-
-Authorization with the third party is the first part of the
-configuration process. The user is driven to a page which tells them
-about the authorization process and how it will work. They can then
-click a link to move forward.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/click-to-login.png
-   :alt: Thermostat
-
-The user will be driven to a third party site, embedded within the
-SmartThings application chrome. They will be required to put in their
-username and password for the third party service.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-login.png
-   :alt: Thermostat
-
-The third party server will show what SmartThings will have access to
-and give the user the opportunity to accept or decline.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/authorize-ecobee.png
-   :alt: Thermostat
-
-Upon acceptance, the user will be redirected to another page within the
-third party service. This page includes language about the end user
-clicking done on the top right of the SmartThings chrome.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-authorization-complete.png
-   :alt: Thermostat
-
-After done is clicked, the user will go back to the initial
-configuration screen, seeing that their device is now connected. They
-can then click next to continue, and any other configuration can be
-done.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/st-authorization-complete.png
-   :alt: Thermostat
-
-**Refreshing the OAuth Token**
+Refreshing the OAuth Token
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 OAuth tokens are available for a finite amount of time, so you will
 often need to account for this, and if needed, refresh your
@@ -156,10 +163,20 @@ state, like so:
     def receiveToken() {
         state.sampleAccessToken = params.access_token
         state.sampleRefreshToken = params.refresh_token
-        render contentType: 'text/html', data: "<html><body>Saved. Now click 'Done' to configure your Life360 users.</body></html>"
+        render contentType: 'text/html', data: "<html><body>Saved. Now click 'Done' to finish setup.</body></html>"
     }
 
-If you run an API request and your access\_token is determined invalid,
+If you run an API request and your access\_token is determined invalid, for example:
+
+.. code-block:: groovy
+
+    if (resp.status == 401 && resp.data.status.code == 14) {
+        log.debug "Storing the failed action to try later"
+        atomicState.action = "actionCurrentlyExecuting"
+        log.debug "Refreshing your auth_token!"
+        refreshAuthToken()
+    }
+
 you can use your refresh\_token to get a new access\_token. To do this,
 you just need to post to a specified endpoint and handle the response
 properly.
@@ -203,7 +220,8 @@ authenticate the post backs from the external cloud.
 Discovery
 ---------
 
-**Identifying Devices in the Third-Party Device Cloud**
+Identifying Devices in the Third-Party Device Cloud
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The techniques you will use to identify devices in the third party
 cloud will vary, because you are interacting with unique third party
@@ -223,7 +241,8 @@ For example, it could be as simple as this:
             //Handle the response here
     }
 
-**Creating Child-Devices**
+Creating Child-Devices
+~~~~~~~~~~~~~~~~~~~~~~
 
 Within a service manager SmartApp, you create child devices for all your
 respective cloud devices.
@@ -237,7 +256,8 @@ respective cloud devices.
       }
     }
 
-**Getting Initial Device State**
+Getting Initial Device State
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Upon initial discovery of a device, you need to get the state of your
 device from the third party API. This would be the current status of
@@ -271,7 +291,8 @@ into account error checking for the http request.
 Handling Adds, Changes, Deletes
 -------------------------------
 
-**Implicit Creation of New Child Devices**
+Implicit Creation of New Child Devices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When you update your settings in a Service Manager to add additional
 devices, the Service Manager needs to respond by adding a new device
@@ -296,8 +317,8 @@ in SmartThings.
         }
     }
 
-
-**Implicit Removal of Child Devices**
+Implicit Removal of Child Devices
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Similarly when you remove devices within your Service Manager, they
 need to be removed from SmartThings.
@@ -325,14 +346,16 @@ its child devices.
         }
     }
 
+.. note:: The addChildDevice, getChildDevices, and deleteChildDevice methods are a part of the :ref:`smartapp_ref` API
 
-**Changes in Device Name**
+Changes in Device Name
+~~~~~~~~~~~~~~~~~~~~~~
 
 The device name is stored within the device and you need to monitor if
 it changes in the third party cloud.
 
-
-**Explicit Delete Actions**
+Explicit Delete Actions
+~~~~~~~~~~~~~~~~~~~~~~~
 
 When a user manually deletes a device within the Things screen on the
 client device, you need to delete the child devices from within the

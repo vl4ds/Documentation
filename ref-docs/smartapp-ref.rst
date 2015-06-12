@@ -3,11 +3,11 @@
 SmartApp
 ========
 
-A SmartApp is a Groovy-based program that allows developers to create automations for users to tap into the capabilities of their devices. 
+A SmartApp is a Groovy-based program that allows developers to create automations for users to tap into the capabilities of their devices.
 
 They are created through the "New SmartApp" action in the IDE. There is no "class" for a SmartApp per se, but there are various methods and properties available to SmartApps that are documented below.
 
-When a SmartApp executes, it executes in the context of a certain installation instance. That is, a user installs a SmartApp on their mobile application, and configures it with devices or rules unique to them. A SmartApp is not continuously running; it is executed in response to various schedules or subscribed-to events. 
+When a SmartApp executes, it executes in the context of a certain installation instance. That is, a user installs a SmartApp on their mobile application, and configures it with devices or rules unique to them. A SmartApp is not continuously running; it is executed in response to various schedules or subscribed-to events.
 
 ----
 
@@ -17,7 +17,7 @@ installed()
 ~~~~~~~~~~~
 
 .. note::
-    
+
     This method is expected to be defined by SmartApps.
 
 Called when an instance of the app is installed. Typically subscribes to events from the configured devices and creates any scheduled jobs.
@@ -44,9 +44,9 @@ updated()
 ~~~~~~~~~
 
 .. note::
-    
+
     This method is expected to be defined by SmartApps.
-    
+
 
 Called when the preferences of an installed app are updated. Typically unsubscribes and re-subscribes to events from the configured devices and unschedules/reschedules jobs.
 
@@ -71,9 +71,9 @@ uninstalled()
 ~~~~~~~~~~~~~
 
 .. note::
-    
+
     This method may be defined by SmartApps.
-    
+
 
 Called, if declared, when an app is uninstalled. Does not need to be declared unless you have some external cleanup to do. subscriptions and scheduled jobs are automatically removed when an app is uninstalled, so you don't need to do that here.
 
@@ -98,9 +98,9 @@ The following methods and attributes are available to call in a SmartApp:
 <device or capability preference name>
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A reference to the device or devices selected during app installation or update. 
+A reference to the device or devices selected during app installation or update.
 
-**Returns:** 
+**Returns:**
     :ref:`device_ref` or a list of Devices - the Device with the given preference name, or a list of Devices if ``multiple:true`` is specified in the preferences.
 
 **Example:**
@@ -118,7 +118,7 @@ A reference to the device or devices selected during app installation or update.
     // the name of the preference becomes the reference for the Device object
     theswitch.on()
     theswitch.off()
-    
+
     // multiple:true means we get a list of devices
     theswitches.each {log.debug "Current switch value: ${it.currentSwitch"}
 
@@ -133,7 +133,7 @@ A reference to the device or devices selected during app installation or update.
 
 A reference to the value entered for a number or decimal input preference.
 
-**Returns:** 
+**Returns:**
     `BigDecimal`_ - the value entered for a number or decimal input preference.
 
 **Example:**
@@ -147,7 +147,7 @@ A reference to the value entered for a number or decimal input preference.
         ...
     }
 
-    ... 
+    ...
     // preference name is a reference to a BigDecimal that is the value the user entered.
     log.debug "num1: $num1" //=> value user entered for num1 preference
     log.debug "dec1: $dec1" //=> value user entered for dec1 preference
@@ -194,15 +194,40 @@ time        `String`_ - the full date string in the format of “yyyy-MM-dd’T�
 
 ----
 
+addChildDevice()
+~~~~~~~~~~~~~~~~
+
+Adds a child device to a SmartApp. An example use is in service manager SmartApps.
+
+**Signature:**
+    ``DeviceWrapper addChildDevice(String namespace, String typeName, String deviceNetworkId, hubId, Map properties)``
+
+**Throws:**
+    ``UnknownDeviceTypeException``
+
+**Parameters:**
+    `String`_ ``namespace`` - the namespace for the device. Defaults to ``installedSmartApp.smartAppVersionDTO.smartAppDTO.namespace``
+
+    `String`_ ``typeName`` - the device type name
+
+    `String`_ ``deviceNetworkId`` - the device network id of the device
+
+    ``hubId`` - *(optional)* The hub id. Defaults to ``null``
+
+    `Map`_ ``properties`` *(optional)* - A map with device properties.
+
+**Returns:**
+    ``DeviceWrapper`` - The device that was created.
+
 canSchedule()
 ~~~~~~~~~~~~~
 
 Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are limited to 4 scheduled jobs. That limit includes operations such as runIn and runOnce.
 
-**Signature:** 
+**Signature:**
     ``Boolean canSchedule()``
 
-**Returns:** 
+**Returns:**
     `Boolean`_ - ``true`` if additional jobs can be scheduled, ``false`` otherwise.
 
 **Example:**
@@ -210,37 +235,101 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 .. code-block:: groovy
 
     log.debug "Can schedule? ${canSchedule()}"
-    
+
+----
+
+deleteChildDevice()
+~~~~~~~~~~~~~~~~~~~
+
+Deletes the child device with the specified device network id.
+
+**Signature:**
+    ``void deleteChildDevice(String deviceNetworkId)``
+
+**Throws:**
+    ``NotFoundException``
+
+**Parameters:**
+    `String`_ ``deviceNetworkId`` - the device network id of the device
+
+**Returns:**
+    void
+
+----
+
+getAllChildDevices()
+~~~~~~~~~~~~~~~~~~~~
+
+Returns a list of all child devices, including virtual devices. This is a wrapper for ``getChildDevices(true)``.
+
+**Signature:**
+    ``List getAllChildDevices()``
+
+**Returns:**
+    `List`_ - a list of all child devices.
+
+----
+
+getChildDevice()
+~~~~~~~~~~~~~~~~
+
+Returns a device based upon the specified device network id. This is mostly used in service manager SmartApps.
+
+**Signature:**
+    ``DeviceWrapper getChildDevice(String deviceNetworkId)``
+
+**Parameters:**
+    `String`_ ``deviceNetworkId`` - the device network id of the device
+
+**Returns:**
+    ``DeviceWrapper`` - The device found with the given device network ID.
+
+----
+
+getChildDevices()
+~~~~~~~~~~~~~~~~~
+
+Returns a list of all child devices. An example use would be in service manager SmartApps.
+
+**Signature:**
+    ``List getChildDevices(Boolean includeVirtualDevices)``
+
+**Parameters:**
+    `Boolean`_ ``true`` if the returned list should contain virtual devices. Defaults to ``false``. *(optional)*
+
+**Returns:**
+    `List`_ - A list of all devices found.
+
 ----
 
 getSunriseAndSunset()
 ~~~~~~~~~~~~~~~~~~~~~
 
-Gets a map containing the local sunrise and sunset times. 
+Gets a map containing the local sunrise and sunset times.
 
-**Signature:** 
+**Signature:**
     ``Map getSunriseAndSunset([Map options])``
 
-**Parameters:** 
+**Parameters:**
 
     `Map`_ ``options`` *(optional)*
 
     The supported options are:
 
-    ==============  =========== 
+    ==============  ===========
         Option      Description
     ==============  ===========
     zipCode         | `String`_ - the zip code to use for determining the times.
                     | If not specified then the coordinates of the hub location are used.
     locationString  | `String`_ - any location string supported by the Weather Underground APIs.
                     | If not specified then the coordinates of the hub location are used
-    sunriseOffset   | `String`_ - adjust the sunrise time by this amount. 
+    sunriseOffset   | `String`_ - adjust the sunrise time by this amount.
                     | See `timeOffset()`_ for supported formats
     sunsetOffset    | `String`_ - adjust the sunset time by this amount.
                     | See `timeOffset()`_ for supported formats
     ==============  ===========
 
-**Returns:** 
+**Returns:**
     `Map`_ - A Map containing the local sunrise and sunset times as `Date`_ objects: ``[sunrise: Date, sunset: Date]``
 
 **Example:**
@@ -263,11 +352,11 @@ getWeatherFeature()
 
 Calls the Weather Underground API to to return weather forecasts and related data.
 
-**Signature:** 
+**Signature:**
     ``Map getWeatherFeature(String featureName [, String location])``
 
 .. note::
-    
+
     ``getWeatherFeature`` simply delegates to the Weather Underground API, using the specfied ``featureName`` and ``location`` (if specified). For full descriptions on the available features and return information, please consult the `Weather Underground API docs <http://www.wunderground.com/weather/api/d/docs?>`__.
 
 
@@ -288,7 +377,7 @@ httpDelete()
 
 Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
-**Signature:** 
+**Signature:**
     ``void httpDelete(String uri, Closure closure)``
 
     ``void httpDelete(Map params, Closure closure)``
@@ -324,8 +413,8 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
-    ``void httpGet(String uri, Closure closure)`` 
+**Signature:**
+    ``void httpGet(String uri, Closure closure)``
 
     ``void httpGet(Map params, Closure closure)``
 
@@ -376,7 +465,7 @@ httpHead()
 
 Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
-**Signature:** 
+**Signature:**
     ``void httpHead(String uri, Closure closure)``
 
     ``void httpHead(Map params, Closure closure)``
@@ -409,8 +498,8 @@ Executes an HTTP POST request and passes control to the specified closure. The c
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
-    ``void httpPost(String uri, String body, Closure closure)`` 
+**Signature:**
+    ``void httpPost(String uri, String body, Closure closure)``
 
     ``void httpPost(Map params, Closure closure)``
 
@@ -439,8 +528,8 @@ If the response content type is JSON, the response data will automatically be pa
 **Example:**
 
 .. code-block:: groovy
-  
-    try {  
+
+    try {
         httpPost("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
             log.debug "response data: ${resp.data}"
             log.debug "response contentType: ${resp.contentType}"
@@ -458,7 +547,7 @@ Executes an HTTP POST request with a JSON-encoded boday and content type, and pa
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
+**Signature:**
     ``void httpPostJson(String uri, String body, Closure closure)``
 
     ``void httpPostJson(String uri, Map body, Closure closure)``
@@ -519,8 +608,8 @@ Executes an HTTP PUT request and passes control to the specified closure. The cl
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
-    ``void httpPut(String uri, String body, Closure closure)`` 
+**Signature:**
+    ``void httpPut(String uri, String body, Closure closure)``
 
     ``void httpPut(Map params, Closure closure)``
 
@@ -544,11 +633,11 @@ If the response content type is JSON, the response data will automatically be pa
     =================== ==============
 
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
- 
+
 **Example:**
 
 .. code-block:: groovy
-    
+
     try {
         httpPut("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
             log.debug "response data: ${resp.data}"
@@ -567,7 +656,7 @@ Executes an HTTP PUT request with a JSON-encoded boday and content type, and pas
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
+**Signature:**
     ``void httpPutJson(String uri, String body, Closure closure)``
 
     ``void httpPutJson(String uri, Map body, Closure closure)``
@@ -618,7 +707,7 @@ Gets the current Unix time in milliseconds.
 **Signature:**
     ``Long now()``
 
-**Returns:** 
+**Returns:**
     `Long`_ - the current Unix time.
 
 ----
@@ -628,13 +717,13 @@ parseJson()
 
 Parses the specified string into a JSON data structure.
 
-**Signature:** 
+**Signature:**
     ``Map parseJson(stringToParse)``
 
 **Parameters:**
     `String`_ ``stringToParse`` - The string to parse into JSON
 
-**Returns:** 
+**Returns:**
     `Map`_ - a map that represents the passed-in string in JSON format.
 
 ----
@@ -644,13 +733,13 @@ parseXml()
 
 Parses the specified string into an XML data structure.
 
-**Signature:** 
+**Signature:**
     ``GPathResult parseXml(stringToParse)``
 
 **Parameters:**
     `String`_ ``stringToParse`` - The string to parse into XML
 
-**Returns:** 
+**Returns:**
     `GPathResult`_ - A GPathResult instance that represents the passed-in string in XML format.
 
 ----
@@ -658,9 +747,9 @@ Parses the specified string into an XML data structure.
 parseLanMessage()
 ~~~~~~~~~~~~~~~~~
 
-Parses a Base64-encoded LAN message received from the hub into a map with header and body elements, as well as parsing the body into an XML document. 
+Parses a Base64-encoded LAN message received from the hub into a map with header and body elements, as well as parsing the body into an XML document.
 
-**Signature:** 
+**Signature:**
     ``Map parseLanMessage(stringToParse)``
 
 **Parameters:**
@@ -684,7 +773,7 @@ parseSoapMessage()
 
 Parses a Base64-encoded LAN message received from the hub into a map with header and body elements, as well as parsing the body into an XML document. This method is commonly used to parse `UPNP SOAP <http://www.w3.org/TR/soap12-part1/>`__ messages.
 
-**Signature:** 
+**Signature:**
     ``Map parseLanMessage(stringToParse)``
 
 **Parameters:**
@@ -710,12 +799,12 @@ runIn()
 
 Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 
-**Signature:** 
+**Signature:**
     ``void runIn(delayInSeconds, handlerMethod [, options])``
 
 .. tip::
 
-    It's important to note that we will attempt to run this method at this time, but cannot guarantee exact precision. We typically expect per-minute level granularity, so if using with values less than sixty seconds, your mileage will vary. 
+    It's important to note that we will attempt to run this method at this time, but cannot guarantee exact precision. We typically expect per-minute level granularity, so if using with values less than sixty seconds, your mileage will vary.
 
 **Parameters:**
     ``delayInSeconds`` - The number of seconds to execute the ``handlerMethod`` after.
@@ -749,7 +838,7 @@ runEvery5Minutes()
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
-**Signature:** 
+**Signature:**
     ``void runEvery5Minutes(handlerMethod)``
 
 .. tip::
@@ -784,7 +873,7 @@ runEvery10Minutes()
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every ten minutes. Using this method will pick a random start time in the next ten minutes, and run every ten minutes after that.
 
-**Signature:** 
+**Signature:**
     ``void runEvery10Minutes(handlerMethod)``
 
 .. tip::
@@ -819,7 +908,7 @@ runEvery15Minutes()
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every fifteen minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
-**Signature:** 
+**Signature:**
     ``void runEvery15Minutes(handlerMethod)``
 
 .. tip::
@@ -854,7 +943,7 @@ runEvery30Minutes()
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every thirty minutes. Using this method will pick a random start time in the next thirty minutes, and run every thirty minutes after that.
 
-**Signature:** 
+**Signature:**
     ``void runEvery30Minutes(handlerMethod)``
 
 .. tip::
@@ -889,7 +978,7 @@ runEvery1Hour()
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every hour. Using this method will pick a random start time in the next hour, and run every hour after that.
 
-**Signature:** 
+**Signature:**
     ``void runEvery1Hour(handlerMethod)``
 
 .. tip::
@@ -924,7 +1013,7 @@ runEvery3Hours()
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every three hours. Using this method will pick a random start time in the next hour, and run every three hours after that.
 
-**Signature:** 
+**Signature:**
     ``void runEvery3Hours(handlerMethod)``
 
 .. tip::
@@ -959,7 +1048,7 @@ runOnce()
 
 Executes the ``handlerMethod`` once at the specified date and time.
 
-**Signature:** 
+**Signature:**
     ``void runOnce(dateTime, handlerMethod)``
 
 **Parameters:**
@@ -988,28 +1077,28 @@ schedule()
 
 Creates a scheduled job that calls the ``handlerMethod`` once per day at the time specified, or according to a cron schedule.
 
-**Signature:** 
-    ``void schedule(dateTime, handlerMethod)`` 
-    
+**Signature:**
+    ``void schedule(dateTime, handlerMethod)``
+
     ``void schedule(cronExpression, handlerMethod)``
 
 **Parameters:**
 
     ``dateTime`` - A `Date`_ object, an ISO-8601 formatted date time string.
-    
+
     `String`_ ``cronExpression`` - A cron expression that specifies the schedule to execute on.
-    
+
     ``handlerMethod`` - The method to call. This can be a reference to the method itself, or the method name as a string.
 
 **Returns:**
     void
 
 .. tip::
-    
+
     Since calling ``schedule()`` with a dateTime argument creates a recurring scheduled job to execute *every day* at the specified time, the *date information is ignored. Only the time portion of the argument is used.*
 
 .. tip::
-    
+
     Full documentation for the cron expression format can be found in the `Quartz Cron Trigger Tutorial <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__
 
 **Example:**
@@ -1025,10 +1114,10 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
     ...
     // call handlerMethod1 at time specified by user input
     schedule(timeToRun, handlerMethod1)
-    
+
     // call handlerMethod2 every day at 3:36 PM CST
     schedule("2015-01-09T15:36:00.000-0600", handlerMethod2)
-    
+
     // execute handlerMethod3 every hour on the half hour
     schedule("0 30 & & & ?", handlerMethod3)
     ...
@@ -1045,11 +1134,11 @@ sendEvent()
 Creates and sends an event constructed from the specified properties. If a device is specified, then a DEVICE event will be created, otherwise an APP event will be created.
 
 .. note::
-    
+
     SmartApps typically *respond to events*, not create them. In more rare cases, certain SmartApps or Service Manager SmartApps may have reason to send events themselves. ``sendEvent`` can be used for those cases.
 
-**Signature:** 
-    ``void sendEvent(Map properties)`` 
+**Signature:**
+    ``void sendEvent(Map properties)``
 
     ``void sendEvent(Device device, Map properties)``
 
@@ -1062,7 +1151,7 @@ Creates and sends an event constructed from the specified properties. If a devic
     Property            Description
     ================    ===========
     name (required)     `String`_ - The name of the event. Typically corresponds to an attribute name of a capability.
-    value (required)    The value of the event. The value is stored as a string, but you can pass numbers or other objects.  
+    value (required)    The value of the event. The value is stored as a string, but you can pass numbers or other objects.
     descriptionText     `String`_ - The description of this event. This appears in the mobile application activity for the device. If not specified, this will be created using the event name and value.
     displayed           Pass ``true`` to display this event in the mobile application activity feed, ``false`` to not display. Defaults to ``true``.
     linkText            `String`_ - Name of the event to show in the mobile application activity feed.
@@ -1092,7 +1181,7 @@ sendLocationEvent()
 
 Sends a LOCATION event constructed from the specified properties. See the :ref:`event_ref` reference for a list of available properties. Other SmartApps can receive location events by subscribing to the location. Examples of exisisting location events include sunrise and sunset.
 
-**Signature:** 
+**Signature:**
     ``void sendLocationEvent(Map properties)``
 
 **Parameters:**
@@ -1104,7 +1193,7 @@ Sends a LOCATION event constructed from the specified properties. See the :ref:`
     Property            Description
     ================    ===========
     name (required)     `String`_ - The name of the event. Typically corresponds to an attribute name of a capability.
-    value (required)    The value of the event. The value is stored as a string, but you can pass numbers or other objects.  
+    value (required)    The value of the event. The value is stored as a string, but you can pass numbers or other objects.
     descriptionText     `String`_ - The description of this event. This appears in the mobile application activity for the device. If not specified, this will be created using the event name and value.
     displayed           Pass ``true`` to display this event in the mobile application activity feed, ``false`` to not display. Defaults to ``true``.
     linkText            `String`_ - Name of the event to show in the mobile application activity feed.
@@ -1168,13 +1257,13 @@ Displays a message in *Hello, Home*, but does not send a push notification or SM
 **Parameters:**
     `String`_ ``message`` - The message to send to *Hello, Home*
 
-**Returns:** 
+**Returns:**
     void
 
 **Example:**
-    
+
 .. code-block:: groovy
-    
+
     sendNotificationEvent("some message")
 
 ----
@@ -1307,7 +1396,7 @@ A map of name/value pairs containing all of the installed SmartApp's preferences
     log.debug "settings.mytext: ${settings.mytext}"
     log.debug "settings.mytime: ${settings.mytime}"
 
-    // if the input is a device/capability, you can get the device object 
+    // if the input is a device/capability, you can get the device object
     // through the settings:
     log.debug "settings.myswitch.currentSwitch: ${settings.myswitch.currentSwitch}"
     ...
@@ -1348,7 +1437,7 @@ A map of name/value pairs that SmartApp can use to save and retrieve data across
 stringToMap()
 ~~~~~~~~~~~~~
 
-Parses a comma-delimited string into a map. 
+Parses a comma-delimited string into a map.
 
 **Signature:**
     ``Map stringToMap(String string)``
@@ -1365,7 +1454,7 @@ Parses a comma-delimited string into a map.
 
     def testStr = "key1: value1, key2: value2"
     def testMap = stringToMap(testStr)
-    
+
     log.debug "stringToMap: ${testMap}"
     log.debug "stringToMap.key1: ${testMap.key1}" // => value1
     log.debug "stringToMap.key2: ${testMap.key2}" // => value2
@@ -1457,7 +1546,7 @@ Subscribes to device commands that are sent to a device or devices. The specifie
     void
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     preferences {
@@ -1498,20 +1587,20 @@ Find if a given date is between a lower and upper bound.
 
 .. code-block:: groovy
 
-    def between = timeOfDayIsBetween(new Date() - 1, new Date() + 1, 
+    def between = timeOfDayIsBetween(new Date() - 1, new Date() + 1,
                                      new Date(), location.timeZone)
     log.debug "between: $between" => true
-    
+
 ----
 
 timeOffset()
 ~~~~~~~~~~~~
 
-Gets a time offset in milliseconds for the specified input. 
+Gets a time offset in milliseconds for the specified input.
 
 **Signature:**
     ``Long timeOffset(Number minutes)``
-    
+
     ``Long timeOffset(String hoursAndMinutesString)``
 
 **Parameters:**
@@ -1600,7 +1689,7 @@ Gets a `Date`_ object for the specified input that is guaranteed to be after the
     `Date`_ - the Date for the specified ``timeString`` that is guaranteed to be after the ``startTimeString``.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     preferences {
@@ -1651,7 +1740,7 @@ Get a `TimeZone` object for the specified time value entered as a SmartApp prefe
 toDateTime()
 ~~~~~~~~~~~~
 
-Get a `Date`_ object for the specified string. 
+Get a `Date`_ object for the specified string.
 
 **Signature:**
     ``Date toDateTime(dateTimeString)``
@@ -1679,7 +1768,7 @@ Get a `Date`_ object for the specified string.
 unschedule()
 ~~~~~~~~~~~~
 
-Deletes all scheduled jobs for the installed SmartApp. 
+Deletes all scheduled jobs for the installed SmartApp.
 
 **Signature:**
     ``void unschedule()``
@@ -1687,7 +1776,7 @@ Deletes all scheduled jobs for the installed SmartApp.
 **Returns:**
     void
 
-.. note:: 
+.. note::
 
     This can be an expensive operation; make sure you need to do this before calling. Typically called in the `updated()`_ method if the SmartApp has set up recurring schedules.
 
@@ -1725,6 +1814,7 @@ Typically should be called in the `updated()`_ method, since device preferences 
 .. _Closure: http://docs.groovy-lang.org/latest/html/api/groovy/lang/Closure.html
 .. _Date: http://docs.oracle.com/javase/7/docs/api/java/util/Date.html
 .. _String: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html
+.. _List: http://docs.oracle.com/javase/7/docs/api/java/util/List.html
 .. _Map: http://docs.oracle.com/javase/7/docs/api/java/util/Map.html
 .. _Number: http://docs.oracle.com/javase/7/docs/api/java/lang/Number.html
 .. _Long: https://docs.oracle.com/javase/7/docs/api/java/lang/Long.
