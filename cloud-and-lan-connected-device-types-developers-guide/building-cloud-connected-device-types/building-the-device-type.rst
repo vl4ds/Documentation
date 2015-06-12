@@ -46,7 +46,7 @@ the service manager to check on the status of devices. When an event is
 fired, they can then be passed to the child device handler. Note that
 poll runs every 10 minutes for Service Manager SmartApps.
 
-In the device-type handler
+In the device-type handler:
 
 .. code-block:: groovy
 
@@ -61,7 +61,7 @@ In the device-type handler
         }
     }
 
-In the service manager
+In the service manager:
 
 .. code-block:: groovy
 
@@ -93,13 +93,13 @@ You won't generate events directly within the Service Manager, but
 rather request that they are generated within the Device-type handler.
 For example:
 
-In the service manager
+In the service manager:
 
 .. code-block:: groovy
 
     childName.generateEvent(data)
 
-In the device handler
+In the device handler:
 
 .. code-block:: groovy
 

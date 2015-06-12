@@ -14,8 +14,8 @@ accomplish would look like in the SmartThings application.
 Authentication using OAuth
 --------------------------
 
-Web Browser Flow
-~~~~~~~~~~~~~~~~
+End User Experience
+~~~~~~~~~~~~~~~~~~~
 
 The experience for the end user will be fairly seamless. They will go
 through the following steps (illustrated using the Ecobee Thermostat)
@@ -26,7 +26,6 @@ initial landing page, describing what the application does and a link to
 configure.
 
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/configure-screen.png
-:alt: Thermostat
 
 Authorization with the third party is the first part of the
 configuration process. The user is driven to a page which tells them
@@ -34,27 +33,23 @@ about the authorization process and how it will work. They can then
 click a link to move forward.
 
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/click-to-login.png
-:alt: Thermostat
 
 The user will be driven to a third party site, embedded within the
 SmartThings application chrome. They will be required to put in their
 username and password for the third party service.
 
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-login.png
-:alt: Thermostat
 
 The third party server will show what SmartThings will have access to
 and give the user the opportunity to accept or decline.
 
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/authorize-ecobee.png
-:alt: Thermostat
 
 Upon acceptance, the user will be redirected to another page within the
 third party service. This page includes language about the end user
 clicking done on the top right of the SmartThings chrome.
 
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-authorization-complete.png
-:alt: Thermostat
 
 After done is clicked, the user will go back to the initial
 configuration screen, seeing that their device is now connected. They
@@ -62,10 +57,9 @@ can then click next to continue, and any other configuration can be
 done.
 
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/st-authorization-complete.png
-:alt: Thermostat
 
-Password Flow
-~~~~~~~~~~~~~
+Implementation
+~~~~~~~~~~~~~~
 
 OAuth is the typical industry standard for authentication. The 3rd party service may use something other than OAuth.
 In that case, it is up to you to consult their documentation and implement it. The basic concepts will be the same as
