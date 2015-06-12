@@ -1,10 +1,19 @@
-LAN-Connected Device Types: Building the Service Manager
-========================================================
+Building the Service Manager
+============================
+
+The Service Manager's responsibilities are to:
+
+- Discover devices
+- Handles device Add/Change/Delete actions
+- Maintains the connection
+
+Let's take a look at an example of what is outlined above.
 
 Discovery
 ---------
 
-**SSDP**
+SSDP
+~~~~
 
 `SSDP <http://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol>`__
 is the main protocol used to find devices on your network. It serves as
@@ -16,6 +25,14 @@ new devices, you'd use something like this:
 .. code-block:: groovy
 
     sendHubCommand(new physicalgraph.device.HubAction("lan discovery urn:schemas-upnp-org:device:ZonePlayer:1", physicalgraph.device.Protocol.LAN))
+
+.. note:: sendHubCommand and HubAction are supplied by the SmartThings framework
+
+    The class ``physicalgraph.device.HubAction`` encapsulates request information
+    for communicating with the device.
+
+    When you create an instance of a ``HubAction``, you provide details about the
+    request, such as the request method, headers, and path. By itself, ``HubAction`` is little more than a wrapper for these request details.
 
 This is an example of discovering devices using the LAN protocol. The
 main message to be sent through the hub is
@@ -35,14 +52,13 @@ UPnP should be published on documentation for the device, but you may
 also have to contact the manufacturer directly. The above command is
 typically called in a timing loop.
 
-**mDNS/DNS-SD**
+mDNS/DNS-SD
+~~~~~~~~~~~
 
 mDNS/DNS-SD is another popular protocol used to find devices on a
 network. It's made up of Multicast DNS and DNS-based service discovery.
 Known as Bonjour in the Apple ecosystem, Apple relies on mMDNS/DNS-SD for
-services such as iChat or AppleTV. **Our support for mDNS/DNS-SD isn't
-quite ready yet, but will be released on a future hub firmware
-upgrade.**
+services such as iChat or AppleTV.
 
 *How it Works*
 
@@ -83,7 +99,8 @@ Handling Updates (Adds/Changes/Deletes)
 When there are changes within the scope of your devices, the service
 manager should handle those updates.
 
-**Adding Devices**
+Adding Devices
+~~~~~~~~~~~~~~
 
 A subscription is created to listen for a location event. The way the
 system is currently setup, we can't listen specifically for discovery
@@ -160,7 +177,8 @@ with this:
 
     if (!(devices."${parsedEvent?.mac?.toString()}"))
 
-**Changing Devices**
+Changing Devices
+~~~~~~~~~~~~~~~~
 
 You need to monitor your devices networking information for changes. By
 using a unique identifier within your device, you can check that IP and
@@ -210,7 +228,8 @@ within the SmartApp.
                 }
         }
 
-**Deleting Devices**
+Deleting Devices
+~~~~~~~~~~~~~~~~
 
 You don't need to handle deleting devices within the Service Manager.
 Devices, by nature, can become connected or disconnected at various
@@ -239,3 +258,5 @@ user's input, and find just the devices they picked and add them.
             subscribeAll() //helper method to update devices
         }
     }
+
+.. note:: The addChildDevice, getChildDevices, and deleteChildDevice methods are a part of the :ref:`smartapp_ref` API

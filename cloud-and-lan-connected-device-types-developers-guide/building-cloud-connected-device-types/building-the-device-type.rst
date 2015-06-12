@@ -1,8 +1,12 @@
-Cloud-Connected Device Types: Building the Device-Type
-======================================================
+Building the Device Handler
+===========================
 
-Why No Parse Method?
---------------------
+The device handler for a cloud connected device is generally the same as any other device handler. The means in which
+it handles sending and receiving messages from its device is a little bit different. Let's walk through a cloud connected
+device handler example.
+
+The Parse Method
+----------------
 
 The parse method for cloud connected devices will always be empty. In a
 cloud connected device, event data is passed down from the service
@@ -10,18 +14,16 @@ manager, not from the device itself, so the parsing is handled in a
 separate method. The device type handler doesn't interface directly with
 a hardware device, which is what parse is used for.
 
-Invoking Methods on the Parent Service Manager
-----------------------------------------------
+Sending Commands to the Third-Party Cloud
+-----------------------------------------
 
-To invoke a method on the parent service manager, you simply need to
-call it in the following format:
+Usually the actual implementation of device methods are delegated to its service manager. This is because the service
+manager is the entity that has the authentication information. To invoke a method on the parent service manager,
+you simply need to call it in the following format:
 
 .. code-block:: groovy
 
     parent.methodName()
-
-Sending Commands to the Third-Party Cloud
------------------------------------------
 
 As with any other device-type, you need to define methods for all of the
 possible commands for the capabilities you'd like to support. Then when
@@ -44,7 +46,7 @@ the service manager to check on the status of devices. When an event is
 fired, they can then be passed to the child device handler. Note that
 poll runs every 10 minutes for Service Manager SmartApps.
 
-In the device-type handler
+In the device-type handler:
 
 .. code-block:: groovy
 
@@ -59,7 +61,7 @@ In the device-type handler
         }
     }
 
-In the service manager
+In the service manager:
 
 .. code-block:: groovy
 
@@ -91,13 +93,13 @@ You won't generate events directly within the Service Manager, but
 rather request that they are generated within the Device-type handler.
 For example:
 
-In the service manager
+In the service manager:
 
 .. code-block:: groovy
 
     childName.generateEvent(data)
 
-In the device-type handler
+In the device handler:
 
 .. code-block:: groovy
 
@@ -107,22 +109,3 @@ In the device-type handler
       }
       return null
     }
-
-
-
-Using Device-Type Preferences
------------------------------
-
-You can add preferences to your device type for extra configuration,
-similar to how you'd add preferences to a SmartApp. Learn more about
-preferences
-`here <http://smartthings.readthedocs.org/en/latest/smartapp-developers-guide/preferences-and-settings.html>`__.
-
-.. code-block:: groovy
-
-    preferences {
-        input(type: "enum", name: "variableName", title: "Choose your value", options: variableOptions(), defaultValue: "Option1", style: "segmented")
-    }
-
-
-

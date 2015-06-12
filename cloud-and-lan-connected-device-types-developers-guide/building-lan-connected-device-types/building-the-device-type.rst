@@ -1,5 +1,9 @@
-LAN-Connected Device Types: Building the Device Type
-====================================================
+Building the Device Type
+========================
+
+The device handler for a LAN connected device is generally the same as any other device handler. The means in which
+it handles sending and receiving messages from its device is a little bit different. Let's walk through a LAN connected
+device handler example.
 
 Making Outbound HTTP Calls with HubAction
 -----------------------------------------
@@ -14,9 +18,9 @@ Overview
 --------
 
 The class ``physicalgraph.device.HubAction`` encapsulates request information
-for communicating with the device. 
+for communicating with the device.
 
-When you create an instance of a ``HubAction``, you provide details about the 
+When you create an instance of a ``HubAction``, you provide details about the
 request, such as the request method, headers, and path. By itself, ``HubAction`` is little more than a wrapper for these request details.
 
 It is when an instance of a ``HubAction`` is returned from a command method that it becomes useful.
@@ -50,7 +54,7 @@ A brief discussion of the options that can be provided follows:
 *method*
     The HTTP method to use for the reqeust.
 *path*
-    The path to send the request to. You can add URL parameters to the request directly, or use the ``query`` option. 
+    The path to send the request to. You can add URL parameters to the request directly, or use the ``query`` option.
 *headers*
     A map of HTTP headers and their values for this request. This is where you will provide the IP address of the device as the HOST.
 *query*
@@ -91,7 +95,7 @@ For more information about the JSON or XML response formats, see the Groovy `Jso
 Getting the Addresses
 ---------------------
 
-To use HubAction, you will need the IP address of the device, and sometimes the hub. 
+To use HubAction, you will need the IP address of the device, and sometimes the hub.
 
 How the device IP and port are stored my vary depending on the device type. There's currently not a public API to get this information easily, so until there is, you will need to handle this in your device-type handler. Consider using helper methods like these to get this information:
 
@@ -136,7 +140,7 @@ You'll see the rest of the examples in this document use these helper methods.
 REST Requests
 -------------
 
-``HubAction`` can be used to make `REST <http://en.wikipedia.org/wiki/Representational_state_transfer>`__ calls to communicate with the device. 
+``HubAction`` can be used to make `REST <http://en.wikipedia.org/wiki/Representational_state_transfer>`__ calls to communicate with the device.
 
 Here's a quick example:
 
@@ -191,7 +195,7 @@ Subscribing to Device Events
 If you'd like to hear back from a LAN connected device upon a particular
 event, you can subscribe using a ``HubAction``. The ``parse`` method will be called when this event is fired on the device.
 
-Here's an example using UPnP: 
+Here's an example using UPnP:
 
 .. code-block:: groovy
 
@@ -216,7 +220,7 @@ Here's an example using UPnP:
         )
 
         log.trace "SUBSCRIBE $path"
-    
+
         return result
     }
 
