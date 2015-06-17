@@ -569,6 +569,11 @@ Valid input options:
     String - default value of the input element
 *multiple*
     Boolean - ``true`` to allow multiple values or ``false`` to allow only one value. Not valid for all input types.
+*required*
+    Boolean - ``true`` to require the selection of a device for this input or ``false`` to not require selection.
+*submitOnChange*
+    Boolean - ``true`` to force a page refresh after input selection or ``false`` to not refresh the page. This is useful
+    when creating a dynamic input page.
 *options*
     List - used in conjunction with the enum input type to specify the values the user can choose from. Example: ``options: ["choice 1", "choice 2", "choice 3"]``
 *type*
@@ -665,6 +670,40 @@ on the selections made on the first page.
                 return ["UNDEFINED"]
         }
     }
+
+The previous example shows how you can achieve dynamic behavior between pages. With the ``submitOnChange`` input attribute
+you can also have dynamic behavior in a single page.
+
+.. code-block:: groovy
+
+    preferences {
+        page(name: "examplePage")
+    }
+
+    def examplePage() {
+        dynamicPage(name: "examplePage", title: "", install: true, uninstall: true) {
+
+            section {
+                input(name: "dimmers", type: "capability.switchLevel", title: "Dimmers",
+                      description: null, multiple: true, required: false, submitOnChange: true)
+            }
+
+            if (dimmers) {
+                // Do something here like update a message on the screen,
+                // or introduce more inputs. submitOnChange will refresh
+                // the page and allow the user to see the changes immediately.
+                // For example, you could prompt for the level of the dimmers
+                // if dimmers have been selected:
+
+                section {
+                    input(name: "dimmerLevel", type: "number", title: "Level to dim lights to...", required: true)
+                }
+            }
+        }
+    }
+
+.. note:: When a submitOnChange input is changed, the whole page will be saved. Then a refresh is triggered with the
+    saved page state. This means that all of the methods will execute each time you change a submitOnChange input.
 
 Examples
 --------
