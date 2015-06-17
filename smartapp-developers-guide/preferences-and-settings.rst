@@ -685,13 +685,19 @@ you can also have dynamic behavior in a single page.
 
             section {
                 input(name: "dimmers", type: "capability.switchLevel", title: "Dimmers",
-                      description: null, multiple: true, required: true, submitOnChange: true)
+                      description: null, multiple: true, required: false, submitOnChange: true)
             }
 
             if (dimmers) {
                 // Do something here like update a message on the screen,
                 // or introduce more inputs. submitOnChange will refresh
                 // the page and allow the user to see the changes immediately.
+                // For example, you could prompt for the level of the dimmers
+                // if dimmers have been selected:
+
+                section {
+                    input(name: "dimmerLevel", type: "number", title: "Level to dim lights to...", required: true)
+                }
             }
         }
     }
