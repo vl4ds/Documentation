@@ -343,7 +343,7 @@ You are encouraged to explore further with this sample, including making differe
 Source Code
 -----------
 
-The full source code for this tutorial (both parts), can be found `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-tutorials>`__.
+The full source code for this tutorial (both parts), can be found `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-smartapps>`__.
 
 ----
 
