@@ -65,7 +65,7 @@ Scheduling
 ~~~~~~~~~~
 
 - Do not aggressively loop or schedule.
-- If using sunrise and sunset, make sure you are following the guidelines in the `Sunset and Sunrise <sunset-and-sunrise>`__ guide.
+- If using sunrise and sunset, make sure you are following the guidelines in the :doc:`sunset-and-sunrise` guide.
 
 Style
 ~~~~~
