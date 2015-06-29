@@ -17,31 +17,34 @@ Welcome to the SmartThings developer documentation. Here you will find informati
 
 This documentation is organized into a few different sections:
 
-`Getting Started`_
+:doc:`getting-started`
     Get up and running quickly with the SmartThings platform. Start here if this is your first time developing for SmartThings.
 
-Introduction_
+:doc:`introduction/index`
     This chapter discusses some of the core SmartThings concepts, architecture, and includes a brief tour of the IDE. It also introduces the SmartThings programming language - Groovy.
 
-`SmartApp Guide`_
+:doc:`tools-and-ide/index`
+    This guide will teach you how to use the IDE to manage your account, and build and test your custom code.
+
+:doc:`smartapp-developers-guide/index`
     This guide is all about developing SmartApps. It is primarily focused on event-based SmartApps.
 
-`Device Handler Guide`_
+:doc:`device-type-developers-guide/index`
     This guide will teach you what a Device Handler is, why they are important, and how to develop one. 
 
-`Cloud and LAN-Connected Guide`_
+:doc:`cloud-and-lan-connected-device-types-developers-guide/index`
     This guide covers developing with Cloud-connected and LAN devices.
 
-`SmartApp Web Services Guide`_
+:doc:`smartapp-web-services-developers-guide/index`
     This guide covers creating a SmartApp that exposes its own RESTful endpoints. 
 
-`Arduino Guide`_
+:doc:`arduino/index`
     This guide discusses developing for the Arduino using our SmartThings Shield for Arduino.
 
-`Capabilities Reference`_
+:doc:`capabilities-reference`
     This is where you find information on all the supported SmartThings capabilities.
 
-`API Documentation`_
+:doc:`ref-docs/reference`
     This is the detailed API documentation for the various SmartThings objects.
 
 
@@ -56,7 +59,6 @@ Introduction_
 .. _API Documentation: ref-docs/reference.html
 
 Find a bug, typo, or just want to make an improvement? This documentation is open source and available on `GitHub <https://github.com/SmartThingsCommunity/Documentation/>`__. We like contributions!
-
 
 Contents
 --------
@@ -76,6 +78,14 @@ Introduction
    :maxdepth: 3
    
    introduction/index
+
+Tools and IDE
+~~~~~~~~~~~~~
+
+.. toctree::
+    :maxdepth: 3
+
+    tools-and-ide/index
 
 SmartApp Developer's Guide
 ~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,3 +1,5 @@
+.. _smartapp_dev_guide:
+
 SmartApp Developer's Guide
 ==========================
 

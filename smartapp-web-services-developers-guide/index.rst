@@ -1,3 +1,5 @@
+.. _smartapp_web_services_guide:
+
 SmartApp Web Services Developer's Guide
 =======================================
 

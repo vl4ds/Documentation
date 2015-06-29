@@ -1,3 +1,5 @@
+.. _calling_web_services:
+
 Calling Web Services
 ====================
 
