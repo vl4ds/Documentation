@@ -21,7 +21,7 @@ This documentation is organized into a few different sections:
     Get up and running quickly with the SmartThings platform. Start here if this is your first time developing for SmartThings.
 
 :doc:`introduction/index`
-    This chapter discusses some of the core SmartThings concepts, architecture, and includes a brief tour of the IDE. It also introduces the SmartThings programming language - Groovy.
+    This chapter discusses some of the core SmartThings concepts, architecture, and how developers can create with SmartThings. It also introduces the SmartThings programming language - Groovy.
 
 :doc:`tools-and-ide/index`
     This guide will teach you how to use the IDE to manage your account, and build and test your custom code.
