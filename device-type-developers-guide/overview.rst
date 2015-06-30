@@ -89,13 +89,13 @@ This code illustrates how a SmartApp might interact with a device that supports 
 
     def someEventHandler(evt) {
         if (someCondition) {
-            switch.on()
+            theSwitch.on()
         } else {
-            switch.off()
+            theSwitch.off()
         }
 
         // logs either "switch is on" or "switch is off"
-        log.debug "switch is ${switch.currentSwitch}"
+        log.debug "switch is ${theSwitch.currentSwitch}"
     }
 
 The above example illustrates how a SmartApp requests a device that supports the "Switch" capability. When installing the SmartApp, the user will be able to select any device that supports the "Switch" capability - be it an in-wall light switch, a connected bulb, a music player, or any other device that supports the "Switch" capability.
