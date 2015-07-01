@@ -1,7 +1,7 @@
 Getting Started
 ===============
 
-This tutorial is intended to get you up and running with the SmartThings development platform - we'll walk through from setup to running your own SmartApp. 
+This tutorial is intended to get you up and running with the SmartThings development platform - we'll walk through from setup to running your own SmartApp.
 
 SmartApps are Groovy-based programs that allow a user to tap into the capabilities of their devices to automate their lives. Think of them as the intelligence between our physical devices.
 
@@ -20,10 +20,6 @@ Here's the recipe for our app: *When a door opens, turn on a light. When the doo
 
 Let's build it!
 
-.. note:: 
-
-    The example app we'll walk through here is discussed in greater detail in the `Building Your First SmartApp <introduction/introduction-to-the-ide/building-your-first-smartapp.html>`__ section of the `Introduction <introduction/index.html>`__.
-
 Walkthrough
 -----------
 
@@ -32,7 +28,7 @@ Step 1: Register a developer account
 
 If you haven't already, `Register for a developer account <https://graph.api.smartthings.com/register/developer>`__
 
----- 
+----
 
 Step 2: Go the developer environment page
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,7 +56,7 @@ This will take you to the IDE, where you will see some code has been filled in f
 
 There are three core methods that must be defined for SmartApps:
 
-- ``preferences`` is where we configure what information we need from the user to run this app. 
+- ``preferences`` is where we configure what information we need from the user to run this app.
 - ``installed`` is the method that is called when this app is installed. Typically this is where we subscribe to events from configured devices.
 - ``updated`` is the method that is called when the preferences are updated. Typically just unsubscribes and re-subscribes to events, since the preferences have changed.
 
@@ -70,7 +66,7 @@ At a high level, our app will need to:
 
 #. Gather the devices (door and light) to use for this app
 #. Monitor the door device - if it is opened, turn the light on. If it is closed, turn it off.
-        
+
 ----
 
 Step 4: Fill in the preferences block
@@ -85,7 +81,7 @@ In the IDE, replace the generated preferences block with the following:
     preferences {
         // What door should this app be configured for?
         section ("When the door opens/closes...") {
-            input "contact1", "capability.contactSensor", 
+            input "contact1", "capability.contactSensor",
                   title: "Where?"
         }
         // What light should this app be configured for?
@@ -101,14 +97,14 @@ Click the "Save" button above the editor.
 
     When interacting with devices, SmartApps should use capabilities to ensure maximum flexibility (that's the "capability.contactSensor" above). The available capabilities can be found on the :ref:`capabilities_taxonomy` page.
 
-    More information about preferences can be found in the `Preferences and Settings section <smartapp-developers-guide/preferences-and-settings.html>`__ of the `SmartApp Developer's Guide <smartapp-developers-guide/index.html>`__. 
+    More information about preferences can be found in the `Preferences and Settings section <smartapp-developers-guide/preferences-and-settings.html>`__ of the `SmartApp Developer's Guide <smartapp-developers-guide/index.html>`__.
 
 ----
 
 Step 5: Subscribe to events
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-In the IDE, note that there is an empty ``initialize`` method defined for you. This method is called from both the ``installed`` and ``updated`` methods. 
+In the IDE, note that there is an empty ``initialize`` method defined for you. This method is called from both the ``installed`` and ``updated`` methods.
 
 This is where we will subscribe to the device(s) we want to monitor. In our case, we want to know if the door opens or closes.
 
@@ -127,7 +123,7 @@ Note the arguments to the subscribe method. The first argument, "contact1", corr
 .. note::
 
 
-    More information about events and subscriptions can be found in the `Events and Subscriptions section <smartapp-developers-guide/simple-event-handler-smartapps.html>`__ of the `SmartApp Developer's Guide <smartapp-developers-guide/index.html>`__. 
+    More information about events and subscriptions can be found in the `Events and Subscriptions section <smartapp-developers-guide/simple-event-handler-smartapps.html>`__ of the `SmartApp Developer's Guide <smartapp-developers-guide/index.html>`__.
 
 ----
 
@@ -139,11 +135,11 @@ Add the following code to the bottom of your SmartApp:
 .. code-block:: groovy
 
     // event handlers are passed the event itself
-    def contactHandler(evt) { 
+    def contactHandler(evt) {
         log.debug "$evt.value"
-    
+
         // The contactSensor capability can be either "open" or "closed"
-        // If it's "open", turn on the light! 
+        // If it's "open", turn on the light!
         // If it's "closed" turn the light off.
         if (evt.value == "open") {
             switch1.on();
@@ -163,9 +159,9 @@ To the right of the editor in the IDE, you should see a "Location" field:
 
 .. image:: img/quick-start/ide-set-location.png
 
-Select the location of your hub (if you have only one hub, it will be selected by default), and click "Set Location". 
+Select the location of your hub (if you have only one hub, it will be selected by default), and click "Set Location".
 
-Now you can pick some devices if you have them, or create some virtual devices. 
+Now you can pick some devices if you have them, or create some virtual devices.
 
 .. image:: img/quick-start/ide-install-app.png
 
@@ -173,7 +169,7 @@ Once you've picked some devices, click "Install" to launch the simulator:
 
 .. image:: img/quick-start/ide-simulator.png
 
-Try changing the contact sensor from closed to open - you should see the switch in the simulator turn on. If you used a real switch, you should see the light actually turn on or off! 
+Try changing the contact sensor from closed to open - you should see the switch in the simulator turn on. If you used a real switch, you should see the light actually turn on or off!
 
 Also note the log statements in the log console. Logging is extremely useful for debugging purposes.
 
@@ -182,7 +178,7 @@ Also note the log statements in the log console. Logging is extremely useful for
 Bonus Step: Publish your SmartApp (for you only)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We've run our app in the simulator, which is a great way to test as we develop. But we can also publish our app so we 
+We've run our app in the simulator, which is a great way to test as we develop. But we can also publish our app so we
 can use it from our smart phone, just like other SmartApps. Let's walk through those steps.
 
 On top of the IDE, there's a "Publish" button right next to the Save button. Click it, and select "For me":
@@ -202,16 +198,6 @@ In the SmartSetup screen, scroll all the way to the right to select "My Apps". Y
 Next Steps
 ----------
 
-This tutorial has shown you how to set up a developer account, use the IDE to create a simple SmartApp, use the simulator to test your SmartApp, and publish your SmartApp to your mobile phone. 
+This tutorial has shown you how to set up a developer account, use the IDE to create a simple SmartApp, use the simulator to test your SmartApp, and publish your SmartApp to your mobile phone.
 
-In addition to using this documentation, the best way to learn is by looking at existing code and writing your own. In the IDE, there are several templates that you can review. These are great sources for learning SmartThings development! In fact, the SmartApp we built borrows heavily from (OK, it's a total clone) the "Let There Be Light" SmartApp. 
-
-
-
-
-
-
-
-
-
-
+In addition to using this documentation, the best way to learn is by looking at existing code and writing your own. In the IDE, there are several templates that you can review. These are great sources for learning SmartThings development! In fact, the SmartApp we built borrows heavily from (OK, it's a total clone) the "Let There Be Light" SmartApp.

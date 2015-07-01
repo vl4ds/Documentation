@@ -1,3 +1,5 @@
+.. _groovy:
+
 Groovy – The SmartThings Programming Language
 =============================================
 
@@ -14,6 +16,8 @@ It can be used as a `scripting language`_ for the Java Platform, is dynamically 
 
 Groovy uses a Java-like `bracket syntax`_. Most Java code is also syntactically valid Groovy.
 
+----
+
 Why Groovy?
 -----------
 
@@ -25,7 +29,8 @@ visit the `Groovy Documentation <http://groovy-lang.org/documentation.html>`__. 
 
 Note, however, that because of the application “sandboxing” that we do in the SmartThings Cloud, some features of Groovy are disabled for security reasons. We will discuss this more in the `Groovy Sandboxing`_ topic below.
 
- 
+----
+
 Groovy Sandboxing
 -----------------
 
@@ -33,11 +38,13 @@ SmartThings runs with a sandboxed environment. This means that not all features 
 
 Here are some of the restrictions:
 
-**Including custom classes or JARs is not supported**
+No Custom Classes or JARs
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You cannot upload or import your own classes or JARs. 
 
-**Class restrictions**
+Class Restrictions
+~~~~~~~~~~~~~~~~~~
 
 You cannot define your own classes within the SmartThings platform, or include any of your own classes. You cannot do this:
 
@@ -49,9 +56,8 @@ You cannot define your own classes within the SmartThings platform, or include a
 
 SmartThings allows only certain classes to be used in the sandbox. A SecurityException will be thrown if using a class that is not allowed.
 
-----
-
-**Closure restrictions**
+Closure Restrictions
+~~~~~~~~~~~~~~~~~~~~
 
 In SmartThings, you cannot define closures outside of methods. For example, you cannot do this:
 
@@ -61,17 +67,15 @@ In SmartThings, you cannot define closures outside of methods. For example, you 
 
 More information about closures can be found in the Tips & Tricks section below.
 
-----
-
-**Builders**
+Builder Restrictions
+~~~~~~~~~~~~~~~~~~~~
 
 If you're familiar with Groovy, you likely know about the `Groovy builder pattern`_. Builders offer a nice way to build a hierarchichal data structure. 
 
 Due to the way builders are implemented using closures, they will not work in SmartThings. This means things like XMLBuilder and JSONBuilder are not available to use.
 
-----
-
-**Restricted methods**
+Method Restrictions
+~~~~~~~~~~~~~~~~~~~
 
 Some of the methods you cannot use in SmartThings:
 
@@ -84,23 +88,23 @@ Some of the methods you cannot use in SmartThings:
 - println
 - sleep 
 
-----
-
-**Restricted properties**
+Property Restrictions
+~~~~~~~~~~~~~~~~~~~~~
 
 You cannot use any of the following properties in SmartThings:
 
 - class
 - metaClass
 
-----
-
-**Other restrictions**
+Other restrictions
+~~~~~~~~~~~~~~~~~~
 
 A few other things you cannot do in SmartThings:
 
 - Create and use new threads
 - Use System methods, like System.out
+
+----
 
 Tips & Tricks
 -------------
@@ -111,9 +115,8 @@ You can also use this handy `Groovy web console`_ if you don't have Groovy insta
 
 A full discussion of Groovy is obviously beyond the scope of this document, but there are a few key language features that you'll see often in the SmartThings platform that are worth brief discussion here.
 
-----
-
-**GStrings**
+GStrings
+~~~~~~~~
 
 Groovy Strings. What were you thinking?
 
@@ -132,9 +135,8 @@ Properties can be referenced directly without the brackets:
     def awesomePlatform = "SmartThings"
     def newString = "Programming with $awesomePlatform is fun!"
 
-----
-
-**Optional Parentheses**
+Optional Parentheses
+~~~~~~~~~~~~~~~~~~~~
 
 Method invocations with arguments in Groovy do not always require the arguments to be enclosed in parentheses. 
 
@@ -145,9 +147,8 @@ These are equivalent:
     "SmartThings".contains "Smart"
     "SmartThings".contains("Smart")
 
-----
-
-**Optional Return Statements**
+Optional Return Statements
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The return statement may be omitted from a method. The value of the last statement in a method will be the returned value, if the return keyword is not present.
 
@@ -163,9 +164,8 @@ These two methods are equivalent:
         "all caps".toUpperCase()
     }
 
-----
-
-**Closures**
+Closures
+~~~~~~~~
 
 One of the more powerful features of Groovy is its support for closures. We'll leave the exact definition of closures to computer scientists (See the Google machine if you're interested), but for our purposes, think of closures as a way to pass a function to another function.
 

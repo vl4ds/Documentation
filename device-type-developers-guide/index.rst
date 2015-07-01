@@ -1,3 +1,5 @@
+.. _device_type_dev_guide:
+
 Device Handler Developer's Guide
 =============================
 

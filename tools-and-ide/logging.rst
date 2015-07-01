@@ -1,3 +1,5 @@
+.. _logging:
+
 Logging
 =======
 
@@ -12,7 +14,7 @@ is where the log messages from your SmartApp/Device Handler will appear.
 .. note::
     The 'Clear' button will clear all of the messages currently in the console.
 
-.. figure:: ../../img/ide/console.png
+.. figure:: ../img/ide/console.png
 
 Logging Levels
 --------------
@@ -46,14 +48,14 @@ turned on.
     }
 
     def installed() {
-	    log.debug "Installed with settings: ${settings}"
-	    initialize()
+        log.debug "Installed with settings: ${settings}"
+        initialize()
     }
 
     def updated() {
-	    log.debug "Updated with settings: ${settings}"
-	    unsubscribe()
-	    initialize()
+        log.debug "Updated with settings: ${settings}"
+        unsubscribe()
+        initialize()
     }
 
     def initialize() {
@@ -74,14 +76,14 @@ turned on.
 Let's start the above SmartApp execution in the IDE. The first thing that
 we can see are messages like this:
 
-.. figure:: ../../img/ide/log_example1.png
+.. figure:: ../img/ide/log_example1.png
 
 It is easy to see that the *debug* message came from the ``updated()`` method
 
 .. code-block:: groovy
 
     def updated() {
-	    log.debug "Updated with settings: ${settings}"
+        log.debug "Updated with settings: ${settings}"
 
 But where did the other *trace* messages come from? These messages are coming
 from the SmartApp framework. The SmartApp framework automatically will provide
@@ -99,7 +101,7 @@ You should expect to see something like this in the console.
 .. note::
     The newest messages appear at the top of the console output. Not the bottom.
 
-.. figure:: ../../img/ide/log_example2.png
+.. figure:: ../img/ide/log_example2.png
 
 Lets see an example of how each one of the log levels look when output
 to the console. In the ``someEventHandler()`` method, I've added the following
@@ -117,7 +119,7 @@ log messages for this example.
 The output is nice and color coordinated so we can visually see the severity of
 the various levels.
 
-.. figure:: ../../img/ide/log_example3.png
+.. figure:: ../img/ide/log_example3.png
 
 Finally, an example of how the logger can be used in a try/catch block instead
 of getting the exception.
@@ -125,10 +127,10 @@ of getting the exception.
 .. code-block:: groovy
 
     try {
-    	def x = "some string"
+        def x = "some string"
         x.somethingThatDoesNotExist
     } catch (all) {
-    	log.error "Something went horribly wrong!\n${all}"
+        log.error "Something went horribly wrong!\n${all}"
     }
 
-.. figure:: ../../img/ide/log_example4.png
+.. figure:: ../img/ide/log_example4.png

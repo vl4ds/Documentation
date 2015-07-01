@@ -1,3 +1,5 @@
+.. _cloud_lan_device_type_guide:
+
 Cloud and LAN Connected Developer's Guide
 =========================================
 
