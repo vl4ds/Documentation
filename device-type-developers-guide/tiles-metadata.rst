@@ -76,7 +76,7 @@ All tiles support the following parameters:
 State
 -----
 
-Each tile can have on more *state* definitions. 
+Each tile can have one or more *state* definitions. 
 
 Back to our switch example, consider the switch tile definition:
 
