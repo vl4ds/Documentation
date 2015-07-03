@@ -43,7 +43,7 @@ Clusters
 --------
 
 Clusters are a group of commands and attributes that define what a
-device can do. Think of Clusters as a group of actions by function. A
+device can do. Think of clusters as a group of actions by function. A
 device can support multiple clusters to do a whole variety of tasks.
 Majority of clusters are defined by the ZigBee Alliance and listed in
 the ZigBee Cluster Library. There are also profile specific clusters that
@@ -94,7 +94,7 @@ type and values are specified by cluster.
 An example of a Read Attribute that would read the current level of a
 dimmer and return the value:
 
-``st rattr cmd 0x${device.deviceNetworkId} ${endpointId} 8 0 {}``
+``"st rattr cmd 0x${device.deviceNetworkId} ${endpointId} 8 0 {}"``
 
 Write Attributes are used to set specific preferences. Write attributes
 can need specific data type that the payload is in. In this example the

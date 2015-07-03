@@ -147,5 +147,5 @@ ZigBee Utilities
 
 In order to work with ZigBee you will need to use the ZigBee Cluster
 Library extensively to look up the proper values to send back and forth
-to your device. You can request a download of that document
-`here <http://zigbee.org/non-menu-pages/zigbee-cluster-library-specification-download/>`__.
+to your device. You can download this document
+`here <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__.

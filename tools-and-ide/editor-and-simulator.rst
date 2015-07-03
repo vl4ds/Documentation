@@ -38,7 +38,7 @@ Using the Editor
 
 The SmartThings web editor allows you to edit code, and provides syntax highlighting for easy code readability.
 
-You can choose from a variety of themes, key maps, and font sizes to suite your preferences by clicking on the *IDE Settings* button above the editor frame.
+You can choose from a variety of themes, key maps, and font sizes to suit your preferences by clicking on the *IDE Settings* button above the editor frame.
 
 .. tip::
 

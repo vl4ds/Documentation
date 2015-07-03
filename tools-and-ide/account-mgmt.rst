@@ -50,7 +50,7 @@ SmartApps
 Device Types
 ------------
 
-*My Device Types* will show all your custom (written or edited by you) Device Type Handlers. You can view the status, supported capabilities, and sessions from this liest, as well as edit the metadata associated with this Device Type Handler. You can click on the name to be taken to the editor, where you can view and modify the code.
+*My Device Types* will show all your custom (written or edited by you) Device Type Handlers. You can view the status, supported capabilities, and sessions from this list, as well as edit the metadata associated with this Device Type Handler. You can click on the name to be taken to the editor, where you can view and modify the code.
 
 Publication Requests
 --------------------
