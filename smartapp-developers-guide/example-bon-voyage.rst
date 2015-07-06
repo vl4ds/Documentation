@@ -43,7 +43,7 @@ Each of these inputs corresponds into a preferences section:
         section( "Notifications" ) {
             input "sendPushMessage", "enum", title: "Send a push notification?",
                   options: ["Yes", "No"], required: false
-			      input "phone", "phone", title: "Send a Text Message?", required: false
+            input "phone", "phone", title: "Send a Text Message?", required: false
         }
     }
 
@@ -308,11 +308,11 @@ Bon Voyage app:
             input "falseAlarmThreshold", "decimal", title: "Number of minutes", required: false
         }
         section( "Notifications" ) {
-				    input "sendPushMessage", "enum", title: "Send a push notification?",
-                  options: ["Yes", "No"], required: false
-			      input "phone", "phone", title: "Send a Text Message?", required: false
-		    }
-	  }
+            input "sendPushMessage", "enum", title: "Send a push notification?",
+                options: ["Yes", "No"], required: false
+            input "phone", "phone", title: "Send a Text Message?", required: false
+        }
+    }
 
     def installed() {
         log.debug "Installed with settings: ${settings}"
