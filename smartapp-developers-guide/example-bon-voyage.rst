@@ -41,43 +41,44 @@ Each of these inputs corresponds into a preferences section:
             input "falseAlarmThreshold", "decimal", title: "Number of minutes", required: false
         }
         section( "Notifications" ) {
-            input "sendPushMessage", "enum", title: "Send a push notification?", metadata:[values:["Yes","No"]], required:false
-            input "phone", "phone", title: "Send a Text Message?", required: false
+            input "sendPushMessage", "enum", title: "Send a push notification?",
+                  options: ["Yes", "No"], required: false
+			      input "phone", "phone", title: "Send a Text Message?", required: false
         }
     }
 
 Let's look at each section in a bit more detail.
 
-The *When all of these people leave home* section allows the user to 
+The *When all of these people leave home* section allows the user to
 configure what sensors to use for this app.
 The user will see a section with the main title "When all of these
 people leave home." A dropdown will be populated with all the devices
-that have the presenceSensor capability (`capability.presenceSensor`) 
-for them to select the sensor(s) they'd like to use. 
-`Multiple: true` allows them to add as many sensors as they'd like. 
+that have the presenceSensor capability (`capability.presenceSensor`)
+for them to select the sensor(s) they'd like to use.
+`Multiple: true` allows them to add as many sensors as they'd like.
 Their choice(s) are then stored in a variable named `people`.
 
 The *Change to this mode* section allows the user to specify what mode
-should be triggered when everyone is away. The input type of *mode* 
-is used, so a dropdown will be populated with all the modes the user 
-has set up. The title property is used to show the title "Mode?" above 
+should be triggered when everyone is away. The input type of *mode*
+is used, so a dropdown will be populated with all the modes the user
+has set up. The title property is used to show the title "Mode?" above
 the field. The selection is stored in the variable named `newMode`.
 
-The section *False alarm threshold (defaults to 10 min)* allows the 
-user to specify a false alarm threshold. These types of thresholds are 
-common in our SmartApps. A section is shown titled "False alarm 
-threshold (defaults to 10 min)". The input fieldtype of decimal is 
-used, to allow the user to input a numeric value that represents minutes. 
-The title "Number of minutes" is specified, and we set the `required` 
-property to false. By default, all fields are required, so you must 
-explicitly state if it is not required. We store the user's input in 
+The section *False alarm threshold (defaults to 10 min)* allows the
+user to specify a false alarm threshold. These types of thresholds are
+common in our SmartApps. A section is shown titled "False alarm
+threshold (defaults to 10 min)". The input fieldtype of decimal is
+used, to allow the user to input a numeric value that represents minutes.
+The title "Number of minutes" is specified, and we set the `required`
+property to false. By default, all fields are required, so you must
+explicitly state if it is not required. We store the user's input in
 the variable named `falseAlarmThreshold` for later use.
 
 Finally, a section is shown labeled as "Notifications". This is where
 the user can configure how they want to be notified when everyone is away.
 An input with the field type of *enum* is created. With *enum* you must
 define values for it, so they are defined via
-`metadata:[values:["Yes","No"]]`. This field is not required as
+`options:["Yes","No"]`. This field is not required as
 specified by `required:false`, and what the user selects will be stored
 in `sendPushMessage`. There is also an optional field called "Send a
 Text Message?". It uses the field type of `phone` to provide a
@@ -117,7 +118,7 @@ Let's define our presence method.
         log.debug "evt.name: $evt.value"
         if (evt.value == "not present") {
             if (location.mode != newMode) {
-                log.debug "checking if everyone is away"  
+                log.debug "checking if everyone is away"
                 if (everyoneIsAway()) {
                     log.debug "starting sequence"
                     runIn(findFalseAlarmThreshold() * 60, "takeAction", [overwrite: false])
@@ -150,12 +151,12 @@ Let's define our presence method.
         return result
     }
 
-    // gets the false alarm threshold, in minutes. Defaults to 
+    // gets the false alarm threshold, in minutes. Defaults to
     // 10 minutes if the preference is not defined.
     private findFalseAlarmThreshold() {
         // In Groovy, the return statement is implied, and not required.
         // We check to see if the variable we set in the preferences
-        // is defined and non-empty, and if it is, return it.  Otherwise, 
+        // is defined and non-empty, and if it is, return it.  Otherwise,
         // return our default value of 10
         (falseAlarmThreshold != null && falseAlarmThreshold != "") ? falseAlarmThreshold : 10
     }
@@ -164,7 +165,7 @@ Let's break that down a bit.
 
 The first thing we need to do is see what event was triggered. We do this
 by inspecting the *evt* variable that is passed to our event handler.
-The presence capability can be either "present" or "not present". 
+The presence capability can be either "present" or "not present".
 
 Next, we check that the current mode isn't already set to the mode we
 want to trigger. If we're already in our desired mode, there's nothing
@@ -175,14 +176,14 @@ which runs the method `takeAction` in a specified amount of time (we'll define t
 We use a helper method `findFalseAlarmTrheshold()` multiplied by 60
 to convert minutes to seconds, which is what the runIn method requires.
 We specify `overwrite: false` so that it won't overwrite previously scheduled
-takeAction calls. In the context of this SmartApp, it means that if one user 
+takeAction calls. In the context of this SmartApp, it means that if one user
 leaves, and then another user leaves within the `falseAlarmThreshold` time,
 takeAction will still be called twice. By default, overwrite is true,
 meaning that if you scheduled takeAction to run previously, it would be
 cancelled and replaced by your current call.
 
-We also have defined two helper methods above, `everyoneIsAway`, and 
-`findFalseAlarmThreshold`. 
+We also have defined two helper methods above, `everyoneIsAway`, and
+`findFalseAlarmThreshold`.
 
 `everyoneIsAway` returns true if all configured sensors are not present,
 and false otherwise. It iterates over all the sensors configured and stored
@@ -190,8 +191,8 @@ in the `people` variable, and inspects the `currentPresence` property.
 If the `currentPresence` is "present", we set the result to false, and terminate
 the loop. We then return the value of the result variable.
 
-`findFalseAlarmThreshold` gets the false alarm threshold, in minutes, 
-as configured by the user. If the threshold preference has not been set, 
+`findFalseAlarmThreshold` gets the false alarm threshold, in minutes,
+as configured by the user. If the threshold preference has not been set,
 it returns ten minutes as the default.
 
 Now we need to define our *takeAction* method:
@@ -242,22 +243,22 @@ The first thing we do is check again if everyone is away. This is necessary
 since something may have changed since it was already called, because of
 the `falseAlarmThreshold`.
 
-If everyone is away, we need to find out how many people have been 
-away for long enough, using our false alarm threshold. We create a 
+If everyone is away, we need to find out how many people have been
+away for long enough, using our false alarm threshold. We create a
 variable, `awayLongEnough` and set it through the Groovy findAll method.
-The findAll method returns a subset of the collection based on the 
+The findAll method returns a subset of the collection based on the
 logic of the passed-in closure. For each person, we use the
-`currentState` method available to us, and use that to 
+`currentState` method available to us, and use that to
 get the time elapsed since the event was triggered. If the time elapsed
 since this event exceeds our threshold, we add it to the `awayLongEnough`
 collection by returning true in our closure (note that we could omit
 the "return" keyword, as it is implied in Groovy). For more information
-about the findAll method, or how Groovy utilizes closures, consult the 
+about the findAll method, or how Groovy utilizes closures, consult the
 Groovy documentation at http://www.groovy-lang.org/documentation.html
 
 If the number of people away long enough equals the total number of
 people configured for this app, we send a message (we'll look at that
-method next), and then call the `setLocationMode` method with the 
+method next), and then call the `setLocationMode` method with the
 desired mode. This is what will cause a mode change.
 
 The `send` method takes a String parameter, `msg`, and if the user has
@@ -307,10 +308,11 @@ Bon Voyage app:
             input "falseAlarmThreshold", "decimal", title: "Number of minutes", required: false
         }
         section( "Notifications" ) {
-            input "sendPushMessage", "enum", title: "Send a push notification?", metadata:[values:["Yes","No"]], required:false
-            input "phone", "phone", title: "Send a Text Message?", required: false
-        }
-    }
+				    input "sendPushMessage", "enum", title: "Send a push notification?",
+                  options: ["Yes", "No"], required: false
+			      input "phone", "phone", title: "Send a Text Message?", required: false
+		    }
+	  }
 
     def installed() {
         log.debug "Installed with settings: ${settings}"
@@ -327,13 +329,13 @@ Bon Voyage app:
 
     def presence(evt) {
         log.debug "evt.name: $evt.value"
-        
+
         // The presence capability can either by "present" or "not present".
-        // If the user is not present, we want to check if everyone is away 
+        // If the user is not present, we want to check if everyone is away
         if (evt.value == "not present") {
             // Check that the desire mode isn't already the same as the current mode.
             if (location.mode != newMode) {
-                log.debug "checking if everyone is away"  
+                log.debug "checking if everyone is away"
                 // If everyone is away, start the sequence
                 if (everyoneIsAway()) {
                     log.debug "starting sequence"
@@ -367,12 +369,12 @@ Bon Voyage app:
         return result
     }
 
-    // gets the false alarm threshold, in minutes. Defaults to 
+    // gets the false alarm threshold, in minutes. Defaults to
     // 10 minutes if the preference is not defined.
     private findFalseAlarmThreshold() {
         // In Groovy, the return statement is implied, and not required.
         // We check to see if the variable we set in the preferences
-        // is defined and non-empty, and if it is, return it.  Otherwise, 
+        // is defined and non-empty, and if it is, return it.  Otherwise,
         // return our default value of 10
         (falseAlarmThreshold != null && falseAlarmThreshold != "") ? falseAlarmThreshold : 10
     }
@@ -413,4 +415,3 @@ Bon Voyage app:
 
         log.debug msg
     }
-
