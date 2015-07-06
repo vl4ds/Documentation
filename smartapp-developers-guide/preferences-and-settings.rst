@@ -587,7 +587,8 @@ Valid input options:
                                  See the *Preferences Reference* column of the :ref:`capabilities_taxonomy`
                                  table for possible values.
     device.deviceTypeName        Prompts for all devices of the specified type.
-    boolean                      A ``true`` or ``false`` value
+    bool                         A ``true`` or ``false`` value (value returned as a boolean).
+    boolean                      A ``"true"`` or ``"false"`` value (value returned as a string). It's recommended that you use the "bool" input instead, since the simulator and mobile support for this type may not be consistent, and using "bool" will return you a boolean (instead of a string). The "boolean" input type may be removed in the near future.
     decimal                      A floating point number, i.e. one that can contain a decimal point
     email                        An email address
     enum                         One of a set of possible values. Use the *options* element to define the possible values.
