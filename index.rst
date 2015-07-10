@@ -12,7 +12,7 @@ SmartThings Developer Documentation
 
   Take our `survey <https://smartthings.wufoo.com/forms/qwgbd6d1ivyu93/>`__ and tell us how we're doing, and how we can improve.
 
-  Survey closes at the stike of midnight (EST) on **Saturday, July 25**.
+  Survey closes at the strike of midnight (EST) on **Saturday, July 25**.
 
 .. note::
 
