@@ -6,6 +6,14 @@
 SmartThings Developer Documentation
 ===================================
 
+.. important::
+
+  Help Improve the Docs!!
+
+  Take our `survey <https://smartthings.wufoo.com/forms/qwgbd6d1ivyu93/>`__ and tell us how we're doing, and how we can improve.
+
+  Survey closes at the stike of midnight (EST) on **Saturday, July 25**.
+
 .. note::
 
     This documentation is a work in progress. Bear with us as we fill in some of the gaps, add clarifications, and expand out the content. It may mean that bookmarks break as we iterate and continually improve our documentation.
@@ -30,13 +38,13 @@ This documentation is organized into a few different sections:
     This guide is all about developing SmartApps. It is primarily focused on event-based SmartApps.
 
 :doc:`device-type-developers-guide/index`
-    This guide will teach you what a Device Handler is, why they are important, and how to develop one. 
+    This guide will teach you what a Device Handler is, why they are important, and how to develop one.
 
 :doc:`cloud-and-lan-connected-device-types-developers-guide/index`
     This guide covers developing with Cloud-connected and LAN devices.
 
 :doc:`smartapp-web-services-developers-guide/index`
-    This guide covers creating a SmartApp that exposes its own RESTful endpoints. 
+    This guide covers creating a SmartApp that exposes its own RESTful endpoints.
 
 :doc:`arduino/index`
     This guide discusses developing for the Arduino using our SmartThings Shield for Arduino.
@@ -76,7 +84,7 @@ Introduction
 
 .. toctree::
    :maxdepth: 3
-   
+
    introduction/index
 
 Tools and IDE
@@ -92,7 +100,7 @@ SmartApp Developer's Guide
 
 .. toctree::
 	:maxdepth: 3
-	
+
 	smartapp-developers-guide/index
 
 Device Handler Developer's Guide
@@ -100,7 +108,7 @@ Device Handler Developer's Guide
 
 .. toctree::
 	:maxdepth: 3
-	
+
 	device-type-developers-guide/index
 
 Cloud-Connected & LAN-Connected Device Type Developer's Guide
@@ -108,7 +116,7 @@ Cloud-Connected & LAN-Connected Device Type Developer's Guide
 
 .. toctree::
 	:maxdepth: 3
-	
+
 	cloud-and-lan-connected-device-types-developers-guide/index
 
 SmartApp Web Services Developer's Guide
@@ -116,7 +124,7 @@ SmartApp Web Services Developer's Guide
 
 .. toctree::
 	:maxdepth: 3
-	
+
 	smartapp-web-services-developers-guide/index
 
 Arduino ThingShield
@@ -134,7 +142,7 @@ Capabilities Reference
     :maxdepth: 1
 
     capabilities-reference
-    
+
 API Documentation
 ~~~~~~~~~~~~~~~~~
 
