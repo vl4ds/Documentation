@@ -1,3 +1,5 @@
+.. _events_and_subscriptions:
+
 ========================
 Events and Subscriptions
 ========================

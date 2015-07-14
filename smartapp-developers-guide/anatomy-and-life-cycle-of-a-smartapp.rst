@@ -160,7 +160,7 @@ event values, so to call a handler only when the contact sensor opens write:
 The *subscribe* method call accepts either a device or a list of devices, so you don't need to explicitly iterate over
 each device in a list when you specify `multiple: true` in an input preference.
 
-You can learn more about subscribing to device events in the `Events and Subscriptions <smartapp-developers-guide/simple-event-handler-smartapps.html>`__ section.
+You can learn more about subscribing to device events in the :ref:`events_and_subscriptions` section.
 
 SmartApp Sandboxing
 -------------------
