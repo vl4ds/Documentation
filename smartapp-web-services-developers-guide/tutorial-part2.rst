@@ -20,7 +20,7 @@ Overview
 
 In Part 2 of this tutorial, we will build a simple Sinatra application that will make calls to the Web Services SmartApp we built in Part 1.
 
-If you're not familiar with Sinatra, you are encouraged to try it out. It's not strictly necessary, however, as our application will simply make web requests to get the API token and the endpoint. 
+If you're not familiar with Sinatra, you are encouraged to try it out. It's not strictly necessary, however, as our application will simply make web requests to get the API token and the endpoint.
 
 If you just want to see the manual steps to make requests to get the access token, discover endpoints, and start making calls, you can see the :ref:`appendix_just_the_urls`.
 
@@ -49,7 +49,7 @@ Create a new directory for the Sinatra app, and change directories to it:
     mkdir web-app-tutorial
     cd web-app-tutorial
 
-In your favorite text editor*, create a new file called ``server.rb`` and paste the following into it, and save it. 
+In your favorite text editor*, create a new file called ``server.rb`` and paste the following into it, and save it.
 
 \*(*If your favorite text editor is vim or emacs, then our hat's off to you. We're impressed - maybe even a bit intimidated. If your favorite editor is notepad, well... we're not as impressed, or intimidated. :@)*)
 
@@ -69,7 +69,7 @@ In your favorite text editor*, create a new file called ``server.rb`` and paste 
     # We'll store the access token in the session
     use Rack::Session::Pool, :cookie_only => false
 
-    # This is the URI that will be called with our access 
+    # This is the URI that will be called with our access
     # code after we authenticate with our SmartThings account
     redirect_uri = 'http://localhost:4567/oauth/callback'
 
@@ -100,8 +100,8 @@ In your favorite text editor*, create a new file called ``server.rb`` and paste 
         'Not Implemented!'
     end
 
-    # hanlde requests to /oauth/callback URL. We 
-    # will tell SmartThings to call this URL with our 
+    # hanlde requests to /oauth/callback URL. We
+    # will tell SmartThings to call this URL with our
     # authorization code once we've authenticated.
     get '/oauth/callback' do
         'Not Implemented!'
@@ -132,7 +132,7 @@ Back at the command line, run bundle:
 
     bundle install
 
-You'll also want to set environment variables for your ST_CLIENT_ID and ST_CLIENT_SECRET. 
+You'll also want to set environment variables for your ST_CLIENT_ID and ST_CLIENT_SECRET.
 
 Now, run the app on your local machine::
 
@@ -149,12 +149,12 @@ We've handled the root URL to simply display a link that points to the ``/author
 Get an Authorization Code
 -------------------------
 
-When the user clicks on the "Connect with SmartThings" link, we need to get our OAuth authorization code. 
+When the user clicks on the "Connect with SmartThings" link, we need to get our OAuth authorization code.
 
 To do this, the user will need to authenticate with SmartThings, and authorize the devices this application can work with. Once that has been done, The user will be directed back to a specified ``redirect_url``, with the OAuth authorization code. This will be used (along with the Client ID and secret), to get the access token.
 
 .. note::
-    
+
     By authorizing the application to work with SmartThings, the SmartApp will be installed into the user's account.
 
 Replace the ``/authorize`` route with the following:
@@ -163,7 +163,7 @@ Replace the ``/authorize`` route with the following:
 
     get '/authorize' do
       # Use the OAuth2 module to get the authorize URL.
-      # After we authenticate with SmartThings, we will be redirected to the 
+      # After we authenticate with SmartThings, we will be redirected to the
       # redirect_uri, including our access code used to get the token
       url = client.auth_code.authorize_url(redirect_uri: redirect_uri, scope: 'app')
       redirect url
@@ -179,7 +179,7 @@ This should prompt you to authenticate with your SmartThings account (if you are
 
 Click the Authorize button, and you will be redirected back your server.
 
-You'll notice that we haven't implemented handling this URL yet, so we see "Not Implemented!". 
+You'll notice that we haven't implemented handling this URL yet, so we see "Not Implemented!".
 
 ----
 
@@ -210,11 +210,11 @@ Replace the ``/oauth/callback`` route with the following:
 
       # Use the code to get the token.
       response = client.auth_code.get_token(code, redirect_uri: redirect_uri, scope: 'app')
-      
+
       # now that we have the access token, we will store it in the session
       session[:access_token] = response.token
 
-      # debug - inspect the running console for the 
+      # debug - inspect the running console for the
       # expires in (seconds from now), and the expires at (in epoch time)
       puts 'TOKEN EXPIRES IN ' + response.expires_in.to_s
       puts 'TOKEN EXPIRES AT ' + response.expires_at.to_s
@@ -224,10 +224,10 @@ Replace the ``/oauth/callback`` route with the following:
 We first retrieve the access code from the parameters. We use this to get the token using the OAuth2 module, and store it in the session.
 
 .. note::
-    
+
     Requesting the token returns JSON which contains information about the token type and the token expiration, in addition to the token itself. The raw response looks something like this:
 
-    .. code:: 
+    .. code::
 
         {
           "access_token": "43373fd2871641379ce8b35a9165e803",
@@ -281,7 +281,7 @@ Replace the ``/getswitch`` route with the following:
       # get the endpoint from the JSON:
       endpoint = json[0]['url']
 
-      '<h3>JSON Response</h3><br/>' + JSON.pretty_generate(json) + '<h3>Endpoint</h3><br/>' + endpoint 
+      '<h3>JSON Response</h3><br/>' + JSON.pretty_generate(json) + '<h3>Endpoint</h3><br/>' + endpoint
     end
 
 The above code simply makes a GET request to the SmartThings API endpoints service at ``https://graph.api.smartthings.com/api/smartapps/endpoints``, setting the ``"Authorization"`` HTTP header with the API token.
@@ -306,18 +306,18 @@ Remove the line at the end of the ``getswitch`` route handler that outputs the r
   # now we can build a URL to our WebServices SmartApp
   # we will make a GET request to get information about the switch
   switchUrl = 'https://graph.api.smartthings.com' + endpoint + '/switches?access_token=' + token
-  
+
   # debug
   puts "SWITCH ENDPOINT: " + switchUrl
-  
+
   getSwitchURL = URI.parse(switchUrl)
   getSwitchReq = Net::HTTP::Get.new(getSwitchURL.request_uri)
-  
+
   getSwitchHttp = Net::HTTP.new(url.host, url.port)
   getSwitchHttp.use_ssl = true
-  
+
   switchStatus = getSwitchHttp.request(getSwitchReq)
-  
+
   '<h3>Response Code</h3>' + switchStatus.code + '<br/><h3>Response Headers</h3>' + switchStatus.to_hash.inspect + '<br/><h3>Response Body</h3>' + switchStatus.body
 
 
@@ -370,19 +370,31 @@ This will redirect you to a page that doesn't exist - but that's ok! The importa
 Get the API token
 ~~~~~~~~~~~~~~~~~
 
-Using the code you just received, and our client ID and secret, we can get our access token. Paste the following into your web browser's address bar, replacing CLIENT_ID, CLIENT_SECRET, and CODE with the appropriate values::
+.. important::
 
-    https://graph.api.smartthings.com/oauth/token?grant_type=authorization_code&client_id=CLIENT_ID&client_secret=CLIENT_SECRET&code=CODE&redirect_uri=https%3A%2F%2Fgraph.api.smartthings.com%2Foauth%2Fcallback&scope=app
+  **OAuth Changes**
 
-This should return JSON like the following, from which you can get the ``access_token``:
+  Access token requests have changed to require users to pass their OAuth client ID and secret using HTTP Basic Authentication. This is a security-related improvement, and aligns us closer to the OAuth 2.0 Specification (RFC 6749).
 
-.. code::
+  For backwards compatibility, we still support sending the Client ID and secret as POST or GET parameters (outside of the browser context for which the authorization was invoked), but this functionality is deprecated and should be updated as discussed below.
+  
+Using the code you just received, and our client ID and secret, we can get our access token. This call must be done **outside of the browser**. The call must include the client ID and secret using HTTP Basic Authentication (we'll use `curl`).
 
-  {
-    "access_token": "43373fd2871641379ce8b35a9165e803",
-    "expires_in": 1576799999,
-    "token_type": "bearer"
-  }
+Paste the following into a new terminal window, replacing CLIENT_ID, CLIENT_SECRET, and CODE with the appropriate values:
+
+.. code-block:: bash
+
+  curl -u CLIENT_ID:CLIENT_SECRET 'https://graph.api.smartthings.com/oauth/token?code=CODE&grant_type=authorization_code&redirect_uri=https%3A%2F%2Fgraph.api.smartthings.com%2Foauth%2Fcallback&scope=app'
+
+This should return JSON like the following, from which you can get the access_token:
+
+.. code-block:: javascript
+
+    json {
+      "access_token": "43373fd2871641379ce8b35a9165e803",
+      "expires_in": 1576799999,
+      "token_type": "bearer"
+    }
 
 Discover the Endpoint URL
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -397,7 +409,7 @@ In your web browser, paste the following into your address bar, replacing ACCESS
 
 That should return JSON that contains information about the OAuth client, as well as the endpoint for the SmartApp:
 
-.. code:: 
+.. code::
 
     [
       {
