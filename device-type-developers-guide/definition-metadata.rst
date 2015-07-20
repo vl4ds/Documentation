@@ -186,17 +186,17 @@ Try and include the manufacturer and model name to your fingerprint (only suppor
 
 .. code-block:: groovy
 
-    fingerprint inClusters: "0000,0001,0003,0406,0500,0020", manufacturer: "NYCE", model: "3014"
+    fingerprint inClusters: "0000,0001,0003,0020,0406,0500", manufacturer: "NYCE", model: "3014"
 
 When adding the manufacturer model and name, you'll likely need to add the following raw commands in the ``refresh()`` command. This is used to report back the manufacturer/model name from the device.
 
-The reply will be hexadecimal that you can convert to ascii using the hex-to-ascii converter (we'll be adding a utility method to do this, but in the meantime you can use an online converter like `this one <http://www.google.com/url?q=http%3A%2F%2Fwww.rapidtables.com%2Fconvert%2Fnumber%2Fhex-to-ascii.htm&sa=D&sntz=1&usg=AFQjCNGdoACnrlSgQyY0702QyYTRyidCDg>`__):
+The reply will be hexadecimal that you can convert to ascii using the hex-to-ascii converter (we'll be adding a utility method to do this, but in the meantime you can use an online converter like `this one <http://www.rapidtables.com/convert/number/hex-to-ascii.htm>`__):
 
 .. code-block:: groovy
 
     def refresh() {
-        ember send st rattr 0x${zigbee.deviceNetworkId} 0x${zigbee.endpointId} 0 4
-        ember send st rattr 0x${zigbee.deviceNetworkId} 0x${zigbee.endpointId} 0 5
+        "st rattr 0x${zigbee.deviceNetworkId} 0x${zigbee.endpointId} 0 4", "delay 200",
+        "st rattr 0x${zigbee.deviceNetworkId} 0x${zigbee.endpointId} 0 5"
     }
 
 Adding Multiple Fingerprints
@@ -209,6 +209,6 @@ The platform will use the fingerprint with the longest possible match.
 Device Pairing Process
 ++++++++++++++++++++++
 
-The order of the ``inClusters`` and ``outClusters`` lists is not important.
+The order of the ``inClusters`` and ``outClusters`` lists is not important to the pairing process. It is a best practice, however, to list the clusters in ascending order.
 
 The device can have more clusters than the fingerprint specifies, and it will still pair. If one of the clusters specified in the fingerprint is incorrect, the device will *not* pair.
