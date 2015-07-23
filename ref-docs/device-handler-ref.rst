@@ -134,7 +134,7 @@ Called within the `definition()`_ method to declare that this Device Handler sup
 For any supported attribute, it is expected that the Device Handler creates and sends events with the name of the attribute in the `parse()`_ method.
 
 **Signature:**
-    ``void attribute(String attributeName [, String attributeType, List possibleValues])``
+    ``void attribute(String attributeName, String attributeType [, List possibleValues])``
 
 **Parameter:**
     `String`_ ``attributeName`` - the name of the attribute
