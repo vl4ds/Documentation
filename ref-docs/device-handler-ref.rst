@@ -5,7 +5,7 @@ Device Handlers, or Device Types, are the virtual representation of a physical d
 
 A Device Handler defines a `metadata()`_ method that defines the device's definition, UX information, as well as how it should behave in the IDE simulator.
 
-A Device Handler typically also defines a `parse()`_ method that is responsible for transforming raw messages from the device into events for the SmartThings platform. 
+A Device Handler typically also defines a `parse()`_ method that is responsible for transforming raw messages from the device into events for the SmartThings platform.
 
 Device Handlers must also define methods for any supported commands, either through its supported capabilities, or device-specific commands.
 
@@ -31,7 +31,7 @@ The definition for a Command supported by this Device Handler. Every Command tha
 
 Commands are the things that a device can do. For example, the "Switch" capability defines the commands "on" and "off". Every Device that supports the "Switch" capability must define an implementation of these commands. This is done by defining methods with the name of the command. For example, ``def on() {}`` and ``def off()``.
 
-The exact implementation of a command method will vary greatly depending upon the device. The command method is responsible for sending protocol and device-specific commands to the physical device. 
+The exact implementation of a command method will vary greatly depending upon the device. The command method is responsible for sending protocol and device-specific commands to the physical device.
 
 
 **Signature:**
@@ -68,13 +68,13 @@ parse()
 ~~~~~~~
 
 .. note::
-    
+
     This method is expected to be defined by Device Handlers.
 
 
 Called when messages from a device are received from the hub. The parse method is responsible for interpreting those messages and returning :ref:`event_ref` definitions. Event definitions are maps that contain, at a minimum, name and value entries. They may also contain unit, displayText, displayed, isStateChange, and linkText entries if the default, automatically generated values of these event properties are to be overridden. See the `createEvent()`_ documentation for a description of these properties.
 
-Because the ``parse()`` method is responsible for handling raw device messages, their implementations vary greatly across different device types. 
+Because the ``parse()`` method is responsible for handling raw device messages, their implementations vary greatly across different device types.
 
 The ``parse()`` method may return a map defining the :ref:`event_ref` to create and propagate through the SmartThings platform, or a list of events if multiple events should be created. It may also return a HubAction or list of HubAction objects in the case of LAN-connected devices.
 
@@ -82,7 +82,7 @@ The ``parse()`` method may return a map defining the :ref:`event_ref` to create 
     ``Map parse(String description)``
 
     ``List<Map> parse(String description)``
-    
+
     ``HubAction parse(String description)``
 
     ``List<HubAction> parse(String description)``
@@ -119,7 +119,7 @@ The ``parse()`` method may return a map defining the :ref:`event_ref` to create 
         log.debug "Parse returned ${result?.descriptionText}"
 
         // returning the Event definition map creates an Event
-        // in the SmartThings platform, and propagates it to 
+        // in the SmartThings platform, and propagates it to
         // SmartApps subscribed to the device events.
         return result
     }
@@ -139,7 +139,7 @@ For any supported attribute, it is expected that the Device Handler creates and 
 **Parameter:**
     `String`_ ``attributeName`` - the name of the attribute
 
-    `String`_ ``attributeType`` *(optional)* - the type of the attribute. Available types are "string", "number", and "enum"
+    `String`_ ``attributeType`` - the type of the attribute. Available types are "string", "number", and "enum"
 
     `List`_ ``possibleValues`` *(optional)* - the possible values for this attribute. Only valid with the ``"enum"`` attributeType.
 
@@ -151,14 +151,14 @@ For any supported attribute, it is expected that the Device Handler creates and 
 .. code-block:: groovy
 
     metadata {
-        definition (name: "Some Device Name", namespace: "somenamespace",  
+        definition (name: "Some Device Name", namespace: "somenamespace",
                     author: "Some Author") {
             capability "Switch"
             capability "Polling"
             capability "Refresh"
 
             // also support the attribute "myCustomAttriute" - not defined by supported capabilities.
-            attribute "myCustomAttribute"
+            attribute "myCustomAttribute", "number"
 
             // enum attribute with possible values "light" and "dark"
             attribute "someOtherName", "enum", ["light", "dark"]
@@ -191,7 +191,7 @@ Called in the `definition()`_ method to define that this device supports the spe
 .. code-block:: groovy
 
     metadata {
-        definition (name: "Cerbco Light Switch", namespace: "lennyv62",  
+        definition (name: "Cerbco Light Switch", namespace: "lennyv62",
                     author: "Len Veil") {
             capability "Switch"
             ...
@@ -204,7 +204,7 @@ Called in the `definition()`_ method to define that this device supports the spe
         return createEvent(name: "switch", value: someValue)
     }
 
-    // need to define the on and off commands, since those 
+    // need to define the on and off commands, since those
     // are supported by "Switch" capability
     def on() {
         ...
@@ -248,7 +248,7 @@ Called within the `tiles()`_ method to define a tile often used in conjunction w
     void
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     tiles {
@@ -280,7 +280,7 @@ For any supported command, it is expected that the Device Handler define a `<com
 .. code-block:: groovy
 
     metadata {
-        definition (name: "Some Device Name", namespace: "somenamespace",  
+        definition (name: "Some Device Name", namespace: "somenamespace",
                     author: "Some Author") {
             capability "Switch"
             capability "Polling"
@@ -367,7 +367,7 @@ Creates a Map that represents an :ref:`event_ref` object. Typically used in the 
     Property            Type        Description
     ================    =========== ===========
     name (required)     `String`_   the name of the event. Typically corresponds to an attribute name of a capability.
-    value (required)    `Object`_   the value of the event. The value is stored as a string, but you can pass numbers or other objects.  
+    value (required)    `Object`_   the value of the event. The value is stored as a string, but you can pass numbers or other objects.
     descriptionText     `String`_   the description of this event. This appears in the mobile application activity for the device. If not specified, this will be created using the event name and value.
     displayed           `Boolean`_  specify ``true`` to display this event in the mobile application activity feed, ``false`` to not display. Defaults to ``true``.
     linkText            `String`_   name of the event to show in the mobile application activity feed.
@@ -418,7 +418,7 @@ Called within the `metadata()`_ method, and defines some basic information about
 .. code-block:: groovy
 
     metadata {
-        definition (name: "My Device Name", namespace: "mynamespace", 
+        definition (name: "My Device Name", namespace: "mynamespace",
                     author: "My Name") {
             capability "Switch"
             capability "Polling"
@@ -520,7 +520,7 @@ httpDelete()
 
 Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
-**Signature:** 
+**Signature:**
     ``void httpDelete(String uri, Closure closure)``
 
     ``void httpDelete(Map params, Closure closure)``
@@ -556,8 +556,8 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
-    ``void httpGet(String uri, Closure closure)`` 
+**Signature:**
+    ``void httpGet(String uri, Closure closure)``
 
     ``void httpGet(Map params, Closure closure)``
 
@@ -608,7 +608,7 @@ httpHead()
 
 Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
-**Signature:** 
+**Signature:**
     ``void httpHead(String uri, Closure closure)``
 
     ``void httpHead(Map params, Closure closure)``
@@ -641,8 +641,8 @@ Executes an HTTP POST request and passes control to the specified closure. The c
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
-    ``void httpPost(String uri, String body, Closure closure)`` 
+**Signature:**
+    ``void httpPost(String uri, String body, Closure closure)``
 
     ``void httpPost(Map params, Closure closure)``
 
@@ -671,8 +671,8 @@ If the response content type is JSON, the response data will automatically be pa
 **Example:**
 
 .. code-block:: groovy
-  
-    try {  
+
+    try {
         httpPost("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
             log.debug "response data: ${resp.data}"
             log.debug "response contentType: ${resp.contentType}"
@@ -690,7 +690,7 @@ Executes an HTTP POST request with a JSON-encoded boday and content type, and pa
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
+**Signature:**
     ``void httpPostJson(String uri, String body, Closure closure)``
 
     ``void httpPostJson(String uri, Map body, Closure closure)``
@@ -751,8 +751,8 @@ Executes an HTTP PUT request and passes control to the specified closure. The cl
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
-    ``void httpPut(String uri, String body, Closure closure)`` 
+**Signature:**
+    ``void httpPut(String uri, String body, Closure closure)``
 
     ``void httpPut(Map params, Closure closure)``
 
@@ -776,11 +776,11 @@ If the response content type is JSON, the response data will automatically be pa
     =================== ==============
 
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
- 
+
 **Example:**
 
 .. code-block:: groovy
-    
+
     try {
         httpPut("http://mysite.com/api/call", "id=XXX&value=YYY") { resp ->
             log.debug "response data: ${resp.data}"
@@ -799,7 +799,7 @@ Executes an HTTP PUT request with a JSON-encoded boday and content type, and pas
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
-**Signature:** 
+**Signature:**
     ``void httpPutJson(String uri, String body, Closure closure)``
 
     ``void httpPutJson(String uri, Map body, Closure closure)``
@@ -873,7 +873,7 @@ Used to define what tile appears on the main "Things" view in the mobile applica
 metadata()
 ~~~~~~~~~~
 
-Used to define metadata such as this Device Handler's supported capabilities, attributes, commands, and UX information. 
+Used to define metadata such as this Device Handler's supported capabilities, attributes, commands, and UX information.
 
 **Signature:**
     ``void metadata(Closure closure)``
@@ -891,7 +891,7 @@ Used to define metadata such as this Device Handler's supported capabilities, at
     metadata {
         definition(name: "device name", namespace: "yournamespace", author: "your name") {
 
-            // supported capabilities, commands, attributes, 
+            // supported capabilities, commands, attributes,
         }
         simulator {
             // simulator metadata
@@ -906,9 +906,9 @@ Used to define metadata such as this Device Handler's supported capabilities, at
 reply()
 ~~~~~~~
 
-Called in the `simulator()`_ method to model the behavior of a physical device when a virtual instance of the device type is run in the IDE. 
+Called in the `simulator()`_ method to model the behavior of a physical device when a virtual instance of the device type is run in the IDE.
 
-The simulator matches command strings generated by the device to those specified in the ``commandString`` argument of a reply method and, if a match is found, calls the device handler's parse method with the corresponding messageDescription. 
+The simulator matches command strings generated by the device to those specified in the ``commandString`` argument of a reply method and, if a match is found, calls the device handler's parse method with the corresponding messageDescription.
 
 For example, the reply method ``reply "2001FF,2502": "command: 2503, payload: FF"`` models the behavior of a physical Z-Wave switch in responding to an Basic Set command followed by a Switch Binary Get command. The result will be a call to the parse method with a Switch Binary Report command with a value of 255, i.e., the turning on of the switch. Modeling turn off would be done with the reply method ``reply "200100,2502": "command: 2503, payload: 00"``.
 
@@ -932,7 +932,7 @@ For example, the reply method ``reply "2001FF,2502": "command: 2503, payload: FF
 
         // simulator metadata
         simulator {
-            // 'on' and 'off' will appear in the messages dropdown, and send 
+            // 'on' and 'off' will appear in the messages dropdown, and send
             // "on/off: 1 to the parse method"
             status "on": "on/off: 1"
             status "off": "on/off: 0"
@@ -942,7 +942,7 @@ For example, the reply method ``reply "2001FF,2502": "command: 2503, payload: FF
             reply "zcl on-off off": "on/off: 0"
         }
         ...
-    } 
+    }
 
 ----
 
@@ -951,8 +951,8 @@ sendEvent()
 
 Create and fire an :ref:`event_ref` . Typically a Device Handler will return the map returned from `createEvent()`_ , which will allow the platform to create and fire the event. In cases where you need to fire the event (outside of the `parse()`_ method), ``sendEvent()`` is used.
 
-**Signature:** 
-    ``void sendEvent(Map properties)`` 
+**Signature:**
+    ``void sendEvent(Map properties)``
 
 **Parameters:**
     `Map`_ ``properties`` - The properties of the event to create and send.
@@ -963,7 +963,7 @@ Create and fire an :ref:`event_ref` . Typically a Device Handler will return the
     Property            Description
     ================    ===========
     name (required)     `String`_ - The name of the event. Typically corresponds to an attribute name of a capability.
-    value (required)    The value of the event. The value is stored as a string, but you can pass numbers or other objects.  
+    value (required)    The value of the event. The value is stored as a string, but you can pass numbers or other objects.
     descriptionText     `String`_ - The description of this event. This appears in the mobile application activity for the device. If not specified, this will be created using the event name and value.
     displayed           Pass ``true`` to display this event in the mobile application activity feed, ``false`` to not display. Defaults to ``true``.
     linkText            `String`_ - Name of the event to show in the mobile application activity feed.
@@ -1002,7 +1002,7 @@ Defines information used to simulate device interaction in the IDE. Can be calle
     void
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     metadata {
@@ -1010,7 +1010,7 @@ Defines information used to simulate device interaction in the IDE. Can be calle
 
         // simulator metadata
         simulator {
-            // 'on' and 'off' will appear in the messages dropdown, and send 
+            // 'on' and 'off' will appear in the messages dropdown, and send
             // "on/off: 1 to the parse method"
             status "on": "on/off: 1"
             status "off": "on/off: 0"
@@ -1020,7 +1020,7 @@ Defines information used to simulate device interaction in the IDE. Can be calle
             reply "zcl on-off off": "on/off: 0"
         }
         ...
-    } 
+    }
 
 ----
 
@@ -1062,7 +1062,7 @@ Called within the `tiles()`_ method to define a tile to display current state in
          standardTile("water", "device.water", width: 2, height: 2) {
             state "dry", icon:"st.alarm.water.dry", backgroundColor:"#ffffff"
             state "wet", icon:"st.alarm.water.wet", backgroundColor:"#53a7c0"
-        }   
+        }
     }
 
 ----
@@ -1070,7 +1070,7 @@ Called within the `tiles()`_ method to define a tile to display current state in
 state()
 ~~~~~~~
 
-Called within any of the various tiles method's closure to define options to be used when the current value of the tile's attribute matches the value argument. 
+Called within any of the various tiles method's closure to define options to be used when the current value of the tile's attribute matches the value argument.
 
 **Signature:**
     ``void state(stateName, Map options)``
@@ -1100,11 +1100,11 @@ Called within any of the various tiles method's closure to define options to be 
 
     ...
     standardTile("water", "device.water", width: 2, height: 2) {
-        // when the "water" attribute has the value "dry", show the 
+        // when the "water" attribute has the value "dry", show the
         // specified icon and background color
         state "dry", icon:"st.alarm.water.dry", backgroundColor:"#ffffff"
 
-        // when the "water" attribute has the value "wet", show the 
+        // when the "water" attribute has the value "wet", show the
         // specified icon and background color
         state "wet", icon:"st.alarm.water.wet", backgroundColor:"#53a7c0"
     }
@@ -1135,7 +1135,7 @@ The status method is called in the `simulator()`_ method, and populates the sele
     ``void status(String name, String messageDescription)``
 
 **Parameters:**
-    `String` ``name`` - any unique string and is used to refer to this status message in the select box. 
+    `String` ``name`` - any unique string and is used to refer to this status message in the select box.
 
     `String` ``messageDescription`` - should be a parseable message for this device type. It's passed to the device type handler's parse method when select box entry is sent in the simulator. For example, ``status "on": "command: 2003, payload: FF"`` will send a Z-Wave Basic Report command to the device handler's parse method when the on option is selected and sent.
 
@@ -1151,7 +1151,7 @@ The status method is called in the `simulator()`_ method, and populates the sele
 
         // simulator metadata
         simulator {
-            // 'on' and 'off' will appear in the messages dropdown, and send 
+            // 'on' and 'off' will appear in the messages dropdown, and send
             // "on/off: 1 to the parse method"
             status "on": "on/off: 1"
             status "off": "on/off: 0"
@@ -1161,7 +1161,7 @@ The status method is called in the `simulator()`_ method, and populates the sele
             reply "zcl on-off off": "on/off: 0"
         }
         ...
-    } 
+    }
 
 ----
 
