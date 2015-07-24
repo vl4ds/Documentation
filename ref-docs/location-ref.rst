@@ -111,7 +111,7 @@ List of Modes for the Location.
     ``List<Mode> modes``
 
 **Returns:**
-    `List`_ <:ref:`mode_ref`> - the List of Modes for the Location. 
+    `List`_ <:ref:`mode_ref`> - the List of Modes for the Location.
 
 **Example:**
 
@@ -139,6 +139,31 @@ The name of the Location, as assigned by the user.
     log.debug "The name of this location is: ${location.name}"
 
 ----
+
+setMode()
+~~~~~~~~~
+
+Set the mode for this location.
+
+**Signature:**
+    ``void setMode(String mode)``
+    ``void setMode(Mode mode)``
+
+**Returns:**
+    void
+
+.. warning::
+
+    ``setMode()`` will raise an error if the specified mode does not exist for the location. You should verify the mode exists as in the example below.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def modeToSetTo = "Home"
+    if (location.modes?.find {it.name == modeToSetTo}) {
+        location.setMode("Home")
+    }
 
 timeZone
 ~~~~~~~~
