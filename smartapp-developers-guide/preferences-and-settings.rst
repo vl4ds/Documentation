@@ -1,3 +1,5 @@
+.. _prefs_and_settings:
+
 Preferences & Settings
 ======================
 
@@ -410,6 +412,8 @@ Valid options:
     String - URL of an image to use, if desired.
 
 ----
+
+.. _mode_pref:
 
 mode
 ~~~~
