@@ -6,14 +6,6 @@
 SmartThings Developer Documentation
 ===================================
 
-.. important::
-
-  Help Improve the Docs!!
-
-  Take our `survey <https://smartthings.wufoo.com/forms/qwgbd6d1ivyu93/>`__ and tell us how we're doing, and how we can improve.
-
-  Survey closes at the strike of midnight (EST) on **Saturday, July 25**.
-
 .. note::
 
     This documentation is a work in progress. Bear with us as we fill in some of the gaps, add clarifications, and expand out the content. It may mean that bookmarks break as we iterate and continually improve our documentation.
