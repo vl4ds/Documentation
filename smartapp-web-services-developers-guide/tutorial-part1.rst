@@ -57,7 +57,7 @@ Also ensure that you have an ``installed()`` and ``updated()`` method defined (t
 Specify Endpoints
 -----------------
 
-The ``mappings`` declaration allows developers to expose HTTP endpoints, and map the varous supported HTTP operations to an associated handler.
+The ``mappings`` declaration allows developers to expose HTTP endpoints, and map the various supported HTTP operations to an associated handler.
 
 The handler can process the HTTP request and provide a response, including both the `HTTP status
 code <https://en.wikipedia.org/wiki/List_of_HTTP_status_codes>`__, as well as the response body.
