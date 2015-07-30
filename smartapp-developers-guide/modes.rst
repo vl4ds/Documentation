@@ -80,6 +80,23 @@ The SmartApp will then only execute when in the selected mode, without any actio
 
 You can learn more about the various ways to allow a user to select a mode :ref:`here <mode_pref>`.
 
+Mode Events
+-----------
+
+You can listen for a mode change by subscribing to the ``"mode"`` on the ``location`` object:
+
+.. code-block:: groovy
+
+    def installed() {
+        subscribe(location, "mode", modeChangeHandler)
+    }
+
+    def modeChangeHandler(evt) {
+        log.debug "mode changed to ${evt.value}"
+    }
+
+In the example above ``modeChangeHandler()`` will be called whenever the mode changes for the location this SmartApp is installed into.
+
 Example
 -------
 
