@@ -1,37 +1,37 @@
-=======
-Phrases
-=======
+==================
+Hello Home Actions
+==================
 
-Phrases, or "Hello, Home", allow actions to happen when a phrase is executed.
+*Hello Home Actions* allow certain things to happen the action is invoked.
 
 In this chapter, you will learn:
 
-- What phrases are
-- How to get the available phrases for a location
-- How to execute a phrase
+- What Hello Home Actions are
+- How to get the available Hello Home Actions for a location
+- How to execute a Hello Home Action
 
 Overview
 --------
 
-Phrases allow for certain things to happen whenever it executes. SmartThings comes with a few phrases installed:
+Hello Home Actions allow for certain things to happen whenever it executes. SmartThings comes with a few actions installed:
 
 - Good Morning! - You or the house is waking up
 - Good Night! - You or the house is going to sleep
 - Goodbye! - You're leaving the house
 - I'm Back! - You've returned to the house
 
-Each phrase can be configured to do certain things. For example, when "I'm Back!" executes, you can set the mode to "Home", unlock doors, adjust the thermostat, etc.
+Each action can be configured to do certain things. For example, when "I'm Back!" executes, you can set the mode to "Home", unlock doors, adjust the thermostat, etc.
 
-Phrases exist for each location in a SmartThings account.
+Hello Home Actions exist for each location in a SmartThings account.
 
-Get Available Phrases
+Get Available Actions
 ---------------------
 
-You can get the phrases for the location the SmartApp is installed into by accessing the ``helloHome`` object on the ``location``:
+You can get the actions for the location the SmartApp is installed into by accessing the ``helloHome`` object on the ``location``:
 
 .. code-block:: groovy
 
-    def phrases = location.helloHome?.getPhrases()*.label
+    def actions = location.helloHome?.getPhrases()*.label
 
 .. tip::
 
@@ -42,40 +42,40 @@ You can get the phrases for the location the SmartApp is installed into by acces
     The ``*`` operator is called the *spread operator*, and it invokes the specified action (get the label, in the example above) on all items in a collection, and collects the result into a list. Read more about it `here <http://docs.groovy-lang.org/latest/html/documentation/#_spread_operator>`__.
 
 
-Execute Phrases
+Execute Actions
 ---------------
 
-To execute a Hello, Home phrase, you can call the ``execute()`` method on ``helloHome``:
+To execute a Hello Home Action, you can call the ``execute()`` method on ``helloHome``:
 
 .. code-block:: groovy
 
     location.helloHome?.execute("Good Night!")
 
-Allowing Users to Select Phrases
+Allowing Users to Select Actions
 --------------------------------
 
-A SmartApp may want to allow a user to execute certain phrases in a SmartApp. Since the phrases for each location will vary, we need to get the available phrases, and use them as options for an ``enum`` input type.
+A SmartApp may want to allow a user to execute certain Hello Home Actions in a SmartApp. Since the actions for each location will vary, we need to get the available actions, and use them as options for an ``enum`` input type.
 
-This needs to be done in a dynamic preferences page, since we need to execute some code to populate the available phrases:
+This needs to be done in a dynamic preferences page, since we need to execute some code to populate the available actions:
 
 .. code-block:: groovy
 
     preferences {
-    	page(name: "selectPhrases")
+    	page(name: "selectActions")
     }
 
-    def selectPhrases() {
-        dynamicPage(name: "selectPhrases", title: "Select Phrase to Execute", install: true, uninstall: true) {
+    def selectActions() {
+        dynamicPage(name: "selectActions", title: "Select Hello Home Action to Execute", install: true, uninstall: true) {
 
-            // get the available phrases
-    		def phrases = location.helloHome?.getPhrases()*.label
-    		if (phrases) {
+            // get the available actions
+    		def actions = location.helloHome?.getPhrases()*.label
+    		if (actions) {
                 // sort them alphabetically
-            	phrases.sort()
+            	actions.sort()
     			section("Hello Home Actions") {
-    				log.trace phrases
-                    // use the phrases as the options for an enum input
-                    input "phrase", "enum", title: "Select a phrase to execute", options: phrases
+    				log.trace actions
+                    // use the actions as the options for an enum input
+                    input "action", "enum", title: "Select an action to execute", options: actions
     			}
     		}
         }
@@ -87,12 +87,12 @@ You can then access the selected phrase like so:
 
 .. code-block:: groovy
 
-    def selectedPhrase = settings.phrase
+    def selectedAction = settings.action
 
 Example
 -------
 
-This example simply shows executing a selected phrase when a switch turns on, and another phrase when a switch turns off:
+This example simply shows executing a selected action when a switch turns on, and another action when a switch turns off:
 
 .. code-block:: groovy
 
@@ -106,13 +106,13 @@ This example simply shows executing a selected phrase when a switch turns on, an
     			input "theswitch", "capability.switch",required: true
     		}
 
-    		def phrases = location.helloHome?.getPhrases()*.label
-    		if (phrases) {
-            	phrases.sort()
+    		def actions = location.helloHome?.getPhrases()*.label
+    		if (actions) {
+            	actions.sort()
     			section("Hello Home Actions") {
-    				log.trace phrases
-                    input "onPhrase", "enum", title: "Phrase to execute when turned on", options: phrases, required: true
-                    input "offPhrase", "enum", title: "Phrase to execute when turned off", options: phrases, required: true
+    				log.trace actions
+                    input "onAction", "enum", title: "Action to execute when turned on", options: actions, required: true
+                    input "offAction", "enum", title: "Action to execute when turned off", options: actions, required: true
     			}
     		}
         }
@@ -131,17 +131,17 @@ This example simply shows executing a selected phrase when a switch turns on, an
 
     def initialize() {
     	subscribe(theswitch, "switch", handler)
-        log.debug "selected on phrase $onPhrase"
-        log.debug "selected off phrase $offPhrase"
+        log.debug "selected on action $onAction"
+        log.debug "selected off action $offAction"
     }
 
     def handler(evt) {
     	if (evt.value == "on") {
-        	log.debug "switch turned on, will execute phrase ${settings.onPhrase}"
-        	location.helloHome?.execute(settings.onPhrase)
+        	log.debug "switch turned on, will execute action ${settings.onAction}"
+        	location.helloHome?.execute(settings.onAction)
         } else {
-    	    log.debug "switch turned off, will execute phrase ${settings.offPhrase}"
-        	location.helloHome?.execute(settings.offPhrase)
+    	    log.debug "switch turned off, will execute action ${settings.offAction}"
+        	location.helloHome?.execute(settings.offAction)
         }
     }
 
