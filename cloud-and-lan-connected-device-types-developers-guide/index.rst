@@ -1,7 +1,7 @@
 .. _cloud_lan_device_type_guide:
 
-Cloud and LAN Connected Developer's Guide
-=========================================
+Cloud and LAN-Connected Devices
+===============================
 
 Cloud and LAN connected devices are devices that use either a 3rd party service, like the Ecobee thermostat, or
 communicate over the LAN (local area network) like the Sonos system. These devices require a unique implementation of
