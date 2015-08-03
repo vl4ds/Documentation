@@ -1,7 +1,7 @@
 .. _smartapp_dev_guide:
 
-SmartApp Developer's Guide
-==========================
+SmartApps
+=========
 
 SmartApps are Groovy-based programs that allow a user to tap into the capabilities of their devices to automate their lives.
 

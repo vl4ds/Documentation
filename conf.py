@@ -23,7 +23,7 @@ import os
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
-    
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
@@ -110,7 +110,9 @@ html_theme = 'default'
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+html_theme_options = {
+    'sticky_navigation': True
+}
 
 # Add any paths that contain custom themes here, relative to this directory.
 #html_theme_path = []
@@ -255,7 +257,7 @@ texinfo_documents = [
 
 def setup(app):
   app.add_stylesheet("custom.css")
-  
+
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []
 
