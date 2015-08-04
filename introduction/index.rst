@@ -16,6 +16,6 @@ In this guide, you will learn:
 
    what-is-smartthings
    smartthings-concepts
-   smartthings-architecture      
+   smartthings-architecture
    developing-with-smartthings
    groovy-the-smartthings-programming-language
