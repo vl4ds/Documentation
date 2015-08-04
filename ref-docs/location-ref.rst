@@ -165,6 +165,24 @@ Set the mode for this location.
         location.setMode("Home")
     }
 
+temperatureScale
+~~~~~~~~~~~~~~~~
+
+The temperature scale ("F" for fahrenheit, "C" for celsius) for this location.
+
+**Signature:**
+    ``String temperatureScale``
+
+**Returns:**
+    `String`_ - the temperature scale set for this location. Either "F" for fahrenheit or "C" for celsius.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def tempScale = location.temperatureScale
+    log.debug "Temperature scale for this location is $tempScale"
+    
 timeZone
 ~~~~~~~~
 
