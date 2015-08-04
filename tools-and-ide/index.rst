@@ -15,7 +15,8 @@ In this guide, you will learn:
 
 .. toctree::
    :maxdepth: 3
-               
+
    account-mgmt
    editor-and-simulator
    logging
+   github-integration

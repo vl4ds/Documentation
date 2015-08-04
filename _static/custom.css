@@ -10,7 +10,7 @@
     overflow: visible !important;
 }
 
-/* A little hacky... sets the width large enough to fit the capabilities 
+/* A little hacky... sets the width large enough to fit the capabilities
    taxonomy table.*/
 .wy-nav-content {
     max-width: 950px !important;
@@ -19,4 +19,24 @@
 /* consistent font with SmartThings website */
 body {
     font-family: "Swiss 721 W01","Helvetica Neue",Helvetica,Arial,sans-serif; !important;
+}
+
+.red {
+    color: #ff0000;
+}
+
+.green {
+    color: #009900;
+}
+
+.magenta {
+    color: #990099;
+}
+
+.blue {
+    color: #0000ff;
+}
+
+.brown {
+    color: #8b4513;
 }
