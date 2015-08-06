@@ -219,6 +219,35 @@ Adds a child device to a SmartApp. An example use is in service manager SmartApp
 **Returns:**
     ``DeviceWrapper`` - The device that was created.
 
+----
+
+apiServerUrl()
+~~~~~~~~~~~~~~
+
+Returns the URL of the server where this SmartApp can be reached for API calls, along with the specified path appended to it. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
+
+**Signature:**
+    ``String apiServerUrl(String path)``
+
+**Parameters:**
+    `String`_ ``path`` - the path to append to the URL
+
+**Returns:**
+    The URL of the server for this installed instance of the SmartApp.
+
+**Example:**
+
+.. code-block:: groovy
+
+    // logs <server url>/my/path
+    log.debug "apiServerUrl: ${apiServerUrl("/my/path")}"
+
+    // The leading "/" will be added if you don't specify it
+    // logs <server url>/my/path
+    log.debug "apiServerUrl: ${apiServerUrl("my/path")}"
+
+----
+
 canSchedule()
 ~~~~~~~~~~~~~
 
@@ -267,6 +296,19 @@ Returns a list of all child devices, including virtual devices. This is a wrappe
 
 **Returns:**
     `List`_ - a list of all child devices.
+
+----
+
+getApiServerUrl()
+~~~~~~~~~~~~~~~~~
+
+Returns the URL of the server where this SmartApp can be reached for API calls. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
+
+**Signature:**
+    ``String getApiServerUrl()``
+
+**Returns:**
+    `String`_ - the URL of the server where this SmartApp can be reached.
 
 ----
 
