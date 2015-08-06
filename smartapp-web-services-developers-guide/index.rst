@@ -16,7 +16,7 @@ For a step-by-step tutorial creating a Web Services SmartApp, read the SmartApp 
 
 **Contents:**
 
-.. toctree:: Contents
+.. toctree::
 
    overview
    tutorial-part1
