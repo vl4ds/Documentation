@@ -35,8 +35,6 @@ You will need to manage the syncing of your forked repository with the original 
 Setup
 ~~~~~
 
-.. _github_ide_tour:
-
 To connect your GitHub account with the SmartThingsPublic repository in the IDE, follow these steps.
 
 ----
@@ -129,7 +127,7 @@ This will show all the configured remotes. You should see an upstream remote con
 
 That’s it! You now have connected your GitHub account with the SmartThings IDE. You will now be able to commit changes made in the IDE to this repository, and update SmartApps and Device Types in the IDE from changes merged into this repository from other sources.
 
-.. _github_repo_structure
+.. _github_repo_structure:
 
 Repository Structure
 ~~~~~~~~~~~~~~~~~~~~
@@ -148,7 +146,7 @@ For Device Types:
 
 The namespace is typically your GitHub user name. When you create a SmartApp or Device Type in the IDE, you provide a namespace, which is then populated in the definition method. This namespace will be used in the directory structure as shown above.
 
-.. _github_ide_tour
+.. _github_ide_tour:
 
 GitHub Integration IDE Tour
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -261,7 +259,7 @@ The IDE will now have the files you selected.
 .. _how_to_get_st_latest:
 
 Get Latest Code from SmartThingsPublic Repository
-+++++++++++++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. note::
 
