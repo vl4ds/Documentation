@@ -62,6 +62,7 @@ The exact implementation of a command method will vary greatly depending upon th
         // device-specific commands to turn the switch off
     }
     ...
+
 ----
 
 parse()
@@ -414,6 +415,7 @@ Creates a Map that represents an :ref:`event_ref` object. Typically used in the 
 
         return [evt1, evt2]
     }
+
 ----
 
 definition()
@@ -476,7 +478,7 @@ Used within the `tiles()`_ method to define the order that the tiles should appe
 
 **Example:**
 
-.. code-block::
+.. code-block:: groovy
 
     tiles {
         standardTile("switchTile", "device.switch", width: 2, height: 2,
@@ -644,7 +646,7 @@ If the response content type is JSON, the response data will automatically be pa
 ----
 
 httpHead()
-~~~~~~~~~
+~~~~~~~~~~
 
 Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
