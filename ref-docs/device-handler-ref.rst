@@ -126,6 +126,33 @@ The ``parse()`` method may return a map defining the :ref:`event_ref` to create 
 
 ----
 
+apiServerUrl()
+~~~~~~~~~~~~~~
+
+Returns the URL of the server where this Device Handler can be reached for API calls, along with the specified path appended to it. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
+
+**Signature:**
+    ``String apiServerUrl(String path)``
+
+**Parameters:**
+    `String`_ ``path`` - the path to append to the URL
+
+**Returns:**
+    The URL of the server for this installed instance of the Device Handler.
+
+**Example:**
+
+.. code-block:: groovy
+
+    // logs <server url>/my/path
+    log.debug "apiServerUrl: ${apiServerUrl("/my/path")}"
+
+    // The leading "/" will be added if you don't specify it
+    // logs <server url>/my/path
+    log.debug "apiServerUrl: ${apiServerUrl("my/path")}"
+
+----
+
 attribute()
 ~~~~~~~~~~~
 
@@ -512,6 +539,19 @@ fingerprint()
 Called within the `definition()`_ method to define the information necessary to pair this device type to the hub.
 
 See the `Fingerprinting Section <../device-type-developers-guide/definition-metadata.html#fingerprinting>`__ of the Device Handler guide for more information.
+
+----
+
+getApiServerUrl()
+~~~~~~~~~~~~~~~~~
+
+Returns the URL of the server where this Device Handler can be reached for API calls. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
+
+**Signature:**
+    ``String getApiServerUrl()``
+
+**Returns:**
+    `String`_ - the URL of the server where this Device Handler can be reached.
 
 ----
 
