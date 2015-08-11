@@ -394,7 +394,7 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
     path                Request path that is merged with the URI.
     query               Map of URL query parameters.
     headers             Map of HTTP headers.
-    contentType         Request content type and Accept header.
+    contentType         Forced response content type and request Accept header.
     requestContentType  Content type for the request, if it is different from the expected response content-type.
     body                Request body that will be encoded based on the given contentType.
     =================== ==============
@@ -430,7 +430,7 @@ If the response content type is JSON, the response data will automatically be pa
     path                Request path that is merged with the URI.
     query               Map of URL query parameters.
     headers             Map of HTTP headers.
-    contentType         Request content type and Accept header.
+    contentType         Forced response content type and request Accept header.
     requestContentType  Content type for the request, if it is different from the expected response content-type.
     body                Request body that will be encoded based on the given contentType.
     =================== ==============
@@ -482,7 +482,7 @@ Executes an HTTP HEAD request and passes control to the specified closure. The c
     path                Request path that is merged with the URI.
     query               Map of URL query parameters.
     headers             Map of HTTP headers.
-    contentType         Request content type and Accept header.
+    contentType         Forced response content type and request Accept header.
     requestContentType  Content type for the request, if it is different from the expected response content-type.
     body                Request body that will be encoded based on the given contentType.
     =================== ==============
@@ -517,7 +517,7 @@ If the response content type is JSON, the response data will automatically be pa
     path                Request path that is merged with the URI.
     query               Map of URL query parameters.
     headers             Map of HTTP headers.
-    contentType         Request content type and Accept header.
+    contentType         Forced response content type and request Accept header.
     requestContentType  Content type for the request, if it is different from the expected response content-type.
     body                Request body that will be encoded based on the given contentType.
     =================== ==============
@@ -543,7 +543,7 @@ If the response content type is JSON, the response data will automatically be pa
 httpPostJson()
 ~~~~~~~~~~~~~~
 
-Executes an HTTP POST request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
+Executes an HTTP POST request with a JSON-encoded body and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -568,7 +568,7 @@ If the response content type is JSON, the response data will automatically be pa
     path                Request path that is merged with the URI.
     query               Map of URL query parameters.
     headers             Map of HTTP headers.
-    contentType         Request content type and Accept header.
+    contentType         Forced response content type and request Accept header.
     requestContentType  Content type for the request, if it is different from the expected response content-type.
     body                Request body that will be encoded based on the given contentType.
     =================== ==============
@@ -627,7 +627,7 @@ If the response content type is JSON, the response data will automatically be pa
     path                Request path that is merged with the URI.
     query               Map of URL query parameters.
     headers             Map of HTTP headers.
-    contentType         Request content type and Accept header.
+    contentType         Forced response content type and request Accept header.
     requestContentType  Content type for the request, if it is different from the expected response content-type.
     body                Request body that will be encoded based on the given contentType.
     =================== ==============
@@ -652,7 +652,7 @@ If the response content type is JSON, the response data will automatically be pa
 httpPutJson()
 ~~~~~~~~~~~~~
 
-Executes an HTTP PUT request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
+Executes an HTTP PUT request with a JSON-encoded body and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -677,7 +677,7 @@ If the response content type is JSON, the response data will automatically be pa
     path                Request path that is merged with the URI.
     query               Map of URL query parameters.
     headers             Map of HTTP headers.
-    contentType         Request content type and Accept header.
+    contentType         Forced response content type and request Accept header.
     requestContentType  Content type for the request, if it is different from the expected response content-type.
     body                Request body that will be encoded based on the given contentType.
     =================== ==============
