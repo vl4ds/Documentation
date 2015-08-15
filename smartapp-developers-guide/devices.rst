@@ -227,7 +227,7 @@ See Also
  - :ref:`capabilities_taxonomy`
  - `Preferences and Settings <preferences-and-settings>`__
  - `Events and Subscriptions <simple-event-handler-smartapps.html>`__
- - :ref:`device_ref` API Docuementation
+ - :ref:`device_ref` API Documentation
  - :ref:`event_ref` API Documentation
  - :ref:`state_ref` API Documentation
 
