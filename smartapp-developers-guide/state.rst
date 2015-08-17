@@ -29,15 +29,15 @@ How it Works
 ------------
 
 Each executing instance of a SmartApp or Device Handler has access to a simple, map-like storage mechanism through the ``state`` property.
-When an application executes, it populates the ``state`` property from the backing store. The application can then interact with it, through simple map-like operations. 
+When an application executes, it populates the ``state`` property from the backing store. The application can then interact with it, through simple map-like operations.
 
-When the application is finished executing, the values in ``state`` are written back to persistent storage. 
+When the application is finished executing, the values in ``state`` are written back to persistent storage.
 
 .. important::
 
   When an application stores data in ``state``, or reads from it, it is only modifying (or querying) the local ``state`` instance variable within the running SmartApp or Device Handler. Only when the application is done executing are the values written to persistent storage.
 
-The contents of ``state`` are stored as a string, in JSON format. This means that anything stored in ``state`` must be serializable to JSON. 
+The contents of ``state`` are stored as a string, in JSON format. This means that anything stored in ``state`` must be serializable to JSON.
 
 .. tip::
 
@@ -62,10 +62,10 @@ The contents of ``state`` are stored as a string, in JSON format. This means tha
 Using State
 -----------
 
-You can use ``state`` to store strings, numbers, lists, booleans, maps, etc. 
+You can use ``state`` to store strings, numbers, lists, booleans, maps, etc.
 To use ``state``, simply use the ``state`` variable that is injected into every SmartApp and Device Handler. You can think of it as a map that will persist its value across executions.
 
-As usual, the best way to describe code is by showing code itself. 
+As usual, the best way to describe code is by showing code itself.
 
 .. code-block:: groovy
 
@@ -106,12 +106,16 @@ As usual, the best way to describe code is by showing code itself.
       map.each {
         log.debug "key: ${it.key}, value: ${it.value}"
       }
-    }  
+    }
 
 Atomic State
 ------------
 
-Since ``state`` is initialized from persistent storage when a SmartApp or Device Handler executes, and is written to storage only when the application is done executing, there is the possibility that another execution *could* happen within that time window, and cause the values stored in ``state`` to appear inconsistent.
+.. note::
+
+    Atomic State is currently only available for SmartApps. Device Handlers do not support Atomic State.
+
+Since ``state`` is initialized from persistent storage when a SmartApp executes, and is written to storage only when the application is done executing, there is the possibility that another execution *could* happen within that time window, and cause the values stored in ``state`` to appear inconsistent.
 
 Consider the scenario of a SmartApp that keeps a counter of executions. Each time the SmartApp executes, it increments the counter by 1. Assume that the initial value of ``state.counter`` is ``0``.
 
@@ -121,7 +125,7 @@ Consider the scenario of a SmartApp that keeps a counter of executions. Each tim
 
   state.counter = state.counter + 1 // counter == 1
 
-2. Another execution ("Execution 2") occurs *before "Execution 1" has finished*. It reads ``state.counter`` and increments it by one. 
+2. Another execution ("Execution 2") occurs *before "Execution 1" has finished*. It reads ``state.counter`` and increments it by one.
 
 .. code-block:: groovy
 
@@ -129,7 +133,7 @@ Consider the scenario of a SmartApp that keeps a counter of executions. Each tim
 
 Because "Execution 1" hasn't finished executing by the time that "Execution 2" begins, the value of ``counter`` is still 0!
 
-Additionally, because the contents of ``state`` are only persisted when execution is complete, it's also possible to inadvertantly overwrite values (last finished execution "wins").
+Additionally, because the contents of ``state`` are only persisted when execution is complete, it's also possible to inadvertently overwrite values (last finished execution "wins").
 
 To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` writes to the data store when a value is *set*, and reads from the data store when a value is *read* - not just when the application execution initializes and completes. You use it just as you would use ``state``:
 
@@ -138,12 +142,12 @@ To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` wri
   atomicState.counter = atomicState.counter + 1.
 
 .. important::
-  
+
   Using ``atomicState`` instead of ``state`` incurs a higher performance cost, since external storage is touched on read and write operations, not just when the application is initialized or done executing.
 
-  Use ``atomicState`` only if you are sure that using ``state`` will cause problems. 
+  Use ``atomicState`` only if you are sure that using ``state`` will cause problems.
 
-  It's also worth noting that you should **not** use both ``state`` and ``atomicState`` in the same SmartApp or Device Handler. Doing so will likely cause inconsistencies in in state values.
+  It's also worth noting that you should **not** use both ``state`` and ``atomicState`` in the same SmartApp. Doing so will likely cause inconsistencies in in state values.
 
 Examples
 --------
@@ -152,4 +156,4 @@ Here are some SmartApps that make use of state. You can find them in the IDE alo
 
 - "Smart Nightlight" - shows using state to store time information.
 - "Laundry Monitor" - uses state to store boolean state and time information.
-- "Good Night" - shows using state to store time information, including constructing a Date object from a value stored in state. 
+- "Good Night" - shows using state to store time information, including constructing a Date object from a value stored in state.
