@@ -248,6 +248,33 @@ Returns the URL of the server where this SmartApp can be reached for API calls, 
 
 ----
 
+atomicState
+~~~~~~~~~~~
+
+A map of name/value pairs that SmartApp can use to save and retrieve data across SmartApp executions. This is similar to :ref:`smartapp-state`, but will immediately write and read from the backing data store. Prefer using ``state`` over ``atomicState`` when possible.
+
+**Signature:**
+    ``Map atomicState``
+
+**Returns:**
+    `Map`_ - a map of name/value pairs.
+
+.. code-block:: groovy
+
+    atomicState.count = 0
+    atomicState.count = atomicState.count + 1
+
+    log.debug "atomicState.count: ${atomicState.count}"
+
+    // use array notation if you wish
+    log.debug "atomicState['count']: ${atomicState['count']}"
+
+    // you can store lists and maps to make more intersting structures
+    atomicState.listOfMaps = [[key1: "val1", bool1: true],
+                        [otherKey: ["string1", "string2"]]]
+
+----
+
 canSchedule()
 ~~~~~~~~~~~~~
 
@@ -1445,10 +1472,12 @@ A map of name/value pairs containing all of the installed SmartApp's preferences
 
 ----
 
+.. _smartapp-state:
+
 state
 ~~~~~
 
-A map of name/value pairs that SmartApp can use to save and retrieve data across SmartApp executions.
+A map of name/value pairs that SmartApps can use to save and retrieve data across SmartApp executions.
 
 **Signature:**
     ``Map state``
