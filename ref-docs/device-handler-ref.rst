@@ -594,7 +594,7 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 httpGet()
 ~~~~~~~~~
 
-Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
+Executes an HTTP GET request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
