@@ -1109,6 +1109,37 @@ Called within the `tiles()`_ method to define a tile to display current state in
 
 ----
 
+state
+~~~~~
+
+A map of name/value pairs that a Device Handler can use to save and retrieve data across executions.
+
+**Signature:**
+    ``Map state``
+
+**Returns:**
+    `Map`_ - a map of name/value pairs.
+
+.. code-block:: groovy
+
+    state.count = 0
+    state.count = state.count + 1
+
+    log.debug "state.count: ${state.count}"
+
+    // use array notation if you wish
+    log.debug "state['count']: ${state['count']}"
+
+    // you can store lists and maps to make more intersting structures
+    state.listOfMaps = [[key1: "val1", bool1: true],
+                        [otherKey: ["string1", "string2"]]]
+
+.. warning::
+
+    Though ``state`` can be treated as a map in most regards, certain convenience operations that you may be accustomed to in maps will not work with ``state``. For example, ``state.count++`` will not increment the count - use the longer form of ``state.count = state.count + 1``.
+
+----
+
 state()
 ~~~~~~~
 
