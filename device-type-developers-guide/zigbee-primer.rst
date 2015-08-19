@@ -105,6 +105,6 @@ on to off of a dimmer look like this:
 
 ``"st wattr 0x${device.deviceNetworkId} 1 8 0x10 0x21 {0014}”``
 
-In this case the payload ({0014}) translates to 2 seconds. Breaking the payload 
+In this case the payload ({0014}) translates to 2 seconds. Breaking the payload
 down we see that the hex value of 0x0014 equals the decimal value of 20. 20 *
-1/10 of a second equals 2 Seconds.
+1/10 of a second equals 2 seconds.

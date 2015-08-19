@@ -53,7 +53,7 @@ the attribute that defines on and off transition time (0x10). The value
 we are using is formatted in an Unsigned 16-bit integer (0x21) with the
 payload being in 1/10th of a second. In this case the payload ({0014})
 translates to 2 seconds. Breaking the payload down we see that the hex value
-of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 Seconds.
+of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds.
 
 .. note::
   The payload in the example above, {0014}, is a hex string. The length of the payload must be two times the length of the data type. For example, if the datatype is 16-bit, then the payload should be 4 hex digits.
