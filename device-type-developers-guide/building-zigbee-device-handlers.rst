@@ -43,7 +43,7 @@ Write sets an attribute of a ZigBee device and is formatted like this:
 .. code-block:: groovy
 
     def configure() {
-            "st wattr 0x${device.deviceNetworkId} 1 8 0x10 0x21 {1400}"
+            "st wattr 0x${device.deviceNetworkId} 1 8 0x10 0x21 {0014}"
         }
 
 In this example (from the "ZigBee Dimmer" device type) we are writing to
@@ -51,10 +51,12 @@ an attribute to set the amount of time it takes for a light to fully dim
 on and off. Here we are using the Level Control Cluster (8) to write to
 the attribute that defines on and off transition time (0x10). The value
 we are using is formatted in an Unsigned 16-bit integer (0x21) with the
-payload being in 1/10th of a second. In this case the payload ({1400})
-translates to 2 seconds.
+payload being in 1/10th of a second. In this case the payload ({0014})
+translates to 2 seconds. Breaking the payload down we see that the hex value
+of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds.
 
-.. note:: How does a payload of 1400 translate to 2 seconds? The value 1400 is actually a little endian hex string. It translates into an integer value of 0x0014, which is decimal value 20. Finally, 20 * 1/10 of a second equals 2 seconds.
+.. note::
+  The payload in the example above, {0014}, is a hex string. The length of the payload must be two times the length of the data type. For example, if the datatype is 16-bit, then the payload should be 4 hex digits.
 
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
@@ -71,7 +73,7 @@ translates to 2 seconds.
 +-------------------------------+-----------------------------+
 |0x21                           |Data Type                    |
 +-------------------------------+-----------------------------+
-|{1400}                         |Payload                      |
+|{0014}                         |Payload                      |
 +-------------------------------+-----------------------------+
 
 Command

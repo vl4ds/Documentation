@@ -103,7 +103,8 @@ can need specific data type that the payload is in. In this example the
 An example of a Write Attribute that would set the transition time from
 on to off of a dimmer look like this:
 
-``"st wattr 0x${device.deviceNetworkId} 1 8 0x10 0x21 {1400}”``
+``"st wattr 0x${device.deviceNetworkId} 1 8 0x10 0x21 {0014}”``
 
-The 1400 means the light takes 1400 1/10ths of a second to turn on and
-off.
+In this case the payload ({0014}) translates to 2 seconds. Breaking the payload
+down we see that the hex value of 0x0014 equals the decimal value of 20. 20 *
+1/10 of a second equals 2 seconds.
