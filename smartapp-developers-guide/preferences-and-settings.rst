@@ -112,7 +112,7 @@ Sections can be created in a few different ways:
 
 *section(String sectionTitle){}*
 
-.. code-block:: groovy::
+.. code-block:: groovy
 
     preferences {
         // section with title
