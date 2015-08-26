@@ -28,7 +28,10 @@ Contents
    :caption: Getting Started
    :maxdepth: 2
 
-   getting-started
+   getting-started/overview
+   getting-started/up-and-running
+   getting-started/tutorial
+   getting-started/getting-help
 
 
 .. toctree::
