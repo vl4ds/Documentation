@@ -287,7 +287,7 @@ Type ``git merge upstream/master`` and press Enter. This will bring your fork’
 
 Now that we have our local repository updated synced with the latest SmartThingsPublic repository, we need to push those changes to our remote fork. Remember, this is where the IDE looks for changes (not your local clone!).
 
-Type ``git push origin/master`` and press Enter. This will push all commits in your local repository on the master branch, to the remote (origin) master branch.
+Type ``git push origin master`` and press Enter. This will push all commits in your local repository on the master branch, to the remote (origin) master branch.
 
 **Step 5 - Update the IDE version**
 
