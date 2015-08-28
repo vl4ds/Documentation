@@ -37,13 +37,14 @@ SmartApps
         sonos.playText("Welcome home!")
     }
 
-*SmartApps* are small programs that allow users to connect their devices to make their home more intelligent. As the world around us becomes more and more connected, it is the intelligence *between* these devices that makes our world smart.
+*SmartApps* are small programs that allow users to connect their devices to make their home more intelligent. As the world around us becomes more and more connected, it is the intelligence *between* these devices that makes our world smart. SmartApps allow developers to control hardware with simple software.
 
 SmartApps can typically be summarized by what they do. Some example SmartApps:
 
 - *"Turn the lights off after a certain time when no motion is detected"*
 - *"Notify me if a door opens when I'm not home"*
 - *"Turn my thermostat down when I leave home"*
+
 
 SmartThings ships with many SmartThings already available. Almost all automations that you configure with your SmartThings mobile application are SmartApps. If you've set up your lights to come on when motion is detected, or to receive a notification if your door opens when you aren't home, you've used SmartApps.
 
@@ -68,6 +69,6 @@ To help better understand the relationship between SmartApps and Device Type Han
 Next Steps
 ----------
 
-To start developing with SmartThings, you will need to create a developer account and become familiar with the developer tools. This is covered in the :ref:`up-and-running` page.
+To start developing with SmartThings, you will need to create a developer account and become familiar with the developer tools. This is covered in the :ref:`quick-start`.
 
-Once you have an account and can log into the developer site, use the :ref:`Getting Started Tutorial <get-started-tutorial>` to create your first SmartApp. This will familiarize you further with some of the developer tools, and teach you several important concepts as we build a SmartApp.
+Once you have an account and can log into the developer site, use the :ref:`first-smartapp-tutorial` tutorial to create your first SmartApp. This will familiarize you further with some of the developer tools, and teach you several important concepts as we build a SmartApp.

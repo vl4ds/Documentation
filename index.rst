@@ -6,11 +6,20 @@
 SmartThings Developer Documentation
 ===================================
 
-Welcome to the SmartThings developer documentation. The SmartThings platform makes it easy for software developers to build solutions for the connected home.
+Welcome to the SmartThings developer documentation.
 
-Developers can do this in two primary ways: First, they can write SmartApps which is code that let users connect devices, actions, and external services to create automations. Then there is Device Type Handlers which parse raw messages from devices to create standardized capabilities for developers to use.
+This documentation is organized into different sections:
 
-*This documentation is a work in progress. As we fill in gaps, add clarifications, and expand content, we will make every effort to not break existing bookmarks.*
+Getting Started
+    If you are new to SmartThings development, check out our Getting Started documentation. Head over to the :ref:`get-started-overview`, and progress through the material there.
+
+Guides
+    You can use the guides to learn more about specific SmartThings development tasks. Most guides are organized into several chapters.
+
+Reference
+    The reference material is where you will find API documentation, as well as documentation for the available Capabilities.
+
+This documentation is actively being developed and expanded, so check back often!
 
 .. tip::
 
@@ -29,10 +38,9 @@ Contents
    :maxdepth: 2
 
    getting-started/overview
-   getting-started/up-and-running
-   getting-started/tutorial
+   getting-started/quick-start
+   getting-started/first-smartapp
    getting-started/getting-help
-
 
 .. toctree::
    :maxdepth: 2
