@@ -38,9 +38,9 @@ Contents
    :maxdepth: 2
 
    getting-started/overview
-   getting-started/quick-start
+   getting-started/up-and-running
+   getting-started/learn-groovy
    getting-started/first-smartapp
-   getting-started/getting-help
 
 .. toctree::
    :maxdepth: 2

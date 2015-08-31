@@ -66,9 +66,7 @@ To help better understand the relationship between SmartApps and Device Type Han
 
 <diagram showing the flow as a door is opened, and then the light is turned on>
 
-Next Steps
-----------
+What's Next?
+------------
 
-To start developing with SmartThings, you will need to create a developer account and become familiar with the developer tools. This is covered in the :ref:`quick-start`.
-
-Once you have an account and can log into the developer site, use the :ref:`first-smartapp-tutorial` tutorial to create your first SmartApp. This will familiarize you further with some of the developer tools, and teach you several important concepts as we build a SmartApp.
+To start developing with SmartThings, you will need to create a developer account and become familiar with the developer tools. This is covered next in the :ref:`quick-start`.
