@@ -41,6 +41,8 @@ one more elements. The general form of creating preferences looks like:
         }
     }
 
+All inputs from the user are stored in a read-only map called ``settings``. You can access the value entered by the user by indexing into the map using the name as the key (``settings.someName``)
+
 Page Definition
 ---------------
 
@@ -166,9 +168,11 @@ A single page preferences declaration is composed of one or more *section* eleme
 Which would be rendered in the mobile app UI as:
 
 .. image:: ../img/smartapps/single-page-preferences.png
+    :width: 250 px
+    :height: 447 px
 
 Note that in the above example, we did not specify the name or mode input, yet they appeared on our preferences page.
-When defining single-page preferences, name and mode are automatically added.
+When defining single-page preferences, name and mode are automatically added. Also note that inputs that are marked as ``required: true`` are displayed differently by the mobile application, so that the user knows they are required. The mobile application will prevent the user from going to the next page or installing the SmartApp without entering required inputs.
 
 Multiple Preferences Pages
 --------------------------
@@ -209,7 +213,11 @@ Here's an example that defines three pages:
 The resulting pages in the mobile app would show the name and mode control fields only on the third page, and the
 uninstall button on the first and third pages:
 
-.. image:: ../img/smartapps/multiple-page-preferences.png
+====================================================    ====================================================    ====================================================
+Page 1                                                  Page 2                                                  Page 3
+====================================================    ====================================================    ====================================================
+.. image:: ../img/smartapps/multiple-pages-page1.png    .. image:: ../img/smartapps/multiple-pages-page2.png    .. image:: ../img/smartapps/multiple-pages-page1.png
+====================================================    ====================================================    ====================================================
 
 Preference Elements & Inputs
 ----------------------------
@@ -244,6 +252,8 @@ Example:
 The above preferences definition would render as:
 
 .. image:: ../img/smartapps/prefs-paragraph.png
+    :width: 250 px
+    :height: 447 px
 
 Valid options:
 
@@ -276,10 +286,14 @@ Example:
 The above preferences definition would render as:
 
 .. image:: ../img/smartapps/prefs-icon.png
+    :width: 250 px
+    :height: 447 px
 
 Tapping the element would then allow the user to choose an icon:
 
 .. image:: ../img/smartapps/prefs-icon-chooser.png
+    :width: 250 px
+    :height: 447 px
 
 Valid options:
 
@@ -321,6 +335,8 @@ Example of using href to visit a URL:
 The above preferences would render as:
 
 .. image:: ../img/smartapps/prefs-href-external-embedded.png
+    :width: 250 px
+    :height: 600 px
 
 Example of using href to link to another preference page (dynamic pages are discussed later in this section):
 
@@ -448,6 +464,8 @@ Example:
 The second page of the above example would render as:
 
 .. image:: ../img/smartapps/prefs-mode.png
+    :width: 250 px
+    :height: 447 px
 
 Valid options:
 
@@ -494,8 +512,7 @@ Example:
     preferences {
         section("labels") {
             label(name: "label",
-                  title: "required:false,
-                  multiple:false",
+                  title: "required:false",
                   required: false,
                   multiple: false)
             label(name: "labelRequired",
@@ -510,9 +527,12 @@ Example:
         }
     }
 
+
 The above preferences definition would render as:
 
 .. image:: ../img/smartapps/prefs-label.png
+    :width: 250 px
+    :height: 447 px
 
 Valid options:
 

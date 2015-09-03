@@ -122,3 +122,5 @@ The following protocols are supported in the SmartThings Hub:
 - IP-Connected Devices - Local Area Network (LAN) connected devices (both hard-wired and WiFi) within the home can be connected to the SmartThings Hub.
 
 -  Cloud-Connected Devices - Some device manufacturers have their own Cloud solutions that support their devices and that we can connect to. Most of these devices are actually WiFi connected devices, but they connect to a proprietary set of Cloud services, and therefore we have to go through those services to gain access to the device.
+
+The Samsung SmartThings Hub also ships with a Bluetooth Low Energy (BLE) chip to support future expandability. While not enabled at launch, having the hardware available allows us to support BLE in the future via firmware and software updates.
