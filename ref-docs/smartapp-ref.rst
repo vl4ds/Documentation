@@ -1337,6 +1337,53 @@ Displays a message in *Hello, Home*, but does not send a push notification or SM
 
 ----
 
+.. _smartapp_send_notification_to_contact:
+
+sendNotificationToContacts()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sends the specified message to the specified contacts.
+
+**Signature:**
+    ``void sendNotificationToContacts(String message, String contact, Map options=[:])``
+
+    ``void sendNotificationToContacts(String message, Collection contacts, Map options=[:])``
+
+**Parameters:**
+    `String`_ ``message`` - the message to send
+
+    `String`_ ``contact`` - the contact to send the notification to. Typically set through the ``contacts`` input type.
+
+    `Collection`_ ``contacts`` - the collection of contacts to send the notification to. Typically set through the ``contacts`` input type.
+
+    `Map`_ ``options`` *(optional)* - a map of additional parameters. The valid parameter is ``[event: boolean]`` to specify if the message should be displayed in the Notifications feed. Defaults to ``true`` (message will be displayed in the Notifications feed).
+
+**Returns:**
+    void
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section("Send Notifications?") {
+            input("recipients", "contact", title: "Send notifications to") {
+                input "phone", "phone", title: "Warn with text message (optional)",
+                    description: "Phone Number", required: false
+            }
+        }
+    }
+
+    ...
+    if (location.contactBookEnabled) {
+        sendNotificationToContacts("Your house talks!", recipients)
+    }
+    ...
+
+.. tip::
+
+    It's a good idea to assume that a user *may not* have any contacts configured. That's why you see the nested ``"phone"`` input in the preferences (user will only see that if they don't have contacts), and why we check ``location.contactBookEnabled``.
+
 .. _smartapp_send_push:
 
 sendPush()

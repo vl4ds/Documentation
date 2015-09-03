@@ -7,6 +7,23 @@ A Location represents a user's geo-location, such as "Home" or "office". Locatio
 
 All SmartApps and Device Handlers are injected with a ``location`` property that is the Location into which the SmartApp is installed.
 
+----
+
+.. _location_contact_book_enabled:
+
+contactBookEnabled
+~~~~~~~~~~~~~~~~~~
+
+``true`` if this location has contact book enabled (has contacts), ``false`` otherwise.
+
+**Signature:**
+    ``Boolean contactBookEnabled``
+
+**Returns:**
+    ``true`` if this location has contact book enabled (has contacts), ``false`` otherwise.
+
+----
+
 currentMode
 ~~~~~~~~~~~
 
@@ -182,7 +199,7 @@ The temperature scale ("F" for fahrenheit, "C" for celsius) for this location.
 
     def tempScale = location.temperatureScale
     log.debug "Temperature scale for this location is $tempScale"
-    
+
 timeZone
 ~~~~~~~~
 

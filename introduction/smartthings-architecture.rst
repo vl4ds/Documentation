@@ -8,27 +8,18 @@ The conceptual architecture looks like this:
 .. figure:: ../img/overview/conceptual-architecture.png
    :alt: Conceptual Architecture
 
-Cloud-First
------------
+Overview
+--------
 
 We made the decision at SmartThings to support a “Cloud First” approach
 for our platform. This means that in our initial release, there is a
-dependency on the Cloud. This means that your hub will need to be online and connected to our cloud. This will generally be the case, even when we implement
-hub-local capabilities as described below.
+dependency on the Cloud. This means that your hub will need to be online and connected to the SmartThings cloud.
 
-We believe in a “connected” service where local capabilities in the hub
-are meant to improve performance and insulate the customer from
-intermittent internet outages. We do not plan to support a perpetually
-disconnected mode.
+The second generation of our hub, the Samsung SmartThings Hub, allows for some hub-local capabilities. Certain automations can execute even when disconnected from the SmartThings cloud.  This allows us to improve performance and insulate the customer from intermittent internet outages.
 
-We made the decision to be "Cloud First" in our first release because it allowed us to focus on the experience of writing the applications, and less on the mechanics of deploying that logic locally to the hub.
+This is accomplished by delivering certain automations to the Samsung SmartThings Hub itself, where it can execute locally. The engine that executes these automations are typically referred to as "App Engine". Events will still be sent to the SmartThings cloud - this is necessary to ensure that the mobile application reflects the current state of the home, as well as to send any notifications or perform other cloud-based services.
 
-That said, we are actively considering implementation scenarios whereby we can distribute certain automations to - and execute locally on - the SmartThings hub.
-
-In all cases, we recognize the critical scenarios where a loss of
-communications with the SmartThings Cloud could have a degrading impact
-on critical, local use cases, and are being deeply thoughtful on how we
-minimize the risk of disruption.
+The specific automations that execute locally is managed by the SmartThings internal team.
 
 That said, there are a number of important scenarios where the Cloud is
 simply required and where we can’t reduce or eliminate dependence on the
@@ -40,7 +31,7 @@ Many devices are now connected devices, via WiFi/IP.
 
 The advantage of Wifi devices is that they can eliminate the need for a gateway
 device (hub) and connect directly to the cloud.
-When you consider the breadth of devices likethis that are coming onto the market, it’s easy to imagine that there will be customers who want to be able to add intelligence to those devices through SmartApps, but that may not have a SmartThings Hub at all because all of their devices are directly connected to the vendor cloud or the SmartThings Cloud.
+When you consider the breadth of devices like this that are coming onto the market, it’s easy to imagine that there will be customers who want to be able to add intelligence to those devices through SmartApps, but that may not have a SmartThings Hub at all because all of their devices are directly connected to the vendor cloud or the SmartThings Cloud.
 
 Put simply, if there is no Hub, then the SmartApps layer must run in the cloud!
 
@@ -66,12 +57,6 @@ SmartApps may call external web services and calling them from our Cloud reduces
 In some cases, the external web services might even use IP white-listing such that they simply can’t be called from the Hub running at a user’s home or place of business.
 
 Accordingly, SmartApps that use web services will run in the Cloud as well.
-
-**Third-Party Hub/Gateways**
-
-We ultimately want to support third-party hubs/gateways/routers built to our interface specifications (for how to talk to our Cloud) that have a range of
-capabilities.
-Some may have the ability to run local SmartApps or Wiring, others may not, and we want to be able to handle the full range of scenarios here. That means that in some scenarios, local SmartApps or even Wiring simply may not be possible.
 
 .. important::
 
@@ -172,6 +157,8 @@ cloud and mobile application.
 -  Also works with standard ZigBee and Z-Wave devices, such as GE Z-Wave
    in-wall switches and outlets.
 
+The new Samsung SmartThings Hub (in addition to supporting local execution of automations as discussed above), also comes with four AA batteries. This allows for certain automations to continue, even without power. It also ships with USB ports and is Bluetooth Low Energy capable. While not active at launch, this allows for greater expansion in the future without requiring new hardware.
+
 Connectivity Management
 +++++++++++++++++++++++
 
@@ -210,7 +197,7 @@ SmartApp Execution
 The SmartApp is run when trigged via subscriptions, external calls to
 SmartApp endpoints, or scheduled methods. It's transient in nature, as
 it runs and then stops running on completion of its task. Any data that
-needs to persist throughout SmartApp instances must be stored in state.
+needs to persist throughout SmartApp instances must be stored in a special ``state`` variable that is discussed in the :ref:`storing-data` documentation.
 
 Web-UI & IDE
 ++++++++++++

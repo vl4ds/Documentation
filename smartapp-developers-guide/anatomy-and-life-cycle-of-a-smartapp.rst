@@ -171,10 +171,17 @@ performance and security. We have
 `documented <../introduction/groovy-the-smartthings-programming-language.html#groovy-sandboxing>`__ the main ways
 this should affect you.
 
+Execution Location
+------------------
+
+With the original SmartThings Hub, all SmartApps execute in the SmartThings cloud. With the new Samsung SmartThings Hub, certain SmartApps may run locally on hub or in the SmartThings cloud. Execution location varies depending on a variety of factors, and is managed by the SmartThings internal team.
+
+As a SmartThings developer, you should write your SmartApps to satisfy their specific use cases, regardless of where the app executes. There is currently no way to specify or force a certain execution location.
+
 Rate Limiting
 -------------
 
-Because SmartApps execute in the cloud, limitations must exist to protect against SmartApps that execute excessively, thus consuming too much of our shared cloud resources. 
+SmartApps that execute in the cloud are monitored for excessive resource utilization. Rate limiting ensures that no single SmartApp can consume too many shared cloud resources.
 
 All rate limiting is based on an execution limit within a particular time window for an installed SmartApp or Device Handler. When the execution limit has been reached within the time window, no further executions will occur until the next time window. There will be an entry in the logs that will show the SmartApp or Device Type has been rate limited.
 

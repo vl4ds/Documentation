@@ -23,7 +23,7 @@ The contents of this guide are below:
    simple-event-handler-smartapps
    devices
    modes
-   phrases
+   routines
    scheduling
    sunset-and-sunrise
    calling-web-services-in-smartapps

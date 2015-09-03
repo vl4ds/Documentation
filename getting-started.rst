@@ -187,13 +187,7 @@ On top of the IDE, there's a "Publish" button right next to the Save button. Cli
 
 You should see a message indicating your app published successfully.
 
-On your mobile phone, launch the SmartThings app, and go to the Dashboard. Towards the bottom, click the "+" icon:
-
-.. image:: img/quick-start/mobile-install-my-app.png
-
-In the SmartSetup screen, scroll all the way to the right to select "My Apps". You should see your app there - select it and you can install it just like any other SmartApp! (you'll need physical devices to successfully install this app)
-
-.. image:: img/quick-start/mobile-myapps-install.png
+On your mobile phone, launch the SmartThings app, and go to the Marketplace. Select *SmartApps*, scroll to the bottom, and press *My Apps*. You should see your SmartApp here - select it, and you can install it just any other SmartApp!
 
 Next Steps
 ----------

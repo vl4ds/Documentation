@@ -1,3 +1,5 @@
+.. _storing-data:
+
 Storing Data
 ============
 

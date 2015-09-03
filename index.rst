@@ -6,7 +6,7 @@
 SmartThings Developer Documentation
 ===================================
 
-Welcome to the SmartThings developer documentation. The SmartThings platform makes it easy for software developers to build solutions for the connected home. 
+Welcome to the SmartThings developer documentation. The SmartThings platform makes it easy for software developers to build solutions for the connected home.
 
 Developers can do this in two primary ways: First, they can write SmartApps which is code that let users connect devices, actions, and external services to create automations. Then there is Device Type Handlers which parse raw messages from devices to create standardized capabilities for developers to use.
 
@@ -18,6 +18,11 @@ Developers can do this in two primary ways: First, they can write SmartApps whic
 
 Contents
 --------
+
+.. toctree::
+    :maxdepth: 1
+
+    sept-2015-faq
 
 .. toctree::
    :caption: Getting Started

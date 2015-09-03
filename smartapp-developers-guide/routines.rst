@@ -1,33 +1,42 @@
-==================
-Hello Home Actions
-==================
+.. _smartapp-routines:
 
-*Hello Home Actions* allow certain things to happen the action is invoked.
+========
+Routines
+========
+
+*Routines* (or *Hello Home Actions* in older mobile apps) allow certain things to happen when the routine is invoked.
+
+
+.. image:: ../img/smartapps/routines.png
+    :width: 250 px
+    :height: 447 px
 
 In this chapter, you will learn:
 
-- What Hello Home Actions are
-- How to get the available Hello Home Actions for a location
-- How to execute a Hello Home Action
+- What Routines are
+- How to get the available Routines for a location
+- How to execute Routines in a SmartApp
 
 Overview
 --------
 
-Hello Home Actions allow for certain things to happen whenever it executes. SmartThings comes with a few actions installed:
+Routines allow for certain things to happen whenever it executes. SmartThings comes with a few routines already installed:
 
 - Good Morning! - You or the house is waking up
 - Good Night! - You or the house is going to sleep
 - Goodbye! - You're leaving the house
 - I'm Back! - You've returned to the house
 
-Each action can be configured to do certain things. For example, when "I'm Back!" executes, you can set the mode to "Home", unlock doors, adjust the thermostat, etc.
+Each routine can be configured to do certain things. For example, when "I'm Back!" executes, you can set the mode to "Home", unlock doors, adjust the thermostat, etc.
 
-Hello Home Actions exist for each location in a SmartThings account.
+Routines exist for each location in a SmartThings account.
 
-Get Available Actions
----------------------
+----
 
-You can get the actions for the location the SmartApp is installed into by accessing the ``helloHome`` object on the ``location``:
+Get Available Routines
+----------------------
+
+You can get the routines for the location the SmartApp is installed into by accessing the ``helloHome`` object on the ``location``:
 
 .. code-block:: groovy
 
@@ -41,20 +50,23 @@ You can get the actions for the location the SmartApp is installed into by acces
 
     The ``*`` operator is called the *spread operator*, and it invokes the specified action (get the label, in the example above) on all items in a collection, and collects the result into a list. Read more about it `here <http://docs.groovy-lang.org/latest/html/documentation/#_spread_operator>`__.
 
+----
 
-Execute Actions
----------------
+Execute Routines
+----------------
 
-To execute a Hello Home Action, you can call the ``execute()`` method on ``helloHome``:
+To execute a Routine, you can call the ``execute()`` method on ``helloHome``:
 
 .. code-block:: groovy
 
     location.helloHome?.execute("Good Night!")
 
-Allowing Users to Select Actions
---------------------------------
+----
 
-A SmartApp may want to allow a user to execute certain Hello Home Actions in a SmartApp. Since the actions for each location will vary, we need to get the available actions, and use them as options for an ``enum`` input type.
+Allowing Users to Select Routines
+---------------------------------
+
+A SmartApp may want to allow a user to execute certain Routines in a SmartApp. Since the routines for each location will vary, we need to get the available routines, and use them as options for an ``enum`` input type.
 
 This needs to be done in a dynamic preferences page, since we need to execute some code to populate the available actions:
 
@@ -89,10 +101,12 @@ You can then access the selected phrase like so:
 
     def selectedAction = settings.action
 
+----
+
 Example
 -------
 
-This example simply shows executing a selected action when a switch turns on, and another action when a switch turns off:
+This example simply shows executing a selected routine when a switch turns on, and another action when a switch turns off:
 
 .. code-block:: groovy
 
@@ -144,6 +158,8 @@ This example simply shows executing a selected action when a switch turns on, an
         	location.helloHome?.execute(settings.offAction)
         }
     }
+
+----
 
 Further Reading
 ---------------
