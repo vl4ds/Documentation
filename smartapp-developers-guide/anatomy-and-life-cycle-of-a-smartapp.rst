@@ -174,7 +174,7 @@ this should affect you.
 Execution Location
 ------------------
 
-With the original SmartThings Hub, all SmartApps execute in the SmartThings cloud. With the new Samsung SmartThings Hub, certain SmartApps may run locally on hub or in the SmartThings cloud. Execution location varies depending on a variety of factors, and is managed by the SmartThings internal team.
+With the original SmartThings Hub, all SmartApps execute in the SmartThings cloud. With the new Samsung SmartThings Hub, certain SmartApps may run locally on hub or in the SmartThings cloud. Execution location varies depending on a variety of factors, and is currently managed by the SmartThings internal team. The ability for developers to publish their own SmartApps directly to their Hub for local execution is not currently available, but the goal is to support this in the future.
 
 As a SmartThings developer, you should write your SmartApps to satisfy their specific use cases, regardless of where the app executes. There is currently no way to specify or force a certain execution location.
 

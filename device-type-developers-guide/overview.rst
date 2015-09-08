@@ -147,11 +147,7 @@ Since the device handler is responsible for communicating between the device and
 Execution Location
 ------------------
 
-With the original SmartThings hub, all Device handlers execute in the SmartThings cloud. With the new Samsung SmartThings hub, certain Device handlers may run locally on the hub or in the SmartThings cloud. Execution location varies depending on a variety of
-factors, and is managed by the SmartThings internal team.
-
-As a SmartThings developer, you should write your device handlers to satisfy their specific use cases, regardless of where the
-handler executes. There is currently no way to specify or force a certain execution location.
+With the original SmartThings Hub, all SmartApps and Device handlers execute in the SmartThings cloud. With the new Samsung SmartThings Hub, certain SmartApps and Device Handlers may run locally on hub or in the SmartThings cloud. Execution location varies depending on a variety of factors, and is currently managed by the SmartThings internal team. The ability for developers to publish their own code directly to their Hub for local execution is not currently available, but the goal is to support this in the future.
 
 Rate Limiting
 -------------

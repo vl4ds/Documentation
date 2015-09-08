@@ -37,12 +37,13 @@ At some point in the future, we may create new methods that reflect the terminol
 
 **How does local SmartApp or Device Type processing work?**
 
-Certain automations can now execute locally on the Samsung SmartThings Hub.
-The SmartThings internal team specifies which automations are eligible for local execution. This process requires evaluation and testing of the SmartApp and devices, as well as ensuring that the necessary code artifacts are delivered to the Hub.
+The new Samsung SmartThings Hub ships with the ability to execute SmartApps and Device Type Handlers locally on the Hub, without requiring an Internet connection. This does not replace the need to connect the Hub to the Internet via the Ethernet port, but does provide a failsafe in the event that Internet connectivity is disrupted.
 
 Any locally executing SmartApps or Device Type Handlers still send events to the SmartThings cloud. This is necessary so that the mobile application can accurately reflect the current state of the devices, as well as perform any cloud-required services (e.g., sending notifications). In the event of an Internet outage, the events will be queued and sent to the SmartThings cloud when Internet is restored.
 
-It is not possible for developers to specify that certain Device Types or SmartApps execute in any particular location (cloud or on the hub).  SmartApps or Device Types that have not been reviewed, tested, and delivered to the hub by the SmartThings team will execute in the SmartThings cloud.
+To execute SmartApps locally on the Hub, the code artifacts are distributed to the Hub via firmware updates from SmartThings. For a SmartApp to execute locally, all devices configured in the SmartApp must also be able to execute locally.
+
+Currently, SmartThings delivers certain SmartApps and Device Type Handlers to the Hub to support local execution. The catalog of local automations will be growing quickly in the coming weeks and months. The ability for developers to execute their own custom SmartApps and Device Type Handlers on their Hub is not yet available, but we recognize the need to provide such capabilities in the future.
 
 ----
 

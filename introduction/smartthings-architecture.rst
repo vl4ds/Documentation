@@ -19,7 +19,7 @@ The second generation of our hub, the Samsung SmartThings Hub, allows for some h
 
 This is accomplished by delivering certain automations to the Samsung SmartThings Hub itself, where it can execute locally. The engine that executes these automations are typically referred to as "App Engine". Events will still be sent to the SmartThings cloud - this is necessary to ensure that the mobile application reflects the current state of the home, as well as to send any notifications or perform other cloud-based services.
 
-The specific automations that execute locally is managed by the SmartThings internal team.
+The specific automations that execute locally is currently managed by the SmartThings internal team, and will be growing rapidly, but we recognize the desire of developers to publish their own code directly the Hub. While developers cannot currently deliver their own code directly to the Hub, we are looking at ways to provide this ability in the future.
 
 That said, there are a number of important scenarios where the Cloud is
 simply required and where we can’t reduce or eliminate dependence on the
