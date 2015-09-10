@@ -27,7 +27,7 @@ The purpose of the SmartApp is to turn a switch on when a door opens.
 Prerequisites
 -------------
 
-Before completing this tutorial, you should have read the :ref:`get-started-overview`, and registered for an account as discussed in the :ref:`up-and-running` page.
+Before completing this tutorial, you should have read the :ref:`get-started-overview`, and registered for an account as discussed in the :ref:`quick-start` page.
 
 The SmartApp will utilize an open-closed sensor and a smart switch. If you don't have these devices, or even a hub, you can still complete the majority of this tutorial. We will call out any special steps required if you don't have the hardware.
 
@@ -38,7 +38,36 @@ Create a SmartApp
 
 In the developer tools, navigate to the *My SmartApps* page.
 
-<details and screen captures for creating a SmartApp>
+.. image:: ../img/tutorials/first-smartapp/my-smartapps.png
+   :width: 70%
+
+This will bring you to a page that shows all of the SmartApps that you have created. This is also where you can create a new SmartApp. Click on the "New SmartApp" button.
+
+.. image:: ../img/tutorials/first-smartapp/new-smartapp.png
+   :width: 70%
+
+Three options are presented for creating a new SmartApp, "From Form", "From Code", and "From Template".
+
+.. image:: ../img/tutorials/first-smartapp/smartapp-form.png
+   :width: 70%
+
+The "From Form" option will ask for some details about your SmartApp and create a SmartApp with some boiler plate code. The "From Code" option will create a new SmartApp out of code that you paste into the input box. And finally, the "From Template" option will let you select an already existing SmartApp and use its code as a starting point. This is useful when you want to change or enhance a SmartApp that already exists, and it also a great way to look at examples.
+
+For our SmartApp, let's stick to the "From Form" option.
+
+Fill out the form as follows:
+
+*Name*: A name for your SmartApp. Call it something like "My First SmartApp"
+
+*Namespace*: This field uniquely identifies your SmartApp in the event that someone else has written a SmartApp with the exact same name. Usually we recommend using your GitHub id.
+
+*Author*: This is you. Populate this field with your handle.
+
+*Description*: This describes the intent and functionality of your SmartApp. The better the description, the less confusing it is to other people looking at your SmartApp.
+
+*Category*: SmartApps are categorized based on functionality. This will also determine where you can find your SmartApp in the mobile app. Pick a suitable category. For this exercise, We recommend "My Apps".
+
+Leave the rest of the fields as they are for now and click the "Create" button at the bottom. This will create the SmartApp and populate it with some skeleton code. In the next section we will dive into using the editor to begin writing your first SmartApp.
 
 Editor
 ------
@@ -318,23 +347,70 @@ Also note that we referred to the switch selected by the user by the name we pro
 Using the Simulator
 -------------------
 
-<how to use the IDE simulator to install the SmartApp in the IDE and use simulated devices to test>
+Save your SmartApp by clicking the "Save" button at the top of the IDE. On the right hand side you will notice a location section.
 
-<include simulating a location for anyone who does not have a hub>
+.. image:: ../img/tutorials/first-smartapp/ide-location.png
+   :width: 25%
+
+SmartApps get installed to a location in your SmartThings account. If you have not set up a SmartThings hub, and thus do not have a location, the simulator will provide a default "Home" location for you. By clicking the "Set Location" button, you are telling the simulator that you want to install this SmartApp into the chosen location.
+
+After you have selected the location, you will see the preferences section appear.
+
+.. image:: ../img/tutorials/first-smartapp/ide-devices.png
+   :width: 25%
+
+This is where you can choose devices that the SmartApp will use. Here we see that it asks for a door to monitor, and a switch. These two inputs directly correspond to what we have in the preferences section in our SmartApp. SmartThings will provide a "Virtual Device" when it can. When you do not have a physical device to choose from this is a very useful option. By default the virtual devices will be selected. Click the "Install" button, and the SmartApp will be installed into the location you selected above.
+
+Now we see the simulator section appear.
+
+.. image:: ../img/tutorials/first-smartapp/ide-simulator-unactuated.png
+   :width: 25%
+
+We have two devices. A door, and a switch. We can manipulate the door by choosing "open" or "close" and clicking the play button. The same with the switch, it can be "on" or "off". We wrote our SmartApp to turn the switch on when the door opens. So let's give that a try. Choose "open" if its not already selected and then hit the play button. You should see some log messages in the console, and the switch should go on.
+
+.. image:: ../img/tutorials/first-smartapp/ide-simulator-actuated.png
+   :width: 25%
+
+.. note:: If you pick a mix and match of physical and virtual devices, everything will still work. For example, pick a physical switch device instead of the virtual switch. Now toggle the virtual door. The switch in the physical world will come on!
 
 Publishing and Installing
 -------------------------
 
-<how to publish the SmartApp for yourself, install it on your mobile phone, and configure it>
+Cool! We can now see our first SmartApp in action in the simulator. The next question is how can we use this SmartApp on our mobile devices in the SmartThings app? To accomplish this, we need to publish the SmartApp.
 
-<something about a device type handler>?
-----------------------------------------
+.. image:: ../img/tutorials/first-smartapp/publish.png
+   :width: 70%
 
-<not sure, maybe consider adding something about the device type handler that physically turns the switch on/off?>
+If you press the "Publish" button, a "For Me" option will appear. Select it. This means that the SmartApp will only be published for your account and not be visible for everyone in the SmartThings community.
+
+.. note:: If you have a SmartApp that you do want to publish publicly, you can do that via the "My Publication Requests" link at the top of the page. For more information on this, see :ref:`submitting_smartapps_for_publication`
+
+Now you should be able to see your SmartApp in the application if you browse to the My Apps category.
+
+============================================================   =====================================================================
+.. image:: ../img/tutorials/first-smartapp/mobile-myapps.png   .. image:: ../img/tutorials/first-smartapp/mobile-myfirstsmartapp.png
+============================================================   =====================================================================
+
+The Missing Link
+----------------
+
+Now that we understand how to write a SmartApp, you may be wondering how exactly the method switch.on() turns on the switch. The answer is Device Type Handlers.
+
+Device Type Handlers are software much the same way SmartApps are. They define what actually happens when you call switch.on(). Let's look at an example to further understand this.
+
+When you connect a new device to your SmartThings hub, a Device Type Handler is picked for it based on the signature the device delivered to the hub as part of its pairing communication. The Device Type Handler will have methods defined in it that support that device. So in our case, a door, or rather an open/close sensor, will have ``on()`` and ``off()`` methods. The actual implementation of these methods are very low level as they will ultimately contain the Z-Wave or Zigbee device commands to issue to the device.
+
+So when ``switch.on()`` gets executed from your SmartApp, the SmartThings platform will look up the Device Type Handler associated with the device and call its ``on()`` method, which will in turn send the Z-Wave or Zigbee specific command through the hub to the device. Super simple right? I'm sure you do not have any questions about this quick and dirty explanation, but if you do, head over to the :ref:`device_type_dev_guide` for further reading.
 
 Next Steps
 ----------
 
-<tease and links to more information about SmartApps>
+More SmartApp topics:
 
-.. [1] Currently, the development of Solution Module SmartApps is restricted to internal SmartThings developers only. We plan to open this up to public developers in the near future.
+* More about development tools and the IDE in the :ref:`tools_ide` guide.
+
+* How to write SmartApps for LAN and Cloud connected devices (for example a Sonos) in the :ref:`cloud_lan_device_type_guide` guide.
+
+* How to turn your SmartApp into a web service in the :ref:`smartapp_web_services_guide` guide.
+
+* More about Device Type Handlers in the :ref:`device_type_dev_guide` guide.
