@@ -39,7 +39,8 @@ Contents
 
    getting-started/overview
    getting-started/up-and-running
-   getting-started/learn-groovy
+   getting-started/groovy-basics
+   getting-started/groovy-for-smartthings
    getting-started/first-smartapp
 
 .. toctree::
