@@ -42,6 +42,7 @@ Contents
    getting-started/groovy-basics
    getting-started/groovy-for-smartthings
    getting-started/first-smartapp
+   getting-started/getting-help
 
 .. toctree::
    :maxdepth: 2

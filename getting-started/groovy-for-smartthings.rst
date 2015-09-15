@@ -3,16 +3,20 @@
 Groovy With SmartThings
 =======================
 
-SmartThings runs Groovy in a sandboxed environment. This means that not all features of the Groovy programming language are available in SmartThings. This is because all SmartApps or Device Type Handlers are executed within the SmartThings ecosystem. Certain language features may present security or performance risks to the executing code and platform itself. In order to mitigate these risks, as well as to simplify the language, certain features discussed below have been removed from SmartThings.
+SmartThings runs Groovy in a sandboxed environment. This means that not all features of the Groovy programming language are available in SmartThings. To understand why, we need to understand where SmartThings code is executed.
 
-Before we discuss the specifics of what is and what is not available to your SmartApps and Device Type Handlers, we'll first discuss how SmartThings makes several APIs available within your SmartApp or Device Type Handler. This is accomplished through inheritance, and while not necessary to understand for creating SmartThings code, it may help to shed light on what is happening behind the scenes.
+All SmartThings code is executed in, and by, the SmartThings ecosystem. When you write a SmartApp or a Device Type Handler, it will ultimately be executed by the SmartThings platform. It may execute on the Hub or in the SmartThings cloud, but the important thing to note is that it is executed by SmartThings.
+
+Because SmartApps and Device Type Handlers execute within the SmartThings ecosystem, SmartThings restricts access to certain methods or features. You can't create or open a file, for example.
+
+Before we discuss the specifics of what is and what is not available to your SmartApps and Device Type Handlers, we'll first discuss how SmartThings makes several APIs available within your SmartApp or Device Type Handler. While this is not strictly necessary to understand to be able to develop with SmartThings, it may help to shed light on what is happening behind the scenes.
 
 How It Works
 ------------
 
 One of the first things you'll notice when starting to develop with SmartThings, is that there are many methods available to you that do not require any import statements. In fact, it's rare to see import statements at all in SmartThings.
 
-This is because every SmartApp or Device Type Handler is actually an instance of an abstract *Executor* class defined in the SmartThings platform. This *Executor* class defines several methods, and *delegates* to many other APIs. The result of this is that every SmartApp or Device Type Handler has available to it (through inheritance) a large number of methods without importing anything.
+This is because every SmartApp or Device Type Handler is actually an instance of an abstract *Executor* class defined in the SmartThings platform. This *Executor* class defines or includes many methods. The result of this is that every SmartApp or Device Type Handler has available to it (through inheritance) a large number of methods without importing anything.
 
 This model provides a simple framework in which you can develop your SmartApps and Device Type Handlers - all the necessary methods are simply available to call without needing to import anything.
 
@@ -63,9 +67,9 @@ There are a few other notable restrictions in SmartThings worth discussing:
 Allowed Classes
 ---------------
 
-SmartThings also specifies a *whitelist* of allowed classes. Only classes included in this whitelist are available for use within SmartThings. Whenever a method is called (any method), SmartThings first checks to see that the *receiver* of the method (the the object the method is being called on) is in the allowable types whitelist.
+SmartThings also specifies a *whitelist* of allowed classes. Only classes included in this whitelist are available for use within SmartThings. Whenever a method is called (any method), SmartThings first checks to see that the *receiver* of the method (the the object the method is being called on) is in the allowable types whitelist. If it isn't, a ``SecurityException`` will be thrown. This same principle applies to the creation of new objects with the ``new`` keyword - if the object being created is not in the whitelist, a ``SecurityException`` is also thrown.
 
-You'll rarely find the need to instantiate any of these classes directly. In fact, it's rare in SmartThings to ever create a new object via the ``new`` operator. Most objects you work with will be available to you via callback parameters or other getter methods.
+You'll rarely find the need to instantiate any of these classes directly. In fact, it's rare in SmartThings to ever create a new object via the ``new`` operator. Most objects you work with will be available to you via callback parameters or injected right into your SmartApp or Device Type Handler.
 
 Here is the whitelist of available, non-SmartThings-specific types (i.e., Java, Groovy and third party library classes):
 
@@ -149,3 +153,8 @@ Here is the whitelist of available, non-SmartThings-specific types (i.e., Java, 
 - ``org.json.JSONException``
 - ``org.json.JSONObject``
 - ``org.json.JSONObject.Null``
+
+Summary and Next Steps
+----------------------
+
+Now that you understand how and why SmartThings restricts certain features of the Groovy programming language, it's time to dive deeper and write our first SmartApp! Head over to the :ref:`first-smartapp-tutorial` and learn how easy it is to program the physical world.

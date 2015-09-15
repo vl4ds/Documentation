@@ -1,13 +1,18 @@
-Next Steps
-==========
+.. _getting-help::
 
-Now that you know what the SmartThings developer platform offers, you can dive in to the fun stuff.
+Getting Help
+============
 
-If you're new to Groovy, we recommend that you read through the :ref:`learning-groovy` tutorial. You'll learn about Groovy, and how SmartThings uses it for development.
+In addition to this documentation, there are other ways to learn and get help developing for SmartThings, discussed below.
 
-Once you've completed that (or maybe you're the adventurous sort and just want to dive right in to some SmartApp code), check out the :ref:`first-smartapp` tutorial.
+Developer Documentation
+-----------------------
 
-In addition to the tutorials and this documentation, there are other ways to learn and get help developing for SmartThings, discussed below.
+Use this documentation to learn about SmartThings development, as well as serve as a reference. The documentation is searchable, and can be viewed and downloaded in a variety of formats including PDF and EPUB (click on "Read the Docs" on the bottom left of the page to see the download options).
+
+This documentation is open source and available in GitHub `here <https://github.com/SmartThingsCommunity/Documentation>`__.
+
+----
 
 Community
 ---------
@@ -16,7 +21,9 @@ One of the best things about SmartThings is the amazing `community <https://comm
 
 If you can't find an answer for your question in the documentation, the community is a great resource as well. You can search for your question in case it has already been addressed, or post a new question.
 
-Many of the SmartThings staff frequents these forums as well. We'll chime in and try to be as helpful (Usually. Sometimes we just cause trouble :)).
+Many of the SmartThings staff frequents these forums as well. We'll chime in and try to be helpful.
+
+----
 
 Open Developer Discussions
 --------------------------

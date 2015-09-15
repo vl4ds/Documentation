@@ -16,7 +16,7 @@ Developer Highlights
 
 SmartThings was built to be developer-friendly. Some of the key developer features:
 
-- A simple programming framework using the Groovy programming language. Don't know Groovy? No worries. If you've programmed before, you'll be able to pick it up easily.
+- A simple programming framework using the Groovy programming language. Don't know Groovy? No worries. We've written a :ref:`tutorial <groovy-basics>` to get you up to speed.
 - An architecture that allows developers to control hardware with simple software. Turning a switch on is as easy as ``switch.on()``.
 - A web-based IDE for developing SmartThings solutions.
 - A simulator for testing your code, *even if you don't have specific devices you are developing for*.
@@ -48,10 +48,10 @@ SmartApps can typically be summarized by what they do. Some example SmartApps:
 
 SmartThings ships with many SmartThings already available. Almost all automations that you configure with your SmartThings mobile application are SmartApps. If you've set up your lights to come on when motion is detected, or to receive a notification if your door opens when you aren't home, you've used SmartApps.
 
-Device Integrations
-```````````````````
+Of course, SmartApps are capable of much more than the above examples. SmartApps can communicate with external web services, send push and SMS notifications, expose their own REST endpoints, and more.
 
-Developers can also integrate new devices into the SmartThings ecosystem by creating *Device Type Handlers*. These Groovy programs encapsulate the details of communication between SmartThings and the physical devices. In the SmartApp code example above, we turned the lights on by simply calling ``lights.on()``. The Device Type handler is responsible for physically turning the light on (don't worry about the details of this just yet).
+Device Type Handlers
+````````````````````
 
 .. code-block:: groovy
 
@@ -59,14 +59,15 @@ Developers can also integrate new devices into the SmartThings ecosystem by crea
     	'zcl on-off on'
     }
 
-Putting It All Together
------------------------
+Developers can also integrate new devices into the SmartThings ecosystem by creating *Device Type Handlers*. These Groovy programs encapsulate the details of communication between SmartThings and the physical devices. In the SmartApp code example above, we turned the lights on by simply calling ``lights.on()``. The Device Type handler is responsible for physically turning the light on (don't worry about the details of this just yet).
 
-To help better understand the relationship between SmartApps and Device Type Handlers, we will illustrate a typical use case: *"Turn the lights on when a door opens"*:
-
-<diagram showing the flow as a door is opened, and then the light is turned on>
+----
 
 What's Next?
 ------------
 
 To start developing with SmartThings, you will need to create a developer account and become familiar with the developer tools. This is covered next in the :ref:`quick-start`.
+
+SmartThings uses the Groovy programming language. Don't know Groovy? Check out our :ref:`groovy-basics` and :ref:`groovy-for-smartthings` tutorials.
+
+Then, take a deep dive into developing with SmartThings by writing your first SmartApp, using the :ref:`first-smartapp-tutorial`.
