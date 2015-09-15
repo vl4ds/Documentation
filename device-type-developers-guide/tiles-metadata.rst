@@ -136,6 +136,17 @@ Let's consider a switch tile definition example:
               icon: "st.switches.switch.on", backgroundColor: "#E60000"
     }
 
+.. important::
+
+    Notice anything strange about the ``label`` value for state? It appears to be using Groovy's string interpolation syntax (``${}``), but with a **single quote**. In Groovy, String interpolation is only possible for strings defined in double quotes. So, what gives?
+
+    When the SmartThings platform executes the ``tiles()`` method you have defined, it doesn't yet know anything about the actual devices. Only later, when the device details screen is rendered in the mobile client, does the platform know information about the specific devices.
+
+    So, we use single quotes for the label (``${name}``) because the platform can then manually substitute the actual value later, when it is available.
+
+    Long story short - the above is not a typo. Use single quotes for interpolated string values in the tiles definition.
+
+
 The "switch" attribute specifies two possible values - "on" and "off". We define a state for each possible value. The first argument to the ``state()`` method should be the value of the attribute this state applies to (there is an exception to this rule discussed below).
 
 When the switch is off, and the user presses on the tile on their mobile device, we want to turn the switch on. We specify this action using the ``action`` parameter.
