@@ -71,7 +71,7 @@ Executes the specified command on the Device.
 
 The method name will vary on the Device and Command being called.
 
-For example, a Device that supports the Switch capability has both the ``on()`` and ``off()`` commands. 
+For example, a Device that supports the Switch capability has both the ``on()`` and ``off()`` commands.
 
 Some commands may take parameters; you will pass those parameters to the command as well.
 
@@ -145,7 +145,7 @@ For example, the Carbon Monoxide Detector capability has an attribute "carbonMon
     `Object`_ - the latest reported values for the specified attribute. The specific type of object returned will vary depending on the specific attribute.
 
 .. tip::
-    
+
     The exact returned type for various attributes depends upon the underlying capability and Device Handler.
 
 **Example:**
@@ -161,16 +161,16 @@ For example, the Carbon Monoxide Detector capability has an attribute "carbonMon
     ...
     def switchattr = theswitch.currentSwitch
     def tempattr = thetemp.currentTemperature
-    
+
     log.debug "current switch: $switchattr"
     log.debug "current temp: $tempattr"
 
     // switch attribute returned as a string
     log.debug "switchattr instanceof String? ${switchattr instanceof String}"
-    
+
     // temperature attribute returned as a Number
     log.debug "tempatt instanceof Number? ${tempattr instanceof Number}"
-    
+
     ...
 
 ----
@@ -242,7 +242,7 @@ Gets the latest reported values of the specified attribute.
     `Object`_ - The latest reported values of the specified attribute. The exact return type will vary depending upon the attribute.
 
 .. warning::
-    
+
     The exact returned type for various attributes is not adequately documented at this time.
 
     Until they are, we recommend that you save often and experiment, or even look at the specific Device Handler for the device you are working with.
@@ -260,16 +260,16 @@ Gets the latest reported values of the specified attribute.
     ...
     def switchattr = theswitch.currentValue("switch")
     def tempattr = thetemp.currentValue("temperature")
-    
+
     log.debug "current switch: $switchattr"
     log.debug "current temp: $tempattr"
 
     // switch attribute returned as a string
     log.debug "switchattr instanceof String? ${switchattr instanceof String}"
-    
+
     // temperature attribute returned as a Number
     log.debug "tempatt instanceof Number? ${tempattr instanceof Number}"
-    
+
     ...
 
 ----
@@ -295,7 +295,7 @@ The label of the Device assigned by the user.
     } else {
         log.debug "no label set by user for this device"
     }
-    
+
 ----
 
 id
@@ -317,7 +317,7 @@ events()
 Get a list of Events for the Device in reverse chronological order (newest first).
 
 .. note::
-    
+
     Only Events in the last seven days will be returned via the ``events()`` method.
 
 **Signature:**
@@ -378,7 +378,7 @@ Get a list of Events between the specified start and end dates.
 
     // 3 days ago
     def startDate = new Date() - 3
-    
+
     // today
     def endDate = new Date()
 
@@ -457,7 +457,7 @@ Determine if this Device has the specified attribute.
     def hasTempAttr = thetemp.hasAttribute("temperature")
     // true, since this device supports the 'temperature' capability
     log.debug "${thetemp.displayName} has temperature attribute? $hasTempAttr"
-    
+
     def hasTempAttrCaseSensitive = thetemp.hasAttribute("Temperature")
     if (hasTempAttrCaseSensitive) {
         log.debug "${thetemp.displayName} supports the Temperature attribute."
@@ -465,7 +465,7 @@ Determine if this Device has the specified attribute.
         // this block will execute, since attribute names are case sensitive
         log.debug "${thetemp.displayName} does NOT support the Temperature attribute."
     }
-    
+
     ...
 
 ----
@@ -501,7 +501,7 @@ Determine if this Device supports the specified capability name.
     def hasSwitch = theswitch.hasCapability("Switch")
     def hasSwitchCaseSensitive = theswitch.hasCapability("switch")
     def hasPower = theswitch.hasCapability("Power")
-    
+
     // true
     log.debug "${theswitch.displayName} has Switch capability? $hasSwitch"
 
@@ -512,7 +512,7 @@ Determine if this Device supports the specified capability name.
 
     // true
     log.debug "${theswitch.displayName} also has Power capability? $multiCapabilities"
-    
+
     ...
 
 ----
@@ -529,7 +529,7 @@ Determine if this Device has the specified command name.
     ``Boolean hasCommand(String commandName)``
 
 **Parameters:**
-    `String`_ ``commandName`` - the name of the command to check if the Device supports. 
+    `String`_ ``commandName`` - the name of the command to check if the Device supports.
 
 **Returns:**
     `Boolean`_ - ``true`` if this Device has the specified command. Returns a non-true value if not (may be ``null``).
@@ -545,13 +545,13 @@ Determine if this Device has the specified command name.
         }
     }
     ...
-    
+
     def hasOn = theswitch.hasCommand("on")
     def hasOnCaseSensitive = theswitch.hasCommand("On")
-    
+
     // true
     log.debug "${theswitch.displayName} has on command? $hasOn"
-    
+
     if (!hasOnCaseSensitive) {
         // enters this block - case-sensitive!
         log.debug "${theswitch.displayName} does not have On command"
@@ -563,6 +563,24 @@ Determine if this Device has the specified command name.
     ...
 ----
 
+hub
+~~~
+
+The Hub associated with this Device.
+
+**Signature:**
+    ``Hub hub``
+
+**Returns:**
+    :ref:`hub_ref` - the Hub for this Device.
+
+**Example:**
+
+.. code-block:: groovy
+
+    log.debug "Hub: ${someDevice.hub.name}"
+
+----
 
 latestState()
 ~~~~~~~~~~~~~
@@ -602,7 +620,7 @@ Get the latest reported value for the specified attribute.
     `Object`_ - the latest reported value. The exact type returned will vary depending upon the attribute.
 
 .. warning::
-    
+
     The exact returned type for various attributes is not adequately documented at this time.
 
     Until they are, we recommend that you save often and experiment, or even look at the specific Device Handler for the device you are working with.
@@ -621,19 +639,19 @@ Get the latest reported value for the specified attribute.
     ...
     def switchattr = theswitch.latestValue("switch")
     def tempattr = thetemp.latestValue("temperature")
-    
+
     log.debug "current switch: $switchattr"
     log.debug "current temp: $tempattr"
 
     // switch attribute returned as a string
     log.debug "switchattr instanceof String? ${switchattr instanceof String}"
-    
+
     // temperature attribute returned as a Number
     log.debug "tempatt instanceof Number? ${tempattr instanceof Number}"
-    
+
     ...
 
-    
+
 ----
 
 name
