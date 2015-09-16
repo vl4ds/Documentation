@@ -34,7 +34,7 @@ SmartApps
 
     def someoneArrived(evt) {
         lights.on()
-        sonos.playText("Welcome home!")
+        sendPush("Someone has arrived!")
     }
 
 *SmartApps* are small programs that allow users to connect their devices to make their home more intelligent. As the world around us becomes more and more connected, it is the intelligence *between* these devices that makes our world smart. SmartApps allow developers to control hardware with simple software.
@@ -56,7 +56,7 @@ Device Type Handlers
 .. code-block:: groovy
 
     def on() {
-    	'zcl on-off on'
+    	zigbee.on()
     }
 
 Developers can also integrate new devices into the SmartThings ecosystem by creating *Device Type Handlers*. These Groovy programs encapsulate the details of communication between SmartThings and the physical devices. In the SmartApp code example above, we turned the lights on by simply calling ``lights.on()``. The Device Type handler is responsible for physically turning the light on (don't worry about the details of this just yet).
