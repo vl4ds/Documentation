@@ -62,6 +62,25 @@ The unique internal system identifier for the Location.
 
 ----
 
+hubs
+~~~~
+
+The list of Hubs for this location. Currently only Hub can be installed into a Location, thought this API returns a List to allow for future expandability.
+
+**Signature:**
+    ``List<Hub> hubs``
+
+**Returns:**
+    List <:ref:`hub_ref`> - the Hubs for this Location.
+
+**Example:**
+
+.. code-block:: groovy
+
+    log.debug "Hubs: ${location.hubs*.id}"
+
+----
+
 latitude
 ~~~~~~~~
 
