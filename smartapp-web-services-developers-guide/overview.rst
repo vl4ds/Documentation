@@ -37,14 +37,16 @@ There are a couple of important concepts that need to be understood 
 - When we talk about SmartApps APIs, we are referring to APIs that are exposed by SmartApps themselves.
 - SmartApps execute in a special security context, where they only have access to devices specifically authorized by the user at installation time. This is no different for SmartApps APIs.
 
+.. important:: Right now it is not possible for users outside of the U.S. to install SmartApps using the OAuth install flow. Engineering is actively working to support the OAuth flow outside of the U.S. We will follow up when we have a solution or more information.
+
 How it Works
 ------------
 
 Our overall approach to API access requires the end­ user to authenticate and authorize the API access in two steps:
 
 #. The installation of a SmartThings Web Services “SmartApp” into the user’s SmartThings Account/Location, along with specific device preferences that specify the devices to which the external system is being granted access.
-  
-#. The typical OAuth login flow grants the external system the OAuth access token. 
+
+#. The typical OAuth login flow grants the external system the OAuth access token.
 
 It is important to understand that it is the SmartApp itself that exposes the API endpoints that are then used by the external system to integration with SmartThings.
 
@@ -54,7 +56,7 @@ OAuth-Integrated App Installation Flow
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 |Alt OAuth-Integrated App
-Installation| 
+Installation|
 
 The diagram above outlines the following standard steps in
 the API Connection and Usage process:
