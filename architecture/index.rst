@@ -57,12 +57,12 @@ cloud and mobile application.
 -  Also works with standard ZigBee and Z-Wave devices, such as GE Z-Wave
    in-wall switches and outlets.
 
-The new Samsung SmartThings Hub (in addition to supporting local execution of automations as discussed above), also comes with four AA batteries. This allows for certain automations to continue, even without power. It also ships with USB ports and is Bluetooth Low Energy capable. While not active at launch, this allows for greater expansion in the future without requiring new hardware.
+The new Samsung SmartThings Hub also supports the ability to execute certain automations locally on the Hub itself, and ships with four AA batteries. This allows for certain automations to continue, even without power. It also ships with USB ports and is Bluetooth Low Energy capable. While not active at launch, this allows for greater expansion in the future without requiring new hardware.
 
 Connectivity Management
 ```````````````````````
 
-Connectivity Management is the layer that connects your SmartThings hub
+Connectivity Management is the layer that connects your SmartThings Hub
 and client devices (mobile phones) to our servers, and the cloud as a
 whole. We have two parts of this layer currently:
 

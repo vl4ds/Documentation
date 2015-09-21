@@ -15,21 +15,21 @@ At the end of this tutorial, you will know:
 - How to gather input from a user to configure the SmartApp.
 - How to subscribe to changes in a device's state.
 - How to control devices.
+- How to schedule a SmartApp to execute in the future.
 - How to use the simulator to test your SmartApp.
 - How to publish your SmartApp and install it on your mobile phone.
 - :strike:`How to achieve world domination, without even trying`
 
-
 The SmartApp we will create will be fairly simple, but will teach you some core concepts of SmartThings, and get you familiar with the development process.
 
-The purpose of the SmartApp is to turn a switch on when a door opens.
+The purpose of the SmartApp we'll write is to turn a switch on when motion is detected, and turn it off when motion stops.
 
 Prerequisites
 -------------
 
 Before completing this tutorial, you should have read the :ref:`get-started-overview`, and registered for an account as discussed in the :ref:`quick-start` page. It's recommended that you are at least familiar with the basic Groovy concepts discussed in the :ref:`groovy-basics` and :ref:`groovy-with-smartthings` tutorials.
 
-The SmartApp will utilize an open-closed sensor and a smart switch. If you don't have these devices, or even a hub, you can still complete the majority of this tutorial. We will call out any special steps required if you don't have the hardware.
+The SmartApp will utilize a motion sensor and a smart switch. If you don't have these devices, or even a hub, you can still complete the majority of this tutorial. We will call out any special steps required if you don't have the hardware.
 
 Create a SmartApp
 -----------------
@@ -55,15 +55,20 @@ For our SmartApp, let's stick to the "From Form" option.
 
 Fill out the form as follows:
 
-*Name*: A name for your SmartApp. Call it something like "My First SmartApp"
+Name
+    A name for your SmartApp. Call it something like "My First SmartApp"
 
-*Namespace*: This field uniquely identifies your SmartApp in the event that someone else has written a SmartApp with the exact same name. This should be your GitHub username (or if you don't have a GitHub account, some other unique identifier).
+Namespace
+    This field uniquely identifies your SmartApp in the event that someone else has written a SmartApp with the exact same name. This should be your GitHub username (or if you don't have a GitHub account, some other unique identifier).
 
-*Author*: This is you. Populate this field with your handle.
+Author
+    This is you. Populate this field with your handle.
 
-*Description*: This describes the intent and functionality of your SmartApp. This appears in the SmartApp marketplace, so the better the description, the less confusing it is to users.
+Description
+    This describes the intent and functionality of your SmartApp. This appears in the SmartApp marketplace, so the better the description, the less confusing it is to users.
 
-*Category*: SmartApps are categorized based on functionality. This is used by the mobile applications. When publishing SmartApps for your own use (which is what we will be doing), all SmartApps will appear in "My Apps" category. Just to be complete, go ahead and select "My Apps".
+Category
+    SmartApps are categorized based on functionality. This is used by the mobile applications. When publishing SmartApps for your own use (which is what we will be doing), all SmartApps will appear in "My Apps" category. Just to be complete, go ahead and select "My Apps".
 
 Leave the rest of the fields as they are, and click the "Create" button at the bottom. This will create the SmartApp and populate it with some skeleton code. In the next section we will dive into using the editor to begin writing your first SmartApp.
 
@@ -74,7 +79,7 @@ Editor
 
 Once you've created your SmartApp, you'll be taken to the editor and simulator. Before we look at the code, it's worth becoming familiar with some of the basic features.
 
-Above the code window, there are four buttons:
+Above the code window, there are five buttons:
 
 .. image:: ../img/getting-started/first-smartapp/editor-buttons.png
 
@@ -90,7 +95,12 @@ IDE Settings
 App Settings
     This takes you back to the form that you created this SmartApp from, where you can view the values entered when you created the SmartApp, as well as edit certain properties about the SmartApp.
 
-On the upper-right side of the IDE, you'll see a drop-down titled *Browse SmartApp Templates*. If you click this, you'll see a variety of SmartApps that you can browse to learn from, or use as the starting point of a new SmartApp.
+Simulator
+    This button toggles the display of the online simulator. We'll discuss the simulator more next.
+
+.. tip::
+
+    On the upper-right side of the IDE, you'll see a drop-down titled *Browse SmartApp Templates*. If you click this, you'll see a variety of SmartApps that you can browse to learn from, or use as the starting point of a new SmartApp.
 
 ----
 
@@ -101,9 +111,7 @@ On the right side of the IDE is the simulator. This is where you can install you
 
 .. image:: ../img/getting-started/first-smartapp/simulator-1.png
 
-.. tip::
-
-    If you don't have a location yet, the simulator will show a message instructing you to create one. Follow the steps there to create a location.
+If you don't have a location yet, the simulator will show a message instructing you to create one. Follow the steps there to create a location.
 
 ----
 
@@ -121,6 +129,7 @@ This tutorial will walk you through building a simple Event-Handler SmartApp, bu
 Regardless of what type of SmartApp you are writing, there are a few core principles that apply to all SmartApps:
 
 - SmartApps are not continuously running. They are executed in response to various events or schedules.
+- SmartApps are installed into a user's Location, and a user may install multiple instances of a SmartApp into the same location.
 - With the exception of Solution Module SmartApps, SmartApps do not have any user interface, except for the preferences page that allows the user to configure the SmartApp (more on this in a bit).
 - The code that defines a SmartApp does not run on the user's mobile phone. SmartApps may execute in the SmartThings cloud, or on the hub. The mobile application uses some information from the SmartApp to drive the experience in the app.
 
@@ -166,15 +175,15 @@ In the editor, there is a ``preferences`` definition stubbed in for us:
     	}
     }
 
-Recall that the purpose of our SmartApp is to turn a switch on when a door opens (by using an open-closed sensor to detect when a door is open or closed). Our SmartApp needs to know which switch and open-closed sensor to work with. Update  ``preferences`` with this code:
+Recall that the purpose of our SmartApp is to turn a switch on when motion is detected. Our SmartApp needs to know which switch and motion sensor to work with. Update  ``preferences`` with this code:
 
 .. code-block:: groovy
 
     preferences {
-        section("Select door to monitor") {
-            input "thedoor", "capability.contactSensor", required: true
+        section("Turn on when motion detected:") {
+            input "themotion", "capability.motionSensor", required: true, title: "Where?"
         }
-        section("Select a switch to turn on") {
+        section("Turn on this light") {
             input "theswitch", "capability.switch", required: true
         }
     }
@@ -187,7 +196,7 @@ We use the ``input`` method to specify what types of devices we want the user to
 
     input "theswitch", "capability.switch", required: true
 
-The first argument to ``input`` is what we - inside our SmartApp - want to refer to the device as. In this case, we use ``"theswitch"``. This becomes the identifier for the device in our SmartApp, so that we can refer to the contact sensor as ``theswitch`` (without the quotes). We'll see this in action shortly.
+The first argument to ``input`` is what we - inside our SmartApp - want to refer to the device as. In this case, we use ``"theswitch"``. This becomes the identifier for the device in our SmartApp, so that we can refer to the switch as ``theswitch`` (without the quotes). We'll see this in action shortly.
 
 The second argument is the type of device our SmartApp will work with. ``"capability.switch"`` states that our SmartApp is requesting the user to pick from *any* device that supports the Switch *capability*. The concept of capabilities is core to SmartThings, and requires a bit more explanation.
 
@@ -226,7 +235,7 @@ Now that you've updated the ``preferences`` method, make sure to save your Smart
 Events and Callback Methods
 ---------------------------
 
-Our SmartApp needs to turn a switch on when a door opens. To turn the switch on, we first need to know when the door opens!
+Our SmartApp needs to turn a switch on when motion is detected. To turn the switch on, we first need to know when motion is detected!
 
 SmartApps can subscribe to various events, so that when that event happens, our SmartApp will be notified. We do this by using the ``subscribe`` method.
 
@@ -259,25 +268,25 @@ In our ``updated()`` method, notice that the first thing we do (aside from some 
 
 Also, note that both ``installed()`` and ``updated()`` call a method named ``initialize()``. Since both ``installed()`` and ``upated()`` typically both create subscriptions or schedules, we can reduce code duplication by using a helper method.
 
-Finally, a note about the ``log`` statement. SmartThings does not currently provide a debugger within the IDE. We can use the built-in ``log()`` method to log information that may be useful for debugging our SmartApp.
+We also use the built-in logger (``log``) to log information. SmartThings does not currently have a debugger within the IDE, so use the ``log()`` method to log information that might be useful for debugging. The logs are available by clicking *Live Logging* at the top of the IDE.
 
-Also note that we reference a variable named ``settings`` in our log statement. Remember the preference inputs we defined? Every preference input gets stored in a read-only map called ``settings``. We can get the values of the various inputs by indexing into the ``settings`` map with the name of the input (e.g., ``settings.theswitch``).
+Finally, note that we reference a variable named ``settings`` in our log statement. Remember the preference inputs we defined? Every preference input gets stored in a read-only map called ``settings``. We can get the values of the various inputs by indexing into the ``settings`` map with the name of the input (e.g., ``settings.theswitch``).
 
-Now that you understand the purpose and importance of the ``installed()`` and ``updated()`` methods, we need to subscribe to any events that we are interested in. In our case, we need to know when the contact sensor reports that it is open.
+Now that you understand the purpose and importance of the ``installed()`` and ``updated()`` methods, we need to subscribe to any events that we are interested in. In our case, we need to know when the motion sensor reports that it detected motion.
 
 In the editor, update the ``initialize()`` method with this:
 
 .. code-block:: groovy
 
     def initialize() {
-        subscribe(thedoor, "contact.open", doorOpenHandler)
+        subscribe(themotion, "motion.active", motionDetectedHandler)
     }
 
-The ``subscribe()`` method accepts three parameters: The thing we want to subscribe to (``thedoor``), the specific attribute and its state we care about (``"contact.open"``), and the name of the method that should be called when this event happens.
+The ``subscribe()`` method accepts three parameters: The thing we want to subscribe to (``themotion``), the specific attribute and its state we care about (``"motion.active"``), and the name of the method that should be called when this event happens.
 
-How do you know what attribute and what state we can subscribe to? We refer to the :ref:`capabilities_taxonomy` to find out the available attributes the capability supports. In the case of the Contact Sensor capability, we see that it supports the ``"contact"`` attribute. In this case, it has two discreet possible values - "open" and "closed".
+How do you know what attribute and what state we can subscribe to? We refer to the :ref:`capabilities_taxonomy` to find out the available attributes the capability supports. In the case of the Motion Sensor capability, we see that it supports the ``"motion"`` attribute. In this case, it has two discreet possible values - "active" and "inactive".
 
-Since the ``"contact"`` attribute value is either open or closed, we can subscribe to either of those specific changes by using the format ``"<attribute>.<value>"``. This will cause the specified event handler method to be called any time the ``"contact"`` attribute value changes to ``"open"`` (the door opens).
+Since the ``"motion"`` attribute value is either active or inactive, we can subscribe to either of those specific changes by using the format ``"<attribute>.<value>"``. This will cause the specified event handler method to be called any time the ``"motion"`` attribute value changes to ``"active"`` (motion is detected).
 
 Now that we've created our subscription, we need to define the event handler method.
 
@@ -290,16 +299,16 @@ Add the following method to your SmartApp. We'll fill in the real meat of the me
 
 .. code-block:: groovy
 
-    def doorOpenHandler(evt) {
-        log.debug "doorOpenHandler called: $evt"
+    def motionDetectedHandler(evt) {
+        log.debug "motionDetectedHandler called: $evt"
     }
 
 
 Every event handler method must accept a single parameter, which is an :ref:`event_ref` object that contains information about the event, such as the event's value, time it occurred, and other information.
 
-Since we subscribed to the ``"open"`` state of the contact sensor, we know that our event handler method will only be called when the contact sensor changes from open to closed.
+Since we subscribed to the ``"active"`` state of the motion sensor, we know that our event handler method will only be called when the motion sensor changes from inactive to active.
 
-Now that we know the door has opened, we need to turn the light on!
+Now that we know motion has been detected, we need to turn the light on!
 
 ----
 
@@ -311,8 +320,8 @@ Recall that capabilities support commands (things the device can do), as well as
 .. code-block:: groovy
     :emphasize-lines: 3
 
-    def doorOpenHandler(evt) {
-        log.debug "doorOpenHandler called: $evt"
+    def motionDetectedHandler(evt) {
+        log.debug "motionDetectedHandler called: $evt"
         theswitch.on()
     }
 
@@ -325,31 +334,31 @@ Also note that we referred to the switch selected by the user by the name we pro
 Using the Simulator
 -------------------
 
-Save your SmartApp by clicking the "Save" button at the top of the IDE. On the right-hand side you will notice a location section.
+Save your SmartApp by clicking the *Save* button at the top of the IDE. On the right-hand side you will notice a location section:
 
 .. image:: ../img/getting-started/first-smartapp/ide-location.png
-   :width: 25%
+   :width: 35%
 
-SmartApps get installed to a location in your SmartThings account. By clicking the "Set Location" button, you are telling the simulator that you want to install this SmartApp into the chosen location.
+SmartApps get installed to a location in your SmartThings account. By clicking the *Set Location* button, you are telling the simulator that you want to install this SmartApp into the chosen location.
 
-After you have selected the location, you will see the preferences section appear.
+After you have selected the location, you will see the preferences section appear:
 
 .. image:: ../img/getting-started/first-smartapp/ide-devices.png
-   :width: 25%
+   :width: 35%
 
-This is where you can choose devices that the SmartApp will use. Here we see that it asks for a door to monitor, and a switch. These two inputs directly correspond to what we have in the preferences section in our SmartApp. SmartThings will provide a "Virtual Device" when it can. When you do not have a physical device to choose from this is a very useful option. By default the virtual devices will be selected. Click the "Install" button, and the SmartApp will be installed into the location you selected above.
+This is where you can choose devices that the SmartApp will use. Here we see that it asks for a motion sensor to monitor, and a switch. These two inputs directly correspond to what we have in the preferences section in our SmartApp. SmartThings will provide a "Virtual Device" when it can. When you do not have a physical device to choose from this is a very useful option. By default the virtual devices will be selected. Click the *Install* button, and the SmartApp will be installed into the location you selected above.
 
-Now we see the simulator section appear.
+Now we see the simulator section appear:
 
 .. image:: ../img/getting-started/first-smartapp/ide-simulator-unactuated.png
-   :width: 25%
+   :width: 35%
 
-We have two devices. A door, and a switch. We can manipulate the door by choosing "open" or "close" and clicking the play button. The same with the switch, it can be "on" or "off". We wrote our SmartApp to turn the switch on when the door opens. So let's give that a try. Choose "open" if its not already selected and then hit the play button. You should see some log messages in the console, and the switch should go on.
+We have two devices. A motion sensor, and a switch. We can manipulate the motion sensor by choosing "active" or "inactive" and clicking the play button. The same with the switch, it can be "on" or "off". We wrote our SmartApp to turn the switch on when motion is detected, so let's give that a try. Choose "active" if it's not already selected and then hit the play button. You should see some log messages in the console, and the switch should go on:
 
 .. image:: ../img/getting-started/first-smartapp/ide-simulator-actuated.png
-   :width: 25%
+   :width: 35%
 
-.. note:: If you pick a mix and match of physical and virtual devices, everything will still work. For example, pick a physical switch device instead of the virtual switch. Now toggle the virtual door. The switch in the physical world will come on!
+.. note:: If you pick a mix and match of physical and virtual devices, everything will still work. For example, pick a physical switch device instead of the virtual switch. Now toggle the virtual motion sensor. The switch in the physical world will come on!
 
 ----
 
@@ -365,7 +374,7 @@ If you press the "Publish" button, a "For Me" option will appear. Select it. Thi
 
 .. note:: If you have a SmartApp that you do want to publish publicly, you can do that via the "My Publication Requests" link at the top of the page. For more information on this, see :ref:`submitting_smartapps_for_publication`
 
-Now you should be able to see your SmartApp in the mobile app if you browse to the My Apps category.
+Now you should be able to see your SmartApp in the mobile app if you browse to the My Apps category of the marketplace:
 
 ============================================================   =====================================================================
 .. image:: ../img/getting-started/first-smartapp/mobile-myapps.png   .. image:: ../img/getting-started/first-smartapp/mobile-myfirstsmartapp.png
@@ -376,85 +385,276 @@ After selecting your SmartApp, you will be brought to the preferences screen whe
 .. image:: ../img/getting-started/first-smartapp/installing-smartapp.png
     :width: 40%
 
-You can see the sections and inputs we defined in the ``preferences`` here. Notice how the inputs for the door and switch are marked in red, to indicate that the user must set values for these inputs in order to install the SmartApp.
+You can see the sections and inputs we defined in the ``preferences`` here. Notice how the inputs are marked in red, to indicate that the user must set values for these inputs in order to install the SmartApp.
 
-Press the fields to select a door and switch. If you have devices that support the requested capability, you'll see an option to select them.
+Tap the fields to select a motion sensor and switch. If you have devices that support the requested capability, you'll see an option to select them.
 
 You'll also see that some other inputs were added for us. For single page preferences, every SmartApp receives an input to allow the user to assign a name of their choosing for this installation. The name that they choose will then be displayed as the name of the SmartApp. Also by default, the user can select to only execute this SmartApp when the location is in certain :ref:`modes`. It also includes the ability for the user to uninstall this SmartApp.
 
 .. note::
 
-    A SmartApp may be installed into a location multiple times. For example, a person may have multiple closets for which they want the light to come on when the door opens.
+    A SmartApp may be installed into a location multiple times. For example, a person may have multiple rooms for which they want a light to come on when motion is detected.
 
     Even though the code is the same, each installation is unique, and must also be removed by the user individually.
 
 
 ----
 
-Turn Off When Closed
---------------------
+Turn Off When Motion Inactive
+-----------------------------
 
-We now have a simple SmartApp that turns a switch on when a contact sensor opens. Let's extend this further, and turn the switch off when the contact sensor closes. We can imagine this could be useful for a light in a closet - when we open the closet door, we want the light to come on. When the door is closed, the light should turn off.
+We now have a simple SmartApp that turns a switch on when motion is detected. Let's extend this further, and turn the switch off when the motion stops.
 
-In our SmartApp, we need to subscribe to not only the contact sensor being opened, but also closed.
+In our SmartApp, we need to subscribe to not only the motion sensor being active, but also inactive.
 
 Recall that our subscription looks like this:
 
 .. code-block:: groovy
 
-    subscribe(thedoor, "contact.open", doorOpenHandler)
+    subscribe(themotion, "motion.active", motionDetectedHandler)
 
-We could subscribe to the ``"contact.closed"`` in a similar way, and define another event handler method. But we can also subscribe to *any* state change for a device's attributes by simply specifying the attribute itself (``"contact"``). This allows us to subscribe to an attribute that doesn't have discrete values (for example, temperature measurements), or to any change in value.
-
-We'll update our subscription to subscribe to any changes in the ``"contact"`` attribute. Since our event handler method will be called when the door is open or closed, we should rename our method as well.
-
-Then in the event handler method, we need to know if the contact sensor was opened or closed, so we know to turn on or off the switch.
-
-Here's the updated ``initialize()`` method and the new event handler method:
+We will also subscribe the ``"motion.inactive"`` event in a similar way. Add this subscription to the ``initialize()`` method:
 
 .. code-block:: groovy
 
-    def initialize() {
-        // subscribe to any state change of the "contact" attribute
-        subscribe(thedoor, "contact", doorOpenClosedHandler)
-    }
+    subscribe(themotion, "motion.inactive", motionStoppedHandler)
 
-    def doorOpenClosedHandler(evt) {
-        log.debug "doorOpenClosedHandler called: $evt"
-        // check the event value to see if the contact sensor was
-        // opened or closed
-        if (evt.value == "open") {
-            // it's open - turn the switch on
-            theswitch.on()
-        } else if (evt.value == "closed") {
-            // it's closed - turn the switch off
-            theswitch.off()
+.. note::
+
+    We could also subscribe to *any* change in the motion sensor, by simply specifying the attribute we want to monitor (e.g., ``"motion"`` instead of ``"motion.active"``). This would then call the specified handler method when there is any reported change to the ``"motion"`` attribute. For attributes that don't have a discrete set of possible values (for example, temperature readings), this is how we subscribe to changes for that attribute.
+
+    We can then get the value of the event in the event handler by looking at the ``value`` of the passed-in Event. If we were to do this in our SmartApp, it would look like this:
+
+    .. code-block:: groovy
+
+        def initialize() {
+            subscribe(themotion, "motion", motionHandler)
         }
+
+        def motionHandler(evt) {
+            if (evt.value == "active") {
+                // motion detected
+            } else if (evt.value == "inactive") {
+                // motion stopped
+            }
+        }
+
+        Our SmartApp will use separate subscriptions and event handlers, but you are free to modify it to use a single subscription and handle the different values in your event handler method.
+
+We need to define the ``motionStoppedHandler`` event handler method - add this method to your SmartApp:
+
+.. code-block:: groovy
+
+    def motionStoppedHandler(evt) {
+        log.debug "motionStoppedHandler called: $evt"
+        theswitch.off()
     }
 
-Now that we've updated our SmartApp again, save it in the IDE. You can then again test it in the simulator to verify it works as expected.
-
-You'll also need to publish the SmartApp for yourself again. Without this step, you won't see the updated functionality in the SmartApp you installed on your mobile phone.
+Save your SmartApp in the IDE, publish it again for yourself, and then install it again in the simulator. Now when you change the motion to "inactive", the switch will turn off.
 
 ----
 
-But How Does the Switch Turn On!?
----------------------------------
+Going Further - Adding Flexibility
+----------------------------------
 
-Now that we understand how to write a SmartApp, you may be wondering how exactly the method ``switch.on()`` turns on the switch. The answer is Device Type Handlers.
+Our SmartApp now turns a switch on when motion is detected, then turns it off when motion stops. But consider this scenario:
+
+- A person enters a room, the motion sensors reports that motion is active, and our SmartApp turns the light on.
+- The person then sits down, or stands still enough for the motion sensor to report motion is inactive, and our SmartApp turns the light off.
+- The person than moves again, causing the motion sensor to again report active motion, and our SmartApp turns the light on again.
+
+As you can imagine, this could be quite annoying! It would be better if we could allow the user to specify a number of minutes *after motion stops* to turn the light off. Then, once motion stops, if no motion is detected within the specified number of minutes, the SmartApp will turn the light off. If motion is detected within this time window, the switch will not turn off.
+
+We can add this flexibility into our SmartApp fairly easily. The first thing we need to do is update our ``preferences`` to let the user specify the number of minutes without motion being detected until the light is turned off.
+
+Replace the ``preferences`` in our SmartApp with the following:
+
+.. code-block:: groovy
+    :emphasize-lines: 5-7
+
+    preferences {
+        section("Turn on when motion detected:") {
+            input "themotion", "capability.motionSensor", required: true, title: "Where?"
+        }
+        section("Turn off when there's been no movement for") {
+            input "minutes", "number", required: true, title: "Minutes?"
+        }
+        section("Turn on/off this light") {
+            input "theswitch", "capability.switch", required: true
+        }
+    }
+
+Preferences inputs can be more than just devices - we can ask users to enter in numeric values, text values, booleans, enumerated lists, and more. You can learn about the various options for preferences inputs :ref:`here <prefs_and_settings>`.
+
+Now that the user can specify the number of minutes to wait without motion before turning the light off, we need to implement the logic to do so.
+
+Our ``motionStoppedHandler()`` method will be called whenever the motion sensor reports that motion has stopped. Before turning the light off, we need to check that there is no motion detected for the specified number of minutes in the future. But since SmartApps are not continuously running, how can we handle checking for future states? The answer is by using methods that allow us to schedule a SmartApp for future execution.
+
+The first thing we need to do is update our ``motionStoppedHandler()`` to execute a method in the number of minutes specified by the user. This method will then check to see if there has been motion reported within the time interval, and turn the light off if there has been no motion.
+
+Let's stub in some skeleton code to do this, and we'll fill in the details later. First, update the ``motionStoppedHandler()`` method and add a new method as shown below:
+
+.. code-block:: groovy
+
+    def motionStoppedHandler(evt) {
+    	log.debug "motionStoppedHandler called: $evt"
+        runIn(60 * minutes, checkMotion)
+    }
+
+    def checkMotion() {
+        log.debug "In checkMotion scheduled method"
+    }
+
+We use the :ref:`smartapp_run_in` method to schedule our ``checkMotion()`` method to be called in the number of minutes specified by the user. We pass ``runIn()`` the number of seconds (from the time of the call) to schedule the call, and the name of the method we want executed.
+
+When motion stops, our ``checkMotion()`` method will be called in the number of minutes specified by the user. Now, inside our ``checkMotion()`` method, we need to see if there has been any motion detected in the time window specified. We can use some date/time utility methods, along with information about the device state, to determine if we should turn the switch off.
+
+Here's the logic we need to implement:
+
+- If the motion sensor is currently reporting active motion, do nothing.
+- If the motion sensor is reporting inactive motion, check to see what time the motion sensor reported inactive motion.
+- If the motion sensor reported that motion has been inactive for longer than the time specified by the user, turn the switch off.
+
+And here's the full method definition for ``checkMotion()``. Update your SmartApp with the code below:
+
+.. code-block:: groovy
+
+    def checkMotion() {
+    	log.debug "In checkMotion scheduled method"
+
+        // get the current state object for the motion sensor
+    	def motionState = themotion.currentState("motion")
+
+        if (motionState.value == "inactive") {
+    		// get the time elapsed between now and when the motion reported inactive
+            def elapsed = now() - motionState.date.time
+
+            // elapsed time is in milliseconds, so the threshold must be converted to milliseconds too
+            def threshold = 1000 * 60 * minutes
+
+    		if (elapsed >= threshold) {
+                log.debug "Motion has stayed inactive long enough since last check ($elapsed ms):  turning switch off"
+                theswitch.off()
+        	} else {
+            	log.debug "Motion has not stayed inactive long enough since last check ($elapsed ms):  doing nothing"
+            }
+        } else {
+        	// Motion active; just log it and do nothing
+        	log.debug "Motion is active, do nothing and wait for inactive"
+        }
+    }
+
+The first thing to note is that we get a :ref:`state_ref` object for the motion sensor, by using the ``currentState()`` method with ``"motion"`` as the attribute we're interested in. This object encapsulates information about an attribute at a particular moment in time. In our case, we want the current state.
+
+From this object, we can determine when this state record was created. This will be the time that the motion sensor reported it is inactive. Using the :ref:`smartapp_now` method, we can get the current time (in milliseconds), and then see if the motion stopped within the threshold specified by the user. If the time elapsed since the motion stopped exceeds the threshold, we turn the switch off.
+
+Go ahead and save and publish your SmartApp again, and try it out!
+
+----
+
+Complete Code Listing
+---------------------
+
+Here is the entire code for our SmartApp:
+
+.. code-block:: groovy
+
+    definition(
+            name: "My First SmartApp",
+            namespace: "mygithubusername",
+            author: "Peter Gregory",
+            description: "This is my first SmartApp. Woot!",
+            category: "My Apps",
+            iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+            iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
+            iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+
+    preferences {
+    	section("Turn on when motion detected:") {
+        	input "themotion", "capability.motionSensor", required: true, title: "Where?"
+        }
+        section("Turn off when there's been no movement for") {
+        	input "minutes", "number", required: true, title: "Minutes?"
+        }
+        section("Turn on this light") {
+        	input "theswitch", "capability.switch", required: true
+        }
+    }
+
+    def installed() {
+    	initialize()
+    }
+
+    def updated() {
+    	unsubscribe()
+    	initialize()
+    }
+
+    def initialize() {
+    	subscribe(themotion, "motion.active", motionDetectedHandler)
+        subscribe(themotion, "motion.inactive", motionStoppedHandler)
+    }
+
+    def motionDetectedHandler(evt) {
+    	log.debug "motionDetectedHandler called: $evt"
+        theswitch.on()
+    }
+
+    def motionStoppedHandler(evt) {
+    	log.debug "motionStoppedHandler called: $evt"
+        runIn(60 * minutes, checkMotion)
+    }
+
+    def checkMotion() {
+    	log.debug "In checkMotion scheduled method"
+
+    	def motionState = themotion.currentState("motion")
+
+        if (motionState.value == "inactive") {
+    		// get the time elapsed between now and when the motion reported inactive
+            def elapsed = now() - motionState.date.time
+
+            // elapsed time is in milliseconds, so the threshold must be converted to milliseconds too
+            def threshold = 1000 * 60 * minutes
+
+    		if (elapsed >= threshold) {
+                log.debug "Motion has stayed inactive long enough since last check ($elapsed ms):  turning switch off"
+                theswitch.off()
+        	} else {
+            	log.debug "Motion has not stayed inactive long enough since last check ($elapsed ms):  doing nothing"
+            }
+        } else {
+        	// Motion active; just log it and do nothing
+        	log.debug "Motion is active, do nothing and wait for inactive"
+        }
+    }
+
+----
+
+But How Does the Switch Actually Turn On (or off)!?
+---------------------------------------------------
+
+Now that we understand how to control devices in a SmartApp, you may be wondering how exactly the method ``switch.on()`` turns on the switch. The answer is Device Type Handlers.
 
 Device Type Handlers are software much the same way SmartApps are. They define what actually happens when you call ``switch.on()``. Let's look at an example to further understand this.
 
-When you connect a new device to your SmartThings Hub, a Device Type Handler is picked for it based on the signature the device delivered to the Hub as part of its pairing communication. The Device Type Handler will have methods defined in it that support that device. So in our case, a door, or rather an open/close sensor, will have ``on()`` and ``off()`` methods. The actual implementation of these methods vary depending upon the underlying device protocols, but are typically low-level protocol-specific commands to send to the device (like Z-Wave or ZigBee).
+When you connect a new device to your SmartThings Hub, a Device Type Handler is picked for it based on the signature the device delivered to the Hub as part of its pairing communication. The Device Type Handler will have methods defined in it that support that device. So in our case, the Device Type Handler for the specific switch being used will have both ``on()`` and ``off()`` methods defined. The actual implementation of these methods vary depending upon the underlying device protocols, but are typically low-level protocol-specific commands to send to the device (like Z-Wave or ZigBee).
 
 So, when ``switch.on()`` gets executed from your SmartApp, the SmartThings platform will look up the Device Type Handler associated with the device and call its ``on()`` method, which will in turn send the protocol and device-specific command through the hub to the device. Device Type Handlers are discussed in the :ref:`device_type_dev_guide` guide.
 
 ----
 
-Complete Source Code
---------------------
+Summary
+-------
 
-The example we built in this tutorial is one of the basic SmartApps available to users. It's called "Let There Be Light", and the complete source is available in GitHub `here <https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/let-there-be-light.src/let-there-be-light.groovy>`__.
+In this tutorial, you learned how to write a SmartApp. To do this, we:
+
+- Created a new SmartApp using the web-based IDE.
+- Defined the ``preferences`` that specifies what input we need from the user.
+- Subscribed to device events and controlled a device. We used the :ref:`capabilities_taxonomy` to determine what attributes and commands a capability supports.
+- Used the web-based simulator to test our SmartApp with virtual devices.
+- Published the SmartApp for yourself and installed it on your mobile phone.
+- Extended our SmartApp by allowing a user to enter the number of minutes to wait before turning the switch off, and implemented this using the ``runIn()`` method.
 
 ----
 
@@ -466,7 +666,7 @@ Now that you've written your first SmartApp and have a basic understanding of th
 More About SmartApps
 ````````````````````
 
-There is much more you can do with SmartApps than this tutorial covered. SmartApps can define schedules for which they execute, call external web services, send notifications, execute routines, and more. You can learn more about developing SmartApps in the :ref:`smartapp_dev_guide` guide.
+There is much more you can do with SmartApps than this tutorial covered. SmartApps can :ref:`send notifications <smartapp-sending-notifications>`, :ref:`execute routines <smartapp-routines>`, :ref:`define advanced schedules <smartapp-scheduling>` for which they execute, :ref:`call external web services <calling_web_services>`, and more. You can learn more about developing SmartApps in the :ref:`smartapp_dev_guide` guide.
 
 You can also make your SmartApp into a web service, capable of exposing its own REST endpoints. You can read about them in the :ref:`smartapp_web_services_guide` guide.
 

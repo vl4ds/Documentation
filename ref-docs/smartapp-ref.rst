@@ -768,6 +768,8 @@ The :ref:`location_ref` into which this SmartApp has been installed.
 
 ----
 
+.. _smartapp_now:
+
 now()
 ~~~~~
 
@@ -862,6 +864,8 @@ Parses a Base64-encoded LAN message received from the hub into a map with header
     ======== ============== ===================
 
 ----
+
+.. _smartapp_run_in:
 
 runIn()
 ~~~~~~~
