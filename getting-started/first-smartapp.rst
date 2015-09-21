@@ -27,7 +27,7 @@ The purpose of the SmartApp we'll write is to turn a switch on when motion is de
 Prerequisites
 -------------
 
-Before completing this tutorial, you should have read the :ref:`get-started-overview`, and registered for an account as discussed in the :ref:`quick-start` page. It's recommended that you are at least familiar with the basic Groovy concepts discussed in the :ref:`groovy-basics` and :ref:`groovy-with-smartthings` tutorials.
+Before completing this tutorial, you should have read the :ref:`get-started-overview`, and registered for an account as discussed in the :ref:`quick-start` page. It's recommended that you are at least familiar with the basic Groovy concepts discussed in the :ref:`groovy-basics` and :ref:`groovy-for-smartthings` tutorials.
 
 The SmartApp will utilize a motion sensor and a smart switch. If you don't have these devices, or even a hub, you can still complete the majority of this tutorial. We will call out any special steps required if you don't have the hardware.
 
@@ -208,7 +208,7 @@ Capabilities are broken down into the things the device can do (commands), and t
 
 .. note::
 
-    A device may (and typically do) support multiple capabilities. For example, a Phillips Hue Bulb supports the Switch capability, because it can turn on and off. It also supports the Color Control capability, since the bulb can change colors. In our example, a Hue bulb could be selected by the user since it supports the Switch capability.
+    A device may (and typically does) support multiple capabilities. For example, a Phillips Hue Bulb supports the Switch capability, because it can turn on and off. It also supports the Color Control capability, since the bulb can change colors. In our example, a Hue bulb could be selected by the user since it supports the Switch capability.
 
     But, our SmartApp is only requesting that a user select a device that supports the Switch capability, so even if the user selects a device that can do more (such as a Hue bulb), we cannot assume that in our SmartApp. All we can know is that the device supports the Switch capability.
 
@@ -237,7 +237,7 @@ Events and Callback Methods
 
 Our SmartApp needs to turn a switch on when motion is detected. To turn the switch on, we first need to know when motion is detected!
 
-SmartApps can subscribe to various events, so that when that event happens, our SmartApp will be notified. We do this by using the ``subscribe`` method.
+SmartApps can subscribe to various events, so that when that event happens, our SmartApp will be notified. We do this by using the :ref:`smartapp_subscribe` method.
 
 In your editor, below the ``preferences``, you'll see some methods already defined:
 
@@ -260,11 +260,11 @@ In your editor, below the ``preferences``, you'll see some methods already defin
 
     // TODO: implement event handlers
 
-Every SmartApp must define methods named ``installed()`` and ``updated()``. When  a user installs a SmartApp by clicking on the *Install* button in the mobile application (after filling out any required preferences inputs), the ``installed()`` method we define in our SmartApp will be called. This is where SmartApps can subscribe to any device changes we are interested in, as well as set up any scheduled tasks we want our SmartApp to perform.
+Every SmartApp must define methods named :ref:`smartapp_installed` and :ref:`smartapp_updated`. When  a user installs a SmartApp by clicking on the *Install* button in the mobile application (after filling out any required preferences inputs), the ``installed()`` method we define in our SmartApp will be called. This is where SmartApps can subscribe to any device changes we are interested in, as well as set up any scheduled tasks we want our SmartApp to perform.
 
 Similarly, the ``updated()`` method is called when a user updates their installation of the SmartApp by changing any of the preferences inputs. For example, a user may want to change which switch is turned on after they have installed the SmartApp. So, they open the SmartApp settings, select a different switch, and then update the SmartApp. At this point, the ``updated()`` method is called.
 
-In our ``updated()`` method, notice that the first thing we do (aside from some logging, which is discussed shortly), is to call a method called ``unsubscribe()``. This method is provided by the SmartThings platform, and simply removes any existing subscriptions this SmartApp has created. This is important, since the user has just changed their preferences for this SmartApp. If we didn't do this, we might still be subscribed to events for devices that the user has removed from the SmartApp.
+In our ``updated()`` method, notice that the first thing we do (aside from some logging, which is discussed shortly), is to call a method called :ref:`smartapp_unsubscribe`. This method is provided by the SmartThings platform, and simply removes any existing subscriptions this SmartApp has created. This is important, since the user has just changed their preferences for this SmartApp. If we didn't do this, we might still be subscribed to events for devices that the user has removed from the SmartApp.
 
 Also, note that both ``installed()`` and ``updated()`` call a method named ``initialize()``. Since both ``installed()`` and ``upated()`` typically both create subscriptions or schedules, we can reduce code duplication by using a helper method.
 

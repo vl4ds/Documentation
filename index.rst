@@ -48,7 +48,7 @@ Contents
    :maxdepth: 2
    :caption: Guides
 
-   introduction/index
+   architecture/index
    tools-and-ide/index
    smartapp-developers-guide/index
    smartapp-web-services-developers-guide/index

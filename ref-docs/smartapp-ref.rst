@@ -13,6 +13,8 @@ When a SmartApp executes, it executes in the context of a certain installation i
 
 The following methods should be defined by all SmartApps. They are called by the SmartThings platform at various points in the SmartApp lifecycle.
 
+.. _smartapp_installed:
+
 installed()
 ~~~~~~~~~~~
 
@@ -39,6 +41,8 @@ Called when an instance of the app is installed. Typically subscribes to events 
     }
 
 ----
+
+.. _smartapp_updated:
 
 updated()
 ~~~~~~~~~
@@ -1583,6 +1587,8 @@ Parses a comma-delimited string into a map.
 
 ----
 
+.. _smartapp_subscribe:
+
 subscribe()
 ~~~~~~~~~~~
 
@@ -1904,6 +1910,8 @@ Deletes all scheduled jobs for the installed SmartApp.
 
 
 ----
+
+.. _smartapp_unsubscribe:
 
 unsubscribe()
 ~~~~~~~~~~~~~
