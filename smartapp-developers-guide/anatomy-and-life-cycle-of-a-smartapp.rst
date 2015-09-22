@@ -167,9 +167,7 @@ SmartApp Sandboxing
 
 SmartApps are developed in a sandboxed environment. The sandbox is a way
 to limit developers to a specific subset of the Groovy language for
-performance and security. We have
-`documented <../introduction/groovy-the-smartthings-programming-language.html#groovy-sandboxing>`__ the main ways
-this should affect you.
+performance and security. We have :ref:`documented <groovy-for-smartthings>` the main ways this should affect you.
 
 Execution Location
 ------------------

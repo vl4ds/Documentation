@@ -439,7 +439,7 @@ We will also subscribe the ``"motion.inactive"`` event in a similar way. Add thi
             }
         }
 
-        Our SmartApp will use separate subscriptions and event handlers, but you are free to modify it to use a single subscription and handle the different values in your event handler method.
+    Our SmartApp will use separate subscriptions and event handlers, but you are free to modify it to use a single subscription and handle the different values in your event handler method.
 
 We need to define the ``motionStoppedHandler`` event handler method - add this method to your SmartApp:
 

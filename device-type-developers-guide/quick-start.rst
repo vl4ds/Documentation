@@ -9,7 +9,7 @@ This guide will walk you through getting your first device handler running.
 
     This guide assumes you have created a developer account, and are generally familiar with development in the SmartThings ecosystem.
 
-    If you are new to SmartThings development, consider starting with the `Getting Started Guide <../getting-started.html>`__.
+    If you are new to SmartThings development, consider starting with the :ref:`Getting Started <get-started-overview>` material.
 
 Go to My Device Types in IDE
 ----------------------------
@@ -58,11 +58,11 @@ Find the tile definition for the "switch" tile:
 
 .. code-block:: groovy
 
-        standardTile("switch", "device.switch", width: 2, height: 2, 
+        standardTile("switch", "device.switch", width: 2, height: 2,
                      canChangeIcon: true) {
-            state "off", label: '${name}', action: "switch.on", 
+            state "off", label: '${name}', action: "switch.on",
                    icon: "st.switches.switch.off", backgroundColor: "#ffffff"
-            state "on", label: 'AM ON', action: "switch.off", 
+            state "on", label: 'AM ON', action: "switch.off",
                   icon: "st.switches.switch.on", backgroundColor: "#79b821"
         }
 
@@ -73,7 +73,7 @@ Click the "Save" button above the editor.
 Install with a Virtual Device
 -----------------------------
 
-In the right-hand side of the IDE, you will see a drop-down menu where you can choose any of your locations. 
+In the right-hand side of the IDE, you will see a drop-down menu where you can choose any of your locations.
 
 .. figure:: ../img/device-types/set-location.png
 
@@ -93,7 +93,7 @@ Try clicking on the switch icon in the IDE (notice it should display the label t
 
 You can also test sending some messages by selecting a message in the drop-down, and clicking the *play* button.
 
-Towards the bottom of the tools, you'll see some  buttons like "on" and "off". 
+Towards the bottom of the tools, you'll see some  buttons like "on" and "off".
 
 These are the commands that your device handler supports. Notice that they are organized by the capability that defines those commands (e.g., "on" and "off" come from the "Switch" capability). You can test sending commands to your device handler. This simulates a SmartApp calling the ``on()`` command on your device, for example.
 
@@ -102,7 +102,7 @@ Feel free to make some changes, like logging some more information, then saving 
 Bonus Step - Install on a Real Device
 -------------------------------------
 
-If you happen to have a CentraLite switch, you can swap in your new device handler for the default CentraLite switch device-handler. 
+If you happen to have a CentraLite switch, you can swap in your new device handler for the default CentraLite switch device-handler.
 
 Go to the `My Devices <https://graph.api.smartthings.com/device/list>`__ page in the IDE:
 
@@ -114,7 +114,7 @@ Towards the bottom of the page for the CentraLite Switch, click the "Edit" butto
 
 Your switch is now using your device handler. If you refresh the mobile app (you may need to kill it and restart it), you should see the tile icons updated with whatever label you gave it.
 
-If you make future changes to your device handler, don't forget to click the "Publish" button after you have saved. 
+If you make future changes to your device handler, don't forget to click the "Publish" button after you have saved.
 
 
 Next Steps

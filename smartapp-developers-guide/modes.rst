@@ -156,13 +156,6 @@ If we do need to change the mode, we first verify that the mode actually exists.
 
     if (location.modes?.find{it.name == newMode})
 
-.. tip::
-
-    Note the use of the ``?`` operator above. This Groovy operator is referred to as the *Safe Navigation* operator, and it allows us to avoid a ``NullPointerException`` that might occur if ``location.modes`` returned null, in the example above. If ``location.modes`` did evaluate to null, the rest of the statement simply wouldn't execute.
-
-    If you come from a Java background, you might be used to writing the above with an ``if`` check for ``null``. The ``?`` operator allows you to accomplish the same task, without cluttering your code with such boilerplate instructions.
-
-    You can read more about this operator `here <http://docs.groovy-lang.org/latest/html/documentation/#_safe_navigation_operator>`__.
 
 Further Reading
 ---------------
