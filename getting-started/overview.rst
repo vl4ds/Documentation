@@ -63,6 +63,17 @@ Developers can also integrate new devices into the SmartThings ecosystem by crea
 
 ----
 
+An Open Platform
+----------------
+
+SmartThings was built by developers, for developers. We recognized that only by creating an open development platform, will the power of the IoT be fully unleashed.
+
+Our :ref:`web-based IDE and simulator <tools_ide>` allows developers to create, edit, test, and publish their SmartThings code. SmartApps and Device Type Handlers are hosted in our `public GitHub Repository <https://github.com/SmartThingsCommunity/SmartThingsPublic>`__, and our web-based IDE and simulator is :ref:`integrated with GitHub <github_integration>`.
+
+Our vibrant `developer community <https://community.smartthings.com/c/developers>`__ is a great place to learn, collaborate, and help each other.
+
+----
+
 What's Next?
 ------------
 
