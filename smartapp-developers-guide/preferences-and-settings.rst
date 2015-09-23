@@ -593,6 +593,8 @@ Valid input options:
     String - default value of the input element
 *multiple*
     Boolean - ``true`` to allow multiple values or ``false`` to allow only one value. Not valid for all input types.
+*range*
+    A range for numeric (number and decimal) that restricts the valid entries to values within the range. For exampe, ``range: "2..7"`` will only allow inputs between 2 and 7 (inclusive). ``range: "-5..8"`` allows inputs between -5 and 8. A value of "*" will allow any numeric value on that side of the range. Use ``range: "*..*"`` to allow the user to enter any value, negative or positive. Note that without specifying a range that allows negative numbers, the mobile clients will only show a keypad to allow positive numeric entries.
 *required*
     Boolean - ``true`` to require the selection of a device for this input or ``false`` to not require selection.
 *submitOnChange*
