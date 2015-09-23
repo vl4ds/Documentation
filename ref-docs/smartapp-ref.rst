@@ -478,7 +478,7 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 httpGet()
 ~~~~~~~~~
 
-Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
+Executes an HTTP GET request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
@@ -573,7 +573,7 @@ If the response content type is JSON, the response data will automatically be pa
     ``void httpPost(Map params, Closure closure)``
 
 **Parameters:**
-    `String`_ ``uri`` - The URI to make the HTTP GET call to
+    `String`_ ``uri`` - The URI to make the HTTP POST call to
 
     `String`_ ``body`` - The body of the request
 
@@ -683,7 +683,7 @@ If the response content type is JSON, the response data will automatically be pa
     ``void httpPut(Map params, Closure closure)``
 
 **Parameters:**
-    `String`_ ``uri`` - The URI to make the HTTP GET call to
+    `String`_ ``uri`` - The URI to make the HTTP PUT call to
 
     `String`_ ``body`` - The body of the request
 
