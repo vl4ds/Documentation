@@ -285,6 +285,25 @@ into account error checking for the http request.
 Handling Adds, Changes, Deletes
 -------------------------------
 
+singleInstance Service Manager
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Adding the tag ``singleInstance: true`` to your service manager will ensure only one instance of the service manager can be installed. All child devices will be installed under the single parent service manager. This enforces a one-to-many relationship between the parent Service Manager SmartApp and any child devices.
+
+.. code-block:: groovy
+    :emphasize-lines: 9
+
+    definition(
+        name: "Ecobee (Connect)",
+        namespace: "smartthings",
+        author: "SmartThings",
+        description: "Connect your Ecobee thermostat to SmartThings.",
+        category: "SmartThings Labs",
+        iconUrl: "https://s3.amazonaws.com/smartapp-icons/Partner/ecobee.png",
+        iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Partner/ecobee@2x.png",
+        singleInstance: true)
+
+
 Implicit Creation of New Child Devices
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
