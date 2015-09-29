@@ -585,6 +585,8 @@ The second form explicitly specifies the name of each argument:
 
 Valid input options:
 
+*capitalization*
+    (Note - this feature is currently only supported on iOS devices) String - if the input is a text field, this controls the behavior of the auto-capitalization on the mobile device. ``"none"`` specifies to not enable auto-capitalization for any word. ``"sentences"`` will capitlize the first letter of each sentence. ``"all"`` will use all caps (BECAUSE EVERYONE LIKES TO YELL). ``"words"`` will capitalize every word. The default if not specified is ``"words"``.
 *name*
     String - name of variable that will be created in this SmartApp to reference this input
 *title*
