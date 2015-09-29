@@ -1,3 +1,5 @@
+.. _smartapp-scheduling:
+
 Scheduling
 ==========
 
@@ -352,10 +354,3 @@ These SmartApps can be viewed in the IDE using the "Browse Templates" button:
 - "Turn It On For 5 Minutes" uses ``runIn`` to to turn a switch off after five minutes.
 - "Left It Open" uses ``runIn`` to see if a door has been left open for a specified number of minutes.
 - "Medicine Reminder" uses ``schedule`` to check if a medicine door has been opened at a certain time.
-
-
-
-
-
-
-
