@@ -190,7 +190,7 @@ The List of Capabilities provided by this Device.
 
 .. code-block:: groovy
 
-    def supportedCaps = somedevice.capabilites
+    def supportedCaps = somedevice.capabilities
     supportedCaps.each {cap ->
         log.debug "This device supports the ${cap.name} capability"
     }
