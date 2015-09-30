@@ -16,6 +16,7 @@ In this chapter, you will learn:
 - What Routines are
 - How to get the available Routines for a location
 - How to execute Routines in a SmartApp
+- How to subscribe to a Routine being executed
 
 Overview
 --------
@@ -103,6 +104,32 @@ You can then access the selected phrase like so:
 
 ----
 
+Routine Events
+--------------
+
+When a routine is executed, a ``"routineExecuted"`` event is created for that location. Here's how you can subscribe to a routine being executed in a SmartApp:
+
+.. code-block:: groovy
+
+    def initialize() {
+        // subscribe to the "routineExecuted" event on the location
+        subscribe(location, "routineExecuted", routineChanged)
+    }
+
+    def routineChanged(evt) {
+        log.debug "routineChanged: $evt"
+
+        // name will be "routineExecuted"
+        log.debug "evt name: ${evt.name}"
+
+        // value will be the ID of the SmartApp that created this event
+        log.debug "evt value: ${evt.value}"
+
+        // descriptionText will be the name of the routine
+        // e.g., "I'm Back!" or "Goodbye!"
+        log.debug "evt descriptionText: ${evt.descriptionText}"
+    }
+
 Example
 -------
 
@@ -145,6 +172,7 @@ This example simply shows executing a selected routine when a switch turns on, a
 
     def initialize() {
     	subscribe(theswitch, "switch", handler)
+        subscribe(location. "routineChanged", routineChanged)
         log.debug "selected on action $onAction"
         log.debug "selected off action $offAction"
     }
@@ -157,6 +185,13 @@ This example simply shows executing a selected routine when a switch turns on, a
     	    log.debug "switch turned off, will execute action ${settings.offAction}"
         	location.helloHome?.execute(settings.offAction)
         }
+    }
+
+    def routineChanged(evt) {
+        log.debug "routineChanged: $evt"
+        log.debug "evt name: ${evt.name}"
+        log.debug "evt value: ${evt.value}"
+        log.debug "evt descriptionText: ${evt.descriptionText}"
     }
 
 ----
