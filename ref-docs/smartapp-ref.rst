@@ -1224,19 +1224,20 @@ Creates and sends an event constructed from the specified properties. If a devic
 
     Here are the available properties:
 
-    ================    ===========
-    Property            Description
-    ================    ===========
-    name (required)     `String`_ - The name of the event. Typically corresponds to an attribute name of a capability.
-    value (required)    The value of the event. The value is stored as a string, but you can pass numbers or other objects.
-    descriptionText     `String`_ - The description of this event. This appears in the mobile application activity for the device. If not specified, this will be created using the event name and value.
-    displayed           Pass ``true`` to display this event in the mobile application activity feed, ``false`` to not display. Defaults to ``true``.
-    linkText            `String`_ - Name of the event to show in the mobile application activity feed.
-    isStateChange       ``true`` if this event caused a device attribute to change state. Typically not used, since it will be set automatically.
-    unit                `String`_ - a unit string, if desired. This will be used to create the ``descriptionText`` if it (the ``descriptionText`` option) is not specified.
-    ================    ===========
+    =================    ===========
+    Property             Description
+    =================    ===========
+    name (required)      `String`_ - The name of the event. Typically corresponds to an attribute name of a capability.
+    value (required)     The value of the event. The value is stored as a string, but you can pass numbers or other objects.
+    descriptionText      `String`_ - The description of this event. This appears in the mobile application activity for the device. If not specified, this will be created using the event name and value.
+    displayed            Pass ``true`` to display this event in the mobile application activity feed, ``false`` to not display. Defaults to ``true``.
+    linkText             `String`_ - Name of the event to show in the mobile application activity feed.
+    isStateChange        ``true`` if this event caused a device attribute to change state. Typically not used, since it will be set automatically.
+    unit                 `String`_ - a unit string, if desired. This will be used to create the ``descriptionText`` if it (the ``descriptionText`` option) is not specified.
+    :ref:`device_ref`    ``device`` - The device for which this event is created for.
+    data                 A map of additional information to store with the event
+    =================    ===========
 
-    :ref:`device_ref` ``device`` - The device for which this event is created for.
 
 .. tip::
 
@@ -1249,7 +1250,11 @@ Creates and sends an event constructed from the specified properties. If a devic
 
 .. code-block:: groovy
 
+    // create and send an event with name "temperature" and value 72
     sendEvent(name: "temperature", value: 72, unit: "F")
+
+    // create and send event with additional data
+    sendEvent(name: "myevent", value: "myvalue", data: [moreInfo: "more information", evenMoreInfo: 42])
 
 ----
 
@@ -1276,6 +1281,7 @@ Sends a LOCATION event constructed from the specified properties. See the :ref:`
     linkText            `String`_ - Name of the event to show in the mobile application activity feed.
     isStateChange       ``true`` if this event caused a device attribute to change state. Typically not used, since it will be set automatically.
     unit                `String`_ - a unit string, if desired. This will be used to create the ``descriptionText`` if it (the ``descriptionText`` option) is not specified.
+    data                A map of additional information to store with the event
     ================    ===========
 
 **Returns:**
