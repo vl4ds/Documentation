@@ -401,6 +401,7 @@ Creates a Map that represents an :ref:`event_ref` object. Typically used in the 
     linkText            `String`_   name of the event to show in the mobile application activity feed.
     isStateChange       `Boolean`_  specify ``true`` if this event caused a device attribute to change state. Typically not used, since it will be set automatically.
     unit                `String`_   a unit string, if desired. This will be used to create the ``descriptionText`` if it (the ``descriptionText`` option) is not specified.
+    data                `Map`_      A map of additional information to store with the event
     ================    =========== ===========
 
 **Example:**
@@ -1011,6 +1012,7 @@ Create and fire an :ref:`event_ref` . Typically a Device Handler will return the
     linkText            `String`_ - Name of the event to show in the mobile application activity feed.
     isStateChange       ``true`` if this event caused a device attribute to change state. Typically not used, since it will be set automatically.
     unit                `String`_ - a unit string, if desired. This will be used to create the ``descriptionText`` if it (the ``descriptionText`` option) is not specified.
+    data                A map of additional information to store with the event
     ================    ===========
 
 .. tip::

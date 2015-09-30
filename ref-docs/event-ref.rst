@@ -9,7 +9,7 @@ Event instances are not created directly by SmartApp or Device Handlers. They ar
 
 .. note::
 
-    In a SmartApp or Device Handler, the method ``createEvent`` exists to create a Map that defines properties of an Event. Only by returning the resulting map from a Device Handler's ``parse`` method is an actual Event instance created and propogated through the SmartThings system. 
+    In a SmartApp or Device Handler, the method ``createEvent`` exists to create a Map that defines properties of an Event. Only by returning the resulting map from a Device Handler's ``parse`` method is an actual Event instance created and propogated through the SmartThings system.
 
 The reference documentation here lists all properties and methods available on an Event object instance.
 
@@ -20,7 +20,7 @@ date
 
 Acquisition time of this device state record.
 
-**Signature:** 
+**Signature:**
     ``Date date``
 
 **Returns:**
@@ -41,7 +41,7 @@ id
 
 The unique system identifier for this event.
 
-**Signature:** 
+**Signature:**
     ``String id``
 
 **Returns:**
@@ -57,12 +57,43 @@ The unique system identifier for this event.
 
 ----
 
+data
+~~~~
+
+A map of any additional data on the event.
+
+**Signature:**
+    ``String id``
+
+**Returns:**
+    `Map`_ - A map of the additional data (if any) on the event.
+
+**Example:**
+
+Consider an event created like this:
+
+.. code-block:: groovy
+
+    createEvent(name: "myevent", value: "myvalue", data: [key1: "val", key2: 42])
+
+Then in an event handler method, we can get at the data like this:
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "event data: ${evt.data}"
+        log.debug "event key1: ${evt.data.key1}"
+        log.debug "event key2: ${evt.data.key2}"
+    }
+
+----
+
 dateValue
 ~~~~~~~~~
 
 The value of the event as a `Date`_ object, if applicable.
 
-**Signature:** 
+**Signature:**
     ``Date dateValue``
 
 **Returns:**
@@ -88,7 +119,7 @@ The value of the event as a `Date`_ object, if applicable.
         } catch (e) {
             log.debug "Trying to get the dateValue for ${evt.name} threw an exception: $e"
         }
-    } 
+    }
 
 ----
 
@@ -149,7 +180,7 @@ The :ref:`device_ref` associated with this Event.
 displayName
 ~~~~~~~~~~~
 
-**Signature:** 
+**Signature:**
     ``String displayName``
 
 **Returns:**
@@ -232,7 +263,7 @@ The value of this Event as a Float, if it can be parsed into a Float.
     `Float`_ - the value of this Event as a Float.
 
 .. warning::
-    
+
     ``floatValue`` will throw an Exception if the Event's value is not parseable to a Float.
 
     You should wrap calls in a try/catch block.
@@ -249,7 +280,7 @@ The value of this Event as a Float, if it can be parsed into a Float.
             log.debug "evt.floatValue instanceof Float? ${evt.floatValue instanceof Float}"
         } catch (e) {
             log.debug "Trying to get the floatValue for ${evt.name} threw an exception: $e"
-        }    
+        }
     }
 
 ----
@@ -311,7 +342,7 @@ The value of this Event as an Integer.
 **Returns:**
     `Integer`_ - the value of this Event as an Integer.
 
-.. warning:: 
+.. warning::
 
     ``integerValue`` throws an Exception of the Event value cannot be parsed to an Integer.
 
@@ -346,7 +377,7 @@ isDigital()
     `Boolean`_ - ``true`` if the Event is from the digital actuation of a Device, ``false`` otherwise.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     def eventHandler(evt) {
@@ -372,7 +403,7 @@ Acquisition time of this Event as an ISO-8601 String.
 
     def eventHandler(evt) {
         log.debug "event isoDate: ${evt.isoDate}"
-    }    
+    }
 
 ----
 
@@ -388,7 +419,7 @@ isPhysical()
     `Boolean`_ - ``true`` if the Event is from the physical actuation of a Device, ``false`` otherwise.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     def eventHandler(evt) {
@@ -430,7 +461,7 @@ Value of the Event as a parsed JSON data structure.
     `Object`_ - The value of the Event as a JSON structure
 
 .. warning::
-    
+
     ``jsonValue`` throws an Exception if the value of the Event cannot be parsed into a JSON object.
 
     You should wrap calls in a try/catch block.
@@ -446,7 +477,7 @@ Value of the Event as a parsed JSON data structure.
             log.debug "The jsonValue of this event is ${evt.jsonValue}"
         } catch (e) {
             log.debug "Trying to get the jsonValue for ${evt.name} threw an exception: $e"
-        } 
+        }
     }
 
 ----
@@ -454,7 +485,7 @@ Value of the Event as a parsed JSON data structure.
 linkText
 ~~~~~~~~
 
-.. warning:: 
+.. warning::
 
     Deprecated.
 
@@ -502,7 +533,7 @@ The value of this Event as a Long.
     `Long`_ - the value of this Event as a Long.
 
 .. warning::
-    
+
     ``longValue`` throws an Exception if the value of the Event cannot be parsed to a Long.
 
     You should wrap calls in a try/catch block.
@@ -537,9 +568,9 @@ The name of this Event.
     `String`_ - the name of this event.
 
 **Example:**
-    
+
 .. code-block:: groovy
-    
+
     def eventHandler(evt) {
         log.debug "the name of this event: ${evt.name}"
     }
@@ -558,7 +589,7 @@ The value of this Event as a Number.
     `BigDecimal`_ - the value of this event as a BigDecimal.
 
 .. warning::
-    
+
     ``numberValue`` throws an Exception if the value of the Event cannot be parsed to a BigDecimal.
 
     You should wrap calls in a try/catch block.
@@ -576,7 +607,7 @@ The value of this Event as a Number.
             log.debug "evt.numberValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
         } catch (e) {
             log.debug "Trying to get the numberValue for ${evt.name} threw an exception: $e"
-        }    
+        }
     }
 
 ----
@@ -593,7 +624,7 @@ The value of this Event as a Number.
     `BigDecimal`_ - the value of this event as a BigDecimal.
 
 .. warning::
-    
+
     ``numericValue`` throws an Exception if the value of the Event cannot be parsed to a BigDecimal.
 
     You should wrap calls in a try/catch block.
@@ -611,9 +642,9 @@ The value of this Event as a Number.
             log.debug "evt.numericValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
         } catch (e) {
             log.debug "Trying to get the numericValue for ${evt.name} threw an exception: $e"
-        }    
+        }
     }
-    
+
 ----
 
 source
@@ -727,7 +758,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
     `Map`_ < `String`_ , `BigDecimal`_ > - A map representing the X, Y, and Z coordinates.
 
 .. warning::
-    
+
     ``xyzValue`` throws an Exception if the value of the Event cannot be parsed to an X-Y-Z data structure.
 
     You should wrap calls in a try/catch block.
@@ -737,7 +768,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
 .. code-block:: groovy
 
     def positionChangeHandler(evt) {
-        // get the value of this event as a 3 entry map with keys 
+        // get the value of this event as a 3 entry map with keys
         //'x', 'y', 'z', and BigDecimal values
         // throws an exception if the value is not convertable to a Date
         try {
