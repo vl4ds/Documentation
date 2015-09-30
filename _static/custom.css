@@ -40,3 +40,12 @@ body {
 .brown {
     color: #8b4513;
 }
+
+.strike {
+  text-decoration: line-through;
+}
+
+div.column {
+    background-color: #eee;
+    /*border: 1px solid #ccc;*/
+}
