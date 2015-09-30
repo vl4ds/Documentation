@@ -216,7 +216,7 @@ uninstall button on the first and third pages:
 ====================================================    ====================================================    ====================================================
 Page 1                                                  Page 2                                                  Page 3
 ====================================================    ====================================================    ====================================================
-.. image:: ../img/smartapps/multiple-pages-page1.png    .. image:: ../img/smartapps/multiple-pages-page2.png    .. image:: ../img/smartapps/multiple-pages-page1.png
+.. image:: ../img/smartapps/multiple-pages-page1.png    .. image:: ../img/smartapps/multiple-pages-page2.png    .. image:: ../img/smartapps/multiple-pages-page3.png
 ====================================================    ====================================================    ====================================================
 
 Preference Elements & Inputs
@@ -278,7 +278,7 @@ Example:
 
     preferences {
         section("paragraph") {
-            icon(title: "required:true",
+            icon(title: "required is true",
                  required: true)
         }
     }
