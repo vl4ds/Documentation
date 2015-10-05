@@ -239,7 +239,7 @@ Example:
 
     preferences {
         section("paragraph") {
-            paragraph "This us how you can make a paragraph element"
+            paragraph "This is how you can make a paragraph element"
             paragraph image: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
                       title: "paragraph title",
                       required: true,
