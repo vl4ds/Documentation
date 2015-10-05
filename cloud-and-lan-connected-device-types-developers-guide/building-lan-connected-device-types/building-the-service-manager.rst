@@ -129,25 +129,24 @@ state, go ahead and add it.
 .. code-block:: groovy
 
     def locationHandler(evt) {
-      def description = evt.description
-      def hub = evt?.hubId
+        def description = evt.description
+        def hub = evt?.hubId
 
-      def parsedEvent = parseEventMessage(description)
-      parsedEvent << ["hub":hub]
+        def parsedEvent = parseEventMessage(description)
+        parsedEvent << ["hub":hub]
 
-      if (parsedEvent?.ssdpTerm?.contains("urn:schemas-upnp-org:device:DeviceIdentifier:1"))
-      {
-
-        def devices = getDevices()
-
-        if (!(devices."${parsedEvent.ssdpUSN.toString()}"))
-        {
-          devices << ["${parsedEvent.ssdpUSN.toString()}":parsedEvent]
+        if (parsedEvent?.ssdpTerm?.contains("urn:schemas-upnp-org:device:DeviceIdentifier:1")) {
+          def devices = getDevices()
+          if (!(devices."${parsedEvent.ssdpUSN.toString()}")) {
+            devices << ["${parsedEvent.ssdpUSN.toString()}":parsedEvent]
+          }
         }
+     }
 
-    def getDevices()
-    {
-      if (!state.devices) { state.devices = [:] }
+    def getDevices() {
+      if (!state.devices) {
+          state.devices = [:]
+      }
       state.devices
     }
 
