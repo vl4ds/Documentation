@@ -55,43 +55,7 @@ typically called in a timing loop.
 mDNS/DNS-SD
 ~~~~~~~~~~~
 
-mDNS/DNS-SD is another popular protocol used to find devices on a
-network. It's made up of Multicast DNS and DNS-based service discovery.
-Known as Bonjour in the Apple ecosystem, Apple relies on mMDNS/DNS-SD for
-services such as iChat or AppleTV.
-
-*How it Works*
-
-1. The device generates a unique IP address and calls out to the network
-   to confirm the IP is not in use.
-2. If the IP is not in use, it then passes a unique name to the network
-   to confirm the name is not in use.
-3. If the name not in use, the device starts a service.
-4. The name is published as a record on the network, so others can find
-   it.
-5. The client searches for a particular device by name, and finds the
-   device.
-
-As a device type developer, you are responsible only for step 5 in the
-process.
-
-More information on Bonjour can be found in `Apple's Developer
-documentation <https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/NetServices/Articles/NetServicesArchitecture.html#//apple_ref/doc/uid/20001074-SW1>`__.
-
-Your discovery request would look like this:
-
-.. code-block:: groovy
-
-    sendHubCommand(new physicalgraph.device.HubAction("lan discover mdns/dns-sd ._smartthings._tcp._site", physicalgraph.device.Protocol.LAN))
-
-The main message to be sent through the hub is
-
-.. code-block:: groovy
-
-    lan discover mdns/dns-sd ._smartthings._tcp._site
-
-The protocol is **lan**, it's sent through **mdns/dns-sd** and the
-service's record name is \*\*.\ *smartthings.*\ tcp.\_site\*\*.
+Device discovery via mDNS/DNS-SD or Bonjour is not currently supported.
 
 Handling Updates (Adds/Changes/Deletes)
 ---------------------------------------
