@@ -304,6 +304,21 @@ Valid options:
 
 ----
 
+image
+~~~~~
+
+Shows an image (??)
+
+Example:
+
+.. code-block:: groovy
+
+    preferences {
+        section("")
+    }
+
+----
+
 href
 ~~~~
 

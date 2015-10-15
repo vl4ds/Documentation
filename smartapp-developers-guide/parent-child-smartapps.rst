@@ -153,7 +153,7 @@ Here's the child SmartApp:
         category: "My Apps",
 
         // the parent option allows you to specify the parent app in the form <namespace>/<app name>
-        parent: "mynamespace/parent:Not So Smart Lighting",
+        parent: "mynamespace/parent:Simple Lighting",
         iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
         iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
         iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
@@ -381,7 +381,7 @@ Here's the child SmartApp:
     	lights.off()
     }
 
-To try it out, create the parent and child SmartApp with the code as shown above, and publish them for yourself. Then, go to the marketplace and install "Simple Lighting" in "My Apps". You can then add multiple automations, with each automation being an instance of the child SmartApp ("Simple Automation").
+To try it out, create the parent and child SmartApp with the code as shown above, and publish the parent SmartApp for yourself (you don't need to publish the child SmartApp, since it will be discovered by the parent and you don't want to install it individually from the marketplace). Then, go to the marketplace and install "Simple Lighting" in "My Apps". You can then add multiple automations, with each automation being an instance of the child SmartApp ("Simple Automation").
 
 Tips & Best Practices
 ---------------------

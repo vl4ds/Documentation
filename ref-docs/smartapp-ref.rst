@@ -298,6 +298,42 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 
 ----
 
+findChildAppByName()
+~~~~~~~~~~~~~~~~~~~~
+
+Gets the specified child SmartApps, if it is found.
+
+**Signature:**
+    ``App findChildAppByName(String appName)``
+
+**Parameters:**
+    `String`_ ``appName`` - the name of the SmartApp to find.
+
+**Returns:**
+    The instance of the child SmartApp.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def child = findChildAppByName("My Child App")
+    log.debug "child app id: ${child.id}"
+
+----
+
+getChildApps()
+~~~~~~~~~~~~~~
+
+Get all child SmartApps for this SmartApp, if they exist.
+
+**Signature:**
+    ``List getChildApps()``
+
+**Returns:**
+    A list of all the child SmartApps for th is SmartApp, if they exist.
+
+----
+
 deleteChildDevice()
 ~~~~~~~~~~~~~~~~~~~
 
