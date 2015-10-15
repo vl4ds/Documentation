@@ -28,5 +28,6 @@ The contents of this guide are below:
    sunset-and-sunrise
    calling-web-services-in-smartapps
    sending-notifications
+   parent-child-smartapps
    example-bon-voyage
    submitting-smartapps-for-publication
