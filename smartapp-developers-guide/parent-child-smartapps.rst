@@ -19,7 +19,7 @@ To define that a SmartApp is a parent to other SmartApps, use the ``app`` input 
 .. code-block:: groovy
 
     preferences {
-        page("mainPage", title: "Child Apps", install: true, uninstall: true) {
+        page(name: "mainPage", title: "Child Apps", install: true, uninstall: true) {
             section {
                 app(name: "childApps", appName: "Child App", namespace: "mynamespace", title: "New Child App", multiple: true)
             }
