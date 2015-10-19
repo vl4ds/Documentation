@@ -41,6 +41,12 @@ In the SmartApp you wish to serve as the child, specify the ``parent`` option in
         ...
     )
 
+.. note::
+
+    When you save the child SmartApp, the platform will validate that a parent SmartApp with the namespace and name as specified in the ``parent`` option exists. If it does not, an error will be raised.
+
+    Either make sure your parent SmartApp has been saved first, or come back and add the ``parent`` option after your parent SmartApp has been saved.
+
 Communicating Between Parent and Children
 -----------------------------------------
 
