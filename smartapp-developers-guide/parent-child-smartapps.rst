@@ -78,7 +78,7 @@ Children can communicate with their parent by using the ``parent`` property in t
 Preventing More Than One Parent Instance
 ----------------------------------------
 
-If you want to prevent users from installing more than one Parent SmartApp in their location, you can specify ``singleInstane: true`` in the definition:
+If you want to prevent users from installing more than one Parent SmartApp in their location, you can specify ``singleInstance: true`` in the definition:
 
 .. code-block:: groovy
 
