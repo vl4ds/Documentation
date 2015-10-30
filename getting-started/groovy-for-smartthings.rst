@@ -73,6 +73,15 @@ SmartThings also specifies a *whitelist* of allowed classes. Only classes includ
 Most SmartThings solutions will not need to instantiate any of these classes directly. The majority of objects you work with will be available to you via callback parameters or injected right into your SmartApp or Device Type Handler.
 Here is the whitelist of available, non-SmartThings-specific types (i.e., Java, Groovy and third party library classes):
 
+.. important::
+    Certain methods that update JVM settings are disallowed, even though the usage of the class is permitted.
+    For example, calling ``TimeZone.setDefault()`` is not allowed, and will throw a ``SecurityException``.
+
+    This is due to the fact that many SmartThings applications may be executing on a single JVM.
+    Updating system-wide properties may have unintended consequences on other applications running on the same JVM.
+
+    As a general rule-of-thumb, if a method has impact on the underlying JVM, it will not be allowed, for the reasons discussed above.
+
 - ``ArrayList``
 - ``BigDecimal``
 - ``BigInteger``
