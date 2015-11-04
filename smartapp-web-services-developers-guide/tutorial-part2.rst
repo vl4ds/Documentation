@@ -1,5 +1,10 @@
 .. _smartapp_as_web_service_part_2:
 
+.. important::
+    When you self-publish a SmartApp, it is published and available in the location that you published it. Since SmartThings is moving into the global space, the location that you published your SmartApp corresponds to a specific server. This means your self-published SmartApp is only available on that server.
+
+    To make sure that your SmartApp is making requests to the correct server, you must use the `uri` parameter sent back in the JSON when you make the request to get the SmartApp endpoint.
+
 Building a Web Services SmartApp - Part 2
 =========================================
 
