@@ -279,14 +279,14 @@ Replace the ``/getswitch`` route with the following:
       puts json
 
       # get the endpoint from the JSON:
-      endpoint = json[0]['url']
+      uri = json[0]['uri']
 
-      '<h3>JSON Response</h3><br/>' + JSON.pretty_generate(json) + '<h3>Endpoint</h3><br/>' + endpoint
+      '<h3>JSON Response</h3><br/>' + JSON.pretty_generate(json) + '<h3>Endpoint</h3><br/>' + uri
     end
 
 The above code simply makes a GET request to the SmartThings API endpoints service at ``https://graph.api.smartthings.com/api/smartapps/endpoints``, setting the ``"Authorization"`` HTTP header with the API token.
 
-The response is JSON that contains (among other things), the endpoint of our SmartApp. For this step, we just display the JSON response and endpoint in the page.
+The response is JSON that contains (among other things), the endpoint of our SmartApp. The JSON that is returned contains a key called  `uri` that we will use to build our endpoint URLs. There are other URL keys in the JSON, but the `uri` key is specific to the server that your SmartApp is on. In other words, always use the `uri` key for your endpoints. For this step, we just display the JSON response and endpoint in the page.
 
 By now, you know the drill. Restart your server, refresh the page, and click the link (you'll have to reauthorize). You should then see the JSON response and endpoint displayed on your page.
 
@@ -305,7 +305,7 @@ Remove the line at the end of the ``getswitch`` route handler that outputs the r
 
   # now we can build a URL to our WebServices SmartApp
   # we will make a GET request to get information about the switch
-  switchUrl = 'https://graph.api.smartthings.com' + endpoint + '/switches?access_token=' + token
+  switchUrl = uri + '/switches?access_token=' + token
 
   # debug
   puts "SWITCH ENDPOINT: " + switchUrl
@@ -321,7 +321,7 @@ Remove the line at the end of the ``getswitch`` route handler that outputs the r
   '<h3>Response Code</h3>' + switchStatus.code + '<br/><h3>Response Headers</h3>' + switchStatus.to_hash.inspect + '<br/><h3>Response Body</h3>' + switchStatus.body
 
 
-The above code uses the endpoint for our SmartApp to build a URL, and then makes a GET request to the ``/switches`` endpoint. It simply displays the the status, headers, and response body returned by our WebServices SmartApp.
+The above code uses the endpoint (obtained from the `uri` key in our JSON response above) for our SmartApp to build a URL, and then makes a GET request to the ``/switches`` endpoint. It simply displays the the status, headers, and response body returned by our WebServices SmartApp.
 
 .. note::
 
@@ -377,7 +377,7 @@ Get the API token
   Access token requests have changed to require users to pass their OAuth client ID and secret using HTTP Basic Authentication. This is a security-related improvement, and aligns us closer to the OAuth 2.0 Specification (RFC 6749).
 
   For backwards compatibility, we still support sending the Client ID and secret as POST or GET parameters (outside of the browser context for which the authorization was invoked), but this functionality is deprecated and should be updated as discussed below.
-  
+
 Using the code you just received, and our client ID and secret, we can get our access token. This call must be done **outside of the browser**. The call must include the client ID and secret using HTTP Basic Authentication (we'll use `curl`).
 
 Paste the following into a new terminal window, replacing CLIENT_ID, CLIENT_SECRET, and CODE with the appropriate values:
