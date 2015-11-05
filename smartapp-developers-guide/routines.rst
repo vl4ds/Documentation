@@ -195,6 +195,7 @@ This example simply shows executing a selected routine when a switch turns on, a
         log.debug "routineChanged: $evt"
         log.debug "evt name: ${evt.name}"
         log.debug "evt value: ${evt.value}"
+        log.debug "evt displayValue: ${evt.displayValue}"
         log.debug "evt descriptionText: ${evt.descriptionText}"
     }
 
