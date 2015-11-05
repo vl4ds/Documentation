@@ -125,8 +125,12 @@ When a routine is executed, a ``"routineExecuted"`` event is created for that lo
         // value will be the ID of the SmartApp that created this event
         log.debug "evt value: ${evt.value}"
 
-        // descriptionText will be the name of the routine
+        // displayValue will be the name of the routine
         // e.g., "I'm Back!" or "Goodbye!"
+        log.debug "evt displayValue: ${evt.displayValue}"
+
+        // descriptionText will be the name of the routine, followed by the action
+        // e.g., "I'm Back! was executed" or "Goodbye! was executed"
         log.debug "evt descriptionText: ${evt.descriptionText}"
     }
 
