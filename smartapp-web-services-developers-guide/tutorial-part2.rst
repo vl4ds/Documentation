@@ -431,7 +431,7 @@ That should return JSON that contains information about the OAuth client, as wel
 Make API Calls
 ~~~~~~~~~~~~~~
 
-Now that you have the access token and the endpoint URL, you can make web requests to your SmartApp endpoint using whatever tool you prefer.
+Now that you have the access token and the endpoint URI, you can make web requests to your SmartApp endpoint using whatever tool you prefer.
 
 Get the ``"uri"`` returned above, and add any endpoints your SmartApp exposes (e.g., ``/switches``).
 
