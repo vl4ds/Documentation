@@ -419,18 +419,20 @@ That should return JSON that contains information about the OAuth client, as wel
     [
       {
       "oauthClient": {
-        "clientId": "myclient",
-        "authorizedGrantTypes": "authorization_code"
+        "clientId": "<client_id>",
+        "authorizedGrantTypes": "<authorization_code>"
       },
-      "url": "/api/smartapps/installations/8a2aa0cd3df1a718013df1ca2e3f000c"
+      "uri": "<server>/api/smartapps/installations/<installation_id>",
+      "base_url": "<server_base_url>",
+      "url": "/api/smartapps/installations/<installation_id>"
       }
     ]
 
 Make API Calls
 ~~~~~~~~~~~~~~
 
-Now that you have the access token and the endpoint URL, you can make web requests to your SmartApp endpoint using whatever tool you prefer.
+Now that you have the access token and the endpoint URI, you can make web requests to your SmartApp endpoint using whatever tool you prefer.
 
-Just make sure to preface ``http://graph.api.smartthings.com`` to the beginning of the URL returned above, and any endpoints your SmartApp exposes (e.g., ``/switches``) to the end of the URL.
+Get the ``"uri"`` returned above, and add any endpoints your SmartApp exposes (e.g., ``/switches``).
 
 You can either specify your access token via the ``access_token`` URL parameter as above, or (preferably) use the Authorization header (``"Authorization: Bearer <API TOKEN>"``).
