@@ -272,14 +272,14 @@ Many of the camera Device Handlers will make use of the ``carouselTile()``.
 multiAttributeTile()
 ~~~~~~~~~~~~~~~~~~~~
 
-Multi-Attribute Tiles are a new kind of tile that incorporate multiple attributes into one tile. They are meant to combine several different attributes into one 6X4 tile. Here are some of the types of tiles that you can create:
+Multi-Attribute Tiles combine multiple attributes into a single tile presented with a rich UI. Here are some of the types of tiles that you can create:
 
 ==================================================    ==================================================    ==================================================    ==================================================
 Lighting                                              Thermostat                                            Video Player                                          Generic (Default)
 .. image:: ../img/device-types/lighting.png           .. image:: ../img/device-types/thermostattile.png     .. image:: ../img/device-types/video.png              .. image:: ../img/device-types/generic.png
 ==================================================    ==================================================    ==================================================    ==================================================
 
-Multi-Attribute Tiles must have a width of 6 and a height of 4. This means that the tiles block of your Device Handler must use the new *6 X Unlimited* grid layout.
+Multi-Attribute Tiles must be given a width of 6 and a height of 4. To enable this, the ``tiles`` block of your Device Handler must use the new *6 X Unlimited* grid layout.
 
 .. code-block:: groovy
 
@@ -303,20 +303,20 @@ The ``multiAttributeTile()`` method works much like any of the other tile method
     details "richcontact"
   }
 
-This code should render a device details page that looks like this:
+The above code renders a device details page looking like this:
 
 .. image:: ../img/device-types/contact.png
    :width: 30%
 
-The ``multiAttributeTile()`` method takes the same parameters as any other tile except for the ``type`` attribute. Valid options for ``type`` are ``"generic"``, ``"lighting"``, ``"thermostat"``, and ``"video"``.
+The ``multiAttributeTile()`` method accepts the same parameters as any other tile, with the notable addition of ``type``. Valid options for ``type`` are ``"generic"``, ``"lighting"``, ``"thermostat"``, and ``"video"``.
 
 .. note::
 
-    The ``multiAttributeTile()`` ``type`` option are currently a placeholder. The specified type does not change how the tile will appear.
+    The only ``multiAttributeTile()`` ``type`` option that exhibits special behavior today is ``"thermostat"`` (see below). While the other options are currently only placeholders, we recommend you use the proper type for your given Device Handler.
 
     Also worth noting is that you may see other types of tiles in existing Device Handlers. Tiles that are not documented here should be considered experimental, and subject to change.
 
-Multi-Attribute Tiles support a new child method parameter called ``tileAttribute()``. This is where the real power of multi-attribute tiles comes into play. Each ``tileAttribute()`` declaration defines an attribute that should be visible on the multi attribute tile. The ``tileAttribute()`` method currently supports two parameters:
+The power of Multi-Attribute Tiles comes from its child method parameter, ``tileAttribute()``. Each ``tileAttribute()`` declaration defines an attribute that should be visible on the multi attribute tile. The ``tileAttribute()`` method currently supports two parameters:
 
 *tileAttribute(attribute, key)*
 
@@ -335,7 +335,7 @@ VALUE_CONTROL        Up and down buttons             .. image:: ../img/device-ty
 
 .. note::
 
-  The color of the multi-attribute tile is controlled by the PRIMARY_CONTROL tile attribute. It will default to a light gray color. If the PRIMARY_CONTROL attribute contains states that change the color, the color of the multi attribute tile will also change.
+  The color of the multi-attribute tile is controlled by the PRIMARY_CONTROL tile attribute, or in the case of a ``"thermostat"`` type, the OPERATING_STATE attribute will be used (see below). It will default to a light gray color. If the PRIMARY_CONTROL attribute contains states that change the color, the color of the multi attribute tile will also change.
 
 The last piece of the puzzle is *state*. ``tileAttribute()`` can support *states* just like other tile types. This is done with the new method ``attributeState()``. From the contact example above:
 
@@ -346,7 +346,65 @@ The last piece of the puzzle is *state*. ``tileAttribute()`` can support *states
     attributeState "closed", label:'${name}', icon:"st.contact.contact.closed", backgroundColor:"#79b821"
   }
 
-This will render the main control in the middle (because the ``key`` is specified as ``"PRIMARY_CONTROL"``, with the label either "open" or "closed", the appropriate icon, and a yellow color for the open state and green for closed. You can also supply actions just as you would for ``state()``, to trigger actions when tapping on the control. ``attributeState()`` is just like ``state`` but for ``tileAttribute()``.
+This will render the main control in the middle (because ``key`` is ``"PRIMARY_CONTROL"``), with one of two states: "open" label, open icon, and yellow color; or "closed" label, closed icon, and green color. 
+
+``attributeState()`` accepts all the same parameters as the ``state()`` method for all other tiles. This means you can supply actions just as you would for ``state()``, to trigger actions when tapping on the control.
+
+Multi-Attribute Tiles With ``type: "thermostat"``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. image:: ../img/device-types/multi-thermostat-tile.png
+   :width: 30%
+
+As you can see in the image above, the main distinction thermostat tiles have over the other documented types is the presence of a status label at the bottom of the tile. This label provides users with more information on the state of their thermostat. Additionally, thermostat tiles also look to the OPERATING_STATE attribute for its background color, falling back on PRIMARY_CONTROL's color(s).
+
+In order to provide the relevant data to present the label, we've created four additional attributes you should include.
+
+===================  ============================================  ================================================================================================================
+Value                Meaning                                       Notes
+===================  ============================================  ================================================================================================================
+OPERATING_STATE      What the thermostat is doing                  The label will not show if OPERATING_STATE is omitted, as this is the baseline amount of meaningful information.
+THERMOSTAT_MODE      Thermostat mode (i.e. Heat, Cool, or Auto)    This allows the user to know the mode (and temperature) if the system is idle (e.g. "Idle—Heat at 66°")
+HEATING_SETPOINT     At which point the system will begin heating  Informs the user when heating will start (or stop, if currently heating)
+COOLING_SETPOINT     At which point the system will begin cooling  Informs the user when cooling will start (or stop, if currently cooling)
+===================  ============================================  =====================================================
+
+.. note::
+
+  Only OPERATING_STATE is required to present the status label, but providing all four attributes will ensure the best experience for your users.
+
+Here is an example of a fully-attributed thermostat. Try to model your own device handler after the following for best results.
+
+.. code-block:: groovy
+
+  multiAttributeTile(name:"thermostatMulti", type:"thermostat", width:6, height:4) {
+    tileAttribute("device.temperature", key: "PRIMARY_CONTROL") {
+      attributeState("default", label:'${currentValue}', unit:"dF")
+    }
+    tileAttribute("device.temperature", key: "VALUE_CONTROL") {
+      attributeState("default", action: "setTemperature")
+    }
+    tileAttribute("device.humidity", key: "SECONDARY_CONTROL") {
+      attributeState("default", label:'${currentValue}%', unit:"%")
+    }
+    tileAttribute("device.thermostatOperatingState", key: "OPERATING_STATE") {
+      attributeState("idle", backgroundColor:"#44b621")
+      attributeState("heating", backgroundColor:"#ffa81e")
+      attributeState("cooling", backgroundColor:"#269bd2")
+    }
+    tileAttribute("device.thermostatMode", key: "THERMOSTAT_MODE") {
+      attributeState("off", label:'${name}')
+      attributeState("heat", label:'${name}')
+      attributeState("cool", label:'${name}')
+      attributeState("auto", label:'${name}')
+    }
+    tileAttribute("device.heatingSetpoint", key: "HEATING_SETPOINT") {
+      attributeState("default", label:'${currentValue}', unit:"dF")
+    }
+    tileAttribute("device.coolingSetpoint", key: "COOLING_SETPOINT") {
+      attributeState("default", label:'${currentValue}', unit:"dF")
+    }
+  }
 
 Tile Layouts
 ------------
