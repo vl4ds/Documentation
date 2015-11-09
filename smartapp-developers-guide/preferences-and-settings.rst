@@ -610,7 +610,7 @@ Valid input options:
     ===========================  ===========================================================================================
     **Name**                     **Comment**
     ---------------------------  -------------------------------------------------------------------------------------------
-    cacapability.capabilityName  Prompts for all the devices that match the specified capability.
+    capability.capabilityName  Prompts for all the devices that match the specified capability.
 
                                  See the *Preferences Reference* column of the :ref:`capabilities_taxonomy`
                                  table for possible values.
