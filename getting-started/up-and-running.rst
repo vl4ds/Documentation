@@ -3,7 +3,7 @@
 Up and Running
 ==============
 
-SmartThings offers a rich toolset to administer their SmartThings account, as well as to develop, test, and publish custom code.
+SmartThings offers a rich toolset to develop, test, and publish custom code.
 
 Don't have a SmartThings Hub or any devices yet? Carry on! You can still create an account and even develop without any hardware, by using our online IDE and simulator.
 
