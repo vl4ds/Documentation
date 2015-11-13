@@ -272,6 +272,9 @@ Many of the camera Device Handlers will make use of the ``carouselTile()``.
 multiAttributeTile()
 ~~~~~~~~~~~~~~~~~~~~
 
+.. warning::
+    Currently there is a parity issue between Android and iOS platforms in regard to how multiAttribute tiles work. There is currently work being done on the Android platform to address this. In the meantime, some things stated here about multiAttributeTiles may not work as expectd on the Android platform.
+
 Multi-Attribute Tiles are a new kind of tile that incorporate multiple attributes into one tile. They are meant to combine several different attributes into one 6X4 tile. Here are some of the types of tiles that you can create:
 
 ==================================================    ==================================================    ==================================================    ==================================================
