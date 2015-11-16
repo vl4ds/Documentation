@@ -14,6 +14,8 @@ accomplish would look like in the SmartThings application.
 Authentication using OAuth
 --------------------------
 
+Any service manager that authenticate with a 3rd party via OAuth must themselves have OAuth enabled. This is because ultimately the 3rd party service will call back into the SmartApp and hit the `/oauth/initialize` and `/oauth/callback` endpoints.
+
 End User Experience
 ~~~~~~~~~~~~~~~~~~~
 
@@ -21,11 +23,7 @@ The experience for the end user will be fairly seamless. They will go
 through the following steps (illustrated using the Ecobee Thermostat)
 
 The user selects the Service Manager application from the SmartApps
-within the SmartThings app. Upon selection, they are prompted with an
-initial landing page, describing what the application does and a link to
-configure.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/configure-screen.png
+within the SmartThings app.
 
 Authorization with the third party is the first part of the
 configuration process. The user is driven to a page which tells them
@@ -52,11 +50,7 @@ clicking done on the top right of the SmartThings chrome.
 .. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/ecobee-authorization-complete.png
 
 After done is clicked, the user will go back to the initial
-configuration screen, seeing that their device is now connected. They
-can then click next to continue, and any other configuration can be
-done.
-
-.. figure:: ../../img/device-types/cloud-connected/building-cloud-connected-device-types/st-authorization-complete.png
+configuration screen. They will be able to pick their device to complete the installation.
 
 Implementation
 ~~~~~~~~~~~~~~
@@ -65,9 +59,21 @@ OAuth is the typical industry standard for authentication. The 3rd party service
 In that case, it is up to you to consult their documentation and implement it. The basic concepts will be the same as
 it is with OAuth. The following example will walk through what is necessary for OAuth authentication.
 
+There are two endpoints that all service manager SmartApps must define.
+
+.. code-block:: groovy
+
+    mappings {
+        path("/oauth/initialize") {action: [GET: "oauthInitUrl"]}
+        path("/oauth/callback") {action: [GET: "callback"]}
+    }
+
+The `/oauth/initialize` endpoint will be called during initialization and will ultimately be where we forward the user to the 3rd Party service so they can log in.
+
+The `/oauth/callback` endpoint is what the 3rd party service will redirect to once authentication has been verified. Usually this is where the call is made to the 3rd party service to exchange an authorization code for an access token.
+
 The overall idea is that you will create a page that will call out to
-the third party API and then map a URL to a handlerLoads method to be
-able to handle a response back with an access token.
+the third party API to initiate the authentication. The end result being an access token that we can then use to communicate with the 3rd parties API.
 
 Within your service manager preferences, you create a page for
 authorization.
@@ -79,86 +85,208 @@ authorization.
         ...
     }
 
-and define it within a method below.
+The authPage method will have a couple of responsibilities.
+
+* Create a SmartApp access token sent along to the 3rd party so that they can call back into our smartapp.
+* Check to make sure an access token doesn't already exist for this particular 3rd party service.
+* Initialize the OAuth flow with the 3rd party service if there is no access token.
+
+Let's take a look at how we would accomplish this.
 
 .. code-block:: groovy
 
     def authPage() {
-        if(!state.sampleAccessToken)
+        // Check to see if our SmartApp has it's own access token and create one if not.
+        if(!state.accessToken) {
+            // the createAccessToken() method will store the access token in state.accessToken
             createAccessToken()
-    }
+        }
 
-The ``authPage`` method simply checks to see if there already is an access token. If not, we call a method to retrieve one.
-Lets take a look at the ``createAccessToken`` method next.
-
-.. code-block:: groovy
-
-    def createAccessToken() {
-
-        state.oauthInitState = UUID.randomUUID().toString()
-        def oauthParams = [
-            response_type: "token",
-            client_id: "XXXXXXX",
-            redirect_uri: "https://graph.api.smartthings.com/api/token/${state.accessToken}/smartapps/installations/${app.id}/receiveToken"
-        ]
-        def redirectUrl = "https://api.thirdpartysite.com/v1/oauth2/authorize?"+ toQueryString(oauthParams)
-
-        return dynamicPage(name: "Credentials", title: "Sample", nextPage:"sampleLoggedInPage", uninstall: uninstallOption, install:false) {
-            section {
-                href url:redirectUrl, style:"embedded", required:false, title:"Sample", description:"Click to enter Sample Credentials."
+        def redirectUrl = "https://graph.api.smartthings.com/oauth/initialize?appId=${app.id}&access_token=${state.accessToken}&apiServerUrl=${getApiServerUrl()}"
+        // Check to see if we already have an access token from the 3rd party service.
+        if(!state.authToken) {
+            return dynamicPage(name: "auth", title: "Login", nextPage: "", uninstall: false) {
+                section() {
+                    paragraph "tap below to log in to the 3rd party service and authorize SmartThings access"
+                    href url: redirectUrl, style: "embedded", required: true, title: "3rd Party product", description: "Click to enter credentials"
+                }
             }
+        } else {
+            // We have the token, so we can just call the 3rd party service to list our devices and select one to install.
         }
     }
 
-First, setup the params for your OAuth request. Then return a new page, created by the redirect URL. Finally, load up the OAuth
-initialization URL embedded within the app.
+There are a few things worth noting here. First, we are using ``state`` to store our tokens. Your specific needs may be different depending on your implementation. To learn more about how ``state`` works and what your options are, visit the :ref:`storing-data` guide.
 
-Once the user has authenticated through the third-party, they will be
-sent back to your SmartApp, and their callback needs to be handled
-properly.
+If we do not have a token from the 3rd party service, we start the OAuth flow by calling the SmartThings initialize endpoint. This is a static endpoint that will store a few bits of information about your SmartApp like the id, and forward the request on to the `/oauth/initalize` endpoint defined in your SmartApp.
 
-To handle the callback, you can map a URL within your service manager.
-As specified, the callback will go to the following URL.
+Initialize Endpoint
+~~~~~~~~~~~~~~~~~~~
+
+Used to initialize the OAuth flow to a 3rd party service. The initialize endpoint will save all of the query params passed to it, but requires three to be present. The SmartApp ID, the SmartApp's access token, and the api server url which is used to determine which server the SmartApp is installed on. The endpoint will then call the mapped `/oauth/initialize` endpoint defined in your SmartApp will all of the query params passed to it.
+
+.. code-block:: html
+
+    https://graph.api.smartthings.com/oauth/initialize
+
+=================== ===========
+Required parameters value
+=================== ===========
+appId               The SmartApp ID
+access_token        The SmartApp's access token
+apiServerUrl        The URL of the server that the SmartApp is installed on. This information can be retrieved with the ``getApiServerUrl()`` method call.
+=================== ===========
+
+**Example:**
 
 .. code-block:: groovy
 
-    mappings {
-        path("/receiveToken") {
-            action: [
-                POST: "receiveToken",
-                GET: "receiveToken"
+    def redirectUrl = "https://graph.api.smartthings.com/oauth/initialize?appId=${app.id}&access_token=${state.accessToken}&apiServerUrl=${getApiServerUrl()}"
+
+The initialize endpoint will forward to the `/oauth/initialize` mapping defined in our SmartApp. This method will be responsible for redirecting the user to the 3rd party login page. Here is an example:
+
+.. code-block:: groovy
+
+    def oauthInitUrl() {
+
+        // Generate a random ID to use as a our state value. This value will be used to verify the response we get back from the 3rd party service.
+        state.oauthInitState = UUID.randomUUID().toString()
+
+        def oauthParams = [
+            response_type: "code",
+            scope: "smartRead,smartWrite",
+            client_id: appSettings.clientId,
+            client_secret: appSettings.clientSecret,
+            state: state.oauthInitState,
+            redirect_uri: "https://graph.api.smartthings.com/oauth/callback"
+        ]
+
+        redirect(location: "${apiEndpoint}/authorize?${toQueryString(oauthParams)}")
+    }
+
+    // The toQueryString implementation simply gathers everything in the passed in map and converts them to a string joined with the "&" character.
+    String toQueryString(Map m) {
+	    return m.collect { k, v -> "${k}=${URLEncoder.encode(v.toString())}" }.sort().join("&")
+    }
+
+This method is pretty straight forward. It sets up a request used to present the user with the 3rd party login page. Often the 3rd party service will require information passed along with this request as query params. The actual parameters sent with the request will vary depending on what the 3rd party service is expecting, so consult their api documentation to find specifics.
+
+We are expecting to get an authorization code as a result from this request that we will later exchange for an access token. We will create the access token request in our callback handler as seen below. But for now, lets look at some basic parameters usually associated with authorization code requests.
+
+================= ===========
+Common parameters value
+================= ===========
+response_type     The type of authorization defined by your 3rd party service. Usually `code` or `token`
+scope             Defines the scope of the request, i.e. what actions will be performed
+client_id         The client ID issued by the 3rd party service when signing up for access to their api. Usually it is best practice to configure this parameter as an app setting in your SmartApp.
+client_secret     The client secret issued by the 3rd party service when signing up for access to their api. Usually it is best practice to configure this parameter as an app setting in your SmartApp.
+state             Usually the state is not required, but is used to track state across requests. We will use this to validate the response we get back from the 3rd party.
+redirect_uri      The uri to be redirected to after the user has successfully authenticated with the 3rd party service. Usually this is a piece of information requested when signing up with the 3rd party service and this param must match what was entered at that time. For SmartApp development, this should always be the static value: ``https://graph.api.smartthings.com/oauth/callback``
+================= ===========
+
+Callback Endpoint
+~~~~~~~~~~~~~~~~~
+
+The callback endpoint is what the 3rd party service will redirect to after the user has successfully authenticated. For SmartApp development, this should always be the static value: ``https://graph.api.smartthings.com/oauth/callback``. The callback endpoint is typically where the authorization code acquired from the initialize call will be used to request the access token. Let's look at an example.
+
+.. code-block:: groovy
+
+    def callback() {
+        log.debug "callback()>> params: $params, params.code ${params.code}"
+
+        def code = params.code
+        def oauthState = params.state
+
+        // Validate the response from the 3rd party by making sure oauthState == state.oauthInitState as expected
+        if (oauthState == state.oauthInitState){
+            def tokenParams = [
+                grant_type: "authorization_code",
+                code      : code,
+                client_id : appSettings.clientId,
+                client_secret: appSettings.clientSecret,
+                redirect_uri: "https://graph.api.smartthings.com/oauth/callback"
             ]
+
+            // This URL will be defined by your 3rd party in their api documentation
+            def tokenUrl = "https://www.someservice.com/home/token?${toQueryString(tokenParams)}"
+
+            httpPost(uri: tokenUrl) { resp ->
+                state.refreshToken = resp.data.refresh_token
+                state.authToken = resp.data.access_token
+            }
+
+            if (state.authToken) {
+                // call some method that will render the successfully connected message
+                success()
+            } else {
+                // gracefully handle failures
+                fail()
+            }
+
+        } else {
+            log.error "callback() failed. Validation of state did not match. oauthState != state.oauthInitState"
         }
     }
 
-You also need to setup a relevant handler method that will take the
-access\_token passed and save it in the state (which will persist over
-time). This handler should also indicate to the end user that they need
-to click the done button to exit the external third party flow and go
-back to your SmartApp.
-
-.. code-block:: groovy
-
-    def receiveToken() {
-        state.sampleAccessToken = params.access_token
-        render contentType: 'text/html', data: "<html><body>Saved. Now click 'Done' to finish setup.</body></html>"
+    // Example success method
+    def success() {
+	    def message = """
+		    <p>Your account is now connected to SmartThings!</p>
+		    <p>Click 'Done' to finish setup.</p>
+	    """
+	    displayMessageAsHtml(message)
     }
+
+    // Example fail method
+    def fail() {
+        def message = """
+            <p>There was an error connecting your account with SmartThings</p>
+            <p>Please try again.</p>
+        """
+        displayMessageAsHtml(message)
+    }
+
+    def displayMessageAsHtml(message) {
+        def html = """
+            <!DOCTYPE html>
+            <html>
+                <head>
+                </head>
+                <body>
+                    <div>
+                        ${message}
+                    </div>
+                </body>
+            </html>
+        """
+        render contentType: 'text/html', data: html
+    }
+
+In this callback we first check to make sure the state returned from the authorization code request matches what we sent as the state. This is how we know that the response is intended for us. If it matches, we set up the params for the access token request. Common params are as follows:
+
+================= ===========
+Common parameters value
+================= ===========
+grant_type        This is the type of grant we are requesting. The 3rd party service will define the expected value.
+code              The authorization code we obtained in the previous request
+client_id         The same client_id that we used in the previous request, which was issued by the 3rd party service
+client_secret     The same client_secret that we used in the previous request, which was issued by the 3rd party service
+redirect_uri      The same redirect_uri that we used in the previous request. This will usually be verified by the 3rd party service
+================= ===========
+
+We issue a HTTP POST request to get the token. If we receive a success response, we will save the access token that was issued by the 3rd party service along with the refresh token in ``state``.
+
+Once we have acquired the access token, our authentication process is complete. Usually the next step is to display some message to the end user about the success of the operation.
+
+.. important:: ``revokeAccessToken()`` should be called when the SmartApp's access token is no longer required. This is true when a user uninstalls the SmartApp. It is also a good practice to revoke the access token after successful authentication with the 3rd party, unless the token will be used to access other endpoints in your SmartApp.
 
 Refreshing the OAuth Token
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 OAuth tokens are available for a finite amount of time, so you will
 often need to account for this, and if needed, refresh your
-access\_token. To do this, you need to store the refresh\_token in your
-state, like so:
-
-.. code-block:: groovy
-
-    def receiveToken() {
-        state.sampleAccessToken = params.access_token
-        state.sampleRefreshToken = params.refresh_token
-        render contentType: 'text/html', data: "<html><body>Saved. Now click 'Done' to finish setup.</body></html>"
-    }
+access\_token. Above we illustrated how we initiate the request for the access and refresh tokens, and how we saved them in our SmartApp.
+If we make a request to the 3rd party service api's and get an "expired token" response, it is up to us to issue a new request to refresh the access token. This is where the refresh token comes into play.
 
 If you run an API request and your access\_token is determined invalid, for example:
 
@@ -166,9 +294,11 @@ If you run an API request and your access\_token is determined invalid, for exam
 
     if (resp.status == 401 && resp.data.status.code == 14) {
         log.debug "Storing the failed action to try later"
-        atomicState.action = "actionCurrentlyExecuting"
+        def action = "actionCurrentlyExecuting"
         log.debug "Refreshing your auth_token!"
         refreshAuthToken()
+        // replay initial request from the action variable
+        retryInitialRequest(action)
     }
 
 you can use your refresh\_token to get a new access\_token. To do this,
