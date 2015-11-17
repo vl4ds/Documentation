@@ -29,5 +29,6 @@ The contents of this guide are below:
    calling-web-services-in-smartapps
    sending-notifications
    parent-child-smartapps
+   smart-home-monitor
    example-bon-voyage
    submitting-smartapps-for-publication
