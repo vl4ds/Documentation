@@ -10,7 +10,7 @@ In part 1 of this tutorial, you will learn:
 - How to develop a Web Services SmartApp that exposes endpoints.
 - How to call the Web Services SmartApp using simple API calls.
 
-The source code for this tutorial is available `here <https://github.com/SmartThingsCommunity/Code/smartapps/tutorials/web-services-smartapps>`__.
+The source code for this tutorial is available `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-smartapps>`__.
 
 Overview
 --------

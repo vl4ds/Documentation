@@ -13,7 +13,7 @@ In Part 2 of this tutorial, you will learn:
 - How to discover the endpoints of a Web Services SmartApp.
 - How to make calls to the Web Services SmartApp.
 
-The source code for this tutorial is available `here <https://github.com/SmartThingsCommunity/Code/smartapps/tutorials/web-services-smartapps>`__.
+The source code for this tutorial is available `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-smartapps>`__.
 
 Overview
 --------
