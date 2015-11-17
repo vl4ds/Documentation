@@ -1,16 +1,16 @@
 .. _smartapp_as_web_service_part_1:
 
-Building a Web Services SmartApp - Part 1
-=========================================
+Web Services Tutorial - SmartApp
+================================
 
-This is the first part of two that will teach you how to build a WebServices SmartApp.
+This is the first part of two that will teach you how to build a Web Services SmartApp and a web application to illustrate the authorization flow.
 
 In part 1 of this tutorial, you will learn:
 
 - How to develop a Web Services SmartApp that exposes endpoints.
 - How to call the Web Services SmartApp using simple API calls.
 
-.. contents::
+The source code for this tutorial is available `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-smartapps>`__.
 
 Overview
 --------
@@ -31,7 +31,7 @@ Note the Client ID and secret - they'll be used later (should you forget, you ca
 Define Preferences
 ------------------
 
-SmartApps declare preferences metadata that is used at installation and configuration time, to allow the user to control what devices the SmartApp will have access to. 
+SmartApps declare preferences metadata that is used at installation and configuration time, to allow the user to control what devices the SmartApp will have access to.
 
 This is a configuration step, but also a security step, whereby the users must explicitly select what devices the SmartApp can control.
 
@@ -59,18 +59,11 @@ Specify Endpoints
 
 The ``mappings`` declaration allows developers to expose HTTP endpoints, and map the various supported HTTP operations to an associated handler.
 
-The handler can process the HTTP request and provide a response, including both the `HTTP status
-code <https://en.wikipedia.org/wiki/List_of_HTTP_status_codes>`__, as well as the response body.
-
 Our SmartApp will expose two endpoints:
 
-- The ``/switches`` endpoint will support a GET request. A GET request to this endpoint will return state information for the configured switches. 
+- The ``/switches`` endpoint will support a GET request. A GET request to this endpoint will return state information for the configured switches.
 
 - The ``/switches/:command`` endpoint will support a PUT request. A PUT request to this endpoint will execute the specified command (``"on"`` or ``"off"``) on the configured switches.
-
-.. tip::
-  
-  There is no limit to the number of endpoints a SmartApp exposes, but the path level is restricted to four levels deep (i.e., /level1/level2/level3/level4).
 
 Here's the code for our mappings definition. This is defined at the top-level in our SmartApp (i.e., not in another method):
 
@@ -89,22 +82,7 @@ Here's the code for our mappings definition. This is defined at the top-level in
       }
     }
 
-The mappings configuration is made up of one or many ``path`` definitions. Each ``path`` defines the endpoint, and also is configured for each HTTP operation using the ``action`` definition.
-
-``action`` is a simple map, where the key is the HTTP operation (e.g., ``GET``, ``PUT``, ``POST``, etc.), and the value is the name of the handler method to be called when this endpoint is called.
-
 Note the use of variable parameters in our PUT endpoint. Use the ``:`` prefix to specify that the value will be variable. We'll see later how to get this value.
-
-.. tip::
-
-  Endpoints can support multiple REST methods. If we wanted the ``/switches`` endpoint to also support a PUT request, simply add another entry to the ``action`` configuration:
-
-  .. code-block:: groovy
-
-    action: [
-      GET: "listSwitches",
-      PUT: "putHandlerMethodName"
-    ]
 
 Go ahead and add empty methods for the various handlers. We'll fill these in in the next step:
 
@@ -127,7 +105,7 @@ Our handler method returns a list of maps, which is then serialized by the Smart
 
 .. code-block:: groovy
 
-  // returns a list like 
+  // returns a list like
   // [[name: "kitchen lamp", value: "off"], [name: "bathroom", value: "on"]]
   def listSwitches() {
       def resp = []
@@ -159,9 +137,9 @@ If any of the configured switches does not support the specified command, we'll 
             switches.each {
                 if (!it.hasCommand(command)) {
                     httpError(501, "$command is not a valid command for all switches specified")
-                } 
+                }
             }
-            
+
             // all switches have the comand
             // execute the command on all switches
             // (note we can do this on the array - the command will be invoked on every element
@@ -171,14 +149,8 @@ If any of the configured switches does not support the specified command, we'll 
 
 .. tip::
 
-  Our example uses the endpoint itself to get the command. If you would instead like to pass parameters via the request body, you can retrieve those parameters via the built-in ``request`` object as well. Assuming the request body looked like ``{"command": "on"}``, we can get the specified command parameter like this:
-
-  .. code-block:: groovy
-
-    // Get the JSON body from the request.
-    // Safe de-reference using the "?." operator
-    // to avoid NullPointerException if no JSON is passed.
-    def command = request.JSON?.command
+  Our example uses the endpoint itself to get the command.
+  Learn more about working with requests :ref:`here <webservices_smartapp_request_handling>`.
 
 ----
 
@@ -215,23 +187,19 @@ To get information about the switch, we will call the /switch endpoint using a G
 
 .. code-block:: bash
 
-  curl -H "Authorization: Bearer <api token>" <api endpoint>/switch
+  curl -H "Authorization: Bearer <api token>" "<api endpoint>/switches"
 
 This should return a JSON response like the following::
 
   [{"name":"Kitchen 2","value":"off"},{"name":"Living room window","value":"off"}]
 
-To turn the switch on or off, call the /switch endpoint using a PUT request, passing the command in the request body. Again, you'll need to substitute your unique endpoing and API key:
+To turn the switch on or off, call the /switches endpoint using a PUT request. Again, you'll need to substitute your unique endpoing and API key:
 
 .. code-block:: bash
 
-  curl -H "Authorization: Bearer <api token>" -X PUT <api endpoint>/switch/on
+  curl -H "Authorization: Bearer <api token>" -X PUT "<api endpoint>/switches/on"
 
 Change the command value to ``"off"`` to turn the switch off. Try turning the switch on and off, and then using curl to get the status, to see that it changed.
-
-.. tip::
-
-  You can also pass the API token directly on the URL, via the ``access_token`` URL parameter, instead of using the Authorization header. This may be useful when you do not have the ability to set request headers.
 
 ----
 
@@ -248,8 +216,3 @@ Summary
 In this tutorial, you learned how to create a SmartApp that exposes endpoints to get information about, and control, a device. You also learned how to install the SmartApp in the simulator, and then make API calls to the endpoint.
 
 In the next part of this tutorial, we'll look at how a external application might interact with SmartThings using the OAuth2 flow (instead of simply using the simulator and its generated access token).
-
-Source Code
------------
-
-The full source code for this tutorial (both parts), can be found `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-smartapps>`__.
