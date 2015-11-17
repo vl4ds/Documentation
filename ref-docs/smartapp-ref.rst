@@ -515,6 +515,32 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 
 ----
 
+.. _smartapp_http_error:
+
+httpError()
+~~~~~~~~~~~
+
+Throws a ``SmartAppException`` with the specified status code and message.
+
+This should be used to send an HTTP error to any calling client.
+
+**Signature:**
+    ``def httpError(Integer status, message)``
+
+**Parameters:**
+    `Integer`_ status - The HTTP error code to send.
+    message - the error message.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def someMethod() {
+        httpError(400, "something went wrong")
+    }
+
+----
+
 httpGet()
 ~~~~~~~~~
 
@@ -902,6 +928,45 @@ Parses a Base64-encoded LAN message received from the hub into a map with header
     xml      `GPathResult`_ the request body as a `GPathResult`_ object
     xmlError `String`_      error message from parsing the body, if any
     ======== ============== ===================
+
+----
+
+.. _smartapp_render:
+
+render()
+~~~~~~~~
+
+Returns a HTTP response to the calling client with the options specified.
+
+**Signature:**
+    ``def render(Map options)``
+
+**Parameters:**
+    `Map`_ options - the options for what is returned to the client:
+
+    =========== ===========
+    option      description
+    =========== ===========
+    contentType The value of the "Content-Type" request header. "application/json" if not specified.
+    status      The HTTP status of the response. 200 if not specified.
+    data        Required. The data for this response.
+    =========== ===========
+
+**Example:**
+
+.. code-block:: groovy
+
+    def someMethod() {
+        def html = """
+            <!DOCTYPE HTML>
+            <html>
+                <head><title>Some Title</title></head>
+                <body><p>Some Text</p></body>
+            </html>
+        """
+
+        render contentType: "text/html", data: html
+    }
 
 ----
 
