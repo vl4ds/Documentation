@@ -115,7 +115,6 @@ A successful response will look like this:
 
     {
         "oauthClient": {
-            "clientSecret": "CLIENT-SECRET",
             "clientId": "CLIENT-ID"
         },
         "uri": "BASE-URL/api/smartapps/installations/INSTALLATION-ID",
