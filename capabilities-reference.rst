@@ -97,6 +97,7 @@ Commands:
 
 :ref:`sleep_sensor`           capability.sleepSensor                 - sleeping
 :ref:`smoke_detector`         capability.smokeDetector               - smoke
+:ref:`sound_sensor`           capability.soundSensor                 - sound
 :ref:`speech_synthesis`       capability.speechSynthesis                                                   - speak(string)
 :ref:`step_sensor`            capability.stepSensor                  - steps
                                                                      - goal
@@ -136,7 +137,6 @@ Commands:
 :ref:`valve`                  capability.valve                       - contact                             - open()
                                                                                                            - close()
 :ref:`water_sensor`           capability.waterSensor                 - water
-:ref:`sound_sensor`           capability.soundSensor                 - sound
 ============================= ====================================== ===================================== ========================
 
 .. _acceleration-sensor:
@@ -1445,6 +1445,32 @@ None.
 
 ----
 
+.. _sound_sensor:
+
+Sound Sensor
+------------
+
+================ ==============================
+Capability Name  SmartApp Preferences Reference
+================ ==============================
+Sound Sensor     capability.soundSensor
+================ ==============================
+
+**Attributes:**
+
+=========== ======= =================
+Attribute   Type    Possible Values
+=========== ======= =================
+sound       String  ``"detected"``
+                    ``"not detected"``
+=========== ======= =================
+
+**Commands:**
+
+None.
+
+----
+
 .. _speech_synthesis:
 
 Speech Synthesis
@@ -2015,28 +2041,3 @@ water       String  ``"dry"``
 
 None.
 
-----
-
-.. _sound_sensor:
-
-Sound Sensor
-------------
-
-================ ==============================
-Capability Name  SmartApp Preferences Reference
-================ ==============================
-Sound Sensor     capability.soundSensor
-================ ==============================
-
-**Attributes:**
-
-=========== ======= =================
-Attribute   Type    Possible Values
-=========== ======= =================
-sound       String  ``"detected"``
-                    ``"not detected"``
-=========== ======= =================
-
-**Commands:**
-
-None.
