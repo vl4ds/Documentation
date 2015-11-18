@@ -1965,10 +1965,10 @@ Timed Session    capability.timedSession
 ============== ======= =================
 Attribute      Type    Possible Values
 ============== ======= =================
-sessionStatus  String   canceled
-                        paused
-                        stopped
-                        running
+sessionStatus  String   ``"canceled"``
+                        ``"paused"``
+                        ``"stopped"``
+                        ``"running"``
 timeRemaining  Number
 ============== ======= =================
 
