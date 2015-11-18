@@ -90,13 +90,6 @@ The ``expires_in`` response is the time, in seconds from now, that this token wi
 
 Once you have the token, it must be stored securely in the application.
 
-.. note::
-
-    At this time, SmartThings issues a long-lived access token, with no refresh tokens.
-    The expiration date of the token is 50 years from issue.
-
-    Refresh tokens will be provided in a future release.
-
 ----
 
 Get SmartApp Endpoints
