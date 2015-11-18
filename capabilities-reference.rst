@@ -136,6 +136,7 @@ Commands:
 :ref:`valve`                  capability.valve                       - contact                             - open()
                                                                                                            - close()
 :ref:`water_sensor`           capability.waterSensor                 - water
+:ref:`sound_sensor`           capability.soundSensor                 - sound
 ============================= ====================================== ===================================== ========================
 
 .. _acceleration-sensor:
@@ -2008,6 +2009,32 @@ Attribute   Type    Possible Values
 =========== ======= =================
 water       String  ``"dry"``
                     ``"wet"``
+=========== ======= =================
+
+**Commands:**
+
+None.
+
+----
+
+.. _sound_sensor:
+
+Sound Sensor
+------------
+
+================ ==============================
+Capability Name  SmartApp Preferences Reference
+================ ==============================
+Sound Sensor     capability.soundSensor
+================ ==============================
+
+**Attributes:**
+
+=========== ======= =================
+Attribute   Type    Possible Values
+=========== ======= =================
+sound       String  ``"detected"``
+                    ``"not detected"``
 =========== ======= =================
 
 **Commands:**
