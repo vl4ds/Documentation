@@ -57,6 +57,7 @@ Commands:
                                                                      - saturation                          - setSaturation(number)
                                                                      - color                               - setColor(color_map)
 :ref:`configuration`          capability.configuration                                                     - configure()
+:ref:`consumable`             capability.consumable                  - consumable                          - setConsumableStatus(string)
 :ref:`contact_sensor`         capability.contactSensor               - contact
 :ref:`door_control`           capability.doorControl                 - door                                - open()
                                                                                                            - close()
@@ -132,6 +133,11 @@ Commands:
 :ref:`therm_operating_state`  capability.thermostatOperatingState    - thermostatOperatingState
 :ref:`thermostat_setpoint`    capability.thermostatSetpoint          - thermostatSetpoint
 :ref:`three_axis`             capability.threeAxis                   - threeAxis
+:ref:`timed_session`          capability.timedSession                - sessionStatus                       - setTimeRemaining(number)
+                                                                     - timeRemaining                       - start()
+                                                                                                           - stop()
+                                                                                                           - pause()
+                                                                                                           - cancel()
 :ref:`tone`                   capability.tone                                                              - beep()
 :ref:`touch_sensor`           capability.touchSensor                 - touch
 :ref:`valve`                  capability.valve                       - contact                             - open()
@@ -599,6 +605,36 @@ None.
     log.debug cmd
     cmd
   }
+
+----
+
+.. _consumable:
+
+Consumable
+------------
+
+=========================   ==============================
+Capability Name             SmartApp Preferences Reference
+=========================   ==============================
+Consumable                  capability.consumable
+=========================   ==============================
+
+**Attributes:**
+
+================= ======= ===========================
+Attribute         Type    Possible Values
+================= ======= ===========================
+consumableStatus  String  ``"missing"``
+                          ``"good"``
+                          ``"replace"``
+                          ``"maintenance_required"``
+                          ``"order"``
+================= ======= ===========================
+
+**Commands:**
+
+*setConsumableStatus(string)*
+    Set consumable status
 
 ----
 
@@ -1913,6 +1949,43 @@ None.
 
 ----
 
+.. _timed_session:
+
+Timed Session
+----------
+
+================ ==============================
+Capability Name  SmartApp Preferences Reference
+================ ==============================
+Timed Session    capability.timedSession
+================ ==============================
+
+**Attributes:**
+
+============== ======= =================
+Attribute      Type    Possible Values
+============== ======= =================
+sessionStatus  String   canceled
+                        paused
+                        stopped
+                        running
+timeRemaining  Number
+============== ======= =================
+
+**Commands:**
+
+*setTimeRemaining()*
+    Set time remaining
+
+*start()*
+
+*stop()*
+
+*pause()*
+
+*cancel()*
+
+----
 
 .. _three_axis:
 
