@@ -179,12 +179,24 @@ As a SmartThings developer, you should write your SmartApps to satisfy their spe
 Rate Limiting
 -------------
 
-SmartApps that execute in the cloud are monitored for excessive resource utilization. Rate limiting ensures that no single SmartApp can consume too many shared cloud resources.
+SmartApps are monitored for excessive resource utilization.
+Rate limiting ensures that no single SmartApp can consume too many shared resources.
 
-All rate limiting is based on an execution limit within a particular time window for an installed SmartApp or Device Handler. When the execution limit has been reached within the time window, no further executions will occur until the next time window. There will be an entry in the logs that will show the SmartApp or Device Type has been rate limited.
+Execution Time Limits
+`````````````````````
+- Methods are limited to a continuous execution time of 20 seconds.
+- SmartApps and Device Handlers are limited to a total continuous execution time of 40 seconds.
 
-*SmartApps are limited to executing 250 times in 60 seconds.*
+If these limits are exceeded, the current execution will be suspended.
 
-The common cause for exceeding this limit is excessive subscriptions. This may be an infinite loop of events (for example, subscribing to an "on" and "off" event, and the "on" command actually triggers the "off" event and vice versa - leading to a never-ending chain of event handlers being called). It's also possible that a SmartApp that subscribes to a very large number of particularly "chatty" devices may run into this limit.
+Execution Count Limits
+``````````````````````
+SmartApps are limited to executing no more than 250 times in 60 seconds.
+If the limit is reached in a 60 second time window, no further exceptions will occur until the next time window.
+A log entry will be created for the SmartApp that was rate limited.
+
+.. note::
+
+    The common cause for exceeding the 250 executions within 60 seconds limit is excessive subscriptions. This may be an infinite loop of events (for example, subscribing to an "on" and "off" event, and the "on" command actually triggers the "off" event and vice versa - leading to a never-ending chain of event handlers being called). It's also possible that a SmartApp that subscribes to a very large number of particularly "chatty" devices may run into this limit.
 
 Additional rate limiting restrictions apply to SmartApps or Device Handlers that expose endpoints via the ``mappings`` definitions. You can learn about those in the `SmartApp Web Services Guide <../smartapp-web-services-developers-guide/overview.html>`__.
