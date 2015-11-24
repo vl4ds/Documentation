@@ -125,9 +125,9 @@ When a routine is executed, a ``"routineExecuted"`` event is created for that lo
         // value will be the ID of the SmartApp that created this event
         log.debug "evt value: ${evt.value}"
 
-        // displayValue will be the name of the routine
+        // displayName will be the name of the routine
         // e.g., "I'm Back!" or "Goodbye!"
-        log.debug "evt displayValue: ${evt.displayValue}"
+        log.debug "evt displayName: ${evt.displayName}"
 
         // descriptionText will be the name of the routine, followed by the action
         // e.g., "I'm Back! was executed" or "Goodbye! was executed"
@@ -176,7 +176,7 @@ This example simply shows executing a selected routine when a switch turns on, a
 
     def initialize() {
     	subscribe(theswitch, "switch", handler)
-        subscribe(location. "routineChanged", routineChanged)
+        subscribe(location, "routineExecuted", routineChanged)
         log.debug "selected on action $onAction"
         log.debug "selected off action $offAction"
     }
@@ -195,7 +195,7 @@ This example simply shows executing a selected routine when a switch turns on, a
         log.debug "routineChanged: $evt"
         log.debug "evt name: ${evt.name}"
         log.debug "evt value: ${evt.value}"
-        log.debug "evt displayValue: ${evt.displayValue}"
+        log.debug "evt displayName: ${evt.displayName}"
         log.debug "evt descriptionText: ${evt.descriptionText}"
     }
 
