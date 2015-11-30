@@ -25,6 +25,83 @@ These will be used on the SmartThings Authorization page to inform the user who 
 
 ----
 
+Preferences
+-----------
+
+Part of the :ref:`Authorization Flow <webservices_authorization>` that installs the SmartApp requires the user to authorize specific devices that the third party can interact with.
+The types of devices that may be authorized for Web Services SmartApps are controlled through the SmartApp's preferences.
+
+The intent of the Authorization page is to simply allow the user to authorize specific devices.
+This can be accomplished in one of two ways:
+
+- Specify a simple, single page that allows the user to select from a set of devices, or
+- Specify a specific preferences page to be used by the Authorization web page.
+
+An example of a simple, single page that will allow the user to select from a set of devices:
+
+.. code-block:: groovy
+
+    preferences {
+        section("Control these switches...") {
+            input "switches", "capability.switch"
+        }
+        section("Control these motion sensors...") {
+            input "motion", "capability.motionSensor"
+        }
+    }
+
+Here is an example that specifies a specific page to be used during authorization, using the ``oauthPage`` option to ``preferences``:
+
+.. code-block:: groovy
+
+    preferences(oauthPage: "deviceAuthorization") {
+        // deviceAuthorization page is simply the devices to authorize
+        page(name: "deviceAuthorization", title: "", nextPage: "instructionPage",
+             install: false, uninstall: true) {
+            section("Select Devices to Authorize") {
+                input "switches", "capability.switch", title: "Switches:"
+                input "motions", "capability.motionSensor", title: "Motion Sensors:"
+            }
+
+        }
+
+        page(name: "instructionPage", title: "Device Discovery", install: true) {
+            section() {
+                paragraph "Some other information"
+            }
+        }
+    }
+
+If you require additional, non-device preferences inputs, you can use dynamic pages.
+The ``oauthPage`` must be a static (non-dynamic) page, and be the first page displayed:
+
+.. code-block:: groovy
+
+    preferences(oauthPage: "deviceAuthorization") {
+        // deviceAuthorization page is simply the devices to authorize
+        page(name: "deviceAuthorization", title: "", nextPage: "otherPage",
+             install: false, uninstall: true) {
+            section("Select Devices to Authorize") {
+                input "switches", "capability.switch", title: "Switches:"
+                input "motions", "capability.motionSensor", title: "Motion Sensors:"
+            }
+
+        }
+
+        page(name: "otherPage")
+    }
+
+    def otherPage() {
+        dynamicPage(name: "otherPage", title: "Other Page", install: true) {
+            section("Other Inputs") {
+                input "sometext", "text"
+                input "sometime", "time"
+            }
+        }
+    }
+
+----
+
 Mapping Endpoints
 -----------------
 
