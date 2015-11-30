@@ -16,6 +16,13 @@ In this guide, you will learn:
 Send Notifications with Contact Book
 ------------------------------------
 
+.. note::
+
+    The Contact Book feature is not currently enabled for users.
+    However, using the Contact Book APIs (with the fall-back to non-contact book features), will future-proof your SmartApp for when contact book is enabled.
+
+    See the :ref:`disabled_contact_book` section for more information.
+
 If a user has added contacts to their Contact Book, SmartApps can prompt a user to select contacts to send notifications to.
 This allows a user's contacts to be managed independently through the Contact Book, and SmartApps can tap into that feature.
 This has the advantage that a user does not have to enter in phone numbers for every SmartApp.
@@ -65,6 +72,8 @@ If you don't want the message to appear in the Notifications feed, specify ``eve
 .. code-block:: groovy
 
     sendNotificationToContacts("something you care about!", recipients, [event: false])
+
+.. _disabled_contact_book:
 
 Handling Disabled Contact Book
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
