@@ -153,3 +153,11 @@ In order to work with ZigBee you will need to use the ZigBee Cluster
 Library extensively to look up the proper values to send back and forth
 to your device. You can download this document
 `here <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__.
+
+There is also a ZigBee utility class covered in the :ref:`zigbee_ref`
+
+Best Practices
+--------------
+
+- Try not to use raw commands for anything. There are helper methods for this purpose. If a helper method does not exist for your command, let us know and we'll add it.
+- Do not use sendEvent() in command methods. Sending events should be handled in the parse method.
