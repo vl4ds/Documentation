@@ -1,0 +1,298 @@
+.. _zigbee_ref:
+
+Zigbee Reference
+================
+
+The Zigbee object contains many shorthands and conveniences for developing Zigbee device type handlers.
+
+Zigbee devices have fingerprints that define what the device is when it joins a Zigbee network.
+Currently you define the expected fingerprint for a device in the device type handler metadata block as part of the definition. An example would look like this:
+
+.. code-block:: groovy
+
+    metadata {
+        // Automatically generated. Make future change here.
+        definition (name: "SmartPower Outlet", namespace: "smartthings", author: "SmartThings") {
+            capability "Actuator"
+            capability "Switch"
+            capability "Power Meter"
+            capability "Configuration"
+            capability "Refresh"
+            capability "Sensor"
+
+        // indicates that device keeps track of heartbeat (in state.heartbeat)
+        attribute "heartbeat", "string"
+
+        fingerprint profileId: "0104", inClusters: "0000,0003,0004,0005,0006,0B04,0B05", outClusters: "0019", manufacturer: "CentraLite",  model: "3200", deviceJoinName: "Outlet"
+        fingerprint profileId: "0104", inClusters: "0000,0003,0004,0005,0006,0B04,0B05", outClusters: "0019", manufacturer: "CentraLite",  model: "3200-Sgb", deviceJoinName: "Outlet"
+        fingerprint profileId: "0104", inClusters: "0000,0003,0004,0005,0006,0B04,0B05", outClusters: "0019", manufacturer: "CentraLite",  model: "4257050-RZHAC", deviceJoinName: "Outlet"
+        fingerprint profileId: "0104", inClusters: "0000,0003,0004,0005,0006,0B04,0B05", outClusters: "0019"
+    }
+
+If the fingerprint declaration contains a value for both the ``manufacturer`` and ``model`` attributes, you have the option to add the ``deviceJoinName`` attribute.
+
+===================== =========== ==========
+Fingerprint Attribute Type        Value
+===================== =========== ==========
+deviceJoinName        ``String``  Overrides the device type name when pairing. This allows the developer to customize the device name while joining a Zigbee device.
+===================== =========== ==========
+
+----
+
+Parse Methods
+-------------
+
+zigbee.getEvent()
+~~~~~~~~~~~~~~~~~
+
+The ``getEvent()`` method will try to parse zigbee clusters into a map whose key/value pairs can be directly handled by the ``sendEvent()`` method.
+
+**Signature:**
+    .. code-block:: groovy
+
+        Map(String:String) zigbee.getEvent(String description)
+
+**Parameters:**
+    - **description**: The description value passed to the parse method from the device.
+
+**Return Values**:
+    *Map(String key, String value)*
+        - Key: The name of the event
+        - Value: The value of the event
+
+**Example**
+
+.. code-block:: groovy
+
+    def parse(String description) {
+        def result = zigbee.getEvent(description)
+
+        if(result) {
+            sendEvent(result)
+        } else {
+            // zigbee.getEvent was unable to parse description. Description must be parsed manually.
+        }
+    }
+
+The ``zigbee.getEvent()`` method can parse the following event types with work being done to for additional event types:
+
+================== =================
+Event Type         Cluster value
+================== =================
+switch             0x0006
+level              0x0008
+power              0x0702 and 0x0B04
+color control      0x03000
+================== =================
+
+.. note::
+    Only color temperature can be parsed. Full color control is in the works.
+
+.. note::
+    For the power event type, the value can be reported in mW, W, or kW. This means that it is up to the developer to make adjustments to the value before calling sendEvent so it will be displayed correctly.
+
+Low Level Commands
+------------------
+
+zigbee.sendCommand()
+~~~~~~~~~~~~~~~~~~~~
+
+Send a cluster specific command.
+
+**Signature:**
+    .. code-block:: groovy
+
+        zigbee.sendCommand(Integer cluster, Integer command, [String... payload])
+
+**Parameters:**
+    - **cluster**: The cluster ID
+    - **command**: The command ID
+    - **payload** (optional): Zero or more arguments required by the command. Each argument should be passed as an ASCII hex string in little endian format of the appropriate width for the data type. For example, to pass the value 5 for a UINT24 (24-bit unsigned integer) you would pass “050000”.
+
+**Examples:**
+    - Send *Move To Level* command to *Level Control* cluster.
+        .. code-block:: groovy
+
+            zigbee.sendCommand(0x0008, 0x04, "FE", "0500")
+
+        Where *Level* equals ``0xFE`` (full on) and *Transition Time* equals ``0x0005`` (5 seconds)
+
+    - Send 'Off' command to *On/Off* cluster.
+        .. code-block:: groovy
+
+            zigbee.sendCommand(0x0006, 0x00)
+
+----
+
+zigbee.readAttribute()
+~~~~~~~~~~~~~~~~~~~~~~
+
+Read the current attribute value of the specified cluster.
+
+**Signature:**
+    .. code-block:: groovy
+
+        zigbee.readAttribute(Integer cluster, Integer attributeId)
+
+**Parameters:**
+    - **cluster**: The cluster ID to read from
+    - **attributeId**: The ID of the attribute to read
+
+**Example:**
+    - Read *CurrentLevel* attribute of the *Level Control* cluster.
+        .. code-block:: groovy
+
+            zigbee.readAttribute(0x0008, 0x0000)
+
+----
+
+zigbee.writeAttribute()
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Write the attribute value of the specified cluster.
+
+**Signature:**
+    .. code-block:: groovy
+
+        zigbee.writeAttribute(Integer cluster, Integer attributeId, Integer dataType, value)
+
+**Parameters:**
+    - **cluster**: The cluster ID to write
+    - **attributeId**: The Id of the attribute to write
+    - **dataType**: The data type ID of the attribute as specified in the zigbee specification
+    - **value**: The Integer value to write for data types of *boolean*, *unsigned int*, *signed int*, general data, and enumerations. Other data types are not currently supported but will be added in the future. Let us know if you need a data type that is not currently supported.
+
+**Example**:
+    - Write a 16-bit unsigned integer
+        .. code-block:: groovy
+
+            zigbee.writeAttribute(0x0008, 0x0010, 0x21, 0x12AB)
+
+----
+
+zigbee.configureReporting()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Configure a zigbee device's reporting properties.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.configureReporting(Integer cluster,
+        Integer attributeId, Integer dataType,
+        Integer minReportTime, Integer MaxReportTime,
+        [Integer reportableChange])
+
+**Parameters:**
+    - **cluster**: The cluster ID of the requested report
+    - **attributeId**: The attribute ID for the requested report
+    - **dataType**: The two byte ZigBee type value for the requested report
+    - **minReportTime**: Minimum number of seconds between reports
+    - **maxReportTime**: Maximum number of seconds between reports
+    - **reportableChange** (optional): Amount of change needed to trigger a report. Required for analog data types. Discrete data types should always provide *null* for this value.
+
+**Examples:**
+    - Discrete data type
+        .. code-block:: groovy
+
+            zigbee.configureReporting(0x0006, 0x0000, 0x10, 0, 600)
+
+    - Analog data type
+        .. code-block:: groovy
+
+            zigbee.configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01)
+
+----
+
+Zigbee Capabilities
+-------------------
+
+The following table outlines the commands necessary to both configure and get updated information from Zigbee devices that support the capabilities outlined below.
+
+============= ============================================================= ============================== ================= ==============
+Capability    Configure                                                     Refresh                        Parse             Notes
+============= ============================================================= ============================== ================= ==============
+Battery       configureReporting(0x0001, 0x0020, 0x20, 30, 21600, 0x01)                                    getEvent(message)
+Color Temp    configureReporting(0x0300, 0x0007, 0x21, 1, 3600, 0x10)       readAttribute(0x0300, 0x0007)  getEvent(message) For devices that support the Color Control Cluster (0x0300)
+Level         configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01)       readAttribute(0x0008, 0x0000)  getEvent(message)
+Power         configureReporting(0x0702, 0x0400, 0x2A, 1, 600, 0x05)        readAttribute(0x0704, 0x0400)  getEvent(message) For devices that support the Metering Cluster (0x0704)
+Power         configureReporting(0x0B04, 0x050B, 0x29, 1, 600, 0x0005)      readAttribute(0x0B04, 0x050B)  getEvent(message) For devices that support the Electrical Measurement Cluster (0x0B04)
+Switch        configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)        readAttribute(0x0006, 0x0000)  getEvent(message)
+Temperature   configureReporting(0x0402, 0x0000, 0x29, 30, 3600, 0x0064)                                   getEvent(message)
+============= ============================================================= ============================== ================= ==============
+
+Zigbee Helper Commands
+----------------------
+
+zigbee.parseDescriptionAsMap()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Parses a device description into a map that contains data and capabilities.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.parseDescriptionAsMap(String description)
+
+**Parameters:**
+    - **description**: The description string from the device
+
+----
+
+zigbee.convertToHexString()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Convert the given value to a hex string of given width
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.convertToHexString(Integer value, Integer width)
+
+**Parameters:**
+    - **value**: Integer value to be converted
+    - **width**: the minimum width of the hex string. Default value is 2
+
+----
+
+zigbee.convertHexToInt()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Convert the given hex value to an Integer
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.convertHexToInt(String value)
+
+**Parameters:**
+    - **value**: The hex value to be converted to an Integer
+
+----
+
+zigbee.hexNotEqual()
+~~~~~~~~~~~~~~~~~~~~
+
+Returns true if the compared hex values are not equal.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.hexNotEqual(String hex1, String hex2)
+
+**Parameters:**
+    - **hex1**: Hex value to compare
+    - **hex2**: Hex value to compare against first value
+
+----
+
+Best Practices
+--------------
+
+- Try not to use raw commands for anything. There are helper methods for this purpose. If a helper method does not exist for your command, let us know and we'll add it.
+- Do not use sendEvent() in command methods. Sending events should be handled in the parse method.
