@@ -70,37 +70,25 @@ of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds
 Command
 -------
 
-.. warning::
-    Try not to use raw commands for anything. There are helper methods for this purpose. If a helper method does not exist for your command, let us know and we'll add it.
-
 Command invokes a command on a ZigBee device and is formatted like this:
 
 .. code-block:: groovy
 
     def on() {
-        "st cmd 0x${device.deviceNetworkId} 1 6 1 {}"
+        zigbee.command(0x0006, 0x01)
     }
 
 In this example (from the "ZigBee Dimmer" device type) we are sending a
 ZigBee Command to turn the device on. We use the On/Off Cluster (6) and
-send the command to turn on (1). This commands has no payload, so there
-is nothing within the payload brackets. Even though there is no payload,
-the empty brackets are still required.
+send the command to turn on (1). This commands has no payload, so we exclude
+it from the passed in parameters.
 
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
 +===============================+=============================+
-|st cmd                         |SmartThings Command          |
+|0x0006                         |Cluster                      |
 +-------------------------------+-----------------------------+
-|0x${device.deviceNetworkId}    |Device Network ID            |
-+-------------------------------+-----------------------------+
-|1                              |Endpoint Id                  |
-+-------------------------------+-----------------------------+
-|6                              |Cluster                      |
-+-------------------------------+-----------------------------+
-|1                              |Command                      |
-+-------------------------------+-----------------------------+
-|{}                             |Payload                      |
+|0x01                           |Command                      |
 +-------------------------------+-----------------------------+
 
 Configure
@@ -153,5 +141,5 @@ There is also a ZigBee utility class covered in the :ref:`zigbee_ref`
 Best Practices
 --------------
 
-- Try not to use raw commands for anything. There are helper methods for this purpose. If a helper method does not exist for your command, let us know and we'll add it.
+- The use of 'raw ...' commands is deprecated. Instead use the documented methods on the zigbee library. If you need to do something that requires the use of a 'raw' command let us know and we will look at adding it to the zigbee library.
 - Do not use sendEvent() in command methods. Sending events should be handled in the parse method.
