@@ -39,12 +39,12 @@ Event Value    Description
 Get Current Alarm State
 -----------------------
 
-You can get the current alarm state of Smart Home Monitor by calling ``location.currentState("alarmSystemStatus")``:
+You can get the current alarm state of Smart Home Monitor by getting the value of the ``alarmSystemStatus`` on the ``location``:
 
 .. code-block:: groovy
 
-    def currentState = location.currentState("alarmSystemStatus")
-    log.debug "current alarm state: $currentState"
+    def curr = location.currentState("alarmSystemStatus")?.value
+    log.debug "current alarm state: $curr"
 
 ----
 
