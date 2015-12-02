@@ -1,11 +1,11 @@
 .. _zigbee_ref:
 
-Zigbee Reference
+ZigBee Reference
 ================
 
-The Zigbee object contains many shorthands and conveniences for developing Zigbee device type handlers.
+The ZigBee library contains many shorthands and conveniences for developing ZigBee device type handlers.
 
-Zigbee devices have fingerprints that define what the device is when it joins a Zigbee network.
+ZigBee devices have fingerprints that define what the device is when it joins a ZigBee network.
 Currently you define the expected fingerprint for a device in the device type handler metadata block as part of the definition. An example would look like this:
 
 .. code-block:: groovy
@@ -34,7 +34,7 @@ If the fingerprint declaration contains a value for both the ``manufacturer`` an
 ===================== =========== ==========
 Fingerprint Attribute Type        Value
 ===================== =========== ==========
-deviceJoinName        ``String``  Overrides the device type name when pairing. This allows the developer to customize the device name while joining a Zigbee device.
+deviceJoinName        ``String``  Overrides the device type name when pairing. This allows the developer to customize the device name while joining a ZigBee device.
 ===================== =========== ==========
 
 ----
@@ -45,7 +45,7 @@ Parse Methods
 zigbee.getEvent()
 ~~~~~~~~~~~~~~~~~
 
-The ``getEvent()`` method will try to parse zigbee clusters into a map whose key/value pairs can be directly handled by the ``sendEvent()`` method.
+The ``getEvent()`` method will try to parse ZigBee clusters into a map whose key/value pairs can be directly handled by the ``sendEvent()`` method.
 
 **Signature:**
     .. code-block:: groovy
@@ -82,7 +82,7 @@ Event Type         Cluster value
 switch             0x0006
 level              0x0008
 power              0x0702 and 0x0B04
-color control      0x03000
+colorTemperature   0x0300
 ================== =================
 
 .. note::
@@ -94,7 +94,7 @@ color control      0x03000
 Low Level Commands
 ------------------
 
-zigbee.sendCommand()
+zigbee.command()
 ~~~~~~~~~~~~~~~~~~~~
 
 Send a cluster specific command.
@@ -102,7 +102,7 @@ Send a cluster specific command.
 **Signature:**
     .. code-block:: groovy
 
-        zigbee.sendCommand(Integer cluster, Integer command, [String... payload])
+        zigbee.command(Integer cluster, Integer command, [String... payload])
 
 **Parameters:**
     - **cluster**: The cluster ID
@@ -113,14 +113,14 @@ Send a cluster specific command.
     - Send *Move To Level* command to *Level Control* cluster.
         .. code-block:: groovy
 
-            zigbee.sendCommand(0x0008, 0x04, "FE", "0500")
+            zigbee.command(0x0008, 0x04, "FE", "0500")
 
         Where *Level* equals ``0xFE`` (full on) and *Transition Time* equals ``0x0005`` (5 seconds)
 
     - Send 'Off' command to *On/Off* cluster.
         .. code-block:: groovy
 
-            zigbee.sendCommand(0x0006, 0x00)
+            zigbee.command(0x0006, 0x00)
 
 ----
 
@@ -173,7 +173,7 @@ Write the attribute value of the specified cluster.
 zigbee.configureReporting()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Configure a zigbee device's reporting properties.
+Configure a ZigBee device's reporting properties.
 
 **Signature:**
 
@@ -205,10 +205,10 @@ Configure a zigbee device's reporting properties.
 
 ----
 
-Zigbee Capabilities
+ZigBee Capabilities
 -------------------
 
-The following table outlines the commands necessary to both configure and get updated information from Zigbee devices that support the capabilities outlined below.
+The following table outlines the commands necessary to both configure and get updated information from ZigBee devices that support the capabilities outlined below.
 
 ============= ============================================================= ============================== ================= ==============
 Capability    Configure                                                     Refresh                        Parse             Notes
@@ -222,7 +222,7 @@ Switch        configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)        read
 Temperature   configureReporting(0x0402, 0x0000, 0x29, 30, 3600, 0x0064)                                   getEvent(message)
 ============= ============================================================= ============================== ================= ==============
 
-Zigbee Helper Commands
+ZigBee Helper Commands
 ----------------------
 
 zigbee.parseDescriptionAsMap()

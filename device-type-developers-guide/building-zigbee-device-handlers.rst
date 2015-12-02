@@ -15,7 +15,7 @@ Read gets the devices current state and is formatted like this:
 .. code-block:: groovy
 
     def refresh() {
-        zigbee.readAttribute(0xB04, 0x50B)
+        zigbee.readAttribute(0x0B04, 0x050B)
     }
 
 In this example, the device type (from the "CentraLite Switch" device
@@ -27,9 +27,9 @@ specifically the Active Power Attribute (0x50B).
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
 +===============================+=============================+
-|0xB04                          | Cluster                     |
+|0x0B04                         | Cluster                     |
 +-------------------------------+-----------------------------+
-|0x50B                          | Attribute                   |
+|0x050B                         | Attribute                   |
 +-------------------------------+-----------------------------+
 
 Write
@@ -72,7 +72,7 @@ Command
 
 .. warning::
     Try not to use raw commands for anything. There are helper methods for this purpose. If a helper method does not exist for your command, let us know and we'll add it.
-    
+
 Command invokes a command on a ZigBee device and is formatted like this:
 
 .. code-block:: groovy
