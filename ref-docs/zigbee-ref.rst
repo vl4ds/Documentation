@@ -196,7 +196,7 @@ Configure a ZigBee device's reporting properties.
     - Discrete data type
         .. code-block:: groovy
 
-            zigbee.configureReporting(0x0006, 0x0000, 0x10, 0, 600)
+            zigbee.configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)
 
     - Analog data type
         .. code-block:: groovy
