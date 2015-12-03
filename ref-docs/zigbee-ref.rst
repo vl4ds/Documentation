@@ -210,17 +210,79 @@ ZigBee Capabilities
 
 The following table outlines the commands necessary to both configure and get updated information from ZigBee devices that support the capabilities outlined below.
 
-============= ============================================================= ============================== ================= ==============
-Capability    Configure                                                     Refresh                        Parse             Notes
-============= ============================================================= ============================== ================= ==============
-Battery       configureReporting(0x0001, 0x0020, 0x20, 30, 21600, 0x01)                                    getEvent(message)
-Color Temp    configureReporting(0x0300, 0x0007, 0x21, 1, 3600, 0x10)       readAttribute(0x0300, 0x0007)  getEvent(message) For devices that support the Color Control Cluster (0x0300)
-Level         configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01)       readAttribute(0x0008, 0x0000)  getEvent(message)
-Power         configureReporting(0x0702, 0x0400, 0x2A, 1, 600, 0x05)        readAttribute(0x0704, 0x0400)  getEvent(message) For devices that support the Metering Cluster (0x0704)
-Power         configureReporting(0x0B04, 0x050B, 0x29, 1, 600, 0x0005)      readAttribute(0x0B04, 0x050B)  getEvent(message) For devices that support the Electrical Measurement Cluster (0x0B04)
-Switch        configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)        readAttribute(0x0006, 0x0000)  getEvent(message)
-Temperature   configureReporting(0x0402, 0x0000, 0x29, 30, 3600, 0x0064)                                   getEvent(message)
-============= ============================================================= ============================== ================= ==============
+.. note::
+    all methods outlined in the table need the ``zigbee.`` prefix
+
+============= ============================================================= ============================== ==============
+Capability    Configure                                                     Refresh                        Notes
+============= ============================================================= ============================== ==============
+Battery       configureReporting(0x0001, 0x0020, 0x20, 30, 21600, 0x01)
+Color Temp    configureReporting(0x0300, 0x0007, 0x21, 1, 3600, 0x10)       readAttribute(0x0300, 0x0007)  For devices that support the Color Control Cluster (0x0300)
+Level         configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01)       readAttribute(0x0008, 0x0000)
+Power         configureReporting(0x0702, 0x0400, 0x2A, 1, 600, 0x05)        readAttribute(0x0704, 0x0400)  For devices that support the Metering Cluster (0x0704)
+Power         configureReporting(0x0B04, 0x050B, 0x29, 1, 600, 0x0005)      readAttribute(0x0B04, 0x050B)  For devices that support the Electrical Measurement Cluster (0x0B04)
+Switch        configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)        readAttribute(0x0006, 0x0000)
+Temperature   configureReporting(0x0402, 0x0000, 0x29, 30, 3600, 0x0064)
+============= ============================================================= ============================== ==============
+
+The following utility methods are available as capability based commands.
+
+zigbee.on()
+~~~~~~~~~~~
+
+Sends the on command, ``0x01``, to the *onoff* cluster, ``0x0006``
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.on()
+
+----
+
+zigbee.off()
+~~~~~~~~~~~~
+
+Sends the off command, ``0x00``, to the *onoff* cluster, ``0x0006``
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.off()
+
+----
+
+zigbee.setLevel()
+~~~~~~~~~~~~~~~~~
+
+Sends the level command, ``0x04``, to the level control cluster, ``0x0008`` with the passed in rate.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.setLevel(Integer level, Integer rate)
+
+**Parameters:**
+    - **level**: A value between 0-100 inclusive.
+    - **rate**: Time in tenths of a second. E.g. ``rate = 100 //max value`` translates to 10 seconds.
+
+----
+
+zigbee.setColorTemperature()
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sets the color to the specified temperature value in K.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.setColorTemperature(Integer value)
+
+**Parameters:**
+    - **value**: The temperature value to set the color to in K. Usually greater than *2700*
 
 ZigBee Helper Commands
 ----------------------
