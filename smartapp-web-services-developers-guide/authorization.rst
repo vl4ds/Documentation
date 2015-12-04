@@ -96,7 +96,7 @@ Get SmartApp Endpoints
 ----------------------
 
 You can use the token to request the callable endpoints of the SmartApp, by making a ``GET`` request to ``https://graph.api.smartthings.com/api/smartapps/endpoints``.
-The access token should be supplied via a ``Authorize: Bearer`` header:
+The access token should be supplied via a ``Authorization: Bearer`` header:
 
 .. code-block:: bash
 
