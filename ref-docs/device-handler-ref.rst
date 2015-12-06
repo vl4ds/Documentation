@@ -729,7 +729,7 @@ If the response content type is JSON, the response data will automatically be pa
 httpPostJson()
 ~~~~~~~~~~~~~~
 
-Executes an HTTP POST request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
+Executes an HTTP POST request with a JSON-encoded body and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
 If the response content type is JSON, the response data will automatically be parsed into a data structure.
 
