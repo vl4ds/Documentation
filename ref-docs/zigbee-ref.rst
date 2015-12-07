@@ -332,6 +332,13 @@ Convert the given value to a hex string of given width
     - **value**: Integer value to be converted
     - **width**: the minimum width of the hex string. Default value is 2
 
+**Examples:**
+
+.. code-block:: groovy
+
+    zigbee.convertToHexString(10, 2) //result: 0A
+    zigbee.convertToHexString(10, 4) //result: 000A
+
 ----
 
 zigbee.convertHexToInt()
@@ -347,6 +354,16 @@ Convert the given hex value to an Integer
 
 **Parameters:**
     - **value**: The hex value to be converted to an Integer
+
+**Example:**
+
+.. code-block:: groovy
+
+    zigbee.convertHexToInt("0001") //result: 1
+    zigbee.convertHexToInt("000F") //result: 15
+    def myInt = zigbee.convertHexToInt("12AB") // result = 4779. The result of calling Integer.parseInt()
+        assert myInt == 4779 //true
+        assert myInt == 0x12AB //also true
 
 ----
 
