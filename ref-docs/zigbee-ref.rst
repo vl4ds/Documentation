@@ -45,7 +45,7 @@ Parse Methods
 zigbee.getEvent()
 ~~~~~~~~~~~~~~~~~
 
-The ``getEvent()`` method will try to parse ZigBee clusters into a map whose key/value pairs can be directly handled by the ``sendEvent()`` method.
+The ``getEvent()`` method will try to parse ZigBee Clusters into a map whose key/value pairs can be directly handled by the ``sendEvent()`` method.
 
 **Signature:**
     .. code-block:: groovy
@@ -97,27 +97,27 @@ Low Level Commands
 zigbee.command()
 ~~~~~~~~~~~~~~~~~~~~
 
-Send a cluster specific command.
+Send a Cluster specific Command.
 
 **Signature:**
     .. code-block:: groovy
 
-        zigbee.command(Integer cluster, Integer command, [String... payload])
+        zigbee.command(Integer Cluster, Integer Command, [String... payload])
 
 **Parameters:**
-    - **cluster**: The cluster ID
-    - **command**: The command ID
-    - **payload** (optional): Zero or more arguments required by the command. Each argument should be passed as an ASCII hex string in little endian format of the appropriate width for the data type. For example, to pass the value 5 for a UINT24 (24-bit unsigned integer) you would pass “050000”.
+    - **Cluster**: The Cluster ID
+    - **Command**: The Command ID
+    - **payload** (optional): Zero or more arguments required by the Command. Each argument should be passed as an ASCII hex string in little endian format of the appropriate width for the data type. For example, to pass the value 5 for a UINT24 (24-bit unsigned integer) you would pass “050000”.
 
 **Examples:**
-    - Send *Move To Level* command to *Level Control* cluster.
+    - Send *Move To Level* Command to *Level Control* Cluster.
         .. code-block:: groovy
 
             zigbee.command(0x0008, 0x04, "FE", "0500")
 
         Where *Level* equals ``0xFE`` (full on) and *Transition Time* equals ``0x0005`` (5 seconds)
 
-    - Send 'Off' command to *On/Off* cluster.
+    - Send *Off* Command to *On/Off* Cluster.
         .. code-block:: groovy
 
             zigbee.command(0x0006, 0x00)
@@ -127,19 +127,19 @@ Send a cluster specific command.
 zigbee.readAttribute()
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Read the current attribute value of the specified cluster.
+Read the current attribute value of the specified Cluster.
 
 **Signature:**
     .. code-block:: groovy
 
-        zigbee.readAttribute(Integer cluster, Integer attributeId)
+        zigbee.readAttribute(Integer Cluster, Integer attributeId)
 
 **Parameters:**
-    - **cluster**: The cluster ID to read from
+    - **Cluster**: The Cluster ID to read from
     - **attributeId**: The ID of the attribute to read
 
 **Example:**
-    - Read *CurrentLevel* attribute of the *Level Control* cluster.
+    - Read *CurrentLevel* attribute of the *Level Control* Cluster.
         .. code-block:: groovy
 
             zigbee.readAttribute(0x0008, 0x0000)
@@ -149,21 +149,21 @@ Read the current attribute value of the specified cluster.
 zigbee.writeAttribute()
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Write the attribute value of the specified cluster.
+Write the attribute value of the specified Cluster.
 
 **Signature:**
     .. code-block:: groovy
 
-        zigbee.writeAttribute(Integer cluster, Integer attributeId, Integer dataType, value)
+        zigbee.writeAttribute(Integer Cluster, Integer attributeId, Integer dataType, value)
 
 **Parameters:**
-    - **cluster**: The cluster ID to write
-    - **attributeId**: The Id of the attribute to write
-    - **dataType**: The data type ID of the attribute as specified in the zigbee specification
-    - **value**: The Integer value to write for data types of *boolean*, *unsigned int*, *signed int*, general data, and enumerations. Other data types are not currently supported but will be added in the future. Let us know if you need a data type that is not currently supported.
+    - **Cluster**: The Cluster ID to write
+    - **attributeId**: The attribute ID to write
+    - **dataType**: The data type ID of the attribute as specified in the `ZigBee Cluster library <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__
+    - **value**: The Integer value to write for data types of *boolean*, *unsigned int*, *signed int*, *general data*, and *enumerations*. Other data types are not currently supported but will be added in the future. Let us know if you need a data type that is not currently supported.
 
 **Example**:
-    - Write a 16-bit unsigned integer
+    - Write the value 0x12AB to a unsigned 16-bit integer attribute
         .. code-block:: groovy
 
             zigbee.writeAttribute(0x0008, 0x0010, 0x21, 0x12AB)
@@ -173,19 +173,19 @@ Write the attribute value of the specified cluster.
 zigbee.configureReporting()
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Configure a ZigBee device's reporting properties.
+Configure a ZigBee device's reporting properties. Refer to the *Configure Reporting* Command in the `ZigBee Cluster Library <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__ for more information.
 
 **Signature:**
 
 .. code-block:: groovy
 
-    zigbee.configureReporting(Integer cluster,
+    zigbee.configureReporting(Integer Cluster,
         Integer attributeId, Integer dataType,
         Integer minReportTime, Integer MaxReportTime,
         [Integer reportableChange])
 
 **Parameters:**
-    - **cluster**: The cluster ID of the requested report
+    - **Cluster**: The Cluster ID of the requested report
     - **attributeId**: The attribute ID for the requested report
     - **dataType**: The two byte ZigBee type value for the requested report
     - **minReportTime**: Minimum number of seconds between reports
@@ -208,10 +208,10 @@ Configure a ZigBee device's reporting properties.
 ZigBee Capabilities
 -------------------
 
-The following table outlines the commands necessary to both configure and get updated information from ZigBee devices that support the capabilities outlined below.
+The following table outlines the Commands necessary to both configure and get updated information from ZigBee devices that support the capabilities outlined below.
 
 .. note::
-    all methods outlined in the table need the ``zigbee.`` prefix
+    All methods outlined in the table need the ``zigbee.`` prefix
 
 ============= ============================================================= ============================== ==============
 Capability    Configure                                                     Refresh                        Notes
@@ -225,12 +225,26 @@ Switch        configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)        read
 Temperature   configureReporting(0x0402, 0x0000, 0x29, 30, 3600, 0x0064)
 ============= ============================================================= ============================== ==============
 
-The following utility methods are available as capability based commands.
+**Examples:**
+
+- Get the latest *level* value from a dimmer switch. From the table above, we find the *level* capability and look at the **Refresh** column to find the correct Command to execute.
+
+    .. code-block:: groovy
+
+        readAttribute(0x0008, 0x0000)
+
+- Configure the *level* capability for a dimmer type switch. The configure reporting Command from the table above for *level* configures the device for a min reporting interval of 5 seconds, a reporting interval of 1 hour (3600 s) if there has been no activity, and a min level change of 01.
+
+    .. code-block:: groovy
+
+        configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01)
+
+The following utility methods are available as capability based Commands.
 
 zigbee.on()
 ~~~~~~~~~~~
 
-Sends the on command, ``0x01``, to the *onoff* cluster, ``0x0006``
+Sends the *on* Command, ``0x01``, to the *on/off* Cluster, ``0x0006``
 
 **Signature:**
 
@@ -243,7 +257,7 @@ Sends the on command, ``0x01``, to the *onoff* cluster, ``0x0006``
 zigbee.off()
 ~~~~~~~~~~~~
 
-Sends the off command, ``0x00``, to the *onoff* cluster, ``0x0006``
+Sends the *off* Command, ``0x00``, to the *onoff* Cluster, ``0x0006``
 
 **Signature:**
 
@@ -256,7 +270,7 @@ Sends the off command, ``0x00``, to the *onoff* cluster, ``0x0006``
 zigbee.setLevel()
 ~~~~~~~~~~~~~~~~~
 
-Sends the level command, ``0x04``, to the level control cluster, ``0x0008`` with the passed in rate.
+Sends the *level* Command, ``0x04``, to the level control Cluster, ``0x0008`` with the passed in rate.
 
 **Signature:**
 
