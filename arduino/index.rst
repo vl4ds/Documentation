@@ -22,7 +22,7 @@ Windows:
 OSX:
 ‘~/Documents/Arduino/libraries/SmartThings’
 
-You can download the `SmartThings Arduino Library here <http://cl.ly/ZMHh)>`__.
+You can download the `SmartThings Arduino Library here <http://cl.ly/ZMHh>`__.
 
 Pairing the Shield
 ------------------
