@@ -56,9 +56,7 @@ The ``getEvent()`` method will try to parse ZigBee Clusters into a map whose key
     - **description**: The description value passed to the parse method from the device.
 
 **Return Values**:
-    *Map(String key, String value)*
-        - Key: The name of the event
-        - Value: The value of the event
+    *Map: [name: <event name>, value: <event value>]*
 
 **Example**
 
