@@ -22,7 +22,7 @@ Windows:
 OSX:
 ‘~/Documents/Arduino/libraries/SmartThings’
 
-You can download the `SmartThings Arduino Library here <http://cl.ly/ZMHh)>`__.
+You can download the `SmartThings Arduino Library here <http://cl.ly/ZMHh>`__.
 
 Pairing the Shield
 ------------------
@@ -43,7 +43,7 @@ Select the "Type" drop down menu.
 
 Choose "On/Off Shield (example)"
 
-Hit the "Update" button 
+Hit the "Update" button
 
 Your Arduino will now be able to accept the commands "on" "off", and "hello"
 
