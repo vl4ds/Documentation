@@ -3,6 +3,9 @@
 ZigBee Reference
 ================
 
+.. note::
+    As of now, any time the ZigBee library logs a message, an error will be seen. This is a known issue and will be fixed with the next deploy.
+
 The ZigBee library contains many shorthands and conveniences for developing ZigBee device type handlers.
 
 ZigBee devices have fingerprints that define what the device is when it joins a ZigBee network.
