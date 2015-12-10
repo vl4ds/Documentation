@@ -108,3 +108,10 @@ on to off of a dimmer look like this:
 In this case the payload ({0014}) translates to 2 seconds. Breaking the payload
 down we see that the hex value of 0x0014 equals the decimal value of 20. 20 *
 1/10 of a second equals 2 seconds.
+
+Useful ZigBee references
+------------------------
+
+`ZigBee Cluster Library (ZCL) <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__
+`ZigBee Home Automation (HA) <http://www.zigbee.org/zigbee-for-developers/applicationstandards/zigbeehomeautomation/>`__
+`ZigBee Specification <http://www.zigbee.org/download/standards-zigbee-specification/>`__
