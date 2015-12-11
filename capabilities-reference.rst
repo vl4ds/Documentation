@@ -62,6 +62,8 @@ Commands:
 :ref:`door_control`           capability.doorControl                 - door                                - open()
                                                                                                            - close()
 :ref:`energy_meter`           capability.energyMeter                 - energy
+:ref:`garage_door`            capability.garageDoorControl           - door                                - open()
+                                                                                                           - close()
 :ref:`illuminance_mesurmnt`   capability.illuminanceMeasurement      - illuminance
 :ref:`image_capture`          capability.imageCapture                - image                               - take()
 :ref:`lock`                   capability.lock                        - lock                                - lock()
@@ -758,6 +760,38 @@ None.
   def myHandler(evt) {
     log.debug "$outlet.currentEnergy"
   }
+
+----
+
+.. _garage_door:
+
+Garage Door Control
+-------------------
+
+=========================   ==============================
+Capability Name             SmartApp Preferences Reference
+=========================   ==============================
+Garage Door Control         capability.garageDoorControl
+=========================   ==============================
+
+**Attributes:**
+
+========= ======= =================
+Attribute Type    Possible Values
+========= ======= =================
+door      String  ``"unknown"``
+                  ``"closed"``
+                  ``"open"``
+                  ``"closing"``
+                  ``"opening"``
+========= ======= =================
+
+**Commands:**
+
+*open()*
+    Opens the door
+*close()*
+    Closes the door
 
 ----
 
@@ -2113,4 +2147,3 @@ water       String  ``"dry"``
 **Commands:**
 
 None.
-
