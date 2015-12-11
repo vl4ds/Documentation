@@ -113,5 +113,7 @@ Useful ZigBee references
 ------------------------
 
 `ZigBee Cluster Library (ZCL) <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__
+
 `ZigBee Home Automation (HA) <http://www.zigbee.org/zigbee-for-developers/applicationstandards/zigbeehomeautomation/>`__
+
 `ZigBee Specification <http://www.zigbee.org/download/standards-zigbee-specification/>`__
