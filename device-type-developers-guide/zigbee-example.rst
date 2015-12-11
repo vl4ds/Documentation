@@ -1,109 +1,99 @@
 ZigBee Example
 ==============
 
-An example of a ZibBee device-type is the SmartPower Outlet. You can find the code in the IDE in the "Browse Device Types" menu.
+An example of a ZibBee device-type is a ZigBee dimmer.
 
-You can also find the source code in GitHub `here <https://github.com/SmartThingsCommunity/Code/blob/master/device-types/zigbee-example.groovy>`__, and below.
+Here is the code.
 
 .. code-block:: groovy
 
-  metadata {
-	  // Automatically generated. Make future change here.
-	  definition (name: "SmartPower Outlet", namespace: "smartthings", author: "SmartThings") {
-		  capability "Actuator"
-		  capability "Switch"
-		  capability "Power Meter"
-		  capability "Configuration"
-		  capability "Refresh"
-		  capability "Sensor"
+    /**
+    *  Copyright 2015 SmartThings
+    *
+    *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+    *  in compliance with the License. You may obtain a copy of the License at:
+    *
+    *      http://www.apache.org/licenses/LICENSE-2.0
+    *
+    *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
+    *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
+    *  for the specific language governing permissions and limitations under the License.
+    *
+    */
 
-		  fingerprint profileId: "0104", inClusters: "0000,0003,0004,0005,0006,0B04,0B05", outClusters: "0019"
-	  }
+    metadata {
+        definition (name: "ZigBee Dimmer", namespace: "smartthings", author: "SmartThings") {
+            capability "Actuator"
+            capability "Configuration"
+            capability "Refresh"
+            capability "Switch"
+            capability "Switch Level"
 
-	  // simulator metadata
-	  simulator {
-		  // status messages
-		  status "on": "on/off: 1"
-		  status "off": "on/off: 0"
 
-		  // reply messages
-		  reply "zcl on-off on": "on/off: 1"
-		  reply "zcl on-off off": "on/off: 0"
-	  }
+            fingerprint profileId: "0104", inClusters: "0000, 0003, 0004, 0005, 0006, 0008"
+            fingerprint profileId: "0104", inClusters: "0000, 0003, 0004, 0005, 0006, 0008, 0B04, FC0F", outClusters: "0019", manufacturer: "OSRAM", model: "LIGHTIFY A19 ON/OFF/DIM", deviceJoinName: "OSRAM LIGHTIFY LED Smart Connected Light"
+            fingerprint profileId: "0104", inClusters: "0000, 0003, 0004, 0005, 0006, 0008, FF00", outClusters: "0019", manufacturer: "MRVL", model: "MZ100", deviceJoinName: "Wemo Bulb"
+            fingerprint profileId: "0104", inClusters: "0000, 0003, 0004, 0005, 0006, 0008, 0B05", outClusters: "0019", manufacturer: "OSRAM SYLVANIA", model: "iQBR30", deviceJoinName: "Sylvania Ultra iQ"
+        }
 
-	  // UI tile definitions
-	  tiles {
-		  standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
-			  state "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
-			  state "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#79b821"
-		  }
-		  valueTile("power", "device.power", decoration: "flat") {
-			  state "power", label:'${currentValue} W'
-		  }
-		  standardTile("refresh", "device.power", inactiveLabel: false, decoration: "flat") {
-			  state "default", label:'', action:"refresh.refresh", icon:"st.secondary.refresh"
-		  }
+        tiles(scale: 2) {
+            multiAttributeTile(name:"switch", type: "lighting", width: 6, height: 4, canChangeIcon: true){
+                tileAttribute ("device.switch", key: "PRIMARY_CONTROL") {
+                    attributeState "on", label:'${name}', action:"switch.off", icon:"st.switches.light.on", backgroundColor:"#79b821", nextState:"turningOff"
+                    attributeState "off", label:'${name}', action:"switch.on", icon:"st.switches.light.off", backgroundColor:"#ffffff", nextState:"turningOn"
+                    attributeState "turningOn", label:'${name}', action:"switch.off", icon:"st.switches.light.on", backgroundColor:"#79b821", nextState:"turningOff"
+                    attributeState "turningOff", label:'${name}', action:"switch.on", icon:"st.switches.light.off", backgroundColor:"#ffffff", nextState:"turningOn"
+                }
+                tileAttribute ("device.level", key: "SLIDER_CONTROL") {
+                    attributeState "level", action:"switch level.setLevel"
+                }
+            }
+            standardTile("refresh", "device.switch", inactiveLabel: false, decoration: "flat", width: 2, height: 2) {
+                state "default", label:"", action:"refresh.refresh", icon:"st.secondary.refresh"
+            }
+            main "switch"
+            details(["switch", "refresh"])
+        }
+    }
 
-		  main "switch"
-		  details(["switch","power","refresh"])
-	  }
-  }
+    // Parse incoming device messages to generate events
+    def parse(String description) {
+        log.debug "description is $description"
 
-  // Parse incoming device messages to generate events
-  def parse(String description) {
-	  log.debug "Parse description $description"
-	  def name = null
-	  def value = null
-	  if (description?.startsWith("read attr -")) {
-		  def descMap = parseDescriptionAsMap(description)
-		  log.debug "Read attr: $description"
-		  if (descMap.cluster == "0006" && descMap.attrId == "0000") {
-			  name = "switch"
-			  value = descMap.value.endsWith("01") ? "on" : "off"
-		  } else {
-			  def reportValue = description.split(",").find {it.split(":")[0].trim() == "value"}?.split(":")[1].trim()
-			  name = "power"
-			  // assume 16 bit signed for encoding and power divisor is 10
-			  value = Integer.parseInt(reportValue, 16) / 10
-		  }
-	  } else if (description?.startsWith("on/off:")) {
-		  log.debug "Switch command"
-		  name = "switch"
-		  value = description?.endsWith(" 1") ? "on" : "off"
-	  }
+        def event = zigbee.getEvent(description)
+        if (event) {
+            sendEvent(event)
+        }
+        else {
+            log.warn "DID NOT PARSE MESSAGE for description : $description"
+            log.debug zigbee.parseDescriptionAsMap(description)
+        }
+    }
 
-	  def result = createEvent(name: name, value: value)
-	  log.debug "Parse returned ${result?.descriptionText}"
-	  return result
-  }
+    def off() {
+        zigbee.off()
+    }
 
-  def parseDescriptionAsMap(description) {
-	  (description - "read attr - ").split(",").inject([:]) { map, param ->
-		  def nameAndValue = param.split(":")
-		  map += [(nameAndValue[0].trim()):nameAndValue[1].trim()]
-	  }
-  }
+    def on() {
+        zigbee.on()
+    }
 
-  // Commands to device
-  def on() {
-	  'zcl on-off on'
-  }
+    def setLevel(value) {
+        zigbee.setLevel(value)
+    }
 
-  def off() {
-	  'zcl on-off off'
-  }
+    def refresh() {
+        return zigbee.readAttribute(0x0006, 0x0000) +
+            zigbee.readAttribute(0x0008, 0x0000) +
+            zigbee.configureReporting(0x0006, 0x0000, 0x10, 0, 600, null) +
+            zigbee.configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01)
+    }
 
-  def meter() {
-	  "st rattr 0x${device.deviceNetworkId} 1 0xB04 0x50B"
-  }
+    def configure() {
+        log.debug "Configuring Reporting and Bindings."
 
-  def refresh() {
-	  "st rattr 0x${device.deviceNetworkId} 1 0xB04 0x50B"
-  }
-
-  def configure() {
-	  [
-		  "zdo bind 0x${device.deviceNetworkId} 1 1 6 {${device.zigbeeId}} {}", "delay 200",
-		  "zdo bind 0x${device.deviceNetworkId} 1 1 0xB04 {${device.zigbeeId}} {}"
-	  ]
-  }
+        return zigbee.configureReporting(0x0006, 0x0000, 0x10, 0, 600, null) +
+            zigbee.configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01) +
+            zigbee.readAttribute(0x0006, 0x0000) +
+            zigbee.readAttribute(0x0008, 0x0000)
+    }
