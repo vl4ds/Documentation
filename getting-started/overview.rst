@@ -46,7 +46,7 @@ SmartApps can typically be summarized by what they do. Some example SmartApps:
 - *"Turn my thermostat down when I leave home"*
 
 
-SmartThings ships with many SmartThings already available. Almost all automations that you configure with your SmartThings mobile application are SmartApps. If you've set up your lights to come on when motion is detected, or to receive a notification if your door opens when you aren't home, you've used SmartApps.
+SmartThings ships with many SmartApps already available. Almost all automations that you configure with your SmartThings mobile application are SmartApps. If you've set up your lights to come on when motion is detected, or to receive a notification if your door opens when you aren't home, you've used SmartApps.
 
 Of course, SmartApps are capable of much more than the above examples. SmartApps can communicate with external web services, send push and SMS notifications, expose their own REST endpoints, and more.
 
