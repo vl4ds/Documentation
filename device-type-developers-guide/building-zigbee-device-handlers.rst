@@ -103,14 +103,9 @@ formatted like this:
         configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)
     }
 
-In this example (using the "CentraLite Switch" device type), the bind
-command is sent to the device using its Network ID which can be
-determined using 0x${device.deviceNetworkId}. Then using source and
-destination endpoints for the device and hub (1 1), we bind to the
-On/Off Clusters (6) to get events from the device. The last part of the
-message contains the hub's ZigBee id which is set as the location for
-the device to send callback messages to. Note that not at all devices
-support binding for events.
+In this example (using the "CentraLite Switch" device type), we are configuring
+the switch cluster with a minimum reporting interval as 0 seconds, and a reporting
+interval of 10 minutes if there is no activity.
 
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
