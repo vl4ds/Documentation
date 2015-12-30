@@ -239,6 +239,7 @@ The example above would return a ``200`` response with a ``application/json`` re
         "bar":"YYYY"
     }
 
+
 The handler can also use the :ref:`smartapp_render` method for  more fine-grained control over the response:
 
 .. code-block:: groovy
@@ -256,6 +257,9 @@ The handler can also use the :ref:`smartapp_render` method for  more fine-graine
 
 If not specified, the ``contentType`` will be "application/json", and the ``status`` will be ``200``.
 
+.. note::
+    ``PUT`` request handlers return a ``204 - No Content`` response, and cannot be overriden.
+    
 ----
 
 Error Handling
