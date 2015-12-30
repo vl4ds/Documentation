@@ -666,11 +666,11 @@ on the selections made on the first page.
         dynamicPage(name: "page2") {
             section {
                 input(name: "sensor", type: "capability.$sensorType", title: "If the $sensorType device")
-                input(name: "action", type: "enum", title: "is", options: attributeValues(sensorType))
+                input(name: "sensorAction", type: "enum", title: "is", options: attributeValues(sensorType))
             }
             section {
                 input(name: "actuator", type: "capability.$actuatorType", title: "Set the $actuatorType")
-                input(name: "action", type: "enum", title: "to", options: actions(actuatorType))
+                input(name: "actuatorAction", type: "enum", title: "to", options: actions(actuatorType))
              }
 
         }
