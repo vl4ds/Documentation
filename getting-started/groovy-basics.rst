@@ -494,14 +494,14 @@ Methods can also define default values for parameters. If not passed when callin
 .. code-block:: groovy
 
     def defaultParams(first, last, middle = "") {
-        "Welcome, $first $middle" $last"
+        "Welcome, $first $middle $last"
     }
 
     def greetGeorge = defaultParams("George", "Costanza", "Louis")
     def greetKramer = defaultParams("Cosmo", "Kramer")
 
-    assert "Welcome George Louis Costanza" == greetGeorge
-    assert "Welcome Cosmo Kramer" == greetKramer
+    assert "Welcome, George Louis Costanza" == greetGeorge
+    assert "Welcome, Cosmo  Kramer" == greetKramer
 
 Worth noting is that none of the above definitions include any type of explicit visibility modifier information. By default, when using ``def``, the method is public. Want to make your method private? It's syntactically allowed, but actually isn't respected by Groovy (gasp!). And in SmartThings, this really isn't necessary since we are not creating our own classes or object models. So, we typically just omit any visibility modifier for simplicity.
 
