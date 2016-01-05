@@ -1050,6 +1050,11 @@ None.
 *push()*
     Press the momentary switch
 
+.. note::
+    The Momentary capability does not define any attributes, so subscribing to any events will be Device Handler-specific.
+
+    You should consult the specific Device Handler to see what events may be raised when the ``push()`` command is executed.
+    
 **SmartApp Example:**
 
 .. code-block:: groovy
