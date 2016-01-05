@@ -980,30 +980,30 @@ lock            String  ``"locked"``
 
 .. code-block:: groovy
 
-preferences {
-  section("Title") {
-    input "lock", "capability.lock", title:"door lock", required: true, multiple: false
-    input "door", "capability.contactSensor", title:"door", required: true, multiple: false
-  }
-}
+    preferences {
+      section("Title") {
+        input "lock", "capability.lock", title:"door lock", required: true, multiple: false
+        input "door", "capability.contactSensor", title:"door", required: true, multiple: false
+      }
+    }
 
-def installed() {
-  // lock the door when it closes. A real application would probably want
-  // to wait a specified amount of time before locking.
-  subscribe(door, "contact.closed", doorClosedHandler)
+    def installed() {
+      // lock the door when it closes. A real application would probably want
+      // to wait a specified amount of time before locking.
+      subscribe(door, "contact.closed", doorClosedHandler)
 
-  // subscribe to any lock changes
-  subscribe(lock, "lock", lockHandler)
-}
+      // subscribe to any lock changes
+      subscribe(lock, "lock", lockHandler)
+    }
 
-def doorClosedHandler(evt) {
-  lock.lock()
-}
+    def doorClosedHandler(evt) {
+      lock.lock()
+    }
 
-def lockHandler(evt) {
-  // just for debugging
-  log.debug "lock status changed to ${evt.value}"
-}
+    def lockHandler(evt) {
+      // just for debugging
+      log.debug "lock status changed to ${evt.value}"
+    }
 
 ----
 
@@ -1062,7 +1062,7 @@ None.
     The Momentary capability does not define any attributes, so subscribing to any events will be Device Handler-specific.
 
     You should consult the specific Device Handler to see what events may be raised when the ``push()`` command is executed.
-    
+
 **SmartApp Example:**
 
 .. code-block:: groovy
