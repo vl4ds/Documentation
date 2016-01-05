@@ -631,7 +631,6 @@ Valid input options:
     text                         A text value
     ===========================  ===========================================================================================
 
-
 Dynamic Preferences
 -------------------
 
@@ -733,8 +732,55 @@ you can also have dynamic behavior in a single page.
         }
     }
 
-.. note:: When a submitOnChange input is changed, the whole page will be saved. Then a refresh is triggered with the
-    saved page state. This means that all of the methods will execute each time you change a submitOnChange input.
+.. note::
+
+    When a ``submitOnChange`` input is changed, the whole page will be saved.
+    Then a refresh is triggered with the saved page state.
+    This means that all of the methods will execute each time you change a submitOnChange input.
+
+Private Settings
+----------------
+
+Some SmartApps may need to reference sensitive data, such as API keys or secrets.
+These should not be placed directly in the source code, since anyone with access to the source will then be able to view this sensitive information.
+
+Instead, you should specify ``appSettings`` in the SmartApp's ``definition``:
+
+.. code-block:: groovy
+
+    definition(
+        name: "your app name",
+        namespace: "your-namespace",
+        // ...
+    ) {
+        appSetting "setting1"
+        appSetting "setting2"
+    }
+
+The string passed to ``appSetting`` will be the name of the setting.
+The actual values are set on the Edit SmartApp page, accessed by pressing the *App Settings* button.
+Scroll down the page, expand the *Settings* group, and set the values as needed.
+
+The values are stored in a map in ``app.appSettings``.
+You can access the values like this:
+
+.. code-block:: groovy
+
+    definition(
+        //...
+    ) {
+        appSetting "apiSecret"
+    }
+
+    // get the value of apiSecret
+    def mySecret = appSettings.apiSecret
+
+.. note::
+
+    All values in ``appSettings`` are stored as strings.
+    Any desired type conversion will need to be performed manually.
+
+Any SmartApp that requires the use of API keys or other information that is sensitive in nature should use ``appSettings`` to store this information.
 
 Examples
 --------
