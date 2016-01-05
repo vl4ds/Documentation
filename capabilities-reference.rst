@@ -56,6 +56,8 @@ Commands:
 
                                                                      - saturation                          - setSaturation(number)
                                                                      - color                               - setColor(color_map)
+
+:ref:`color_temp`             capability.colorTemperature            - colorTemperature                    - setColorTemperature(number)
 :ref:`configuration`          capability.configuration                                                     - configure()
 :ref:`consumable`             capability.consumable                  - consumable                          - setConsumableStatus(string)
 :ref:`contact_sensor`         capability.contactSensor               - contact
@@ -563,6 +565,55 @@ switch        ``"on"`` or ``"off"``
 
 ----
 
+.. _color_temp:
+
+Color Temperature
+-----------------
+
+=========================   ==============================
+Capability Name             SmartApp Preferences Reference
+=========================   ==============================
+Color Temperature           capability.colorTemperature
+=========================   ==============================
+
+**Attributes:**
+
+================ ======= =============================================
+Attribute        Type    Possible Values
+================ ======= =============================================
+colorTemperature Number  A number that represents the color temperature, measured in degrees Kelvin.
+================ ======= =============================================
+
+**Commands:**
+
+*setColorTemperature(number)*
+    Sets the color temperature
+
+**SmartApp Example:**
+
+.. code-block:: groovy
+
+  preferences {
+    section("Title") {
+      input "bulb", "capability.colorTemperature", required: true, multiple: false
+      input "colorTemperature", "enum", title: "Color Temperature", options:
+        [[2700: "Soft White (2700K)"], [3300: "White (3300K)"], [4100: "Moonlight (4100K)"],
+         [5000: "Cool White (5000K)"], [6500: "Daylight (6500K)"]], defaultValue: "3300"
+    }
+  }
+
+  def installed() {
+    runIn(60, changeColorTemp)
+  }
+
+  def changeColorTemp() {
+    def temp = colorTemperature as Integer ?: 3300
+    bulb.setColorTemperature(temp)
+    bulb.on()
+  }
+
+----
+
 .. _configuration:
 
 Configuration
@@ -998,11 +1049,6 @@ None.
 
 *push()*
     Press the momentary switch
-
-.. note::
-    The Momentary capability does not define any attributes, so subscribing to any events will be Device Handler-specific.
-
-    You should consult the specific Device Handler to see what events may be raised when the ``push()`` command is executed.
 
 **SmartApp Example:**
 
