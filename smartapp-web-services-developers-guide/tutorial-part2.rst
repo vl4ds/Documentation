@@ -15,6 +15,8 @@ In Part 2 of this tutorial, you will learn:
 
 The source code for this tutorial is available `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-smartapps>`__.
 
+.. include:: ../common/oauth-install-restriction.rst
+
 Overview
 --------
 
