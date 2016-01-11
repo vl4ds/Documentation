@@ -12,6 +12,10 @@ The general flow is:
 #. Get the endpoint URI for the SmartApp.
 #. Make REST calls to the SmartApp using the endpoint URI.
 
+As part of the authorization flow, the SmartApp will be installed to the user's selected Location.
+
+.. include:: ../common/oauth-install-restriction.rst
+
 .. note::
 
     Regardless of the server the SmartApp is actually published to, ``https://graph.api.smartthings.com`` should be used to obtain the authorization code, access token, and endpoints.
