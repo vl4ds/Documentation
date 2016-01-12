@@ -2,13 +2,24 @@ Building ZigBee Device Handlers
 ===============================
 
 .. note::
-    There is a new :ref:`zigbee_ref` that covers ZigBee utilities that are used in this page. If you have not glanced at that reference, we strongly recommend you start there.
+
+    If you are integrating a new ZigBee switch or bulb with SmartThings, see the :ref:`zigbee_device_form` section below to learn how you can integrate these devices without the need to write code.
+
+
+Commands
+--------
+
+SmartThings provides a library to make working with ZigBee easier.
+Every Device Handler has a reference to this library injected into it, with the name ``zigbee``.
+
+This library will be used in the examples below.
+You can see the :ref:`zigbee_ref` for more detailed documentation.
 
 There are four common ZigBee commands that you will use to integrate
 SmartThings with your ZigBee Devices.
 
 Read
-----
+````
 
 Read gets the devices current state and is formatted like this:
 
@@ -33,7 +44,7 @@ specifically the Active Power Attribute (0x50B).
 +-------------------------------+-----------------------------+
 
 Write
------
+`````
 
 Write sets an attribute of a ZigBee device and is formatted like this:
 
@@ -68,7 +79,7 @@ of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds
 +-------------------------------+-----------------------------+
 
 Command
--------
+```````
 
 Command invokes a command on a ZigBee device and is formatted like this:
 
@@ -92,7 +103,7 @@ it from the passed in parameters.
 +-------------------------------+-----------------------------+
 
 Configure
---------
+`````````
 
 Configure reporting instructs a device to notify us when an attribute changes and is
 formatted like this:
@@ -103,9 +114,14 @@ formatted like this:
         configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)
     }
 
-In this example (using the "CentraLite Switch" device type), we are configuring
-the switch cluster with a minimum reporting interval as 0 seconds, and a reporting
-interval of 10 minutes if there is no activity.
+In this example (using the "CentraLite Switch" device type), the bind
+command is sent to the device using its Network ID which can be
+determined using 0x${device.deviceNetworkId}. Then using source and
+destination endpoints for the device and hub (1 1), we bind to the
+On/Off Clusters (6) to get events from the device. The last part of the
+message contains the hub's ZigBee id which is set as the location for
+the device to send callback messages to. Note that not at all devices
+support binding for events.
 
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
@@ -123,6 +139,8 @@ interval of 10 minutes if there is no activity.
 |null                           |Reportable change (discrete) |
 +-------------------------------+-----------------------------+
 
+----
+
 ZigBee Utilities
 ----------------
 
@@ -133,8 +151,46 @@ to your device. You can download this document
 
 There is also a ZigBee utility class covered in the :ref:`zigbee_ref`
 
+----
+
 Best Practices
 --------------
 
 - The use of 'raw ...' commands is deprecated. Instead use the documented methods on the zigbee library. If you need to do something that requires the use of a 'raw' command let us know and we will look at adding it to the zigbee library.
 - Do not use sendEvent() in command methods. Sending events should be handled in the parse method.
+
+----
+
+.. _zigbee_device_form:
+
+Using the ZigBee Device Form
+----------------------------
+
+To integrate a new ZigBee switch or bulb with SmartThings, you can use the *From ZigBee Device Form*.
+
+.. image:: ../img/device-types/zigbee-form.png
+
+What it does
+````````````
+
+By entering the ZigBee information for the device in the form, the appropriate existing Device Handler will be updated with the device's fingerprint.
+
+Use it if
+`````````
+
+- You are the device manufacturer, or otherwise have access to the required ZigBee device information requested on the form.
+- The device is best described as one of the following:
+
+    - ZigBee Switch
+    - ZigBee Switch with Power
+    - ZigBee Dimmer/Bulb
+    - ZigBee Dimmer/Bulb with Power
+    - ZigBee Color Temperature Bulb
+
+How to use
+``````````
+
+Simply fill out the required fields in the form with the information for the device, and click Create.
+
+You will then see the updated Device Handler code in the IDE editor.
+You can then test that your device pairs with SmartThings and functions as expected, and then make an update as a Publication Request.
