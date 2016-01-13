@@ -58,9 +58,13 @@ Get Access Token
 
 Use the code you received to obtain the access token:
 
-.. code-block:: bash
+.. code::
+    
+    POST /oauth/token HTTP/1.1
+    Host: graph.api.smartthings.com
+    Content-Type: application/x-www-form-urlencoded
 
-    POST https://graph.api.smartthings.com/oauth/token
+    grant_type=authorization_code&code=YOUR_CODE&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI
 
 The ``content-type`` header of your request should be of the type ``application/x-www-form-urlencoded``. The following form parameters are required:
 
@@ -73,16 +77,6 @@ client_id           The client ID for the SmartApp
 client_secret       The client secret for the SmartApp
 redirect_uri        The URI of the server that will receive the token. This must match the URI you used to obtain the authorization code.
 =================== ===========
-
-In other words, the request outlined above should look like this:
-
-.. code::
-    
-    POST /oauth/token HTTP/1.1
-    Host: graph.api.smartthings.com
-    Content-Type: application/x-www-form-urlencoded
-
-    grant_type=authorization_code&code=YOUR_CODE&client_id=YOUR_CLIENT_ID&client_secret=YOUR_CLIENT_SECRET&redirect_uri=YOUR_REDIRECT_URI
 
 A successful response will look like this:
 
