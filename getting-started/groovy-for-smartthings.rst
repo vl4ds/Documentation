@@ -68,7 +68,7 @@ There are a few other notable restrictions in SmartThings worth discussing:
 Allowed Classes
 ---------------
 
-SmartThings also specifies a *whitelist* of allowed classes. Only classes included in this whitelist are available for use within SmartThings. Whenever a method is called (any method), SmartThings first checks to see that the *receiver* of the method (the the object the method is being called on) is in the allowable types whitelist. If it isn't, a ``SecurityException`` will be thrown. This same principle applies to the creation of new objects with the ``new`` keyword - if the object being created is not in the whitelist, a ``SecurityException`` is also thrown.
+SmartThings also specifies a *whitelist* of allowed classes. Only classes included in this whitelist are available for use within SmartThings. Whenever a method is called (any method), SmartThings first checks to see that the *receiver* of the method (the object the method is being called on) is in the allowable types whitelist. If it isn't, a ``SecurityException`` will be thrown. This same principle applies to the creation of new objects with the ``new`` keyword - if the object being created is not in the whitelist, a ``SecurityException`` is also thrown.
 
 Most SmartThings solutions will not need to instantiate any of these classes directly. The majority of objects you work with will be available to you via callback parameters or injected right into your SmartApp or Device Type Handler.
 Here is the whitelist of available, non-SmartThings-specific types (i.e., Java, Groovy and third party library classes):
