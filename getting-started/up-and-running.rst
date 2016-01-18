@@ -13,7 +13,7 @@ Register
 --------
 
 1. Download the free SmartThings app for `iOS <https://geo.itunes.apple.com/us/app/smartthings-mobile/id590800740?mt=8>`__, `Android <https://play.google.com/store/apps/details?id=com.smartthings.android>`__, or `Windows <https://www.microsoft.com/en-us/store/apps/smartthings-mobile/9wzdncrdszmq>`__.
-2. Register for an account using the mobile app, and stop at the Welcome Code screen:
+2. Register for an account using the mobile app:
 
 .. image:: ../img/getting-started/register-sign-up.png
     :width: 30%
