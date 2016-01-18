@@ -59,7 +59,7 @@ Get Access Token
 Use the code you received to obtain the access token:
 
 .. code::
-    
+
     POST /oauth/token HTTP/1.1
     Host: graph.api.smartthings.com
     Content-Type: application/x-www-form-urlencoded
@@ -102,7 +102,7 @@ The access token should be supplied via a ``Authorization: Bearer`` header:
 
 .. code-block:: bash
 
-    GET -H "Authorize: Bearer ACCESS-TOKEN" "https://graph.api.smartthings.com/api/smartapps/endpoints"
+    GET -H "Authorization: Bearer ACCESS-TOKEN" "https://graph.api.smartthings.com/api/smartapps/endpoints"
 
 A successful response will look like this:
 
