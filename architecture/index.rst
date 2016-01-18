@@ -33,8 +33,8 @@ Devices
 
 Devices are the building blocks of the SmartThings infrastructure. They
 are the connection between the SmartThings system and the physical
-world. There's a huge variety in the devices you can use, some created
-by SmartThings but most are not.
+world. There's a huge variety in the devices you can use; some are created
+by SmartThings, but most are not.
 
 The real power of SmartThings is that our system works with most home
 automation devices already on the market. We believe in a fully

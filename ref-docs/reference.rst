@@ -13,7 +13,7 @@ SmartThings objects are rarely created directly by SmartApp or Device Handler de
 
 You will rarely see constructor documentation for this reason. Each object will contain a summary at the top of the document that discusses some of the common ways to get a reference to the object.
 
-Also worth noting is that some of the "objects" documented are not really objects at all. A SmartApp is not an object, in the strict sense of the word, for example (either is a Device Handler). But each running execution of a SmartApp or Device Handler has available to it many methods and properties. For convenience, we have organized the methods available to SmartApps and Device Handlers into the SmartApp or Device Handler API documentation.
+Also worth noting is that some of the "objects" documented are not really objects at all. A SmartApp is not an object, in the strict sense of the word, for example (neither is a Device Handler). But each running execution of a SmartApp or Device Handler has available to it many methods and properties. For convenience, we have organized the methods available to SmartApps and Device Handlers into the SmartApp or Device Handler API documentation.
 
 *Object Wrappers*
 
