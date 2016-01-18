@@ -12,6 +12,13 @@ Of course, you'll want to have the hardware sooner than later, but you can start
 Register
 --------
 
+.. note::
+
+    We're currently experiencing issues with registration via the IDE.
+    We’re actively working on this problem.
+
+    While not ideal, the below steps will allow you to register for an account via our mobile app.
+     
 1. Download the free SmartThings app for `iOS <https://geo.itunes.apple.com/us/app/smartthings-mobile/id590800740?mt=8>`__, `Android <https://play.google.com/store/apps/details?id=com.smartthings.android>`__, or `Windows <https://www.microsoft.com/en-us/store/apps/smartthings-mobile/9wzdncrdszmq>`__.
 2. Register for an account using the mobile app:
 
