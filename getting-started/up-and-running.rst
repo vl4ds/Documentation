@@ -7,10 +7,36 @@ SmartThings offers a rich toolset to develop, test, and publish custom code.
 
 Don't have a SmartThings Hub or any devices yet? Carry on! You can still create an account and even develop without any hardware, by using our online IDE and simulator.
 
-Of course, you'll want to have the hardware sooner than later, but you can start developing with SmartThings with nothing more than the free SmartThings mobile app, a web browser, and an internet connection:
+Of course, you'll want to have the hardware sooner than later, but you can start developing with SmartThings with nothing more than the free SmartThings mobile app, a web browser, and an Internet connection.
 
-#. `Register <https://graph.api.smartthings.com/register>`__ for an account.
-#. Download the free SmartThings app for iOS, Android, or Windows.
+Register
+--------
+
+.. note::
+
+    We're currently experiencing issues with registration via the IDE.
+    We’re actively working on this problem.
+
+    While not ideal, the below steps will allow you to register for an account via our mobile app.
+     
+1. Download the free SmartThings app for `iOS <https://geo.itunes.apple.com/us/app/smartthings-mobile/id590800740?mt=8>`__, `Android <https://play.google.com/store/apps/details?id=com.smartthings.android>`__, or `Windows <https://www.microsoft.com/en-us/store/apps/smartthings-mobile/9wzdncrdszmq>`__.
+2. Register for an account using the mobile app:
+
+.. image:: ../img/getting-started/register-sign-up.png
+    :width: 30%
+
+.. image:: ../img/getting-started/register-enter-details.png
+    :width: 30%
+
+.. image:: ../img/getting-started/register-select-region.png
+    :width: 30%
+
+3. If you have a Hub to activate, proceed to enter your activation code. If you don't have a Hub, you can exit the app at this point:
+
+.. image:: ../img/getting-started/register-enter-welcome-code.png
+    :width: 30%
+
+4. Log into the `IDE <https://graph.api.smartthings.com/>`__ using the email and password you used to create your account.
 
 ----
 
