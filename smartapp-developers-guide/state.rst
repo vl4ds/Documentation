@@ -11,8 +11,6 @@ In this guide, you will learn:
 - A basic understanding of how ``state`` works.
 - When ``state`` may not be the best solution, and what to use instead.
 
-.. contents::
-
 Overview
 --------
 
@@ -39,7 +37,7 @@ When the application is finished executing, the values in ``state`` are written 
 
   When an application stores data in ``state``, or reads from it, it is only modifying (or querying) the local ``state`` instance variable within the running SmartApp or Device Handler. Only when the application is done executing are the values written to persistent storage.
 
-The contents of ``state`` are stored as a string, in JSON format. This means that anything stored in ``state`` must be serializable to JSON.
+The contents of ``state`` are stored as a JSON string. This means that anything stored in ``state`` must be serializable to JSON.
 
 .. tip::
 
@@ -110,6 +108,8 @@ As usual, the best way to describe code is by showing code itself.
       }
     }
 
+.. _atomic_state:
+
 Atomic State
 ------------
 
@@ -151,11 +151,48 @@ To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` wri
 
   It's also worth noting that you should **not** use both ``state`` and ``atomicState`` in the same SmartApp. Doing so will likely cause inconsistencies in in state values.
 
+Storage Size Limitations
+------------------------
+
+The amount of data that can be stored in ``state`` or ``atomicState`` is limited to 100,000 characters per installed app.
+
+This limit may be reduced in the future based on further analysis (any reduction will be communicated in advance), and only a `very` small number of apps will be potentially impacted.
+
+To get the character size of ``state`` or ``atomicState``, you can do:
+
+.. code-block:: groovy
+
+    def stateCharSize = state.toString().length()
+
+When the character limit has been exceeded, a ``physicalgraph.exception.StateCharacterLimitExceededException`` will be thrown.
+
+.. important::
+
+    Remember that when using ``state``, the contents are written to the external data store when the app is finished executing - not immediately on write/read from the object.
+
+    This means that if the character limit is exceeded for ``state``, you won't be able to handle a ``StateCharacterLimitExceededException`` in your code - it will only be visible in the logs.
+
+    If using ``atomicState``, which reads and writes to the external data store when the object is updated or accessed, you will be able to handle a ``StateCharacterLimitExceededException`` in your code.
+
+    Additional helper methods to get the remaining available size and the character limit will be added in a future release.
+
+Best Practices
+--------------
+
+A summary of the best practices for using ``state`` or ``atomicState`` in your SmartApp or Device Handler:
+
+- Only data that can be serialized to JSON can be stored in ``state`` or ``atomicState``.
+- Remember that the contents of ``state`` are only written to external storage when the SmartApp or Device Handler finishes executing. All reads/writes from ``state`` are done on the in-memory object until app execution concludes. The contents of ``atomicState`` are written to external storage when a value changes.
+- Use ``state`` unless you have demonstrated that ``state`` will cause consistency issues (as discussed in the :ref:`atomic_state` section). Using ``atomicState`` incurs a performance cost greater than ``state``.
+- Never use both ``atomicState`` and ``state`` in the same SmartApp.
+- ``atomicState`` is not available to Device Handlers.
+- Don't store too much in ``state`` or ``atomicState``. The limit is 100,000 characters of data per app instance.
+
 Examples
 --------
 
 Here are some SmartApps that make use of state. You can find them in the IDE along with the other example SmartApps.
 
-- "Smart Nightlight" - shows using state to store time information.
-- "Laundry Monitor" - uses state to store boolean state and time information.
-- "Good Night" - shows using state to store time information, including constructing a Date object from a value stored in state.
+- `Smart Nightlight <https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/smart-nightlight.src/smart-nightlight.groovy>`__ - shows using state to store time information.
+- `Laundry Monitor <https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/laundry-monitor.src/laundry-monitor.groovy>`__ - uses state to store boolean state and time information.
+- `Good Night <https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/good-night.src/good-night.groovy>`__ - shows using state to store time information, including constructing a Date object from a value stored in state.
