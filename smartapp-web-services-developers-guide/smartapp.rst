@@ -191,7 +191,7 @@ Request body parameters
 ```````````````````````
 
 SmartThings supports JSON or XML request body parameters.
-They can be accessed via ``reqeust.JSON`` and ``request.XML``:
+They can be accessed via ``request.JSON`` and ``request.XML``:
 
 .. code-block:: groovy
 
