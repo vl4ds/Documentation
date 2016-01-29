@@ -116,24 +116,24 @@ Commands:
                                                                      - thermostatSetpoint                  - heat()
                                                                      - thermostatMode                      - emergencyHeat()
                                                                      - thermostatFanMode                   - cool()
-                                                                     - thermostatOperatingState            - setThermostatMode(enum)
+                                                                     - thermostatOperatingState            - setThermostatMode(string)
                                                                                                            - fanOn()
                                                                                                            - fanAuto()
                                                                                                            - fanCirculate()
-                                                                                                           - setThermostatFanMode(enum)
+                                                                                                           - setThermostatFanMode(string)
                                                                                                            - auto()
 :ref:`therm_cooling_setpoint` capability.thermostatCoolingSetpoint   - coolingSetpoint                     - setCoolingSetpoint(number)
 :ref:`thermostat_fan_mode`    capability.thermostatFanMode           - thermostatFanMode                   - fanOn()
                                                                                                            - fanAuto()
                                                                                                            - fanCirculate()
-                                                                                                           - setThermostatFanMode(enum)
+                                                                                                           - setThermostatFanMode(string)
 :ref:`therm_heating_setpoint` capability.thermostatHeatingSetpoint   - heatingSetpoint                     - setHeatingSetpoint(number)
 :ref:`thermostat_mode`        capability.thermostatMode              - thermostatMode                      - off()
                                                                                                            - heat()
                                                                                                            - emergencyHeat()
                                                                                                            - cool()
                                                                                                            - auto()
-                                                                                                           - setThermostatMode(enum)
+                                                                                                           - setThermostatMode(string)
 :ref:`therm_operating_state`  capability.thermostatOperatingState    - thermostatOperatingState
 :ref:`thermostat_setpoint`    capability.thermostatSetpoint          - thermostatSetpoint
 :ref:`three_axis`             capability.threeAxis                   - threeAxis
@@ -1855,7 +1855,7 @@ thermostatOperatingState String  ``"heating"``
 
 *cool()*
 
-*setThermostatMode(enum)*
+*setThermostatMode(string)*
 
 *fanOn()*
 
@@ -1863,7 +1863,7 @@ thermostatOperatingState String  ``"heating"``
 
 *fanCirculate()*
 
-*setThermostatFanMode(enum)*
+*setThermostatFanMode(string)*
 
 *auto()*
 
@@ -1923,7 +1923,7 @@ thermostatFanMode  String  ``"on"``
 
 *fanCirculate()*
 
-*setThermostatFanMode(enum)*
+*setThermostatFanMode(string)*
 
 ----
 
@@ -1987,7 +1987,7 @@ thermostatMode String  ``"emergency heat"``
 
 *auto()*
 
-*setThermostatMode(enum)*
+*setThermostatMode(string)*
 
 ----
 
