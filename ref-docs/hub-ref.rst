@@ -74,7 +74,7 @@ The unique system identifier for this Hub.
 localIp
 ```````
 
-The value of the event as a `Date`_ object, if applicable.
+The local IP address of the Hub.
 
 **Signature:**
     ``String localIp``
