@@ -51,6 +51,7 @@ Commands:
 :ref:`battery`                capability.battery                     - battery
 :ref:`beacon`                 capability.beacon                      - presence
 :ref:`button`                 capability.button                      - button
+:ref:`c_d_measurement`        capability.carbonDioxideMeasurement    - carbonDioxide
 :ref:`c_m_detector`           capability.carbonMonoxideDetector      - carbonMonoxide
 :ref:`color_control`          capability.colorControl                - hue                                 - setHue(number)
 
@@ -89,6 +90,7 @@ Commands:
                                                                                                            - resumeTrack(string)
                                                                                                            - restoreTrack(string)
 :ref:`notification`           capability.notification                                                      - deviceNotification(string)
+:ref:`ph_measurement`         capability.pHMeasurement               - pH
 :ref:`polling`                capability.polling                                                           - poll()
 :ref:`power_meter`            capability.powerMeter                  - power
 :ref:`presence_sensor`        capability.presenceSensor              - presence
@@ -97,6 +99,7 @@ Commands:
 :ref:`relay_switch`           capability.relaySwitch                 - switch                              - on()
                                                                                                            - off()
 :ref:`sensor`                 capability.sensor
+:ref:`shock_sensor`           capability.shockSensor                 - shock
 :ref:`signal_strength`        capability.signalStrength              - lqi
                                                                      - rssi
 
@@ -109,6 +112,8 @@ Commands:
 :ref:`switch`                 capability.switch                      - switch                              - on()
                                                                                                            - off()
 :ref:`switch_level`           capability.switchLevel                 - level                               - setLevel(number, number)
+:ref:`sound_pressure_level`   capability.soundPressureLevel          - soundPressureLevel
+:ref:`tamper_alert`           capability.tamperAlert                 - tamper
 :ref:`temp_measurement`       capability.temperatureMeasurement      - temperature
 :ref:`thermostat`             capability.thermostat                  - temperature                         - setHeatingSetpoint(number)
                                                                      - heatingSetpoint                     - setCoolingSetpoint(number)
@@ -146,7 +151,11 @@ Commands:
 :ref:`touch_sensor`           capability.touchSensor                 - touch
 :ref:`valve`                  capability.valve                       - contact                             - open()
                                                                                                            - close()
+:ref:`voltage_measuremet`     capability.voltageMeasurement          - voltage
 :ref:`water_sensor`           capability.waterSensor                 - water
+:ref:`window_shade`           capability.windowShade                 - windowShade                         - open()
+                                                                                                           - close()
+                                                                                                           - presetPosition()
 ============================= ====================================== ===================================== ========================
 
 .. _acceleration-sensor:
@@ -447,6 +456,33 @@ None.
       log.warn "caught exception getting event data as json: $e"
     }
   }
+
+----
+
+.. _c_d_measurement:
+
+Carbon Dioxide Measurement
+--------------------------
+
+==========================   ==============================
+Capability Name              SmartApp Preferences Reference
+==========================   ==============================
+Carbon Dioxide Measurement   capability.carbonDioxideMeasurement
+==========================   ==============================
+
+**Attributes:**
+
+=============== =======
+Attribute       Type
+=============== =======
+carbonDioxide   Number
+
+
+=============== =======
+
+**Commands:**
+
+None.
 
 ----
 
@@ -1237,6 +1273,31 @@ None.
 
 ----
 
+.. _ph_measurement:
+
+pH Measurement
+--------------
+
+=========================== ==============================
+Capability Name             SmartApp Preferences Reference
+=========================== ==============================
+pH Measurement              capability.pHMeasurement
+=========================== ==============================
+
+**Attributes:**
+
+======================== =======
+Attribute                Type
+======================== =======
+pH                       Number
+======================== =======
+
+**Commands:**
+
+None.
+
+----
+
 .. _polling:
 
 Polling
@@ -1478,6 +1539,31 @@ None.
 
 None.
 
+----
+
+.. _shock_sensor:
+
+Shock Sensor
+------------
+
+=========================== ==============================
+Capability Name             SmartApp Preferences Reference
+=========================== ==============================
+Shock Sensor                capability.shockSensor
+=========================== ==============================
+
+**Attributes:**
+
+======================== ======= =================
+Attribute                Type    Possible Values
+======================== ======= =================
+shock                    String   ``"detected"``
+                                  ``"clear"``
+======================== ======= =================
+
+**Commands:**
+
+None.
 ----
 
 .. _signal_strength:
@@ -1750,6 +1836,57 @@ level           Number  A number that represents the current light level, usuall
       myswitch.setLevel(10)
     }
   }
+
+----
+
+.. _sound_pressure_level:
+
+Sound Pressure Level
+--------------------
+
+=========================== ==============================
+Capability Name             SmartApp Preferences Reference
+=========================== ==============================
+Sound Pressure Level        capability.soundPressureLevel
+=========================== ==============================
+
+**Attributes:**
+
+======================== =======
+Attribute                Type
+======================== =======
+soundPressureLevel       Number
+======================== =======
+
+**Commands:**
+
+None.
+
+----
+
+.. _tamper_alert:
+
+Tamper Alert
+------------
+
+=========================== ==============================
+Capability Name             SmartApp Preferences Reference
+=========================== ==============================
+Tamper Alert                capability.tamperAlert
+=========================== ==============================
+
+**Attributes:**
+
+======================== ======= =================
+Attribute                Type    Possible Values
+======================== ======= =================
+tamper                   String  ``"detected"``
+                                 ``"clear"``
+======================== ======= =================
+
+**Commands:**
+
+None.
 
 ----
 
@@ -2188,6 +2325,31 @@ close()
 
 ----
 
+.. _voltage_measuremet:
+
+Voltage Measurement
+-------------------
+
+=========================== ==============================
+Capability Name             SmartApp Preferences Reference
+=========================== ==============================
+Voltage Measurement         capability.voltageMeasurement
+=========================== ==============================
+
+**Attributes:**
+
+======================== =======
+Attribute                Type
+======================== =======
+voltage                  Number
+======================== =======
+
+**Commands:**
+
+None.
+
+----
+
 .. _water_sensor:
 
 Water Sensor
@@ -2211,3 +2373,37 @@ water       String  ``"dry"``
 **Commands:**
 
 None.
+
+----
+
+.. _window_shade:
+
+Window Shade
+------------
+
+================ ==============================
+Capability Name  SmartApp Preferences Reference
+================ ==============================
+Window Shade     capability.windowShade
+================ ==============================
+
+**Attributes:**
+
+=========== ======= =================
+Attribute   Type    Possible Values
+=========== ======= =================
+windowShade String  ``"unknown"``
+                    ``"open"``
+                    ``"closing"``
+                    ``"closed"``
+                    ``"opening"``
+                    ``"partially open"``
+=========== ======= =================
+
+**Commands:**
+
+*open()*
+
+*close()*
+
+*presetPosition()*
