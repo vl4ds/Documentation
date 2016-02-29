@@ -326,15 +326,15 @@ The power of Multi-Attribute Tiles comes from its child method parameter, ``tile
 - The ``attribute`` parameter is the device attribute that the tile attribute represents. For example, device.contact or device.level.
 - the ``key`` parameter can have the following values:
 
-===================  ==============================  =====================================================
-Value                Meaning                         Example
-===================  ==============================  =====================================================
-PRIMARY_CONTROL      Main control in middle          .. image:: ../img/device-types/PRIMARY_CONTROL.png
-SECONDARY_CONTROL    Textual status message          .. image:: ../img/device-types/SECONDARY_CONTROL.png
-SLIDER_CONTROL       Slider above primary control    .. image:: ../img/device-types/SLIDER_CONTROL.png
-COLOR_CONTROL        Color palette button            .. image:: ../img/device-types/COLOR_CONTROL.png
-VALUE_CONTROL        Up and down buttons             .. image:: ../img/device-types/VALUE_CONTROL.png
-===================  ==============================  =====================================================
+===================  ====================================  =====================================================
+Value                Meaning                               Example
+===================  ====================================  =====================================================
+PRIMARY_CONTROL      Main control in middle                .. image:: ../img/device-types/PRIMARY_CONTROL.png
+SECONDARY_CONTROL    Textual status message                .. image:: ../img/device-types/SECONDARY_CONTROL.png
+SLIDER_CONTROL       Slider above primary control          .. image:: ../img/device-types/SLIDER_CONTROL.png
+COLOR_CONTROL        Color palette button                  .. image:: ../img/device-types/COLOR_CONTROL.png
+VALUE_CONTROL        Up and down buttons (see note below)  .. image:: ../img/device-types/VALUE_CONTROL.png
+===================  ====================================  =====================================================
 
 .. note::
 
@@ -352,6 +352,11 @@ The last piece of the puzzle is *state*. ``tileAttribute()`` can support *states
 This will render the main control in the middle (because ``key`` is ``"PRIMARY_CONTROL"``), with one of two states: "open" label, open icon, and yellow color; or "closed" label, closed icon, and green color. 
 
 ``attributeState()`` accepts all the same parameters as the ``state()`` method for all other tiles. This means you can supply actions just as you would for ``state()``, to trigger actions when tapping on the control.
+
+A word on the ``VALUE_CONTROL`` attribute
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As of client version 2.1.0 (iOS and Android), the ``VALUE_CONTROL`` attribute has been improved to allow device type handlers to perform discrete actions for the Up and Down buttons. You can improve your device type handlers by specifying two states with specific names: ``VALUE_UP`` and ``VALUE_DOWN``. The actions associated with these two states will be used for each of the buttons. If you don't change your device type handler, the old approach will still work, though this may be deprecated and eliminated in the future.
 
 Multi-Attribute Tiles With ``type: "thermostat"``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -385,7 +390,8 @@ Here is an example of a fully-attributed thermostat. Try to model your own devic
       attributeState("default", label:'${currentValue}', unit:"dF")
     }
     tileAttribute("device.temperature", key: "VALUE_CONTROL") {
-      attributeState("default", action: "setTemperature")
+      attributeState("VALUE_UP", action: "temperatureUp")
+      attributeState("VALUE_DOWN", action: "temperatureDown")
     }
     tileAttribute("device.humidity", key: "SECONDARY_CONTROL") {
       attributeState("default", label:'${currentValue}%', unit:"%")
