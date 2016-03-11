@@ -63,6 +63,9 @@ payload being in 1/10th of a second. In this case the payload ({0014})
 translates to 2 seconds. Breaking the payload down we see that the hex value
 of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds.
 
+Each attribute possesses a specific data type. The corresponding value for this data type can be found in table 2.16 of the `ZigBee Cluster Library <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__.
+
+
 .. note::
   The payload in the example above, {0014}, is a hex string. The length of the payload must be two times the length of the data type. For example, if the datatype is 16-bit, then the payload should be 4 hex digits.
 
