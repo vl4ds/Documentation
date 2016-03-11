@@ -214,6 +214,14 @@ Creates a scheduled job that calls the handlerMethod according to the specified 
 
     Full documentation of the cron expression format can be found in the `Quartz Cron Trigger Tutorial <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__.
 
+.. important::
+
+    Cron jobs will only be allowed to run at a minimum of 1 minute intervals.
+
+    If your Cron expression runs more often than once per minute it will be limited to a 1 minute interval.
+
+    For more information, see this `community post <https://community.smartthings.com/t/announcement-changes-coming-to-cron-jobs/41656>`__.
+
 .. code-block:: groovy
 
 
