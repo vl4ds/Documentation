@@ -176,6 +176,8 @@ With the original SmartThings Hub, all SmartApps execute in the SmartThings clou
 
 As a SmartThings developer, you should write your SmartApps to satisfy their specific use cases, regardless of where the app executes. There is currently no way to specify or force a certain execution location.
 
+.. _smartapp_rate_limiting: 
+
 Rate Limiting
 -------------
 
