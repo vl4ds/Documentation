@@ -41,7 +41,33 @@ one more elements. The general form of creating preferences looks like:
         }
     }
 
-All inputs from the user are stored in a read-only map called ``settings``. You can access the value entered by the user by indexing into the map using the name as the key (``settings.someName``)
+All inputs from the user are stored in a read-only map called ``settings``, as well as available simply be referring to the input name (the first argument to ``input()``).
+
+Assuming the following inputs:
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "someSwitch", "capability.switch"
+            input "someText", "text",
+            input "someTime", "time"
+        }
+    }
+
+The values can be accessed like this:
+
+.. code-block:: groovy
+
+    // direct access
+    log.debug "someSwitch" is $someSwitch"
+    log.debug "someText is $someText"
+    log.debug "someTime is $someTime"
+
+    // via settings
+    log.debug "settings.someSwitch is $settings.someSwitch"
+    log.debug "settings.someText is $settings.someText"
+    log.debug "settings.someTime is $settings.someTime"
 
 Page Definition
 ---------------
