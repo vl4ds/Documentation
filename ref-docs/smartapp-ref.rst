@@ -279,6 +279,8 @@ A map of name/value pairs that SmartApp can use to save and retrieve data across
 
 ----
 
+.. _smartapp_can_schedule:
+
 canSchedule()
 ~~~~~~~~~~~~~
 
@@ -1011,6 +1013,8 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 
 ----
 
+.. _smartapp_run_every_5_minutes:
+
 runEvery5Minutes()
 ~~~~~~~~~~~~~~~~~~
 
@@ -1045,6 +1049,8 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     }
 
 ----
+
+.. _smartapp_run_every_10_minutes:
 
 runEvery10Minutes()
 ~~~~~~~~~~~~~~~~~~
@@ -1081,6 +1087,8 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 ----
 
+.. _smartapp_run_every_15_minutes:
+
 runEvery15Minutes()
 ~~~~~~~~~~~~~~~~~~
 
@@ -1115,6 +1123,8 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     }
 
 ----
+
+.. _smartapp_run_every_30_minutes:
 
 runEvery30Minutes()
 ~~~~~~~~~~~~~~~~~~
@@ -1151,6 +1161,8 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 ----
 
+.. _smartapp_run_every_1_hours:
+
 runEvery1Hour()
 ~~~~~~~~~~~~~~~
 
@@ -1185,6 +1197,8 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     }
 
 ----
+
+.. _smartapp_run_every_3_hours:
 
 runEvery3Hours()
 ~~~~~~~~~~~~~~~
@@ -1221,6 +1235,8 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 ----
 
+.. _smartapp_run_once:
+
 runOnce()
 ~~~~~~~~~
 
@@ -1249,6 +1265,8 @@ Executes the ``handlerMethod`` once at the specified date and time.
     }
 
 ----
+
+.. _smartapp_schedule:
 
 schedule()
 ~~~~~~~~~~
@@ -1305,6 +1323,8 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
     def handlerMethod3() {...}
 
 ----
+
+.. _smartapp_send_event:
 
 sendEvent()
 ~~~~~~~~~~~
@@ -1999,6 +2019,8 @@ Get a `Date`_ object for the specified string.
     Date myTimeAsDate = toDateTime(mytime)
     ...
 ----
+
+.. _smartapp_unschedule:
 
 unschedule()
 ~~~~~~~~~~~~
