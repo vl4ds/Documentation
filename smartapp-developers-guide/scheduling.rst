@@ -18,6 +18,8 @@ We'll look at each scenario in detail, and what methods SmartThings makes availa
 .. note::
     When using the scheduler APIs, the schedule will be created using the time zone for the installed SmartApp's location.
 
+----
+
 ``runIn()`` - Schedule From Now
 -------------------------------
 
@@ -78,6 +80,7 @@ So, if you do specify ``[overwrite: false]``, be sure to write your handler so t
     SmartThings will *attempt* to execute the method within a minute of the time specified, but cannot guarantee it.
     See the :ref:`limitations_best_practices` topic below for more information.
 
+----
 
 ``runOnce()`` - Run Once in the Future
 --------------------------------------
@@ -111,6 +114,8 @@ Like ``runIn()``, you can also specify the overwrite behavior of ``runOnce()``:
 .. code-block:: groovy
 
     runOnce(new Date() + 1, handlerMethod, [overwrite: false])
+
+----
 
 ``schedule()`` - Run on a Recurring Schedule
 --------------------------------------------
