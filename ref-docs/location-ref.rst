@@ -176,6 +176,8 @@ The name of the Location, as assigned by the user.
 
 ----
 
+.. _location_set_mode:
+
 setMode()
 ~~~~~~~~~
 

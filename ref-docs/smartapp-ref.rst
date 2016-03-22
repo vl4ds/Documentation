@@ -1619,6 +1619,28 @@ Sends the message as an SMS message to the specified phone number but does not d
 
 ----
 
+.. _smartapp_set_location_mode:
+
+setLocationMode()
+~~~~~~~~~~~~~~~~~
+
+Set the mode for this location.
+
+**Signature:**
+    ``void setLocationMode(String mode)``
+    ``void setLocationMode(Mode mode)``
+
+**Returns:**
+    void
+
+.. warning::
+
+    ``setMode()`` will raise an error if the specified mode does not exist for the location. You should verify the mode exists as in the example below.
+
+**See Also:** :ref:`location.setMode() <location_set_mode>`
+
+----
+
 settings
 ~~~~~~~~
 

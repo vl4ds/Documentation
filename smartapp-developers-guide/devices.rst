@@ -1,6 +1,8 @@
-=======
-Devices
-=======
+.. _smartapp_working_with_devices:
+
+====================
+Working with Devices
+====================
 
 SmartApps almost always interact with devices. We often need to get information about a specific device (is this switch on?), or send a device a command (turn this switch off).
 
