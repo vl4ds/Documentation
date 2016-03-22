@@ -560,6 +560,10 @@ The above preferences definition would render as:
     :width: 250 px
     :height: 447 px
 
+.. note::
+
+    Images do not currently render in ``label`` inputs on Android.
+    
 Valid options:
 
 *title*
