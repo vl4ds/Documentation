@@ -1,4 +1,4 @@
-.. _smartapp-sending-notifications:
+.. _smartapp_sending_notifications:
 
 =====================
 Sending Notifications
@@ -12,6 +12,8 @@ In this guide, you will learn:
 - How to send push notifications to the mobile app
 - How to send SMS notifications
 - How to display messages in the Notifications feed of the mobile app
+
+.. _contanct_book:
 
 Send Notifications with Contact Book
 ------------------------------------

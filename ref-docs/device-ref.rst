@@ -197,6 +197,8 @@ The List of Capabilities provided by this Device.
 
 ----
 
+.. _device_current_state:
+
 currentState()
 ~~~~~~~~~~~~~~
 
