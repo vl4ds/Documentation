@@ -74,7 +74,7 @@ Consider this tiles block for the Multipurpose Sensor from the screenshot above:
             state "default", action:"refresh.refresh", icon:"st.secondary.refresh"
         }
 
-        main(["status", "acceleration", "temperature"])
+        main "status"
         details(["status", "acceleration", "temperature", "3axis", "battery", "refresh"])
     }
 
@@ -418,7 +418,8 @@ Here is an example of a fully-attributed thermostat. Try to model your own devic
 Tile Layouts
 ------------
 
-To control which tile shows up on the things screen, use the ``main`` method in the ``tiles`` closure. The ``main`` method also supports a list argument just like the ``details`` method. When given a list, the ``main`` method will allow the user to choose which tile will be visible on the Things screen. The ``details`` method defines an ordered list (will render from left-to-right, top-to-bottom) of tiles to display on the tile details screen.
+To control which tile shows up on the things screen, use the ``main`` method in the ``tiles`` closure.
+The ``details`` method defines an ordered list (will render from left-to-right, top-to-bottom) of tiles to display on the tile details screen.
 
 .. code-block:: groovy
 
