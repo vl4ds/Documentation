@@ -96,22 +96,6 @@ Methods are the things the object can do, and similar to other languages, are op
     // get the property named someProperty on someObject
     someObject.someProperty
 
-.. tip::
-
-    Groovy adds in some convenience JavaBean style getter and setter methods. It's worth being aware of this in case you see some code that references a property that seemingly isn't defined anywhere.
-
-    .. code-block:: groovy
-
-        def getSomeValue() {
-            return "got it"
-        }
-
-        assert "got it" == someValue
-
-    How did referencing ``someValue`` end up invoking the method ``getSomeValue()``? When Groovy sees a reference to the property named ``someValue``, it first looks to see if it is defined somewhere. In the above example, it is not. So Groovy then looks to see if there is a getter method. JavaBean conventions specify that a properties getter method should be named beginning with "get", followed by the name of the property (with the first letter of the property capitalized).
-
-    Don't worry if that's somewhat confusing; just know that if you a reference to a property name that doesn't appear to exist, it might be invoking a getter method.
-
 ----
 
 Optionally Typed
@@ -444,6 +428,32 @@ When invoking methods, parentheses are *sometimes* optional. Methods that do not
     myMethod            // error
     myOtherMethod(2, 3) // OK
     myOtherMethod 4, 5  // OK
+
+----
+
+.. _groovy_getters_setters:
+
+Getters and Setters
+-------------------
+
+Groovy adds in some convenience JavaBean style getter and setter methods.
+It's worth being aware of this in case you see some code that references a property that seemingly isn't defined anywhere:
+
+    .. code-block:: groovy
+
+        def getSomeValue() {
+            return "got it"
+        }
+
+        assert "got it" == someValue
+
+How did referencing ``someValue`` end up invoking the method ``getSomeValue()``?
+When Groovy sees a reference to the property named ``someValue``, it first looks to see if it is defined somewhere.
+In the above example, it is not.
+So, Groovy then looks to see if there is a getter method.
+JavaBean conventions specify that a properties getter method should be named beginning with "get", followed by the name of the property (with the first letter of the property capitalized).
+
+Don't worry if that's somewhat confusing; just know that if you a reference to a property name that doesn't appear to exist, it might be invoking a getter method.
 
 ----
 
