@@ -22,6 +22,8 @@ This model provides a simple framework in which you can develop your SmartApps a
 
 Now that we understand (at least at a high level) how SmartApps and Device Type Handlers make various methods available, let's look at some of the things that are *not* allowed within SmartThings code. After that, we'll look at the entire whitelist of allowable classes.
 
+----
+
 Language Simplifications
 ------------------------
 
@@ -53,17 +55,57 @@ Here are the methods that are not available in SmartThings. Trying to access the
 - ``println()``
 - ``sleep()``
 
+Global Variables
+````````````````
+
+Constants
+~~~~~~~~~
+
+Due to the sandboxed nature of SmartApp and Device Handler execution, defining global constant variables like this will **not** work:
+
+.. code-block:: groovy
+
+    def MY_CONSTANT = "some constant value"
+
+Defining constants as above is valid Groovy code and will compile, but the value of ``MY_CONSTANT`` will be ``null``.
+
+Instead, for any global constants you'd like in your SmartApp or Device Handler, define a no-op getter method that returns the value:
+
+.. code-block:: groovy
+
+    def getMyConstant() {
+        return "some constant value"
+    }
+
+You can then call the method directly, or use some :ref:`Groovy magic <groovy_getters_setters>` to invoke no-arg getters.
+
+Mutable Variables
+~~~~~~~~~~~~~~~~~
+
+Similarly, creating a global variable and then updating it will **not** work:
+
+.. code-block:: groovy
+
+    def globalVar = "some value"
+
+    def someMethod() {
+        // update the variable here, but this will not persist across executions!
+        globalVar = "some updated val"
+    }
+
+Instead, any information you need persisted between executions needs to be stored the application :ref:`state <storing-data>`.
 
 Other Notable Restrictions
 ``````````````````````````
 
 There are a few other notable restrictions in SmartThings worth discussing:
 
-- You cannot define "global" variables. Instead, any information you need persisted between executions needs to be stored in an available ``state`` variable (more information :ref:`here <storing-data>`).
 - You cannot create your own threads.
 - You cannot use ``System`` methods, like ``System.out()``
 - You cannot create or access files.
 - You cannot define closures outside of a method. Something like ``def squareItClosure = {it * it}`` is not allowed at the top-level, outside of a method body.
+
+----
 
 Allowed Classes
 ---------------
@@ -162,6 +204,8 @@ Here is the whitelist of available, non-SmartThings-specific types (i.e., Java, 
 - ``org.json.JSONException``
 - ``org.json.JSONObject``
 - ``org.json.JSONObject.Null``
+
+----
 
 Summary and Next Steps
 ----------------------
