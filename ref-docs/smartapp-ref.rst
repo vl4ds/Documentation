@@ -1752,6 +1752,8 @@ All event handler methods will be passed an :ref:`event_ref` that represents the
 
     ``void subscribe(Location location, handlerMethod)``
 
+    ``void subscribe(Location location, String eventName, handlerMethod)``
+
     ``void subscribe(app, handlerMethod)``
 
 **Parameters:**
