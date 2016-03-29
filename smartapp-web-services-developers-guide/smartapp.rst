@@ -102,6 +102,8 @@ The ``oauthPage`` must be a static (non-dynamic) page, and be the first page dis
 
 ----
 
+.. _web_services_mapping_endpoints:
+
 Mapping Endpoints
 -----------------
 
@@ -220,50 +222,136 @@ Similarly, the XML on ``request`` is the result of calling ``new XmlSlurper().pa
 Response Handling
 -----------------
 
-SmartApp endpoints can send response data to the client.
+Defaults
+````````
 
-The simplest case is returning a map, which will be serialized to JSON and sent to the client:
+Each HTTP method (``GET``, ``PUT``, ``POST``, ``DELETE``) request handler returns a default response.
+Some request handlers may return a map that will be serialized to JSON on the response, and some may specify their own response by using the ``render()`` method:
+
++----------------+----------------------------+----------------------------+-------------------------------+
+| Request Method | Default HTTP Response Code | JSON Serialization Support | ``render()`` support          |
++================+============================+============================+===============================+
+| ``GET``        | ``200 OK``                 | yes                        | yes                           |
++----------------+----------------------------+----------------------------+-------------------------------+
+| ``POST``       | ``201 Created``            | yes                        | yes                           |
++----------------+----------------------------+----------------------------+-------------------------------+
+| ``PUT``        | ``204 No Content``         | no                         | no                            |
++----------------+----------------------------+----------------------------+-------------------------------+
+| ``DELETE``     | ``204 No Content``         | no                         | no                            |
++----------------+----------------------------+----------------------------+-------------------------------+
+
+Automatic JSON serialization
+````````````````````````````
+
+``GET`` and ``POST`` request handlers may return a map, which will be serialized to JSON and returned to the client with ``Content-Type: application/json``:
 
 .. code-block:: groovy
 
-    def someHandler() {
-        return [foo: "XXXX", bar: "YYYY"]
+    mappings {
+        path("/test") {
+            action: [
+                GET: "responseTest",
+                POST: "responseTest"
+            ]
+        }
     }
 
-The example above would return a ``200`` response with a ``application/json`` response body of:
-
-.. code::
-
-    {
-        "foo":"XXXX",
-        "bar":"YYYY"
+    def responseTest() {
+        // a map is serialized to JSON and returned on the response
+        return [data: "test"]
     }
 
+The response of executing a ``GET`` or ``POST`` request on the ``/test`` endpoint results in the following:
 
-The handler can also use the :ref:`smartapp_render` method for  more fine-grained control over the response:
+.. code-block:: bash
+
+    HTTP/1.1 200 OK
+        Content-Type: application/json;charset=utf-8
+        Date: Tue, 29 Mar 2016 13:53:14 GMT
+        Server: Apache-Coyote/1.1
+        Set-Cookie: JSESSIONID=XXXXXXXXXXXXXXXX-n1; Path=/; Secure; HttpOnly
+        X-RateLimit-Current: 0
+        X-RateLimit-Limit: 250
+        X-RateLimit-TTL: 60
+        transfer-encoding: chunked
+        Connection: keep-alive
+
+        {"data":"test"}
+
+Using ``render()`` to control the response
+``````````````````````````````````````````
+
+``GET`` and ``POST`` request handlers also support the ability to return a custom response using the :ref:`smartapp_render` method:
 
 .. code-block:: groovy
 
-    def someHandler() {
+    mappings {
+        path("/test") {
+            action: [
+                GET: "responseTest",
+                POST: "responseTest"
+            ]
+        }
+    }
+
+    def responseTest() {
         def html = """
-    	<!DOCTYPE html>
+        <!DOCTYPE html>
         <html>
             <head><title>Some Title</title></head>
             <body><p>Testing</p></body>
         </html>"""
 
-        render contentType: "text/html", data: html
+        render contentType: "text/html", data: html, status: 200
     }
+
+The response of executing a ``GET`` or ``POST`` request on the ``/test`` endpoint results in the following:
+
+.. code-block:: bash
+
+    HTTP/1.1 200 OK
+        Content-Type: text/html;charset=utf-8
+        Date: Tue, 29 Mar 2016 15:00:32 GMT
+        Server: Apache-Coyote/1.1
+        Set-Cookie: JSESSIONID=1A4382D4BDFCCB31CD6C4EF3C2E3D693-n5; Path=/; Secure; HttpOnly
+        Vary: Accept-Encoding
+        X-RateLimit-Current: 0
+        X-RateLimit-Limit: 250
+        X-RateLimit-TTL: 60
+        transfer-encoding: chunked
+        Connection: keep-alive
+
+        <!DOCTYPE html>
+        <html>
+            <head><title>Some Title</title></head>
+            <body><p>Testing</p></body>
+        </html>
 
 If not specified, the ``contentType`` will be "application/json", and the ``status`` will be ``200``.
 
-.. note::
-    ``PUT`` request handlers return a ``204 - No Content`` response, and cannot be overriden.
-    
 ----
 
 Error Handling
 --------------
+
+Default Errors
+``````````````
+
+The following errors may be returned by the SmartThings platform:
+
+============================ =============================================================================================================== =====
+HTTP Response Code           Error Message                                                                                                   Cause
+============================ =============================================================================================================== =====
+``401 (Unauthorized)``       {"error": "invalid_token", "error_description": "<TOKEN>"}                                                      Invalid token for the SmartApp installation.
+``403 (Forbidden)``          {"error":true, "type":"AccessDenied", "message":"This request is not authorized by the specified access token"} No installed SmartApp can be found associated with the token.
+``404 (Not Found)``          {"error":true,"type":"SmartAppException","message":"Not Found"}                                                 The endpoint path requested does not exist.
+``405 (Method Not Allowed)`` {"error":true,"type":"SmartAppException","message":"Method Not Allowed"}                                        An endpoint path was called but no request handler is defined for the specified request method (e.g., issuing a ``POST`` request to an endpoint path that only handles ``GET`` requests)
+``429 (Too Many Requests)``  {"error": true, "type": "RateLimit", "message": "Please try again later"}                                       The rate limit for this SmartApp installation has been exceeded. See the :ref:`web_services_rate_limiting` documentation for more information.
+``500 (Server Error)``       {"error":true, "type":"<EXCEPTION-TYPE>", "message": "An unexpected error has occurred"}                        An unhandled exception occurred in the processing of the request. Check the SmartThings live logging to debug.
+============================ =============================================================================================================== =====
+
+Custom Errors
+`````````````
 
 If your endpoint needs to send an error response, use the :ref:`smartapp_http_error` method:
 
@@ -290,16 +378,3 @@ The body of the response will be ``application/json``, and look like this:
 
 
 You should send appropriate error codes and messages for any errors.
-
-For any uncaught exceptions that occur in the SmartApp, a generic ``500`` response will be sent to the client.
-It will look something like this:
-
-.. code::
-
-    {
-        "error": true,
-        "type": "java.lang.NullPointerException",
-        "message": "An unexpected error has occurred."
-    }
-
-The type and message will vary depending upon the specific SmartApp error.
