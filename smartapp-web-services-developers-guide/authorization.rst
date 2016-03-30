@@ -25,6 +25,8 @@ As part of the authorization flow, the SmartApp will be installed to the user's 
 Get Authorization Code
 ----------------------
 
+Authorization URL: ``https://graph.api.smartthings.com/oauth/authorize``
+
 To obtain an authorization code, make a ``GET`` request to ``https://graph.api.smartthings.com/oauth/authorize``:
 
 .. code-block:: bash
@@ -56,11 +58,13 @@ The authorization code expires 24 hours after issue.
 Get Access Token
 ----------------
 
+Token URL: ``https://graph.api.smartthings.com/oauth/token``
+
 Use the code you received to obtain the access token:
 
 .. code::
 
-    POST /oauth/token HTTP/1.1
+    POST https://graph.api.smartthings.com/oauth/token HTTP/1.1
     Host: graph.api.smartthings.com
     Content-Type: application/x-www-form-urlencoded
 
