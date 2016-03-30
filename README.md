@@ -1,16 +1,25 @@
-SmartThings Developer Documentation
-===================================
+# SmartThings Developer Documentation
 
-This is the repository for the SmartThings developer documentation.
+This is the repository for the public SmartThings developer documentation.
 
-It is powered by ReadTheDocs and Sphinx.
+This documentation is written using [reStructuredText](http://docutils.sourceforge.net/rst.html), powered by [Sphinx](http://www.sphinx-doc.org/en/stable/), and hosted on [ReadTheDocs](http://readthedocs.org).
 
-###Contributing###
-We love contributions! If you find a typo, error, or think something can be communicated better, fork this repo and make a pull request.
+## Building the docs
 
-If you have a larger change that might involve a lot of new content or organization, let us know in advance. This documentation is a work in progress,
-and we would hate it any time was wasted due to conflicts.
+Follow these steps to build the documentation locally:
 
-###Building the docs###
-Run `make help` for the available targets (note that if you do not have sphinx installed locally, 
-the generated HTML won't have the same theme as it does on docs.smartthings.com).
+1. [Install Sphinx](http://sphinx-doc.org/latest/install.html).
+2. In a terminal, execute `make html` from the root of this repository.
+3. Open `_build/html/index.html` in a web browser.
+
+To see the available make targets, simply execute `make`.
+
+## Contributing
+
+We love contributions! If you find a typo, error, or think something can be communicated better, fork this repository and make a pull request.
+
+If you have a larger change that might involve a lot of new content or organization, let us know in advance by creating an issue.
+
+## Contact
+
+You can reach us at <mailto:docs@smartthings.com> with any feedback or questions.
