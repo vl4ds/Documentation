@@ -55,7 +55,8 @@ Contents
    device-type-developers-guide/index
    cloud-and-lan-connected-device-types-developers-guide/index
    arduino/index
-
+   contributing/index
+   
 .. toctree::
     :maxdepth: 1
     :caption: Reference
