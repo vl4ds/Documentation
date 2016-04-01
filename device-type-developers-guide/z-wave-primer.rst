@@ -1,29 +1,23 @@
 Z-Wave Primer
 =============
 
-This document covers some important aspects of the Z-Wave
-application-level standard that you may come in contact with when
-developing device handlers for Z-Wave devices. If you are already
-familiar with Z-Wave development, you can learn how SmartThings
-integrates with it in `Building Z-Wave Device
+This document covers some important aspects of the Z-Wave application-level standard that you may come in contact with when developing Device Handlers for Z-Wave devices.
+If you are already familiar with Z-Wave development, you can learn how SmartThings integrates with it in `Building Z-Wave Device
 Handlers <building-z-wave-device-handlers.html>`__.
+
+----
 
 Command Classes
 ---------------
 
-Z-Wave device messages are all called "commands", even if they are just
-info reports or other kinds of communications. They are organized into
-*command classes* which group related functionality together. Some
-devices list which command classes they support in their manuals.
+Z-Wave device messages are all called "commands", even if they are just info reports or other kinds of communications.
+They are organized into *command classes* which group related functionality together.
+Some devices list which command classes they support in their manuals.
 
-There is a list of the command classes that SmartThings supports here:
-`Z-Wave Command Reference <https://graph.api.smartthings.com/ide/doc/zwave-utils.html>`__.
-Notice some of them have multiple versions. The Z-Wave standard
-occasionally adds a new version of a command class that may add new
-commands or add more data fields to existing commands. New versions are
-backwards-compatible and generally our command parsing system can handle
-different versions interchangeably, but you may need to specify a
-specific version in some cases.
+There is a list of the command classes that SmartThings supports here: `Z-Wave Command Reference <https://graph.api.smartthings.com/ide/doc/zwave-utils.html>`__.
+Notice some of them have multiple versions.
+The Z-Wave standard occasionally adds a new version of a command class that may add new commands or add more data fields to existing commands.
+New versions are backwards-compatible and generally our command parsing system can handle different versions interchangeably, but you may need to specify a specific version in some cases.
 
 Some commonly seen command classes:
 
@@ -66,64 +60,44 @@ Some commonly seen command classes:
      version 3. It is used by devices to distinguish between multiple
      control or reporting end points.
 
+----
+
 Listening and Sleepy Devices
 ----------------------------
 
-Z-Wave devices that are plugged in to power are called **listening**
-devices because they keep their receiver on all the time. Listening
-devices act as repeaters and therefore extend the Z-Wave mesh network.
+Z-Wave devices that are plugged in to power are called **listening** devices because they keep their receiver on all the time.
+Listening devices act as repeaters and therefore extend the Z-Wave mesh network.
 
-Battery powered Z-Wave devices such as sensors or remote controllers are
-**sleepy** – they turn off their receivers to save energy, so you
-can't send them commands at any time. Instead, they wake up at a regular
-interval and send a
-`WakeUpNotification <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#wakeUpV2/wakeUpNotification>`__
-to alert other devices that they will be listening for incoming commands
-for the next few seconds. The
-`WakeUpIntervalSet <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#wakeUpV2/wakeUpIntervalSet>`__
-command is used to configure both how often the device will wake up and
-which controller it will send its *WakeUpNotification* to. When the
-controller gets the *WakeUpNotification* and has no commands to send to
-the device, it can send
-`WakeUpNoMoreInformation <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#wakeUpV2/wakeUpNoMoreInformation>`__
-to tell the device that it can go back to sleep.
+Battery powered Z-Wave devices such as sensors or remote controllers are **sleepy** – they turn off their receivers to save energy, so you can't send them commands at any time.
+Instead, they wake up at a regular interval and send a `WakeUpNotification <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#wakeUpV2/wakeUpNotification>`__ to alert other devices that they will be listening for incoming commands for the next few seconds.
+The `WakeUpIntervalSet <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#wakeUpV2/wakeUpIntervalSet>`__ command is used to configure both how often the device will wake up and which controller it will send its *WakeUpNotification* to.
+When the controller gets the *WakeUpNotification* and has no commands to send to the device, it can send `WakeUpNoMoreInformation <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#wakeUpV2/wakeUpNoMoreInformation>`__ to tell the device that it can go back to sleep.
 
-Some battery powered devices like door locks and thermostats have to be
-able to receive commands at any time. These are known as **beamable**
-devices, because they wake up for only a tiny slice of time each second
-or quarter-second and listen for a "beam". Thus, the sending device must
-"beam" the receiving device for a full second to wake it up fully before
-sending a command. This makes communication with these devices take a
-significantly longer time than with a normal listening device.
+Some battery powered devices like door locks and thermostats have to be able to receive commands at any time.
+These are known as **beamable** devices, because they wake up for only a tiny slice of time each second or quarter-second and listen for a "beam".
+Thus, the sending device must "beam" the receiving device for a full second to wake it up fully before sending a command.
+This makes communication with these devices take a significantly longer time than with a normal listening device.
+
+----
 
 Configuration
 -------------
 
-A Z-Wave device can use the
-`Configuration <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#configurationV2>`__
-command class to allow the user to change its settings. Configuration
-parameters and their interpretation vary between device models, and are
-usually detailed in the device's manual or technical documentation.
+A Z-Wave device can use the `Configuration <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#configurationV2>`__ command class to allow the user to change its settings.
+Configuration parameters and their interpretation vary between device models, and are usually detailed in the device's manual or technical documentation.
 
-The command class includes commands to read and set configuration
-parameter values. One thing to be careful of is that the
-`ConfigurationSet <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#configurationV2/configurationSet>`__
-command encodes the setting value in a 1, 2, or 4 byte format, and many
-devices will only properly interpret the value if it is sent in the same
-byte format. When sending a *ConfigurationSet*, make sure to set the
-'size' argument to the same value as it has in an incoming
-`ConfigurationReport <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#configurationV2/configurationReport>`__
-from the device for the parameter number in question.
+The command class includes commands to read and set configuration parameter values.
+One thing to be careful of is that the `ConfigurationSet <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#configurationV2/configurationSet>`__ command encodes the setting value in a 1, 2, or 4 byte format, and many devices will only properly interpret the value if it is sent in the same byte format.
+When sending a *ConfigurationSet*, make sure to set the 'size' argument to the same value as it has in an incoming `ConfigurationReport <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#configurationV2/configurationReport>`__ from the device for the parameter number in question.
+
+----
 
 Association
 -----------
 
-The `Association <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2>`__
-command class is used to tell a Z-Wave device that it should send
-updates to another device. It provides the ability to add associated
-devices to different numbered groups that can have different meanings.
-This functionality is used in a few different ways, often detailed in
-the device's manual or technical documentation.
+The `Association <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2>`__ command class is used to tell a Z-Wave device that it should send updates to another device.
+It provides the ability to add associated devices to different numbered groups that can have different meanings.
+This functionality is used in a few different ways, often detailed in the device's manual or technical documentation.
 
 -  Some sensors will send reports of the events they detect only to
    devices that have been added to a specific association group.
@@ -137,11 +111,7 @@ the device's manual or technical documentation.
 -  Most door locks will send status updates to associated devices when
    they are locked or unlocked manually.
 
-The SmartThings hub automatically adds itself to association group 1
-when a device that supports association joins the network. If this is
-inappropriate for your device type, your device handler can use
-`AssociationRemove <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2/associationRemove>`__
-to undo it. To associate to a group higher than 1, the device handler can send
-`AssociationSet <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2/associationSet>`__.
-The hub's node ID is provided to device handler code in the
-variable ``zwaveHubNodeId``.
+The SmartThings hub automatically adds itself to association group 1 when a device that supports association joins the network.
+If this is inappropriate for your Device Handler, your Device Handler can use `AssociationRemove <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2/associationRemove>`__ to undo it.
+To associate to a group higher than 1, the Device Handler can send `AssociationSet <https://graph.api.smartthings.com/ide/doc/zwave-utils.html#associationV2/associationSet>`__.
+The hub's node ID is provided to Device Handler code in the variable ``zwaveHubNodeId``.

@@ -1,9 +1,10 @@
 Quick Start
 ===========
 
-Device handlers are the virtual representation of a physical device in the SmartThings platform. They are responsible for communicating between the actual device, and the SmartThings platform.
+Device Handlers are the virtual representation of a physical device in the SmartThings platform.
+They are responsible for communicating between the actual device, and the SmartThings platform.
 
-This guide will walk you through getting your first device handler running.
+This section will walk you through getting your first device handler running.
 
 .. note::
 
@@ -11,39 +12,51 @@ This guide will walk you through getting your first device handler running.
 
     If you are new to SmartThings development, consider starting with the :ref:`Getting Started <get-started-overview>` material.
 
+----
+
 Go to My Device Types in IDE
 ----------------------------
 
-Log in to the `Web IDE <https://graph.api.smartthings.com/>`__, and click on the "My Device Types" link on the top menu.
+Log in to the `Web IDE <https://graph.api.smartthings.com/>`__, and click on the "My Device Handlers" link on the top menu.
 
 .. figure:: ../img/device-types/ide-device-types.png
 
-Here you will see all your device handers, if you have any.
+Here you will see all your Device Handers, if you have any.
 
-Create a new Device Handler
+----
+
+Create a New Device Handler
 ---------------------------
 
-Create a new device handler by clicking on the "New SmartDevice" button in the upper-right of the page.
+Create a new device handler by clicking on the *New Device Handler* button in the upper-right of the page.
 
 .. figure:: ../img/device-types/new-device-type.png
 
-You will see a form for creating a new device type. Note the tabs at the top of the form. You will see a few different options for creating a new device type:
+You will see a form for creating a new Device Hype.
+Note the tabs at the top of the form. You will see a few different options for creating a new device type:
 
 .. figure:: ../img/device-types/new-device-type-form.png
 
-To create a new device handler from a form, use the "From Form" tab. To create a new device handler from some code, use the "From Code" tab. To create a new device handler from a template, use the "From Template" tab.
+To create a new Device Handler from a form, use the "From Form" tab.
+To create a new Device handler from some code, use the "From Code" tab.
+To create a new Device Handler from a template, use the "From Template" tab.
 
 Go ahead and browse the different forms if you wish, then select the "From Template" tab.
 
-We are going to create a new device handler from the CentraLite Switch template. Select the "CentraLite Switch" template in the menu on the left, then click the "Create" button.
+We are going to create a new Device Handler from the CentraLite Switch template.
+Select the "CentraLite Switch" template in the menu on the left, then click the "Create" button.
 
 .. figure:: ../img/device-types/centralite-switch-from-template.png
 
 You will now see the code in the editor of the IDE.
 
-Take a minute to look at the code and its structure. Don't worry about the details yet - the rest of this guide will address that. For now, just take note of the anatomy of the device handler:
+Take a minute to look at the code and its structure.
+Don't worry about the details yet - the rest of this guide will address that.
+For now, just take note of the anatomy of the Device Handler:
 
 .. figure:: ../img/device-types/device-type-anatomy.png
+
+----
 
 Make some Changes
 -----------------
@@ -70,6 +83,8 @@ Change the value of the ``label`` parameters from ``'${name}'`` to something lik
 
 Click the "Save" button above the editor.
 
+----
+
 Install with a Virtual Device
 -----------------------------
 
@@ -79,7 +94,8 @@ In the right-hand side of the IDE, you will see a drop-down menu where you can c
 
 Choose a location, and click "Set Location".
 
-You will now be able to choose a device to test with. For now, select the virtual device (it will likely be selected already).
+You will now be able to choose a device to test with.
+For now, select the virtual device (it will likely be selected already).
 
 Then click the "Install" button.
 
@@ -89,20 +105,26 @@ You will then see the simulator, with the device tile and Tools in the IDE.
 
 .. figure:: ../img/device-types/centralite-simulator.png
 
-Try clicking on the switch icon in the IDE (notice it should display the label that you changed above). The switch will "turn on", and you can note the logging in the logging window in the bottom of the IDE.
+Try clicking on the switch icon in the IDE (notice it should display the label that you changed above).
+The switch will "turn on", and you can note the logging in the logging window in the bottom of the IDE.
 
 You can also test sending some messages by selecting a message in the drop-down, and clicking the *play* button.
 
 Towards the bottom of the tools, you'll see some  buttons like "on" and "off".
 
-These are the commands that your device handler supports. Notice that they are organized by the capability that defines those commands (e.g., "on" and "off" come from the "Switch" capability). You can test sending commands to your device handler. This simulates a SmartApp calling the ``on()`` command on your device, for example.
+These are the commands that your Device Handler supports.
+Notice that they are organized by the capability that defines those commands (e.g., "on" and "off" come from the "Switch" capability).
+You can test sending commands to your Device Handler.
+This simulates a SmartApp calling the ``on()`` command on your device, for example.
 
 Feel free to make some changes, like logging some more information, then saving and re-installing in the simulator.
+
+----
 
 Bonus Step - Install on a Real Device
 -------------------------------------
 
-If you happen to have a CentraLite switch, you can swap in your new device handler for the default CentraLite switch device-handler.
+If you happen to have a CentraLite switch, you can swap in your new Device Handler for the default CentraLite switch device-handler.
 
 Go to the `My Devices <https://graph.api.smartthings.com/device/list>`__ page in the IDE:
 
@@ -110,14 +132,18 @@ Go to the `My Devices <https://graph.api.smartthings.com/device/list>`__ page in
 
 Find your device that has the type "CentraLite Switch", and click on the display name.
 
-Towards the bottom of the page for the CentraLite Switch, click the "Edit" button. Find the "Type" field, and select your device handler. Click the "Update" button to save your changes.
+Towards the bottom of the page for the CentraLite Switch, click the "Edit" button.
+Find the "Type" field, and select your Device Handler. Click the "Update" button to save your changes.
 
-Your switch is now using your device handler. If you refresh the mobile app (you may need to kill it and restart it), you should see the tile icons updated with whatever label you gave it.
+Your switch is now using your Device Handler.
+If you refresh the mobile app (you may need to kill it and restart it), you should see the tile icons updated with whatever label you gave it.
 
 If you make future changes to your device handler, don't forget to click the "Publish" button after you have saved.
 
+----
 
 Next Steps
 ----------
 
-Now that you have created and installed your first device handler, use the rest of this guide to learn more. Start with the :doc:`overview`, and then learn about the various components.
+Now that you have created and installed your first Device Handler, use the rest of this guide to learn more.
+Start with the :doc:`overview`, and then learn about the various components.
