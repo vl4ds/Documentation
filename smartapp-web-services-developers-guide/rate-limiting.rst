@@ -4,6 +4,12 @@ Rate Limiting
 =============
 
 SmartApps or Device Handler's that expose web services are limited in the number of inbound requests they may receive in a time window.
+
+----
+
+Overview
+--------
+
 This is to ensure that no one SmartApp or Device Handler consumes too many resources in the SmartThings cloud.
 There are various headers available on every request that provide information about the current rate limit limits for a given installed SmartApp or Device Handler.
 These are discussed further below.

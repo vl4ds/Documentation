@@ -5,6 +5,11 @@ Authorization
 
 To make REST requests to a SmartApp, the client must establish a trusted relationship using an implementation of the OAuth2 Authorization Code Flow.
 
+----
+
+Overview
+--------
+
 The general flow is:
 
 #. Request an authorization code.

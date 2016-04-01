@@ -7,13 +7,12 @@ SmartApps may themselves be a web service, exposing a URL and any defined endpoi
 
 This allows external applications to make web API calls to a SmartApp, and get information about, or control, end devices.
 
-**Contents:**
-
 .. toctree::
+   :maxdepth: 1
 
    overview
+   tutorial-part1
+   tutorial-part2
    smartapp
    authorization
    rate-limiting
-   tutorial-part1
-   tutorial-part2
