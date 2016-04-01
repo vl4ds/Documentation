@@ -5,6 +5,8 @@ Getting Help
 
 In addition to this documentation, there are other ways to learn and get help developing for SmartThings, discussed below.
 
+----
+
 Developer Documentation
 -----------------------
 

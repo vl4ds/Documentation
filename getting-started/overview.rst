@@ -11,6 +11,8 @@ With SmartThings, developers can:
 - Integrate new devices into the SmartThings ecosystem.
 - Publish applications and device integrations to the SmartThings catalog.
 
+----
+
 Developer Highlights
 --------------------
 
@@ -22,13 +24,15 @@ SmartThings was built to be developer-friendly. Some of the key developer featur
 - A simulator for testing your code, *even if you don't have specific devices you are developing for*.
 - An active and growing `community <https://community.smartthings.com/>`__ of SmartThings developers.
 
+----
+
 How it Works
 ------------
 
 There are two primary ways that developers can create with SmartThings.
 
 SmartApps
-`````````
+^^^^^^^^^
 
 .. code-block:: groovy
 
@@ -50,8 +54,8 @@ SmartThings ships with many SmartApps already available. Almost all automations 
 
 Of course, SmartApps are capable of much more than the above examples. SmartApps can communicate with external web services, send push and SMS notifications, expose their own REST endpoints, and more.
 
-Device Type Handlers
-````````````````````
+Device Handlers
+^^^^^^^^^^^^^^^
 
 .. code-block:: groovy
 
@@ -59,7 +63,7 @@ Device Type Handlers
     	zigbee.on()
     }
 
-Developers can also integrate new devices into the SmartThings ecosystem by creating *Device Type Handlers*. These Groovy programs encapsulate the details of communication between SmartThings and the physical devices. In the SmartApp code example above, we turned the lights on by simply calling ``lights.on()``. The Device Type handler is responsible for physically turning the light on (don't worry about the details of this just yet).
+Developers can also integrate new devices into the SmartThings ecosystem by creating *Device Handlers*. These Groovy programs encapsulate the details of communication between SmartThings and the physical devices. In the SmartApp code example above, we turned the lights on by simply calling ``lights.on()``. The Device Handler is responsible for physically turning the light on (don't worry about the details of this just yet).
 
 ----
 
@@ -68,7 +72,7 @@ An Open Platform
 
 SmartThings was built by developers, for developers. We recognized that only by creating an open development platform, will the power of the IoT be fully unleashed.
 
-Our :ref:`web-based IDE and simulator <tools_ide>` allows developers to create, edit, test, and publish their SmartThings code. SmartApps and Device Type Handlers are hosted in our `public GitHub Repository <https://github.com/SmartThingsCommunity/SmartThingsPublic>`__, and our web-based IDE and simulator is :ref:`integrated with GitHub <github_integration>`.
+Our :ref:`web-based IDE and simulator <tools_ide>` allows developers to create, edit, test, and publish their SmartThings code. SmartApps and Device Handlers are hosted in our `public GitHub Repository <https://github.com/SmartThingsCommunity/SmartThingsPublic>`__, and our web-based IDE and simulator is :ref:`integrated with GitHub <github_integration>`.
 
 Our vibrant `developer community <https://community.smartthings.com/c/developers>`__ is a great place to learn, collaborate, and help each other.
 
