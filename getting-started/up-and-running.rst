@@ -68,6 +68,6 @@ Next Steps
 
 Now that you know what the SmartThings developer platform offers, you can dive in to the fun stuff.
 
-If you're new to Groovy, we recommend that you read through the :ref:`groovy-basics` tutorial. You'll learn about Groovy, and how SmartThings uses it for development. The :ref:`groovy-with-smartthings` tutorial discusses some key differences between regular Groovy and Groovy with SmartThings.
+If you're new to Groovy, we recommend that you read through the :ref:`groovy-basics` tutorial. You'll learn about Groovy, and how SmartThings uses it for development. The :ref:`groovy-for-smartthings` tutorial discusses some key differences between regular Groovy and Groovy with SmartThings.
 
 Once you've completed that (or maybe you're the adventurous sort and just want to dive right in to some SmartApp code), check out the :ref:`first-smartapp-tutorial` tutorial.

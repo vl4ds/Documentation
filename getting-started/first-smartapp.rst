@@ -673,7 +673,7 @@ Now that you've written your first SmartApp and have a basic understanding of th
 More About SmartApps
 ^^^^^^^^^^^^^^^^^^^^
 
-There is much more you can do with SmartApps than this tutorial covered. SmartApps can :ref:`send notifications <smartapp-sending-notifications>`, :ref:`execute routines <smartapp-routines>`, :ref:`define advanced schedules <smartapp-scheduling>` for which they execute, :ref:`call external web services <calling_web_services>`, and more. You can learn more about developing SmartApps in the :ref:`smartapp_dev_guide` guide.
+There is much more you can do with SmartApps than this tutorial covered. SmartApps can :ref:`send notifications <smartapp_sending_notifications>`, :ref:`execute routines <smartapp-routines>`, :ref:`define advanced schedules <smartapp-scheduling>` for which they execute, :ref:`call external web services <calling_web_services>`, and more. You can learn more about developing SmartApps in the :ref:`smartapp_dev_guide` guide.
 
 You can also make your SmartApp into a web service, capable of exposing its own REST endpoints. You can read about them in the :ref:`smartapp_web_services_guide` guide.
 
