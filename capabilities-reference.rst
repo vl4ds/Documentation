@@ -6,14 +6,12 @@ Capabilities Reference
 Capabilities are core to the SmartThings architecture.
 They allow us to abstract specific devices into their underlying capabilities.
 
-
 An application interacts with devices based on their capabilities, so once we understand the capabilities that are needed by a SmartApp, and the capabilities that are provided by a device, we can understand which devices (based on the Device's declared capabilities) are eligible for use within a specific SmartApp.
 
 Capabilities themselves are decomposed into both Commands and Attributes.
 Commands represent ways in which you can control or actuate the device, whereas Attributes represent state information or properties of the device.
 
 Capabilities are created and maintained by the SmartThings internal development team.
-
 
 This page serves as a reference for the supported capabilities.
 
@@ -22,6 +20,8 @@ This page serves as a reference for the supported capabilities.
     This document is a work in progress.
     Many capabilities are not yet fully documented.
     We are continually working to document all the capabilities.
+
+----
 
 At a Glance
 -----------
@@ -158,6 +158,8 @@ Commands:
                                                                                                            - presetPosition()
 ============================= ====================================== ===================================== ========================
 
+----
+
 .. _acceleration-sensor:
 
 Acceleration Sensor
@@ -208,6 +210,7 @@ None.
   }
 
 
+----
 
 .. _actuator:
 
