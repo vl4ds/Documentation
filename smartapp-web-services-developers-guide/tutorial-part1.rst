@@ -5,15 +5,17 @@ Web Services Tutorial - SmartApp
 
 This is the first part of two that will teach you how to build a Web Services SmartApp and a web application to illustrate the authorization flow.
 
+----
+
+Overview
+--------
+
 In part 1 of this tutorial, you will learn:
 
 - How to develop a Web Services SmartApp that exposes endpoints.
 - How to call the Web Services SmartApp using simple API calls.
 
 The source code for this tutorial is available `here <https://github.com/SmartThingsCommunity/Code/tree/master/smartapps/tutorials/web-services-smartapps>`__.
-
-Overview
---------
 
 Part 1 of this tutorial will build a simple SmartApp that exposes endpoints to get information about and control switches.
 
@@ -35,10 +37,8 @@ SmartApps declare preferences metadata that is used at installation and configur
 
 This is a configuration step, but also a security step, whereby the users must explicitly select what devices the SmartApp can control.
 
-Web Services SmartApps are no different, and this is part of the power
-of this approach. The end user controls exactly what devices the SmartApp
-will have access to, and therefore what devices the external systems
-that consume those web services will have access to.
+Web Services SmartApps are no different, and this is part of the power of this approach.
+The end user controls exactly what devices the SmartApp will have access to, and therefore what devices the external systems that consume those web services will have access to.
 
 The preferences definition should look like this:
 
@@ -50,7 +50,10 @@ The preferences definition should look like this:
     }
   }
 
-Also ensure that you have an ``installed()`` and ``updated()`` method defined (this should be created by default when creating a SmartApp). They can remain empty, since we are not subscribing to any device events in this example.
+Also ensure that you have an ``installed()`` and ``updated()`` method defined (this should be created by default when creating a SmartApp).
+They can remain empty, since we are not subscribing to any device events in this example.
+
+You can learn more about Web Services SmartApp preferences :ref:`here <web_services_preferences>`.
 
 ----
 
@@ -82,7 +85,8 @@ Here's the code for our mappings definition. This is defined at the top-level in
       }
     }
 
-Note the use of variable parameters in our PUT endpoint. Use the ``:`` prefix to specify that the value will be variable. We'll see later how to get this value.
+Note the use of variable parameters in our PUT endpoint.
+Use the ``:`` prefix to specify that the value will be variable. We'll see later how to get this value.
 
 Go ahead and add empty methods for the various handlers. We'll fill these in in the next step:
 
@@ -92,6 +96,8 @@ Go ahead and add empty methods for the various handlers. We'll fill these in in 
 
   def updateSwitches() {}
 
+See the :ref:`web_services_mapping_endpoints` documentation for more information.
+
 ----
 
 GET Switch Information
@@ -99,7 +105,8 @@ GET Switch Information
 
 Now that we've defined our endpoints, we need to handle the requests in the handler methods we stubbed in above.
 
-Let's start with the handler for GET requests to the ``/switches`` endpoint. When a GET request to the ``/switches`` endpoint is called, we want to return the display name, and the current switch value (e.g., on or off) for the configured switch.
+Let's start with the handler for GET requests to the ``/switches`` endpoint.
+When a GET request to the ``/switches`` endpoint is called, we want to return the display name, and the current switch value (e.g., on or off) for the configured switch.
 
 Our handler method returns a list of maps, which is then serialized by the SmartThings platform into JSON:
 
@@ -114,6 +121,8 @@ Our handler method returns a list of maps, which is then serialized by the Smart
       }
       return resp
   }
+
+See the :ref:`smartapp_web_services_response` documentation for more information on working with web request responses.
 
 ----
 
@@ -147,10 +156,9 @@ If any of the configured switches does not support the specified command, we'll 
         }
     }
 
-.. tip::
 
-  Our example uses the endpoint itself to get the command.
-  Learn more about working with requests :ref:`here <webservices_smartapp_request_handling>`.
+Our example uses the endpoint itself to get the command.
+You can learn more about working with requests :ref:`here <webservices_smartapp_request_handling>`.
 
 ----
 
@@ -168,7 +176,8 @@ Using the simulator, we can quickly test our Web Services SmartApp.
 
 Click the *Install* button in the simulator, select a Location to install the SmartApp into, and select a switch.
 
-Note that in the lower right of the simulator there is an API token and an API endpoint. We can use these to test making requests to our SmartApp.
+Note that in the lower right of the simulator there is an API token and an API endpoint.
+We can use these to test making requests to our SmartApp.
 
 ----
 
@@ -183,7 +192,8 @@ From the simulator, grab the API endpoint. It will look something like this::
 
 Your installation will have a different, unique URL.
 
-To get information about the switch, we will call the /switch endpoint using a GET request. You'll need to substitute your unique endpoint and API key.
+To get information about the switch, we will call the /switch endpoint using a GET request.
+You'll need to substitute your unique endpoint and API key.
 
 .. code-block:: bash
 
@@ -193,13 +203,15 @@ This should return a JSON response like the following::
 
   [{"name":"Kitchen 2","value":"off"},{"name":"Living room window","value":"off"}]
 
-To turn the switch on or off, call the /switches endpoint using a PUT request. Again, you'll need to substitute your unique endpoing and API key:
+To turn the switch on or off, call the /switches endpoint using a PUT request.
+Again, you'll need to substitute your unique endpoing and API key:
 
 .. code-block:: bash
 
   curl -H "Authorization: Bearer <api token>" -X PUT "<api endpoint>/switches/on"
 
-Change the command value to ``"off"`` to turn the switch off. Try turning the switch on and off, and then using curl to get the status, to see that it changed.
+Change the command value to ``"off"`` to turn the switch off.
+Try turning the switch on and off, and then using curl to get the status, to see that it changed.
 
 ----
 
@@ -213,6 +225,7 @@ Finally, uninstall the SmartApp using the *Uninstall* button in the IDE simulato
 Summary
 -------
 
-In this tutorial, you learned how to create a SmartApp that exposes endpoints to get information about, and control, a device. You also learned how to install the SmartApp in the simulator, and then make API calls to the endpoint.
+In this tutorial, you learned how to create a SmartApp that exposes endpoints to get information about, and control, a device.
+You also learned how to install the SmartApp in the simulator, and then make API calls to the endpoint.
 
 In the next part of this tutorial, we'll look at how a external application might interact with SmartThings using the OAuth2 flow (instead of simply using the simulator and its generated access token).

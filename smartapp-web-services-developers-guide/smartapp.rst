@@ -25,6 +25,8 @@ These will be used on the SmartThings Authorization page to inform the user who 
 
 ----
 
+.. _web_services_preferences:
+
 Preferences
 -----------
 
@@ -159,7 +161,7 @@ When a request is made to one of the SmartApp's endpoints, its associated reques
 Every request handler method has available to it a ``request`` object that represents information about the request, and a ``params`` object that contains information about the request parameters.
 
 Path variables
-``````````````
+^^^^^^^^^^^^^^
 
 Any path variables you defined in the ``path`` are available via the injected ``params`` object:
 
@@ -177,7 +179,7 @@ Any path variables you defined in the ``path`` are available via the injected ``
     }
 
 Query parameters
-````````````````
+^^^^^^^^^^^^^^^^
 
 URL query parameters sent on the request are available via the ``params`` object:
 
@@ -190,7 +192,7 @@ URL query parameters sent on the request are available via the ``params`` object
     }
 
 Request body parameters
-```````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^
 
 SmartThings supports JSON or XML request body parameters.
 They can be accessed via ``request.JSON`` and ``request.XML``:
@@ -219,11 +221,13 @@ Similarly, the XML on ``request`` is the result of calling ``new XmlSlurper().pa
 
 ----
 
+.. _smartapp_web_services_response:
+
 Response Handling
 -----------------
 
 Defaults
-````````
+^^^^^^^^
 
 Each HTTP method (``GET``, ``PUT``, ``POST``, ``DELETE``) request handler returns a default response.
 Some request handlers may return a map that will be serialized to JSON on the response, and some may specify their own response by using the ``render()`` method:
@@ -241,7 +245,7 @@ Some request handlers may return a map that will be serialized to JSON on the re
 +----------------+----------------------------+----------------------------+-------------------------------+
 
 Automatic JSON serialization
-````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``GET`` and ``POST`` request handlers may return a map, which will be serialized to JSON and returned to the client with ``Content-Type: application/json``:
 
@@ -279,7 +283,7 @@ The response of executing a ``GET`` or ``POST`` request on the ``/test`` endpoin
         {"data":"test"}
 
 Using ``render()`` to control the response
-``````````````````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ``GET`` and ``POST`` request handlers also support the ability to return a custom response using the :ref:`smartapp_render` method:
 
@@ -335,7 +339,7 @@ Error Handling
 --------------
 
 Default Errors
-``````````````
+^^^^^^^^^^^^^^
 
 The following errors may be returned by the SmartThings platform:
 
@@ -351,7 +355,7 @@ HTTP Response Code           Error Message                                      
 ============================ =============================================================================================================== =====
 
 Custom Errors
-`````````````
+^^^^^^^^^^^^^
 
 If your endpoint needs to send an error response, use the :ref:`smartapp_http_error` method:
 

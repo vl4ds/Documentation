@@ -11,6 +11,8 @@ In this guide, you will learn:
 - Security measures taken to ensure access is only granted to trusted clients, and specific devices as chosen by the user.
 - The end user flow for external applications integrating with Web Services SmartApps.
 
+----
+
 Introduction
 ------------
 
@@ -23,6 +25,8 @@ As such, we've designed an architecture and a user experience around external AP
 -  It delivers a user experience that is easy to understand.
 -  It delivers a developer experience that is easy to understand and implement.
 
+----
+
 Concepts
 --------
 
@@ -31,6 +35,8 @@ There are a couple of important concepts that need to be understood 
 - All SmartApps APIs are authenticated using OAuth2.
 - When we talk about SmartApps APIs, we are referring to APIs that are exposed by SmartApps themselves.
 - SmartApps execute in a special security context, where they only have access to devices specifically authorized by the user at installation time. This is no different for SmartApps APIs.
+
+---
 
 How it Works
 ------------
@@ -46,7 +52,7 @@ It is important to understand that it is the SmartApp itself that exposes the AP
 This approach is designed to ensure that an external system must have explicit access granted to the devices, before it can control those devices.
 
 OAuth-Integrated App Installation Flow
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 |Alt OAuth-Integrated App
 Installation|
@@ -66,29 +72,34 @@ the API Connection and Usage process:
 
 #. Finally, the external system can use the specified endpoint URL and the provided OAuth2 access token to make API calls to the SmartApp providing the web services.
 
+----
+
 The End-User Journey
 --------------------
 
 Before discussing the specific steps to building a Web Services SmartApp, you should understand the end user experience.
 
 Initiate Connection from External System
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The first step is to initiate the connection with the SmartThings cloud from the external web application. This is different for each web application, but is just a URL.
+The first step is to initiate the connection with the SmartThings cloud from the external web application.
+This is different for each web application, but is just a URL.
 
 Authentication & Authorization
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The typical OAuth journey is the OAuth2 authorization code flow, initiated from the website of the external system, whereby the user is redirected to the SmartThings website. This is where they enter their SmartThings credentials, as shown below:
+The typical OAuth journey is the OAuth2 authorization code flow, initiated from the website of the external system, whereby the user is redirected to the SmartThings website.
+This is where they enter their SmartThings credentials, as shown below:
 
 .. figure:: ../img/smartapps/web-services/oauth-login.png
 
 Once authenticated with SmartThings, they will be prompted to specifically authorize access by the application.
 
 Application Configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The user is prompted to configure the Web Services SmartApp that will be automatically installed. The user does not have to select the specific SmartApp, because it can be automatically identified by the OAuth client id.
+The user is prompted to configure the Web Services SmartApp that will be automatically installed.
+The user does not have to select the specific SmartApp, because it can be automatically identified by the OAuth client id.
 
 The first step in the application configuration process is to identify the Location in which the SmartApp will be installed.
 
@@ -102,11 +113,9 @@ below:
 
 .. figure:: ../img/smartapps/web-services/preferences.png
 
-Finally, the user clicks on “Authorize” to complete both the
-authorization of the application and the installation of the SmartApp
-and the connection between the external system and the SmartThings Cloud
-is now complete.
+Finally, the user clicks on “Authorize” to complete both the authorization of the application and the installation of the SmartApp and the connection between the external system and the SmartThings Cloud is now complete.
 
-Once the user authorizes access, the external system is provided with the OAuth authorization code, which is in turn used to request and receive an OAuth access token. Once the external system has the token, it can access the web services provided by the SmartApp.
+Once the user authorizes access, the external system is provided with the OAuth authorization code, which is in turn used to request and receive an OAuth access token.
+Once the external system has the token, it can access the web services provided by the SmartApp.
 
 .. |Alt OAuth-Integrated App Installation| image:: ../img/smartapps/web-services/method-2.png

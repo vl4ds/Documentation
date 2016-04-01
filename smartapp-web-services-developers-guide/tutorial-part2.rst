@@ -7,6 +7,11 @@ In `Part 1 <./tutorial-part1.html>`__ of this tutorial, you learned how to creat
 
 In Part 2, we'll build a simple web application that will integrate with SmartThings and the WebServices SmartApp we created in Part 1.
 
+----
+
+Overview
+--------
+
 In Part 2 of this tutorial, you will learn:
 
 - How to get the API token.
@@ -17,12 +22,10 @@ The source code for this tutorial is available `here <https://github.com/SmartTh
 
 .. include:: ../common/oauth-install-restriction.rst
 
-Overview
---------
+We will build a simple Sinatra application that will make calls to the Web Services SmartApp we built in Part 1.
 
-In Part 2 of this tutorial, we will build a simple Sinatra application that will make calls to the Web Services SmartApp we built in Part 1.
-
-If you're not familiar with Sinatra, you are encouraged to try it out. It's not strictly necessary, however, as our application will simply make web requests to get the API token and the endpoint.
+If you're not familiar with Sinatra, you are encouraged to try it out.
+It's not strictly necessary, however, as our application will simply make web requests to get the API token and the endpoint.
 
 .. note::
 
@@ -138,9 +141,12 @@ Now, run the app on your local machine::
 
     ruby server.rb
 
-Visit `http://localhost:4567 <http://localhost:4567>`__. You should see a pretty boring web page with a link to "Connect with SmartThings".
+Visit `http://localhost:4567 <http://localhost:4567>`__.
+You should see a pretty boring web page with a link to "Connect with SmartThings".
 
-We're using the `OAuth2 module <https://github.com/intridea/oauth2>`__ to handle the OAuth2 flow. We create a new Client, using the ``client_id`` and ``api_key``. We also configure it with the ``options`` data structure that defines the information about the SmartThings OAuth endpoint.
+We're using the `OAuth2 module <https://github.com/intridea/oauth2>`__ to handle the OAuth2 flow.
+We create a new Client, using the ``client_id`` and ``api_key``.
+We also configure it with the ``options`` data structure that defines the information about the SmartThings OAuth endpoint.
 
 We've handled the root URL to simply display a link that points to the ``/authorize`` URL of our server. We'll fill that in next.
 
@@ -178,7 +184,8 @@ Kill the server if it's running (CTRL+C), and start it up again using ``ruby ser
 
 Visit `http://localhost:4567 <http://localhost:4567>`__ again, and click the "Connect with SmartThings" link.
 
-This should prompt you to authenticate with your SmartThings account (if you are not already logged in), and bring you to a page where you must authorize this application. It should look something like this:
+This should prompt you to authenticate with your SmartThings account (if you are not already logged in), and bring you to a page where you must authorize this application.
+It should look something like this:
 
 .. figure:: ../img/smartapps/web-services/preferences.png
 
@@ -191,9 +198,11 @@ You'll notice that we haven't implemented handling this URL yet, so we see "Not 
 Get an Access Token
 -------------------
 
-When SmartThings redirects back to our application after authorizing, it passes a ``code`` parameter on the URL. This is the code that we will use to get the API token we need to make requests to our Web Servcies SmartApp.
+When SmartThings redirects back to our application after authorizing, it passes a ``code`` parameter on the URL.
+This is the code that we will use to get the API token we need to make requests to our Web Servcies SmartApp.
 
-We'll store the access token in the session. Towards the top of ``server.rb``, we configure our app to use the session, and add a helper method to know if the user has authenticated:
+We'll store the access token in the session.
+Towards the top of ``server.rb``, we configure our app to use the session, and add a helper method to know if the user has authenticated:
 
 .. code-block:: ruby
 
@@ -226,11 +235,14 @@ Replace the ``/oauth/callback`` route with the following:
       redirect '/getswitch'
     end
 
-We first retrieve the access code from the parameters. We use this to get the token using the OAuth2 module, and store it in the session.
+We first retrieve the access code from the parameters.
+We use this to get the token using the OAuth2 module, and store it in the session.
 
-We then redirect to the ``/getswitch`` URL of our server. This is where we will retrieve the endpoint to call, and get the status of the configured switch.
+We then redirect to the ``/getswitch`` URL of our server.
+This is where we will retrieve the endpoint to call, and get the status of the configured switch.
 
-Restart your server, and try it out. Once authorized, you should be redirected to the ``/getswitch`` URL. We'll start implementing that next.
+Restart your server, and try it out.
+Once authorized, you should be redirected to the ``/getswitch`` URL. We'll start implementing that next.
 
 ----
 
@@ -282,7 +294,8 @@ There are other URL keys in the JSON, but the `uri` key is specific to the serve
 Always use the `uri` key or `base_uri` for your endpoints.
 For this step, we just display the JSON response and endpoint in the page.
 
-By now, you know the drill. Restart your server, refresh the page, and click the link (you'll have to reauthorize). You should then see the JSON response and endpoint displayed on your page.
+By now, you know the drill. Restart your server, refresh the page, and click the link (you'll have to reauthorize).
+You should then see the JSON response and endpoint displayed on your page.
 
 ----
 
@@ -316,9 +329,11 @@ Remove the line at the end of the ``getswitch`` route handler that outputs the r
   '<h3>Response Code</h3>' + switchStatus.code + '<br/><h3>Response Headers</h3>' + switchStatus.to_hash.inspect + '<br/><h3>Response Body</h3>' + switchStatus.body
 
 
-The above code uses the endpoint (obtained from the `uri` key in our JSON response above) for our SmartApp to build a URL, and then makes a GET request to the ``/switches`` endpoint. It simply displays the the status, headers, and response body returned by our WebServices SmartApp.
+The above code uses the endpoint (obtained from the `uri` key in our JSON response above) for our SmartApp to build a URL, and then makes a GET request to the ``/switches`` endpoint.
+It simply displays the the status, headers, and response body returned by our WebServices SmartApp.
 
-Restart your server and try it out. You should see status of your configured switches displayed!
+Restart your server and try it out.
+You should see status of your configured switches displayed!
 
 ----
 
