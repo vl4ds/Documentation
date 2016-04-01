@@ -36,7 +36,7 @@ There are a couple of important concepts that need to be understood 
 - When we talk about SmartApps APIs, we are referring to APIs that are exposed by SmartApps themselves.
 - SmartApps execute in a special security context, where they only have access to devices specifically authorized by the user at installation time. This is no different for SmartApps APIs.
 
----
+----
 
 How it Works
 ------------
