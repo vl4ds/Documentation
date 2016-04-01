@@ -5,6 +5,7 @@ Building ZigBee Device Handlers
 
     If you are integrating a new ZigBee switch or bulb with SmartThings, see the :ref:`zigbee_device_form` section below to learn how you can integrate these devices without the need to write code.
 
+----
 
 Commands
 --------
@@ -19,7 +20,7 @@ There are four common ZigBee commands that you will use to integrate
 SmartThings with your ZigBee Devices.
 
 Read
-````
+^^^^
 
 Read gets the devices current state and is formatted like this:
 
@@ -30,10 +31,9 @@ Read gets the devices current state and is formatted like this:
     }
 
 In this example, the device type (from the "CentraLite Switch" device
-type) is calling the "refresh" function. It is sending a ZigBee Read
-Attribute request via the ``readAttribute()`` method to read the current state (the active power draw). The
-cluster we are reading here is Electrical Measurement (0xB04) and
-specifically the Active Power Attribute (0x50B).
+type) is calling the "refresh" function.
+It is sending a ZigBee Read Attribute request via the ``readAttribute()`` method to read the current state (the active power draw).
+The cluster we are reading here is Electrical Measurement (0xB04) and specifically the Active Power Attribute (0x50B).
 
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
@@ -44,7 +44,7 @@ specifically the Active Power Attribute (0x50B).
 +-------------------------------+-----------------------------+
 
 Write
-`````
+^^^^^
 
 Write sets an attribute of a ZigBee device and is formatted like this:
 
@@ -54,16 +54,14 @@ Write sets an attribute of a ZigBee device and is formatted like this:
             zigbee.writeAttribute(8, 0x10, 0x21, 0x0014)
         }
 
-In this example (from the "ZigBee Dimmer" device type) we are writing to
-an attribute to set the amount of time it takes for a light to fully dim
-on and off. Here we are using the Level Control Cluster (8) to write to
-the attribute that defines on and off transition time (0x10). The value
-we are using is formatted in an Unsigned 16-bit integer (0x21) with the
-payload being in 1/10th of a second. In this case the payload ({0014})
-translates to 2 seconds. Breaking the payload down we see that the hex value
-of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds.
+In this example (from the "ZigBee Dimmer" Device Handler) we are writing to an attribute to set the amount of time it takes for a light to fully dim on and off.
+Here we are using the Level Control Cluster (8) to write to the attribute that defines on and off transition time (0x10).
+The value we are using is formatted in an Unsigned 16-bit integer (0x21) with the payload being in 1/10th of a second.
+In this case the payload ({0014}) translates to 2 seconds.
+Breaking the payload down we see that the hex value of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds.
 
-Each attribute possesses a specific data type. The corresponding value for this data type can be found in table 2.16 of the `ZigBee Cluster Library <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__.
+Each attribute possesses a specific data type.
+The corresponding value for this data type can be found in table 2.16 of the `ZigBee Cluster Library <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__.
 
 
 .. note::
@@ -82,7 +80,7 @@ Each attribute possesses a specific data type. The corresponding value for this 
 +-------------------------------+-----------------------------+
 
 Command
-```````
+^^^^^^^
 
 Command invokes a command on a ZigBee device and is formatted like this:
 
@@ -92,10 +90,9 @@ Command invokes a command on a ZigBee device and is formatted like this:
         zigbee.command(0x0006, 0x01)
     }
 
-In this example (from the "ZigBee Dimmer" device type) we are sending a
-ZigBee Command to turn the device on. We use the On/Off Cluster (6) and
-send the command to turn on (1). This commands has no payload, so we exclude
-it from the passed in parameters.
+In this example (from the "ZigBee Dimmer" device type) we are sending a ZigBee Command to turn the device on.
+We use the On/Off Cluster (6) and send the command to turn on (1).
+This commands has no payload, so we exclude it from the passed in parameters.
 
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
@@ -106,10 +103,9 @@ it from the passed in parameters.
 +-------------------------------+-----------------------------+
 
 Configure
-`````````
+^^^^^^^^^
 
-Configure reporting instructs a device to notify us when an attribute changes and is
-formatted like this:
+Configure reporting instructs a device to notify us when an attribute changes and is formatted like this:
 
 .. code-block:: groovy
 
@@ -117,14 +113,10 @@ formatted like this:
         configureReporting(0x0006, 0x0000, 0x10, 0, 600, null)
     }
 
-In this example (using the "CentraLite Switch" device type), the bind
-command is sent to the device using its Network ID which can be
-determined using 0x${device.deviceNetworkId}. Then using source and
-destination endpoints for the device and hub (1 1), we bind to the
-On/Off Clusters (6) to get events from the device. The last part of the
-message contains the hub's ZigBee id which is set as the location for
-the device to send callback messages to. Note that not at all devices
-support binding for events.
+In this example (using the "CentraLite Switch" Device Handler), the bind command is sent to the device using its Network ID which can be determined using ``0x${device.deviceNetworkId}``.
+Then using source and destination endpoints for the device and hub (1 1), we bind to the On/Off Clusters (6) to get events from the device.
+The last part of the message contains the hub's ZigBee id which is set as the location for the device to send callback messages to.
+Note that not at all devices support binding for events.
 
 +-------------------------------+-----------------------------+
 | Component                     | Description                 |
@@ -147,10 +139,8 @@ support binding for events.
 ZigBee Utilities
 ----------------
 
-In order to work with ZigBee you will need to use the ZigBee Cluster
-Library extensively to look up the proper values to send back and forth
-to your device. You can download this document
-`here <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__.
+In order to work with ZigBee you will need to use the ZigBee Cluster Library extensively to look up the proper values to send back and forth to your device.
+You can download this document `here <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__.
 
 There is also a ZigBee utility class covered in the :ref:`zigbee_ref`
 
@@ -174,12 +164,12 @@ To integrate a new ZigBee switch or bulb with SmartThings, you can use the *From
 .. image:: ../img/device-types/zigbee-form.png
 
 What it does
-````````````
+^^^^^^^^^^^^
 
 By entering the ZigBee information for the device in the form, the appropriate existing Device Handler will be updated with the device's fingerprint.
 
 Use it if
-`````````
+^^^^^^^^^
 
 - You are the device manufacturer, or otherwise have access to the required ZigBee device information requested on the form.
 - The device is best described as one of the following:
@@ -191,7 +181,7 @@ Use it if
     - ZigBee Color Temperature Bulb
 
 How to use
-``````````
+^^^^^^^^^^
 
 Simply fill out the required fields in the form with the information for the device, and click Create.
 

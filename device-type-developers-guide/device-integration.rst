@@ -1,7 +1,9 @@
 Device Certification Overview
 =============================
 
-Because we offer an open platform, a wide range of devices can be certified to work with SmartThings.  Currently, anybody can submit a device for certification at no cost.  Certifying your device will provide a great experience for users, meaning that your device works seamlessly with the rest of the SmartThings platform.
+Because we offer an open platform, a wide range of devices can be certified to work with SmartThings.
+Currently, anybody can submit a device for certification at no cost.
+Certifying your device will provide a great experience for users, meaning that your device works seamlessly with the rest of the SmartThings platform.
 
 Examples of devices already certified to work with SmartThings can be viewed `here <https://www.smartthings.com/works-with-smartthings/>`_.
 
@@ -26,4 +28,5 @@ The device certification process consists of the following steps:
 |
 |
 
-We’re always looking for ways to improve and shorten the time it takes to certify devices.  Stay tuned for future improvements!
+We’re always looking for ways to improve and shorten the time it takes to certify devices.
+Stay tuned for future improvements!

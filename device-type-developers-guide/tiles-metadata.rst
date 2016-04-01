@@ -9,6 +9,11 @@ Tiles define how devices are represented in the SmartThings mobile application. 
 .. note::
   Be sure to check out `multiAttributeTile()`_ below for new tile layout options.
 
+----
+
+Overview
+--------
+
 The Things view is where you can see all of your devices listed.
 
 .. image:: ../img/device-types/things-view.png
@@ -21,14 +26,18 @@ When tapping on one of the devices in the Things view, you will be presented wit
 
 When creating a Device Handler, you define how it will appear for the user on their Details screen by defining and configuring different Tiles.
 
-Tiles are defined inside the metadata block of device handlers. Let's take a look at how we can define Tiles in our device handlers.
+Tiles are defined inside the metadata block of Device Handlers.
+Let's take a look at how we can define Tiles in our Device Handlers.
 
 Overview
 --------
 
 Developers have control over the look and feel of the Details view by defining Tiles.
 
-Tiles are defined in the Device Handler by calling the ``tiles()`` method. The ``tiles()`` method is composed of tile definitions, and layout information (the ``main`` and ``details`` method). There are five types of tiles that you can use within your Device Handler. Each tile serves a different purpose.
+Tiles are defined in the Device Handler by calling the ``tiles()`` method.
+The ``tiles()`` method is composed of tile definitions, and layout information (the ``main`` and ``details`` method).
+There are five types of tiles that you can use within your Device Handler.
+Each tile serves a different purpose.
 
 Consider this tiles block for the Multipurpose Sensor from the screenshot above:
 
@@ -78,7 +87,9 @@ Consider this tiles block for the Multipurpose Sensor from the screenshot above:
         details(["status", "acceleration", "temperature", "3axis", "battery", "refresh"])
     }
 
-Tiles are defined with either a ``scale: 1`` (default) or ``scale: 2`` argument. The value of ``2`` will enable the *6 X Unlimited* grid layout. If the ``scale`` argument is not supplied, it will be set to the default value of ``1``.
+Tiles are defined with either a ``scale: 1`` (default) or ``scale: 2`` argument.
+The value of ``2`` will enable the *6 X Unlimited* grid layout.
+If the ``scale`` argument is not supplied, it will be set to the default value of ``1``.
 
 Here you can see how the tiles defined above are laid out using the *6 X Unlimited* grid (using the ``scale: 2`` option):
 
@@ -89,18 +100,23 @@ Here you can see how the tiles defined above are laid out using the *6 X Unlimit
 
   The grid layout can be a 3 column, unlimited row, grid system or a *6 X Unlimited* grid to be more visually appealing and to give developers more flexibility when defining layouts. New *6 X Unlimited* tiles will be scaled back on older versions of the SmartThings mobile app that do not support the *6 X Unlimited* grid layout.
 
-The first argument to the tile methods (``standardTile()``, ``valueTile()``, etc.) is the name of the tile. This is used to identify the tile when specifying the tile layout.
+The first argument to the tile methods (``standardTile()``, ``valueTile()``, etc.) is the name of the tile.
+This is used to identify the tile when specifying the tile layout.
 
-The second argument is the attribute this tile is associated with. Each tile is associated with an attribute of the device.
+The second argument is the attribute this tile is associated with.
+Each tile is associated with an attribute of the device.
 
-In the example above, a ``standardTile()`` (more on that later) is created with the name ``"contact"``, for the "contact" attribute. The convention is to prefix the attribute name with ``"device"`` - so the format is ``"device.<attributeName>"``.
+In the example above, a ``standardTile()`` (more on that later) is created with the name ``"contact"``, for the "contact" attribute.
+The convention is to prefix the attribute name with ``"device"`` - so the format is ``"device.<attributeName>"``.
 
-The contact attribute has two possible values: "open", and "closed". Since we want the display to change depending on if the contact is open or closed, we define a state for each. The ``state()`` method allows us to specify display information like icon and background color for each state, as well as specify what action should happen when the tile is interacted with in its current state.
+The contact attribute has two possible values: "open", and "closed".
+Since we want the display to change depending on if the contact is open or closed, we define a state for each.
+The ``state()`` method allows us to specify display information like icon and background color for each state, as well as specify what action should happen when the tile is interacted with in its current state.
 
 The ``state()`` method is discussed later in this document.
 
 Common Tile Parameters
-~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 All tiles support the following parameters:
 
@@ -118,6 +134,8 @@ All tiles support the following parameters:
 .. note::
 
     You may see Device Handlers that use the ``inactiveLabel`` property. This is deprecated and has no effect.
+
+----
 
 State
 -----
@@ -147,23 +165,29 @@ Let's consider a switch tile definition example:
     Long story short - the above is not a typo. Use single quotes for interpolated string values in the tiles definition.
 
 
-The "switch" attribute specifies two possible values - "on" and "off". We define a state for each possible value. The first argument to the ``state()`` method should be the value of the attribute this state applies to (there is an exception to this rule discussed below).
+The "switch" attribute specifies two possible values - "on" and "off".
+We define a state for each possible value.
+The first argument to the ``state()`` method should be the value of the attribute this state applies to (there is an exception to this rule discussed below).
 
-When the switch is off, and the user presses on the tile on their mobile device, we want to turn the switch on. We specify this action using the ``action`` parameter.
+When the switch is off, and the user presses on the tile on their mobile device, we want to turn the switch on.
+We specify this action using the ``action`` parameter.
 
-The value of the ``action`` parameter should be the name of the command to invoke. The convention is to prefix the command name with the capability, so in the example above we have "switch.on". Custom commands not related to a capability may also be called as an action, for example ``myCommand``, provided that a corresponding ``command`` declaration is present in the description metadata. In this case, use the ``action: "myCommand"`` syntax.
+The value of the ``action`` parameter should be the name of the command to invoke.
+The convention is to prefix the command name with the capability, so in the example above we have "switch.on".
+Custom commands not related to a capability may also be called as an action, for example ``myCommand``, provided that a corresponding ``command`` declaration is present in the description metadata.
+In this case, use the ``action: "myCommand"`` syntax.
 
 State Selection
-~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^
 
 The following algorithm is used to determine which state to display, when there are multiple states:
 
 #. If a state is defined for the attribute's current value, it will render that.
-#. If no state exists for the attribute value, it will render a state that has specified ``defaultState: true``. Use this in place of the "default" state name that you may see in some device handlers.
+#. If no state exists for the attribute value, it will render a state that has specified ``defaultState: true``. Use this in place of the "default" state name that you may see in some Device Handlers.
 #. If no state matches the above rules, it will render the first state declaration.
 
 State Parameters
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 The valid parameters are:
 
@@ -185,14 +209,16 @@ The valid parameters are:
 
     The example above uses some attributes within our state method. We use the ``name`` and ``currentValue`` attributes to make our state definition more dynamic.
 
+----
 
 Tile Definitions
 ----------------
 
 standardTile()
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
-Use a standard tile to display current state information. For example, to show that a switch is on or off, or that there is or is not motion.
+Use a standard tile to display current state information.
+For example, to show that a switch is on or off, or that there is or is not motion.
 
 .. code-block:: groovy
 
@@ -206,11 +232,13 @@ The above tile definition would render as (when wet):
 .. figure:: ../img/device-types/moisture-tile.png
 
 controlTile()
-~~~~~~~~~~~~~
+^^^^^^^^^^^^^
 
-Use a control tile to display a tile that allows the user to input a value within a range. A common use case for a control tile is a light dimmer.
+Use a control tile to display a tile that allows the user to input a value within a range.
+A common use case for a control tile is a light dimmer.
 
-In addition to name and attribute parameters, ``controlTile()`` requires a third argument to specify the type of control. The valid arguments are "slider" and "color".
+In addition to name and attribute parameters, ``controlTile()`` requires a third argument to specify the type of control.
+The valid arguments are "slider" and "color".
 
 *name*
     Name of this tile.
@@ -230,7 +258,8 @@ This renders as:
 
 .. figure:: ../img/device-types/control-tile.png
 
-You can also specify a custom range by using a ``range`` parameter. It is a string, and is in the form ``"(<lower bound>..<upper bound>)"``
+You can also specify a custom range by using a ``range`` parameter.
+It is a string, and is in the form ``"(<lower bound>..<upper bound>)"``
 
 .. code-block:: groovy
 
@@ -240,9 +269,10 @@ You can also specify a custom range by using a ``range`` parameter. It is a stri
     }
 
 valueTile()
-~~~~~~~~~~~
+^^^^^^^^^^^
 
-Use a value tile to display a tile that displays a specific value. Typical examples include temperature, humidity, or power values.
+Use a value tile to display a tile that displays a specific value.
+Typical examples include temperature, humidity, or power values.
 
 .. code-block:: groovy
 
@@ -256,7 +286,7 @@ This renders as:
 
 
 carouselTile()
-~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^
 
 A carousel tile is often used in conjunction with the Image Capture capability, to allow users to scroll through recent pictures.
 
@@ -270,19 +300,21 @@ Many of the camera Device Handlers will make use of the ``carouselTile()``.
 .. figure:: ../img/device-types/carouselTile.jpg
 
 multiAttributeTile()
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 .. warning::
      Currently there is a parity issue between Android and iOS platforms in regard to how multiAttribute tiles work. There is currently work being done on the Android platform to address this. In the meantime, some things stated here about multiAttributeTiles may not work as expected on the Android platform.
 
-Multi-Attribute Tiles combine multiple attributes into a single tile presented with a rich UI. Here are some of the types of tiles that you can create:
+Multi-Attribute Tiles combine multiple attributes into a single tile presented with a rich UI.
+Here are some of the types of tiles that you can create:
 
 ==================================================    ==================================================    ==================================================    ==================================================
 Lighting                                              Thermostat                                            Video Player                                          Generic (Default)
 .. image:: ../img/device-types/lighting.png           .. image:: ../img/device-types/thermostattile.png     .. image:: ../img/device-types/video.png              .. image:: ../img/device-types/generic.png
 ==================================================    ==================================================    ==================================================    ==================================================
 
-Multi-Attribute Tiles must be given a width of 6 and a height of 4. To enable this, the ``tiles`` block of your Device Handler must use the new *6 X Unlimited* grid layout.
+Multi-Attribute Tiles must be given a width of 6 and a height of 4.
+To enable this, the ``tiles`` block of your Device Handler must use the new *6 X Unlimited* grid layout.
 
 .. code-block:: groovy
 
@@ -290,7 +322,8 @@ Multi-Attribute Tiles must be given a width of 6 and a height of 4. To enable th
     ...
   }
 
-The ``multiAttributeTile()`` method works much like any of the other tile methods currently available. Let's look at an example of a simple generic tile for a contact sensor.
+The ``multiAttributeTile()`` method works much like any of the other tile methods currently available.
+Let's look at an example of a simple generic tile for a contact sensor.
 
 .. code-block:: groovy
 
@@ -319,7 +352,9 @@ The ``multiAttributeTile()`` method accepts the same parameters as any other til
 
     Also worth noting is that you may see other types of tiles in existing Device Handlers. Tiles that are not documented here should be considered experimental, and subject to change.
 
-The power of Multi-Attribute Tiles comes from its child method parameter, ``tileAttribute()``. Each ``tileAttribute()`` declaration defines an attribute that should be visible on the multi attribute tile. The ``tileAttribute()`` method currently supports two parameters:
+The power of Multi-Attribute Tiles comes from its child method parameter, ``tileAttribute()``.
+Each ``tileAttribute()`` declaration defines an attribute that should be visible on the multi attribute tile.
+The ``tileAttribute()`` method currently supports two parameters:
 
 *tileAttribute(attribute, key)*
 
@@ -340,7 +375,8 @@ VALUE_CONTROL        Up and down buttons (see note below)  .. image:: ../img/dev
 
   The color of the multi-attribute tile is controlled by the PRIMARY_CONTROL tile attribute, or in the case of a ``"thermostat"`` type, the OPERATING_STATE attribute will be used (see below). It will default to a light gray color. If the PRIMARY_CONTROL attribute contains states that change the color, the color of the multi attribute tile will also change.
 
-The last piece of the puzzle is *state*. ``tileAttribute()`` can support *states* just like other tile types. This is done with the new method ``attributeState()``. From the contact example above:
+The last piece of the puzzle is *state*. ``tileAttribute()`` can support *states* just like other tile types.
+This is done with the new method ``attributeState()``. From the contact example above:
 
 .. code-block:: groovy
 
@@ -351,20 +387,26 @@ The last piece of the puzzle is *state*. ``tileAttribute()`` can support *states
 
 This will render the main control in the middle (because ``key`` is ``"PRIMARY_CONTROL"``), with one of two states: "open" label, open icon, and yellow color; or "closed" label, closed icon, and green color.
 
-``attributeState()`` accepts all the same parameters as the ``state()`` method for all other tiles. This means you can supply actions just as you would for ``state()``, to trigger actions when tapping on the control.
+``attributeState()`` accepts all the same parameters as the ``state()`` method for all other tiles.
+This means you can supply actions just as you would for ``state()``, to trigger actions when tapping on the control.
 
 A word on the ``VALUE_CONTROL`` attribute
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-As of client version 2.1.0 (iOS and Android), the ``VALUE_CONTROL`` attribute has been improved to allow device type handlers to perform discrete actions for the Up and Down buttons. You can improve your device type handlers by specifying two states with specific names: ``VALUE_UP`` and ``VALUE_DOWN``. The actions associated with these two states will be used for each of the buttons. If you don't change your device type handler, the old approach will still work, though this may be deprecated and eliminated in the future.
+As of client version 2.1.0 (iOS and Android), the ``VALUE_CONTROL`` attribute has been improved to allow Device Handlers to perform discrete actions for the Up and Down buttons.
+You can improve your Device Handlers by specifying two states with specific names: ``VALUE_UP`` and ``VALUE_DOWN``.
+The actions associated with these two states will be used for each of the buttons.
+If you don't change your Device Handler, the old approach will still work, though this may be deprecated and eliminated in the future.
 
 Multi-Attribute Tiles With ``type: "thermostat"``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. image:: ../img/device-types/multi-thermostat-tile.png
    :width: 30%
 
-As you can see in the image above, the main distinction thermostat tiles have over the other documented types is the presence of a status label at the bottom of the tile. This label provides users with more information on the state of their thermostat. Additionally, thermostat tiles also look to the OPERATING_STATE attribute for its background color, falling back on PRIMARY_CONTROL's color(s).
+As you can see in the image above, the main distinction thermostat tiles have over the other documented types is the presence of a status label at the bottom of the tile.
+This label provides users with more information on the state of their thermostat.
+Additionally, thermostat tiles also look to the OPERATING_STATE attribute for its background color, falling back on PRIMARY_CONTROL's color(s).
 
 In order to provide the relevant data to present the label, we've created four additional attributes you should include.
 
@@ -381,7 +423,8 @@ COOLING_SETPOINT     At which point the system will begin cooling  Informs the u
 
   Only OPERATING_STATE is required to present the status label, but providing all four attributes will ensure the best experience for your users.
 
-Here is an example of a fully-attributed thermostat. Try to model your own device handler after the following for best results.
+Here is an example of a fully-attributed thermostat.
+Try to model your own Device Handler after the following for best results.
 
 .. code-block:: groovy
 
@@ -418,8 +461,8 @@ Here is an example of a fully-attributed thermostat. Try to model your own devic
 Tile Layouts
 ------------
 
-To control which tile shows up on the things screen, use the ``main`` method in the ``tiles`` closure.
-The ``details`` method defines an ordered list (will render from left-to-right, top-to-bottom) of tiles to display on the tile details screen.
+To control which tile shows up on the things screen, use the ``main()`` method in the ``tiles()`` closure.
+The ``details()`` method defines an ordered list (will render from left-to-right, top-to-bottom) of tiles to display on the tile details screen.
 
 .. code-block:: groovy
 
@@ -430,6 +473,8 @@ The ``details`` method defines an ordered list (will render from left-to-right, 
         main "tileName1"
         details(["tileName1", "tileName2"])
     }
+
+----
 
 Examples
 --------
