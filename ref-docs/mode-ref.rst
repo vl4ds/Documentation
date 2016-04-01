@@ -3,13 +3,13 @@
 Mode
 ====
 
-Modes can be thought of as behavior filters for your home. Users want to change how things act or behave in thier home based on the mode you’re in. 
+Modes can be thought of as behavior filters for your home. Users want to change how things act or behave in thier home based on the mode you’re in.
 
 SmartThings developers cannot create a new Mode. The most common way to interact with a Mode instance is by using the :ref:`location_ref` to get Mode information:
 
 .. code-block:: groovy
 
-    // Get the current Mode 
+    // Get the current Mode
     def curMode = location.currentMode
 
     // Get a list of all Modes for this location
@@ -18,7 +18,7 @@ SmartThings developers cannot create a new Mode. The most common way to interact
 ----
 
 id
-~~
+--
 
 The unique internal system identifier of the Mode.
 
@@ -36,7 +36,7 @@ The unique internal system identifier of the Mode.
 ----
 
 name
-~~~~
+----
 
 The name of the Mode.
 
@@ -53,7 +53,5 @@ The name of the Mode.
     def curMode = location.currentMode
     log.debug "The current mode name is: ${curMode.name}"
 
-
-----
 
 .. _String: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html

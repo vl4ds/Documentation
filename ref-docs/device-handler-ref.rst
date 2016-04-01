@@ -20,7 +20,7 @@ For more information about the structure of Device Handlers, refer to the `Devic
 Methods expected to be defined by Device Handlers:
 
 <command name>()
-~~~~~~~~~~~~~~~~
+----------------
 
 .. note::
 
@@ -66,7 +66,7 @@ The exact implementation of a command method will vary greatly depending upon th
 ----
 
 parse()
-~~~~~~~
+-------
 
 .. note::
 
@@ -128,7 +128,7 @@ The ``parse()`` method may return a map defining the :ref:`event_ref` to create 
 ----
 
 apiServerUrl()
-~~~~~~~~~~~~~~
+--------------
 
 Returns the URL of the server where this Device Handler can be reached for API calls, along with the specified path appended to it. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
 
@@ -155,7 +155,7 @@ Returns the URL of the server where this Device Handler can be reached for API c
 ----
 
 attribute()
-~~~~~~~~~~~
+-----------
 
 Called within the `definition()`_ method to declare that this Device Handler supports an attribute not defined by any of its declared capabilities.
 
@@ -197,7 +197,7 @@ For any supported attribute, it is expected that the Device Handler creates and 
 ----
 
 capability()
-~~~~~~~~~~~~
+------------
 
 Called in the `definition()`_ method to define that this device supports the specified capability.
 
@@ -245,7 +245,7 @@ Called in the `definition()`_ method to define that this device supports the spe
 ----
 
 carouselTile()
-~~~~~~~~~~~~~~
+--------------
 
 Called within the `tiles()`_ method to define a tile often used in conjunction with the Image Capture capability, to allow users to scroll through recent pictures.
 
@@ -286,7 +286,7 @@ Called within the `tiles()`_ method to define a tile often used in conjunction w
 ----
 
 command()
-~~~~~~~~~
+---------
 
 Called within the `definition()`_ method to declare that this Device Handler supports a command not defined by any of its declared capabilities.
 
@@ -335,7 +335,7 @@ For any supported command, it is expected that the Device Handler define a `<com
 ----
 
 controlTile()
-~~~~~~~~~~~~~
+-------------
 
 Called within the `tiles()`_ method to define a tile that allows the user to input a value within a range. A common use case for a control tile is a light dimmer.
 
@@ -381,7 +381,7 @@ Called within the `tiles()`_ method to define a tile that allows the user to inp
 ----
 
 createEvent()
-~~~~~~~~~~~~~
+-------------
 
 Creates a Map that represents an :ref:`event_ref` object. Typically used in the `parse()`_ method to define Events for particular attributes. The resulting map is then returned from the ``parse()`` method. The SmartThings platform will then create an Event object and propagate it through the system.
 
@@ -420,7 +420,7 @@ Creates a Map that represents an :ref:`event_ref` object. Typically used in the 
 ----
 
 definition()
-~~~~~~~~~~~~
+------------
 
 Called within the `metadata()`_ method, and defines some basic information about the device, as well as the supported capabilities, commands, and attributes.
 
@@ -464,7 +464,7 @@ Called within the `metadata()`_ method, and defines some basic information about
 ----
 
 details()
-~~~~~~~~~
+---------
 
 Used within the `tiles()`_ method to define the order that the tiles should appear in.
 
@@ -506,7 +506,7 @@ Used within the `tiles()`_ method to define the order that the tiles should appe
 ----
 
 device
-~~~~~~
+------
 
 the Device object, from which its current properties and history can be accessed. As of now this object is of a difference class than the Device object available in SmartApps. As some point these will be merged, but for now the properties and methods of the device object available to the device type handler are discussed in the example below:
 
@@ -537,7 +537,7 @@ the Device object, from which its current properties and history can be accessed
 ----
 
 fingerprint()
-~~~~~~~~~~~~~
+-------------
 
 Called within the `definition()`_ method to define the information necessary to pair this device type to the hub.
 
@@ -546,7 +546,7 @@ See the `Fingerprinting Section <../device-type-developers-guide/definition-meta
 ----
 
 getApiServerUrl()
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Returns the URL of the server where this Device Handler can be reached for API calls. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
 
@@ -559,7 +559,7 @@ Returns the URL of the server where this Device Handler can be reached for API c
 ----
 
 httpDelete()
-~~~~~~~~~~~~
+------------
 
 Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -593,7 +593,7 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 ----
 
 httpGet()
-~~~~~~~~~
+---------
 
 Executes an HTTP GET request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -647,7 +647,7 @@ If the response content type is JSON, the response data will automatically be pa
 ----
 
 httpHead()
-~~~~~~~~~~
+----------
 
 Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -678,7 +678,7 @@ Executes an HTTP HEAD request and passes control to the specified closure. The c
 ----
 
 httpPost()
-~~~~~~~~~~
+----------
 
 Executes an HTTP POST request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -727,7 +727,7 @@ If the response content type is JSON, the response data will automatically be pa
 ----
 
 httpPostJson()
-~~~~~~~~~~~~~~
+--------------
 
 Executes an HTTP POST request with a JSON-encoded body and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -788,7 +788,7 @@ If the response content type is JSON, the response data will automatically be pa
 ----
 
 httpPut()
-~~~~~~~~~
+---------
 
 Executes an HTTP PUT request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -836,7 +836,7 @@ If the response content type is JSON, the response data will automatically be pa
 ----
 
 httpPutJson()
-~~~~~~~~~~~~~
+-------------
 
 Executes an HTTP PUT request with a JSON-encoded boday and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -873,7 +873,7 @@ If the response content type is JSON, the response data will automatically be pa
 ----
 
 main()
-~~~~~~
+------
 
 Used to define what tile appears on the main "Things" view in the mobile application. Can be called within the `tiles()`_ method.
 
@@ -914,7 +914,7 @@ Used to define what tile appears on the main "Things" view in the mobile applica
 ----
 
 metadata()
-~~~~~~~~~~
+----------
 
 Used to define metadata such as this Device Handler's supported capabilities, attributes, commands, and UX information.
 
@@ -947,7 +947,7 @@ Used to define metadata such as this Device Handler's supported capabilities, at
 ----
 
 reply()
-~~~~~~~
+-------
 
 Called in the `simulator()`_ method to model the behavior of a physical device when a virtual instance of the device type is run in the IDE.
 
@@ -990,7 +990,7 @@ For example, the reply method ``reply "2001FF,2502": "command: 2503, payload: FF
 ----
 
 sendEvent()
-~~~~~~~~~~~
+-----------
 
 Create and fire an :ref:`event_ref` . Typically a Device Handler will return the map returned from `createEvent()`_ , which will allow the platform to create and fire the event. In cases where you need to fire the event (outside of the `parse()`_ method), ``sendEvent()`` is used.
 
@@ -1032,7 +1032,7 @@ Create and fire an :ref:`event_ref` . Typically a Device Handler will return the
 ----
 
 simulator()
-~~~~~~~~~~~
+-----------
 
 Defines information used to simulate device interaction in the IDE. Can be called in the `metadata()`_ method.
 
@@ -1069,7 +1069,7 @@ Defines information used to simulate device interaction in the IDE. Can be calle
 ----
 
 standardTile()
-~~~~~~~~~~~~~~
+--------------
 
 Called within the `tiles()`_ method to define a tile to display current state information. For example, to show that a switch is on or off, or that there is or is not motion.
 
@@ -1112,7 +1112,7 @@ Called within the `tiles()`_ method to define a tile to display current state in
 ----
 
 state
-~~~~~
+-----
 
 A map of name/value pairs that a Device Handler can use to save and retrieve data across executions.
 
@@ -1143,7 +1143,7 @@ A map of name/value pairs that a Device Handler can use to save and retrieve dat
 ----
 
 state()
-~~~~~~~
+-------
 
 Called within any of the various tiles method's closure to define options to be used when the current value of the tile's attribute matches the value argument.
 
@@ -1202,7 +1202,7 @@ Called within any of the various tiles method's closure to define options to be 
 ----
 
 status()
-~~~~~~~~
+--------
 
 The status method is called in the `simulator()`_ method, and populates the select box that appears under virtual devices in the IDE. Can be called in the `simulator()`_ method.
 
@@ -1241,7 +1241,7 @@ The status method is called in the `simulator()`_ method, and populates the sele
 ----
 
 tiles()
-~~~~~~~
+-------
 
 Defines the user interface for the device in the mobile app. It's composed of one or more `standardTile()`_ , `valueTile()`_ , `carouselTile()`_ , or `controlTile()`_ methods, as well as a `main()`_ and `details()`_ method.
 
@@ -1281,7 +1281,7 @@ Defines the user interface for the device in the mobile app. It's composed of on
 ----
 
 valueTile()
-~~~~~~~~~~~
+-----------
 
 Defines a tile that displays a specific value. Typical examples include temperature, humidity, or power values. Called within the `tiles()`_ method.
 
@@ -1324,7 +1324,7 @@ Defines a tile that displays a specific value. Typical examples include temperat
 ----
 
 zigbee
-~~~~~~
+------
 
 .. warning::
 
@@ -1343,7 +1343,7 @@ A utility class for parsing and formatting ZigBee messages.
 ----
 
 zwave
-~~~~~
+-----
 
 The utility class for parsing and formatting Z-Wave command messages.
 
@@ -1365,7 +1365,6 @@ The utility class for parsing and formatting Z-Wave command messages.
         ])
     }
 
-----
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html

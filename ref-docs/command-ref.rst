@@ -30,7 +30,7 @@ An instance of a Command object encapsulates information about that Command. You
 ----
 
 arguments
-~~~~~~~~~
+---------
 
 The list of argument types for the command.
 
@@ -60,7 +60,7 @@ The list of argument types for the command.
 ----
 
 name
-~~~~
+----
 
 The name of the command.
 
@@ -87,7 +87,7 @@ The name of the command.
         log.debug "command name: ${it.name}"
     }
     ...
-----
+
 
 .. _List: https://docs.oracle.com/javase/7/docs/api/java/util/List.html
 .. _String: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html
