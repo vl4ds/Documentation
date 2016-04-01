@@ -31,7 +31,7 @@ A few ways to get a State object instance from a device (See the :ref:`device_re
 ----
 
 date
-~~~~
+----
 
 The date and time the State object was created.
 
@@ -50,7 +50,7 @@ The date and time the State object was created.
 ----
 
 dateValue
-~~~~~~~~~
+---------
 
 The value of the underlying attribute as a Date.
 
@@ -63,7 +63,7 @@ The value of the underlying attribute as a Date.
 ----
 
 doubleValue
-~~~~~~~~~~~
+-----------
 
 The value of the underlying Attribute as a Double.
 
@@ -74,15 +74,15 @@ The value of the underlying Attribute as a Double.
     `Double`_ - the value of the underlying attribute as a Double.
 
 .. warning::
-    
-    ``doubleValue`` throws an Exception if the underlying attribute value cannot be parsed into a Double. 
+
+    ``doubleValue`` throws an Exception if the underlying attribute value cannot be parsed into a Double.
 
     You should wrap calls in a try/catch block.
 
 **Example:**
 
 .. code-block:: groovy
-    
+
     try {
         def latestStateAsDouble = someDevice.currentState("someAttribute").doubleValue
         log.debug "latestStateAsDouble: $latestStateAsDouble"
@@ -93,7 +93,7 @@ The value of the underlying Attribute as a Double.
 ----
 
 floatValue
-~~~~~~~~~~
+----------
 
 The value of the underlying Attribute as a Float.
 
@@ -104,13 +104,13 @@ The value of the underlying Attribute as a Float.
     `Float`_ - the value of the underlying Attribute as a Float.
 
 .. warning::
-    
-    ``doubleValue`` throws an Exception if the underlying attribute value cannot be parsed into a Double. 
+
+    ``doubleValue`` throws an Exception if the underlying attribute value cannot be parsed into a Double.
 
     You should wrap calls in a try/catch block.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     try {
@@ -118,12 +118,12 @@ The value of the underlying Attribute as a Float.
         log.debug "latestStateAsFloat: $latestStateAsFloat"
     } catch (e) {
         log.debug "caught exception trying to get floatValue for state record"
-    }    
+    }
 
 ----
 
 id
-~~
+--
 
 The unique system identifier for the State object.
 
@@ -143,7 +143,7 @@ The unique system identifier for the State object.
 ----
 
 integerValue
-~~~~~~~~~~~~
+------------
 
 The value of the underlying Attribute as an Integer.
 
@@ -154,13 +154,13 @@ The value of the underlying Attribute as an Integer.
     `Integer`_ - the value of the underlying Attribute as a Integer.
 
 .. warning::
-    
-    ``integerValue`` throws an Exception if the underlying attribute value cannot be parsed into a Integer. 
+
+    ``integerValue`` throws an Exception if the underlying attribute value cannot be parsed into a Integer.
 
     You should wrap calls in a try/catch block.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     try {
@@ -168,13 +168,13 @@ The value of the underlying Attribute as an Integer.
         log.debug "latestStateAsInt: $latestStateAsInt"
     } catch (e) {
         log.debug "caught exception trying to get integerValue for state record"
-    }    
+    }
 
 
 ----
 
 isoDate
-~~~~~~~
+-------
 
 The acquisition time of this State object as an ISO-8601 String
 
@@ -194,7 +194,7 @@ The acquisition time of this State object as an ISO-8601 String
 ----
 
 jsonValue
-~~~~~~~~~
+---------
 
 Value of the underlying Attribute parsed into a JSON data structure.
 
@@ -205,8 +205,8 @@ Value of the underlying Attribute parsed into a JSON data structure.
     `Object`_ - the value if the underlying Attribute parsed into a JSON data structure.
 
 .. warning::
-    
-    ``jsonValue`` throws an Exception of the underlying attribute value cannot be parsed into a Integer. 
+
+    ``jsonValue`` throws an Exception of the underlying attribute value cannot be parsed into a Integer.
 
     You should wrap calls in a try/catch block.
 
@@ -219,12 +219,12 @@ Value of the underlying Attribute parsed into a JSON data structure.
         log.debug "latestStateAsJSONValue: $latestStateAsJSONValue"
     } catch (e) {
         log.debug "caught exception trying to get jsonValue for state record"
-    }    
+    }
 
 ----
 
 longValue
-~~~~~~~~~
+---------
 
 The value of the underlying Attribute as a Long.
 
@@ -235,13 +235,13 @@ The value of the underlying Attribute as a Long.
     `Long`_ - the value if the underlying Attribute as a Long.
 
 .. warning::
-    
-    ``longValue`` throws an Exception of the underlying attribute value cannot be parsed into a Long. 
+
+    ``longValue`` throws an Exception of the underlying attribute value cannot be parsed into a Long.
 
     You should wrap calls in a try/catch block.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     try {
@@ -249,13 +249,13 @@ The value of the underlying Attribute as a Long.
         log.debug "latestStateAsLong: $latestStateAsLong"
     } catch (e) {
         log.debug "caught exception trying to get longValue for state record"
-    }    
+    }
 
 
 ----
 
 name
-~~~~
+----
 
 The name of the underlying Attribute.
 
@@ -275,7 +275,7 @@ The name of the underlying Attribute.
 ----
 
 numberValue
-~~~~~~~~~~~
+-----------
 
 The value of the underlying Attribute as a BigDecimal.
 
@@ -286,13 +286,13 @@ The value of the underlying Attribute as a BigDecimal.
     `BigDecimal`_ - the value if the underlying Attribute as a BigDecimal.
 
 .. warning::
-    
-    ``numberValue`` throws an Exception of the underlying attribute value cannot be parsed into a BigDecimal. 
+
+    ``numberValue`` throws an Exception of the underlying attribute value cannot be parsed into a BigDecimal.
 
     You should wrap calls in a try/catch block.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     try {
@@ -300,12 +300,12 @@ The value of the underlying Attribute as a BigDecimal.
         log.debug "latestStateAsNumber: $latestStateAsNumber"
     } catch (e) {
         log.debug "caught exception trying to get numberValue for state record"
-    }    
+    }
 
 ----
 
 numericValue
-~~~~~~~~~~~~
+------------
 
 The value of the underlying Attribute as a BigDecimal.
 
@@ -316,13 +316,13 @@ The value of the underlying Attribute as a BigDecimal.
     `BigDecimal`_ - the value if the underlying Attribute as a BigDecimal.
 
 .. warning::
-    
-    ``numericValue`` throws an Exception of the underlying attribute value cannot be parsed into a BigDecimal. 
+
+    ``numericValue`` throws an Exception of the underlying attribute value cannot be parsed into a BigDecimal.
 
     You should wrap calls in a try/catch block.
 
 **Example:**
-    
+
 .. code-block:: groovy
 
     try {
@@ -330,12 +330,12 @@ The value of the underlying Attribute as a BigDecimal.
         log.debug "latestStateAsNumber: $latestStateAsNumber"
     } catch (e) {
         log.debug "caught exception trying to get numericValue for state record"
-    }    
+    }
 
 ----
 
 stringValue
-~~~~~~~~~~~
+-----------
 
 The value of the underlying Attribute as a String
 
@@ -355,7 +355,7 @@ The value of the underlying Attribute as a String
 ----
 
 unit
-~~~~
+----
 
 The unit of measure for the underlying Attribute.
 
@@ -375,7 +375,7 @@ The unit of measure for the underlying Attribute.
 ----
 
 value
-~~~~~
+-----
 
 The value of the underlying Attribute as a String
 
@@ -395,7 +395,7 @@ The value of the underlying Attribute as a String
 ----
 
 xyzValue
-~~~~~~~~
+--------
 
 Value of the underlying Attribute as a 3-entry Map with keys 'x', 'y', and 'z' with BigDecimal values. For example:
 
@@ -412,7 +412,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
     `Map`_ < `String`_ , `BigDecimal`_ > - A map representing the X, Y, and Z coordinates.
 
 .. warning::
-    
+
     ``xyzValue`` throws an Exception if the value of the Event cannot be parsed to an X-Y-Z data structure.
 
     You should wrap calls in a try/catch block.
@@ -423,7 +423,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
 
     def latest = threeAxisDevice.currentState("threeAxis")
 
-    // get the value of this event as a 3 entry map with keys 
+    // get the value of this event as a 3 entry map with keys
     //'x', 'y', 'z', and BigDecimal values
     // throws an exception if the value is not convertable to a Date
     try {
@@ -433,8 +433,6 @@ Typically only useful for getting position data from the "Three Axis" Capability
         log.debug "Trying to get the xyzValue threw an exception: $e"
     }
     
-
-----
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html

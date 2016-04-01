@@ -32,7 +32,7 @@ Below are the available properties on a Hub:
 
 
 firmareVersionString
-````````````````````
+--------------------
 
 **Signature:**
     ``String firmwareVersionString``
@@ -51,7 +51,7 @@ firmareVersionString
 ----
 
 id
-``
+--
 
 The unique system identifier for this Hub.
 
@@ -72,7 +72,7 @@ The unique system identifier for this Hub.
 ----
 
 localIp
-```````
+-------
 
 The local IP address of the Hub.
 
@@ -85,7 +85,7 @@ The local IP address of the Hub.
 ----
 
 localSrvPortTCP
-```````````````
+---------------
 
 The local server TCP port of the Hub.
 
@@ -98,7 +98,7 @@ The local server TCP port of the Hub.
 ----
 
 name
-````
+----
 
 The name of the Hub.
 
@@ -111,7 +111,7 @@ The name of the Hub.
 ----
 
 type
-````
+----
 
 The type of the Hub. Either "PHYSICAL" or "VIRTUAL".
 
@@ -124,7 +124,7 @@ The type of the Hub. Either "PHYSICAL" or "VIRTUAL".
 ----
 
 zigbeeEui
-`````````
+---------
 
 The ZigBee Extended Unique Identifier of the Hub.
 
@@ -137,7 +137,7 @@ The ZigBee Extended Unique Identifier of the Hub.
 ----
 
 zigbeeId
-````````
+--------
 
 The ZigBee ID of the Hub.
 
@@ -146,7 +146,5 @@ The ZigBee ID of the Hub.
 
 **Returns:**
     `String`_  - the ZigBee ID
-
-----
 
 .. _String: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html

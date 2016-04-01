@@ -28,7 +28,7 @@ Device objects cannot be instantiated, but are created by the SmartThings platfo
 ----
 
 <attribute name>State
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 The latest :ref:`state_ref` instance for the specified Attribute.
 
@@ -65,7 +65,7 @@ For example, the Thermostat capability supports several attributes. To get the S
 ----
 
 <command name>()
-~~~~~~~~~~~~~~~~
+----------------
 
 Executes the specified command on the Device.
 
@@ -125,7 +125,7 @@ Some commands may take parameters; you will pass those parameters to the command
 .. _currentAttributeName:
 
 current<Uppercase attribute name>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------
 
 The latest reported values for the specified attribute.
 
@@ -176,7 +176,7 @@ For example, the Carbon Monoxide Detector capability has an attribute "carbonMon
 ----
 
 capabilities
-~~~~~~~~~~~~
+------------
 
 The List of Capabilities provided by this Device.
 
@@ -200,7 +200,7 @@ The List of Capabilities provided by this Device.
 .. _device_current_state:
 
 currentState()
-~~~~~~~~~~~~~~
+--------------
 
 Gets the latest :ref:`state_ref` for the specified attribute.
 
@@ -230,7 +230,7 @@ Gets the latest :ref:`state_ref` for the specified attribute.
 ----
 
 currentValue()
-~~~~~~~~~~~~~~
+--------------
 
 Gets the latest reported values of the specified attribute.
 
@@ -277,7 +277,7 @@ Gets the latest reported values of the specified attribute.
 ----
 
 displayName
-~~~~~~~~~~~
+-----------
 
 The label of the Device assigned by the user.
 
@@ -301,7 +301,7 @@ The label of the Device assigned by the user.
 ----
 
 id
-~~
+--
 
 The unique system identifier for this Device.
 
@@ -314,7 +314,7 @@ The unique system identifier for this Device.
 ----
 
 events()
-~~~~~~~~
+--------
 
 Get a list of Events for the Device in reverse chronological order (newest first).
 
@@ -347,7 +347,7 @@ Get a list of Events for the Device in reverse chronological order (newest first
 ----
 
 eventsBetween()
-~~~~~~~~~~~~~~~
+---------------
 
 Get a list of Events between the specified start and end dates.
 
@@ -393,7 +393,7 @@ Get a list of Events between the specified start and end dates.
 ----
 
 eventsSince()
-~~~~~~~~~~~~~
+-------------
 
 Get a list of Events since the specified date.
 
@@ -428,7 +428,7 @@ Get a list of Events since the specified date.
 ----
 
 hasAttribute()
-~~~~~~~~~~~~~~
+--------------
 
 Determine if this Device has the specified attribute.
 
@@ -473,7 +473,8 @@ Determine if this Device has the specified attribute.
 ----
 
 hasCapability()
-~~~~~~~~~~~~~~~
+---------------
+
 Determine if this Device supports the specified capability name.
 
 .. tip::
@@ -520,7 +521,8 @@ Determine if this Device supports the specified capability name.
 ----
 
 hasCommand()
-~~~~~~~~~~~~
+------------
+
 Determine if this Device has the specified command name.
 
 .. tip::
@@ -563,10 +565,11 @@ Determine if this Device has the specified command name.
     // true
     log.debug "${switchlevel.displayName} has command setLevel? $hasSetLevelCommand"
     ...
+
 ----
 
 hub
-~~~
+---
 
 The Hub associated with this Device.
 
@@ -585,7 +588,7 @@ The Hub associated with this Device.
 ----
 
 latestState()
-~~~~~~~~~~~~~
+-------------
 
 Get the latest Device State record for the specified attribute.
 
@@ -608,7 +611,7 @@ Get the latest Device State record for the specified attribute.
 ----
 
 latestValue()
-~~~~~~~~~~~~~
+-------------
 
 Get the latest reported value for the specified attribute.
 
@@ -657,7 +660,7 @@ Get the latest reported value for the specified attribute.
 ----
 
 name
-~~~~
+----
 
 The internal name of the Device. Typically assigned by the system and editable only by a user in the IDE.
 
@@ -670,7 +673,7 @@ The internal name of the Device. Typically assigned by the system and editable o
 ----
 
 label
-~~~~~
+-----
 
 The name of the Device set by the user in the mobile application or Web IDE.
 
@@ -683,7 +686,7 @@ The name of the Device set by the user in the mobile application or Web IDE.
 ----
 
 statesBetween()
-~~~~~~~~~~~~~~~
+---------------
 
 Get a list of Device :ref:`state_ref` objects for the specified attribute between the specified times in reverse chronological order (newest first).
 
@@ -732,7 +735,7 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute betwee
 ----
 
 statesSince()
-~~~~~~~~~~~~~
+-------------
 
 Get a list of Device :ref:`state_ref` objects for the specified attribute since the date specified.
 
@@ -778,7 +781,7 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute since 
 .. _supportedAttributes:
 
 supportedAttributes
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 The list of :ref:`attribute_ref` s for this Device.
 
@@ -807,7 +810,7 @@ The list of :ref:`attribute_ref` s for this Device.
 ----
 
 supportedCommands
-~~~~~~~~~~~~~~~~~
+-----------------
 
 The list of :ref:`command_ref` s for this Device.
 
@@ -833,7 +836,6 @@ The list of :ref:`command_ref` s for this Device.
     }
     ...
 
-----
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html

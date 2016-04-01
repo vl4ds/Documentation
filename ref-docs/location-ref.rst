@@ -12,7 +12,7 @@ All SmartApps and Device Handlers are injected with a ``location`` property that
 .. _location_contact_book_enabled:
 
 contactBookEnabled
-~~~~~~~~~~~~~~~~~~
+------------------
 
 ``true`` if this location has contact book enabled (has contacts), ``false`` otherwise.
 
@@ -25,7 +25,7 @@ contactBookEnabled
 ----
 
 currentMode
-~~~~~~~~~~~
+-----------
 
 The current Mode for the Location.
 
@@ -44,7 +44,7 @@ The current Mode for the Location.
 ----
 
 id
-~~
+--
 
 The unique internal system identifier for the Location.
 
@@ -63,7 +63,7 @@ The unique internal system identifier for the Location.
 ----
 
 hubs
-~~~~
+----
 
 The list of Hubs for this location. Currently only Hub can be installed into a Location, thought this API returns a List to allow for future expandability.
 
@@ -82,7 +82,7 @@ The list of Hubs for this location. Currently only Hub can be installed into a L
 ----
 
 latitude
-~~~~~~~~
+--------
 
 Geographical latitude of the location. Southern latitudes are negative. Requires that location services are enabled in the mobile app.
 
@@ -101,7 +101,7 @@ Geographical latitude of the location. Southern latitudes are negative. Requires
 ----
 
 longitude
-~~~~~~~~~
+---------
 
 Geographical longitude of the location. Western longitudes are negative. Requires that location services are enabled in the mobile app.
 
@@ -120,7 +120,7 @@ Geographical longitude of the location. Western longitudes are negative. Require
 ----
 
 mode
-~~~~
+----
 
 The current Mode name for the Location.
 
@@ -139,7 +139,7 @@ The current Mode name for the Location.
 ----
 
 modes
-~~~~~
+-----
 
 List of Modes for the Location.
 
@@ -158,7 +158,7 @@ List of Modes for the Location.
 ----
 
 name
-~~~~
+----
 
 The name of the Location, as assigned by the user.
 
@@ -179,7 +179,7 @@ The name of the Location, as assigned by the user.
 .. _location_set_mode:
 
 setMode()
-~~~~~~~~~
+---------
 
 Set the mode for this location.
 
@@ -204,7 +204,7 @@ Set the mode for this location.
     }
 
 temperatureScale
-~~~~~~~~~~~~~~~~
+----------------
 
 The temperature scale ("F" for fahrenheit, "C" for celsius) for this location.
 
@@ -222,7 +222,7 @@ The temperature scale ("F" for fahrenheit, "C" for celsius) for this location.
     log.debug "Temperature scale for this location is $tempScale"
 
 timeZone
-~~~~~~~~
+--------
 
 The time zone for the Location. Requires that location services are enabled in the mobile application.
 
@@ -241,7 +241,7 @@ The time zone for the Location. Requires that location services are enabled in t
 ----
 
 zipCode
-~~~~~~~
+-------
 
 The ZIP code for the Location, if in the USA. Requires that location services be enabled in the mobile application.
 
@@ -257,7 +257,6 @@ The ZIP code for the Location, if in the USA. Requires that location services be
 
     log.debug "The zip code for this location: ${location.zipCode}"
 
-----
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _List: https://docs.oracle.com/javase/7/docs/api/java/util/List.html

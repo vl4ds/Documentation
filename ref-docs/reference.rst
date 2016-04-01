@@ -52,7 +52,7 @@ When appropriate, we have included various tips or warnings. In cases where an A
 **API Contents**
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    smartapp-ref
    device-handler-ref

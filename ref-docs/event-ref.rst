@@ -16,7 +16,7 @@ The reference documentation here lists all properties and methods available on a
 ----
 
 date
-~~~~
+----
 
 Acquisition time of this device state record.
 
@@ -37,7 +37,7 @@ Acquisition time of this device state record.
 ----
 
 id
-~~
+--
 
 The unique system identifier for this event.
 
@@ -58,7 +58,7 @@ The unique system identifier for this event.
 ----
 
 data
-~~~~
+----
 
 A map of any additional data on the event.
 
@@ -89,7 +89,7 @@ Then in an event handler method, we can get at the data like this:
 ----
 
 dateValue
-~~~~~~~~~
+---------
 
 The value of the event as a `Date`_ object, if applicable.
 
@@ -124,7 +124,7 @@ The value of the event as a `Date`_ object, if applicable.
 ----
 
 description
-~~~~~~~~~~~
+-----------
 
 The raw description that generated this Event.
 
@@ -145,7 +145,7 @@ The raw description that generated this Event.
 ----
 
 descriptionText
-~~~~~~~~~~~~~~~
+---------------
 
 The description of the event that is to be displayed to the user in the mobile application.
 
@@ -166,7 +166,7 @@ The description of the event that is to be displayed to the user in the mobile a
 ----
 
 device
-~~~~~~
+------
 
 The :ref:`device_ref` associated with this Event.
 
@@ -178,7 +178,7 @@ The :ref:`device_ref` associated with this Event.
 ----
 
 displayName
-~~~~~~~~~~~
+-----------
 
 **Signature:**
     ``String displayName``
@@ -197,7 +197,7 @@ displayName
 ----
 
 deviceId
-~~~~~~~~
+--------
 
 The unique system identifer of the :ref:`device_ref` associated with this Event.
 
@@ -219,7 +219,7 @@ The unique system identifer of the :ref:`device_ref` associated with this Event.
 
 
 doubleValue
-~~~~~~~~~~~
+-----------
 
 The value of this Event, if the value can be parsed to a Double.
 
@@ -252,7 +252,7 @@ The value of this Event, if the value can be parsed to a Double.
 ----
 
 floatValue
-~~~~~~~~~~
+----------
 
 The value of this Event as a Float, if it can be parsed into a Float.
 
@@ -290,7 +290,7 @@ The value of this Event as a Float, if it can be parsed into a Float.
 .. ----
 
 hubId
-~~~~~
+-----
 
 The unique system identifer of the Hub associated with this Event.
 
@@ -311,7 +311,7 @@ The unique system identifer of the Hub associated with this Event.
 ----
 
 installedSmartAppId
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 The unique system identifier of the SmartApp instance associated with this Event.
 
@@ -332,7 +332,7 @@ The unique system identifier of the SmartApp instance associated with this Event
 ----
 
 integerValue
-~~~~~~~~~~~~
+------------
 
 The value of this Event as an Integer.
 
@@ -366,7 +366,7 @@ The value of this Event as an Integer.
 ----
 
 isDigital()
-~~~~~~~~~~~
+-----------
 
 ``true`` if the Event is from the digital actuation (non-physical) of a Device, ``false`` otherwise.
 
@@ -387,7 +387,7 @@ isDigital()
 ----
 
 isoDate
-~~~~~~~
+-------
 
 Acquisition time of this Event as an ISO-8601 String.
 
@@ -408,7 +408,7 @@ Acquisition time of this Event as an ISO-8601 String.
 ----
 
 isPhysical()
-~~~~~~~~~~~~
+------------
 
 ``true`` if the Event is from the physical actuation of a Device, ``false`` otherwise.
 
@@ -429,7 +429,7 @@ isPhysical()
 ----
 
 isStateChange()
-~~~~~~~~~~~~~~~
+---------------
 
 ``true`` if the Attribute value for this Event is different than the previous one.
 
@@ -450,7 +450,7 @@ isStateChange()
 ----
 
 jsonValue
-~~~~~~~~~
+---------
 
 Value of the Event as a parsed JSON data structure.
 
@@ -483,7 +483,7 @@ Value of the Event as a parsed JSON data structure.
 ----
 
 linkText
-~~~~~~~~
+--------
 
 .. warning::
 
@@ -496,7 +496,7 @@ The user-friendly name of the source of this event. Typically the user-assigned 
 ----
 
 location
-~~~~~~~~
+--------
 
 The Location associated with this Event.
 
@@ -509,7 +509,7 @@ The Location associated with this Event.
 ----
 
 locationId
-~~~~~~~~~~
+----------
 
 The unique system identifier for the :ref:`location_ref` associated with this Event.
 
@@ -522,7 +522,7 @@ The unique system identifier for the :ref:`location_ref` associated with this Ev
 ----
 
 longValue
-~~~~~~~~~
+---------
 
 The value of this Event as a Long.
 
@@ -557,7 +557,7 @@ The value of this Event as a Long.
 ----
 
 name
-~~~~
+----
 
 The name of this Event.
 
@@ -578,7 +578,7 @@ The name of this Event.
 ----
 
 numberValue
-~~~~~~~~~~~
+-----------
 
 The value of this Event as a Number.
 
@@ -613,7 +613,7 @@ The value of this Event as a Number.
 ----
 
 numericValue
-~~~~~~~~~~~~
+------------
 
 The value of this Event as a Number.
 
@@ -648,7 +648,7 @@ The value of this Event as a Number.
 ----
 
 source
-~~~~~~
+------
 
 The source of the Event.
 
@@ -681,7 +681,7 @@ The source of the Event.
 ----
 
 stringValue
-~~~~~~~~~~~
+-----------
 
 The value of this Event as a String.
 
@@ -702,7 +702,7 @@ The value of this Event as a String.
 ----
 
 unit
-~~~~
+----
 
 The unit of measure for this Event, if applicable.
 
@@ -720,7 +720,7 @@ The unit of measure for this Event, if applicable.
 ----
 
 value
-~~~~~
+-----
 
 The value of this Event as a String.
 
@@ -741,7 +741,7 @@ The value of this Event as a String.
 ----
 
 xyzValue
-~~~~~~~~
+--------
 
 Value of the event as a 3-entry Map with keys 'x', 'y', and 'z' with BigDecimal values. For example:
 
@@ -778,8 +778,6 @@ Typically only useful for getting position data from the "Three Axis" Capability
             log.debug "Trying to get the xyzValue for ${evt.name} threw an exception: $e"
         }
     }
-
-----
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html

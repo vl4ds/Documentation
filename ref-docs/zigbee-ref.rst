@@ -46,7 +46,7 @@ Parse Methods
 -------------
 
 zigbee.getEvent()
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 The ``getEvent()`` method will try to parse ZigBee Clusters into a map whose key/value pairs can be directly handled by the ``sendEvent()`` method.
 
@@ -92,11 +92,13 @@ colorTemperature   0x0300
 .. note::
     For the power event type, the value can be reported in mW, W, or kW. This means that it is up to the developer to make adjustments to the value before calling sendEvent so it will be displayed correctly.
 
+----
+
 Low Level Commands
 ------------------
 
 zigbee.command()
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 Send a Cluster specific Command.
 
@@ -123,10 +125,9 @@ Send a Cluster specific Command.
 
             zigbee.command(0x0006, 0x00)
 
-----
 
 zigbee.readAttribute()
-~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^
 
 Read the current attribute value of the specified Cluster.
 
@@ -145,10 +146,9 @@ Read the current attribute value of the specified Cluster.
 
             zigbee.readAttribute(0x0008, 0x0000)
 
-----
 
 zigbee.writeAttribute()
-~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Write the attribute value of the specified Cluster.
 
@@ -169,10 +169,9 @@ Write the attribute value of the specified Cluster.
 
             zigbee.writeAttribute(0x0008, 0x0010, 0x21, 0x12AB)
 
-----
 
 zigbee.configureReporting()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Configure a ZigBee device's reporting properties. Refer to the *Configure Reporting* Command in the `ZigBee Cluster Library <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__ for more information.
 
@@ -243,7 +242,7 @@ Temperature   configureReporting(0x0402, 0x0000, 0x29, 30, 3600, 0x0064)
 The following utility methods are available as capability based Commands.
 
 zigbee.on()
-~~~~~~~~~~~
+^^^^^^^^^^^
 
 Sends the *on* Command, ``0x01``, to the *on/off* Cluster, ``0x0006``
 
@@ -253,10 +252,8 @@ Sends the *on* Command, ``0x01``, to the *on/off* Cluster, ``0x0006``
 
     zigbee.on()
 
-----
-
 zigbee.off()
-~~~~~~~~~~~~
+^^^^^^^^^^^^
 
 Sends the *off* Command, ``0x00``, to the *onoff* Cluster, ``0x0006``
 
@@ -266,10 +263,8 @@ Sends the *off* Command, ``0x00``, to the *onoff* Cluster, ``0x0006``
 
     zigbee.off()
 
-----
-
 zigbee.setLevel()
-~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^
 
 Sends the *level* Command, ``0x04``, to the level control Cluster, ``0x0008`` with the passed in rate.
 
@@ -283,10 +278,8 @@ Sends the *level* Command, ``0x04``, to the level control Cluster, ``0x0008`` wi
     - **level**: A value between 0-100 inclusive.
     - **rate**: Time in tenths of a second. E.g. ``rate = 100 //max value`` translates to 10 seconds.
 
-----
-
 zigbee.setColorTemperature()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Sets the color to the specified temperature value in K.
 
@@ -299,11 +292,13 @@ Sets the color to the specified temperature value in K.
 **Parameters:**
     - **value**: The temperature value to set the color to in K. Usually greater than *2700*
 
+----
+
 ZigBee Helper Commands
 ----------------------
 
 zigbee.parseDescriptionAsMap()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Parses a device description into a map that contains data and capabilities.
 
@@ -316,10 +311,8 @@ Parses a device description into a map that contains data and capabilities.
 **Parameters:**
     - **description**: The description string from the device
 
-----
-
 zigbee.convertToHexString()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Convert the given value to a hex string of given width
 
@@ -340,10 +333,10 @@ Convert the given value to a hex string of given width
     zigbee.convertToHexString(10, 2) //result: 0A
     zigbee.convertToHexString(10, 4) //result: 000A
 
-----
+
 
 zigbee.convertHexToInt()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Convert the given hex value to an Integer
 
@@ -366,10 +359,9 @@ Convert the given hex value to an Integer
         assert myInt == 4779 //true
         assert myInt == 0x12AB //also true
 
-----
 
 zigbee.hexNotEqual()
-~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^
 
 Returns true if the compared hex values are not equal.
 
