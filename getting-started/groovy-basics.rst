@@ -43,7 +43,7 @@ We make heavy use of the Groovy Console to test things out, and recommend you do
 
     For example, ``assert true`` is valid, and the program will continue. Anything that evaluates to false will cause the program to halt, so ``assert false`` will terminate with an informative message.
 
-    While useful for learning, it's important to note that ``assert()`` is **not available** for you to use in SmartThings code. Neither is the method ``println()``, for that matter. For security and performance reasons, SmartThings runs in a sandboxed environment that restricts access to certain features. The sandboxed environment is discussed further in the :ref:`groovy-with-smartthings` tutorial.
+    While useful for learning, it's important to note that ``assert()`` is **not available** for you to use in SmartThings code. Neither is the method ``println()``, for that matter. For security and performance reasons, SmartThings runs in a sandboxed environment that restricts access to certain features. The sandboxed environment is discussed further in the :ref:`groovy-for-smartthings` tutorial.
 
 ----
 
