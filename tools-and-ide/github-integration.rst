@@ -3,9 +3,12 @@
 GitHub Integration
 ==================
 
-As an open platform, we recognize that giving our community developers access to the repository housing our SmartApps and Device Handlers is extremely important. While you can browse the code in the IDE, not having access to the repository itself is limiting. The `SmartThingsCommunity/SmartThingsPublic <https://github.com/SmartThingsCommunity/SmartThingsPublic>`__ GitHub repository is now public, allowing you to browse the source code in a more traditional format.
+As an open platform, we recognize that giving our community developers access to the repository housing our SmartApps and Device Handlers is extremely important.
+While you can browse the code in the IDE, not having access to the repository itself is limiting.
+The `SmartThingsCommunity/SmartThingsPublic <https://github.com/SmartThingsCommunity/SmartThingsPublic>`__ GitHub repository is now public, allowing you to browse the source code in a more traditional format.
 
-We have also provided an integration with the GitHub repository into the IDE. This will allow SmartThings developers to integrate their forked SmartThingsPublic repository with the IDE, including the ability to make commits to the forked repository using the IDE.
+We have also provided an integration with the GitHub repository into the IDE.
+This will allow SmartThings developers to integrate their forked SmartThingsPublic repository with the IDE, including the ability to make commits to the forked repository using the IDE.
 
 If you just want to browse the source in GitHub, you can do that using the tools you are most comfortable with.
 
@@ -18,11 +21,15 @@ If you want to take advantage of the GitHub integration with the IDE, read on fo
 ----
 
 Overview
-~~~~~~~~
+--------
 
-The GitHub IDE integration allows you to integrate your forked SmartThingsPublic repository with the IDE. This allows you to easily view and work with SmartApps or Device Types already in the repository, as well as update the versions in your IDE with upstream repository changes, and make commits to your forked repository right from the IDE.
+The GitHub IDE integration allows you to integrate your forked SmartThingsPublic repository with the IDE.
+This allows you to easily view and work with SmartApps or Device Handlers already in the repository, as well as update the versions in your IDE with upstream repository changes, and make commits to your forked repository right from the IDE.
 
-When you setup GitHub integration in the IDE, you will create a fork of the SmartThingsPublic repository in GitHub. This will then be the repository that the IDE will be connected to. When you add files from the repository to the IDE, this is the repository it will look at to get the available files. When you commit changes in the IDE, you are making commits in your remote forked repository.
+When you setup GitHub integration in the IDE, you will create a fork of the SmartThingsPublic repository in GitHub.
+This will then be the repository that the IDE will be connected to.
+When you add files from the repository to the IDE, this is the repository it will look at to get the available files.
+When you commit changes in the IDE, you are making commits in your remote forked repository.
 
 You will need to manage the syncing of your forked repository with the original SmartThingsPublic repository, just as you would with any forked repository in GitHub.
 
@@ -33,45 +40,39 @@ You will need to manage the syncing of your forked repository with the original 
 .. _github_setup:
 
 Setup
-~~~~~
+-----
 
 To connect your GitHub account with the SmartThingsPublic repository in the IDE, follow these steps.
 
-----
+Step 1 - Enable GitHub integration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Step 1 - Enable GitHub Integration
-++++++++++++++++++++++++++++++++++
-
-Click the *Enable GitHub Integration* link on the *My SmartApps* or *My Device Types* page. This will launch a wizard that will guide you through the process.
+Click the *Enable GitHub Integration* link on the *My SmartApps* or *My Device Handlers* page.
+This will launch a wizard that will guide you through the process.
 
 .. image:: ../img/github-int/github-int-enable.png
 
-----
+Step 2 - Connect your GitHub account to SmartThings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Step 2 - Connect your GitHub Account to SmartThings
-+++++++++++++++++++++++++++++++++++++++++++++++++++
-
-On Step 1 of the wizard, follow the instructions to authorize SmartThings to integrate with your GitHub account. Click the *Next* button after you have done this.
+On Step 1 of the wizard, follow the instructions to authorize SmartThings to integrate with your GitHub account.
+Click the *Next* button after you have done this.
 
 .. image:: ../img/github-int/github-setup-step-1.png
 
-----
-
 .. _setup_create_fork:
 
-Step 3 - Create a Fork
-++++++++++++++++++++++
+Step 3 - Create a fork
+^^^^^^^^^^^^^^^^^^^^^^
 
 Follow the instructions to fork the SmartThingsCommunity/SmartThingsPublic repository, and then click the *Next* button.
 
 .. image:: ../img/github-int/github-setup-step-2.png
 
-----
-
 .. _setup_clone_fork:
 
-Step 4 - Clone the Forked Repository
-++++++++++++++++++++++++++++++++++++
+Step 4 - Clone the forked repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. tip::
 
@@ -89,12 +90,10 @@ In a terminal or command prompt, type:
 
 Press Enter. This will create a local clone of your forked repository.
 
-----
-
 .. _setup_sync_fork:
 
-Step 5 - Configure Git to Sync Fork with SmartThings
-++++++++++++++++++++++++++++++++++++++++++++++++++++
+Step 5 - Configure Git to sync fork with SmartThings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you chose to create a local clone of your forked repository, you should configure it get upstream changes from the original SmartThings repository.
 
@@ -121,40 +120,43 @@ In a terminal or command prompt, type:
 
 ``git remote -v``
 
-This will show all the configured remotes. You should see an upstream remote configured for the SmartThingsPublic repository.
+This will show all the configured remotes.
+You should see an upstream remote configured for the SmartThingsPublic repository.
 
-----
-
-That’s it! You now have connected your GitHub account with the SmartThings IDE. You will now be able to commit changes made in the IDE to this repository, and update SmartApps and Device Types in the IDE from changes merged into this repository from other sources.
+That’s it! You now have connected your GitHub account with the SmartThings IDE.
+You will now be able to commit changes made in the IDE to this repository, and update SmartApps and Device Handlers in the IDE from changes merged into this repository from other sources.
 
 .. _github_repo_structure:
 
 Repository Structure
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
-The repository is organized by type (SmartApps or Device Types) and namespace.
+The repository is organized by type (SmartApps or Device Handlers) and namespace.
 
-Each SmartApp and Device Type should be in its own directory, named the same as the SmartApp or Device Type, and appended with ``".src"``.
+Each SmartApp and Device Handler should be in its own directory, named the same as the SmartApp or device handler, and appended with ``".src"``.
 
 For SmartApps:
 
 ``smartapps/<namespace>/<smartapp-name>.src/<smartapp file>.groovy``
 
-For Device Types:
+For Device Handlers:
 
-``devicetypes/<namespace>/<device-type-name>.src/<device type file>.groovy``
+``devicetypes/<namespace>/<device-type-name>.src/<device handler file>.groovy``
 
-The namespace is typically your GitHub user name. When you create a SmartApp or Device Type in the IDE, you provide a namespace, which is then populated in the definition method. This namespace will be used in the directory structure as shown above.
+The namespace is typically your GitHub user name.
+When you create a SmartApp or device handler in the IDE, you provide a namespace, which is then populated in the definition method.
+This namespace will be used in the directory structure as shown above.
 
 .. _github_ide_tour:
 
 GitHub Integration IDE Tour
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
-Color-Coded Names
-+++++++++++++++++
+Color-coded names
+^^^^^^^^^^^^^^^^^
 
-The first thing you may notice after enabling GitHub integration is that various SmartApps or Device Types are color-coded differently in the IDE. Each name will be color-coded differently depending on its state in the GitHub repository
+The first thing you may notice after enabling GitHub integration is that various SmartApps or Device Handlers are color-coded differently in the IDE.
+Each name will be color-coded differently depending on its state in the GitHub repository
 
 .. hint::
 
@@ -182,12 +184,10 @@ Black
     Both the IDE version and repository version have been updated, and are in need of a conflict resolution. To resolve this, you should click the Update from Repo button and follow the steps there (more information about the Update from Repo action can be found below).
 
 :brown:`Brown`
-    Indicates that the SmartApp or Device Type is unattached to the repository version. Typically this happens when a new SmartApp or Device Type is created from a template, and the name or namespace hasn't been changed. If you update from the repo without changing the name or namespace, the IDE version will be replaced with the repo version. Typically in this case you would change the name and namespace to be unique for your code.
+    Indicates that the SmartApp or device handler is unattached to the repository version. Typically this happens when a new SmartApp or device handler is created from a template, and the name or namespace hasn't been changed. If you update from the repo without changing the name or namespace, the IDE version will be replaced with the repo version. Typically in this case you would change the name and namespace to be unique for your code.
 
-----
-
-GitHub Actions Buttons
-++++++++++++++++++++++
+GitHub actions buttons
+^^^^^^^^^^^^^^^^^^^^^^
 
 When you enable GitHub integration, you will see a few buttons added to the My SmartApps and My DeviceTypes pages in the IDE:
 
@@ -207,7 +207,7 @@ The wizard will display three columns, each of which is described below:
 
 .. tip::
 
-    The files considered for this action will depend on if you are on the My SmartApps or My DeviceTypes page in the IDE. Only SmartApps will be considered if launched from My SmartApps, and only Device Types if launched from My DeviceTypes
+    The files considered for this action will depend on if you are on the My SmartApps or My DeviceTypes page in the IDE. Only SmartApps will be considered if launched from My SmartApps, and only device handlers if launched from My DeviceTypes
 
 Obsolete (updated in GitHub)
     Entries showing in the Obsolete column represent files that you have included in the IDE, but have since been updated in your forked repository (with no conflicts existing). To update your IDE version, select the files you wish to update, and click the Execute Update button.
@@ -231,20 +231,20 @@ This is where you can find information about the repository and branch integrate
 .. _github_how_to:
 
 How-To
-~~~~~~
+------
 
-Add Files from Repository to the IDE
-++++++++++++++++++++++++++++++++++++
+Add files from repository to the IDE
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To add files from your forked SmartThingsPublic repository into the IDE, follow these steps:
 
-**Step 1 - Navigate to the *My SmartApps* or *My Device Types* page in the IDE**
+**Step 1 - Navigate to the *My SmartApps* or *My device handlers* page in the IDE**
 
-The files available to add to the IDE vary depending upon the context. If you want to add SmartApps to your IDE, navigate to the *My SmartApps* page. If you want to add Device Types, navigate to the *My Device Types*.
+The files available to add to the IDE vary depending upon the context. If you want to add SmartApps to your IDE, navigate to the *My SmartApps* page. If you want to add device handlers, navigate to the *My device handlers*.
 
 **Step 2 - Update from Repo**
 
-Click the *Update from Repo* button (above the list of SmartApps or Device Types), and select the repo you want to update from.
+Click the *Update from Repo* button (above the list of SmartApps or device handlers), and select the repo you want to update from.
 
 In the resulting wizard, select the files you want to add to the IDE in the *New (only in GitHub)* column.
 
@@ -254,12 +254,10 @@ Click the *Execute Update* button in the wizard.
 
 The IDE will now have the files you selected.
 
-----
-
 .. _how_to_get_st_latest:
 
 Get Latest Code from SmartThingsPublic Repository
-+++++++++++++++++++++++++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
 
@@ -291,29 +289,25 @@ Type ``git push origin master`` and press Enter. This will push all commits in y
 
 **Step 5 - Update the IDE version**
 
-Now, to update the IDE versions with your updated forked repository, click the *Update from Repo* button on the *My SmartApps* or *My Device Types* page, and select the repo you want to update from.
+Now, to update the IDE versions with your updated forked repository, click the *Update from Repo* button on the *My SmartApps* or *My device handlers* page, and select the repo you want to update from.
 
 In the resulting wizard, check the box next to any of the files you want to update in the IDE, and click the *Execute Update* button.
 
 The files you chose to update are now updated in the IDE.
 
-----
-
 Commit Changes in the IDE
-+++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-To commit changes to a SmartApp or Device Type, whether it is a new file or already exists in the repository, Click on the *Commit Changes* button on the *My SmartApps* or *My Device Types* and select the repository you want to commit to.
+To commit changes to a SmartApp or device handler, whether it is a new file or already exists in the repository, Click on the *Commit Changes* button on the *My SmartApps* or *My device handlers* and select the repository you want to commit to.
 
 In the resulting wizard, check the box next to the file you want to commit, add a commit message, and press the *Commit Changes* button.
 
 This will make a commit in your fork.
 
-----
-
 .. _how_to_sync_clone:
 
 Keep Your Cloned Repo in Sync with Origin
-+++++++++++++++++++++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you cloned your forked repository to your local machine, you will want to keep it in sync with your remote forked repository in GitHub.
 
@@ -336,19 +330,20 @@ Type ``git merge origin/master`` (substitute ``master`` for a different branch, 
 .. _github_best_practices:
 
 Best Practices
-~~~~~~~~~~~~~~
+--------------
 
-Sync with Upstream Repository Frequently
-++++++++++++++++++++++++++++++++++++++++
+Sync with upstream repository frequently
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have cloned your forked repository locally, you should merge changes from the upstream SmartThingsPublic repository frequently. This will help prevent your fork from becoming out-of-date with the SmartThingsPublic repository, and minimize the potential for difficult merging of conflicts.
+If you have cloned your forked repository locally, you should merge changes from the upstream SmartThingsPublic repository frequently.
+This will help prevent your fork from becoming out-of-date with the SmartThingsPublic repository, and minimize the potential for difficult merging of conflicts.
 
 See :ref:`how_to_get_st_latest` for instructions on syncing from the upstream SmartThingsPublic repository.
 
 .. _github_faq:
 
 FAQ
-~~~
+---
 
 I don’t want to grant SmartThings access to my GitHub account. Is there a way around this?
     Integrating the GitHub repositories with the IDE requires that you grant SmartThings read and write access to your GitHub repositories. If you would rather not grant SmartThings this level of access to your GitHub account, we recommend that you create a new GitHub user to use for SmartThings development. That will allow you to keep your primary GitHub account separate from the SmartThings account.
@@ -356,7 +351,7 @@ I don’t want to grant SmartThings access to my GitHub account. Is there a way 
 Do I have to use the GitHub integration?
     No. The GitHub integration is optional.
 
-Does this change the process for submitting SmartApps or Device Types to SmartThings ?
+Does this change the process for submitting SmartApps or device handlers to SmartThings ?
     The process for submitting a publication request is essentially the same. The result is slightly different, in that the requests themselves become pull requests in the main SmartThingsPublic repository. This is similar to how it was working previously, but now the pull requests will be visible in the repository since the repository is public.
 
 Can I just a make a pull request to the SmartThingsPublic repository, without using the GitHub IDE Integration?
@@ -377,7 +372,7 @@ I think I found a bug. How do I report it?
 .. _github_integration_help:
 
 Getting Help
-~~~~~~~~~~~~
+------------
 
 Here are some links for getting help working with Git and GitHub:
 
