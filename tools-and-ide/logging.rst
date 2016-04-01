@@ -3,18 +3,27 @@
 Logging
 =======
 
-Let's take a minute to talk about logging in SmartApps and Device Handlers.
-There is an instance of a logger (``log``) injected into each SmartApp/Device Handler and available
-for you use. Currently, we do not support a debugger environment for stepping through
-code. Logging however works to this end in enabling you to log
-messages to the console in the IDE. When you save your code, and start
-the simulation, a console panel will appear at the bottom of the IDE. This
-is where the log messages from your SmartApp/Device Handler will appear.
+SmartApps and Device Handlers can log debugging messages using a built-in logger.
+This is very useful for debugging purposes.
+
+----
+
+Overview
+--------
+
+There is an instance of a logger (``log``) injected into each SmartApp/Device Handler available for your use.
+Currently, we do not support a debugger environment for stepping through
+code.
+Logging, however, works to this end in enabling you to log messages to the console in the IDE.
+When you save your code, and start the simulation, a console panel will appear at the bottom of the IDE.
+This is where the log messages from your SmartApp/Device Handler will appear.
 
 .. note::
     The 'Clear' button will clear all of the messages currently in the console.
 
 .. figure:: ../img/ide/console.png
+
+----
 
 Logging Levels
 --------------
@@ -31,6 +40,8 @@ INFO  ``log.info(string)``  | Interesting runtime events. For example, turning a
 DEBUG ``log.debug(string)`` | Detailed information about the flow of the SmartApp.
 TRACE ``log.trace(string)`` | Most detailed information.
 ===== ===================== ====================================================================
+
+----
 
 Logging Examples
 ----------------
@@ -85,11 +96,11 @@ It is easy to see that the *debug* message came from the ``updated()`` method
     def updated() {
         log.debug "Updated with settings: ${settings}"
 
-But where did the other *trace* messages come from? These messages are coming
-from the SmartApp framework. The SmartApp framework automatically will provide
-certain information like this during the execution of a SmartApp. Try turning
-one of the switches on in the IDE. You will see some more of these trace messages
-coming from the SmartApp framework.
+But where did the other *trace* messages come from?
+These messages are coming from the SmartApp framework.
+The SmartApp framework automatically will provide certain information like this during the execution of a SmartApp.
+Try turning one of the switches on in the IDE.
+You will see some more of these trace messages coming from the SmartApp framework.
 You will also see the *debug* message in the ``someEventHandler()`` method.
 
 .. code-block:: groovy
@@ -104,8 +115,8 @@ You should expect to see something like this in the console.
 .. figure:: ../img/ide/log_example2.png
 
 Lets see an example of how each one of the log levels look when output
-to the console. In the ``someEventHandler()`` method, I've added the following
-log messages for this example.
+to the console.
+In the ``someEventHandler()`` method, I've added the following log messages for this example.
 
 .. code-block:: groovy
 
