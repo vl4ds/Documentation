@@ -1,225 +1,267 @@
+============================
 Building the Service Manager
 ============================
 
-The Service Manager's responsibilities are to:
+The Service Manager's responsibilities are:
 
-- Discover devices
-- Handles device Add/Change/Delete actions
-- Maintains the connection
+- **Discovery** - Discover devices on the LAN via SSDP (mDNS/DNS-SD or Bonjour is not currently supported)
+- **Verification** - Verify each discovered device through successful fetching of the UPnP device description
+- **Inclusion** - Add the device as a child of the service manager
+- **Health** - Track IP address and port changes and allow these to make it down to the child device(s) as necessary
 
-Let's take a look at an example of what is outlined above.
+Let's take a look at some of the key parts of a Service Manager implementation. The example code referenced throughout
+this document is derived from the below SmartApp and DeviceType:
+
+:download:`Generic UPnP Service Manager <src/generic-upnp-service-manager.groovy>`
+:download:`Generic UPnP Device <src/generic-upnp-device.groovy>`
+
+The above referenced Generic UPnP Device is incomplete. For the complete guide, please see `Building the Device Type <building-the-device-type.html>`_.
+
+----
 
 Discovery
 ---------
 
-SSDP
-~~~~
+Simple Service Discovery Protocol (SSDP) is the main protocol used to find devices on your network. It serves as the backbone of Universal Plug and Play (UPnP), which
+allows you to easily connect new network devices to a system. See `UPnP Device Architecture 1.1 <http://upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf>`__
+for full specification details.
 
-`SSDP <http://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol>`__
-is the main protocol used to find devices on your network. It serves as
-the backbone of `Universal Plug and
-Play <http://en.wikipedia.org/wiki/Universal_Plug_and_Play>`__, which
-allows you easily connect new network devices to a system. To discovery
-new devices, you'd use something like this:
+To discover new devices, you first need to subscribe to location events with the correct **search target** for the device. The
+search target in the below example, **urn:schemas-upnp-org:device:ZonePlayer:1**, is for discovery of a Sonos, but search targets will vary by manufacturer and device.
+For UPnP, this information should be published on documentation for the device, but you may
+alternatively have to contact the manufacturer directly to obtain it. Here is the event subscription:
 
 .. code-block:: groovy
 
-    sendHubCommand(new physicalgraph.device.HubAction("lan discovery urn:schemas-upnp-org:device:ZonePlayer:1", physicalgraph.device.Protocol.LAN))
+    subscribe(location, "ssdpTerm.urn:schemas-upnp-org:device:ZonePlayer:1", ssdpHandler)
 
-.. note:: sendHubCommand and HubAction are supplied by the SmartThings framework
+This means that any time an SSDP **search response** with a search target of urn:schemas-upnp-org:device:ZonePlayer:1
+(e.g. Sonos) is received from a hub in this location, it will fire the ssdpHandler method.
+
+Next, you need to send an appropriate discovery command for the desired search target:
+
+.. code-block:: groovy
+
+    void ssdpDiscover() {
+        sendHubCommand(new physicalgraph.device.HubAction("lan discovery urn:schemas-upnp-org:device:ZonePlayer:1", physicalgraph.device.Protocol.LAN))
+    }
+
+.. note:: HubAction is a class supplied by the SmartThings platform
 
     The class ``physicalgraph.device.HubAction`` encapsulates request information
     for communicating with the device.
 
     When you create an instance of a ``HubAction``, you provide details about the
     request, such as the request method, headers, and path. By itself, ``HubAction`` is little more than a wrapper for these request details.
+    In this case, it's a thin wrapper around discovery information.
 
-This is an example of discovering devices using the LAN protocol. The
-main message to be sent through the hub is
+In the above HubAction example, the main message to be sent through the hub is:
 
 .. code-block:: groovy
 
     lan discovery urn:schemas-upnp-org:device:ZonePlayer:1
 
-The protocol is **lan**. The unique resource name (URN) is built with
-the Namespace Identifier (NID) **schemas-upnp-org** and Namespace
-Specific String (NSS) **device:ZonePlayer:1** according to the `URN
-Syntax Guide <http://www.ietf.org/rfc/rfc2141.txt>`__.
+This is converted by our device connectivity layer into an M-SEARCH multicast request that is sent to the LAN via the hub, and
+should look something like the following:
 
-For Sonos, the device specific search term is **ZonePlayer:1**, but that
-will change per device. The search term for a particular device using
-UPnP should be published on documentation for the device, but you may
-also have to contact the manufacturer directly. The above command is
-typically called in a timing loop.
+.. code-block:: http
 
-mDNS/DNS-SD
-~~~~~~~~~~~
+    M-SEARCH * HTTP/1.1
+    HOST: 239.255.255.250:1900
+    MAN: "ssdp:discover"
+    MX: 4
+    ST: urn:schemas-upnp-org:device:ZonePlayer:1
 
-Device discovery via mDNS/DNS-SD or Bonjour is not currently supported.
+After the end device receives the multicast M-SEARCH, it is supposed to issue a unicast **search response**, delayed by a random number of seconds between 0 and MX (4 in this case).
+The search response sent from the device back to the hub should look something like this:
 
-Handling Updates (Adds/Changes/Deletes)
----------------------------------------
+.. code-block:: http
 
-When there are changes within the scope of your devices, the service
-manager should handle those updates.
+    HTTP/1.1 200 OK
+    CACHE-CONTROL: max-age=100
+    EXT:
+    LOCATION: http://10.0.1.14:80/xml/device_description.xml
+    SERVER: FreeRTOS/6.0.5, UPnP/1.0, IpBridge/0.1
+    ST: urn:schemas-upnp-org:device:ZonePlayer:1
+    USN: uuid:RINCON_000E58F0FFFFFF400::urn:schemas-upnp-org:device:ZonePlayer:1
 
-Adding Devices
-~~~~~~~~~~~~~~
+This will get routed back to the cloud where it will be converted into an event that will fire the ssdpHandler method with the following description:
 
-A subscription is created to listen for a location event. The way the
-system is currently setup, we can't listen specifically for discovery
-events, but rather we listen for any location events, indicating a
-device has been added. Upon the event firing, a handler is called, in
-this case **locationHandler**.
+.. code-block:: json
 
-.. code-block:: groovy
+    devicetype:04, mac:000E58F0FFFF, networkAddress:0A00010E, deviceAddress:0578, stringCount:04, ssdpPath:/xml/device_description.xml, ssdpUSN:uuid:RINCON_000E58F0FFFFFF400::urn:schemas-upnp-org:device:ZonePlayer:1, ssdpTerm:urn:schemas-upnp-org:device:ZonePlayer:1, ssdpNTS:
 
-    if(!state.subscribe) {
-      log.debug "subscribe to location"
-      subscribe(location, null, locationHandler, [filterEvents:false])
-      state.subscribe = true
-    }
-
-And then later the locationHandler method is defined which adds the
-device to a collection of devices. Note that because we aren't just
-listening for discovery events, we have to parse the response to
-properly determine if a discovery has been made.
-
-Within the LocationHander, you need to see if the device is currently
-part of the devices collection in your state. You can check this via any
-unique identifier of your device. If it's not already registered in your
-state, go ahead and add it.
+The ssdpHandler method should record the data from the search response, in preparation for verification.
 
 .. code-block:: groovy
 
-    def locationHandler(evt) {
+    def ssdpHandler(evt) {
         def description = evt.description
         def hub = evt?.hubId
 
         def parsedEvent = parseEventMessage(description)
         parsedEvent << ["hub":hub]
 
-        if (parsedEvent?.ssdpTerm?.contains("urn:schemas-upnp-org:device:DeviceIdentifier:1")) {
-          def devices = getDevices()
-          if (!(devices."${parsedEvent.ssdpUSN.toString()}")) {
-            devices << ["${parsedEvent.ssdpUSN.toString()}":parsedEvent]
-          }
-        }
-     }
-
-    def getDevices() {
-      if (!state.devices) {
-          state.devices = [:]
-      }
-      state.devices
-    }
-
-The example above uses SSDP, you could also use mDNS/DNS-SD. You just
-need to change what attributes are being used. For example, you could
-replace this:
-
-.. code-block:: groovy
-
-    if (parsedEvent?.ssdpTerm?.contains("urn:schemas-upnp-org:device:DeviceIdentifier:1"))
-
-with this:
-
-.. code-block:: groovy
-
-    if(parsedEvent?.mdnsPath)
-
-and this:
-
-.. code-block:: groovy
-
-    if (!(devices."${parsedEvent.ssdpUSN.toString()}"))
-
-with this:
-
-.. code-block:: groovy
-
-    if (!(devices."${parsedEvent?.mac?.toString()}"))
-
-Changing Devices
-~~~~~~~~~~~~~~~~
-
-You need to monitor your devices networking information for changes. By
-using a unique identifier within your device, you can check that IP and
-port information hasn't changed.
-
-Using SSDP:
-
-.. code-block:: groovy
-
-    if ((devices."${parsedEvent.ssdpUSN.toString()}")){
-      def d = devices."${parsedEvent.ssdpUSN.toString()}"
-      boolean deviceChangedValues = false
-
-        if(d.ip != parsedEvent.ip || d.port != parsedEvent.port) {
-            d.ip = parsedEvent.ip
-            d.port = parsedEvent.port
-            deviceChangedValues = true
+        def devices = getDevices()
+        String ssdpUSN = parsedEvent.ssdpUSN.toString()
+        if (!devices."${ssdpUSN}") {
+            devices << ["${ssdpUSN}": parsedEvent]
         }
     }
 
-Using mDNS/DNS-SD:
+----
+
+Verification
+------------
+
+Once we've recorded the presence of a device on the LAN with the desired SSDP search target, the next step is to verify the
+availability of the device by fetching some more information about it. In UPnP, this is called the **device description**.
+In the search response, there is a LOCATION header which shows the location of the device description on the LAN. SmartThings
+splits this into **networkAddress**, **deviceAddress**, and **ssdpPath** in the event, which at this point should exist in app state.
+This can be pulled out of state and put into a HubAction. Note that the HubAction has a **callback**, which means that
+when an HTTP response is issued from the device to the hub, it will fire the **deviceDescriptionHandler** method.
 
 .. code-block:: groovy
 
-    if ((devices."${parsedEvent?.mac?.toString()}")) {
-      def d = device."${parsedEvent.mac.toString()}"
-      boolean deviceChangedValues = false
-
-      if(d.ip != parsedEvent.ip || d.port != parsedEvent.port) {
-          d.ip = parsedEvent.ip
-          d.port = parsedEvent.port
-          deviceChangedValues = true
-      }
+    void verifyDevices() {
+        def devices = getDevices().findAll { it?.value?.verified != true }
+        devices.each {
+            int port = convertHexToInt(it.value.port)
+            String ip = convertHexToIP(it.value.ip)
+            String host = "${ip}:${port}"
+            sendHubCommand(new physicalgraph.device.HubAction("""GET ${it.value.ssdpPath} HTTP/1.1\r\nHOST: $host\r\n\r\n""", physicalgraph.device.Protocol.LAN, host, [callback: deviceDescriptionHandler]))
+        }
     }
 
-If values did change, then you need to manually update your devices
-within the SmartApp.
+    void deviceDescriptionHandler(physicalgraph.device.HubResponse hubResponse) {
+        def body = hubResponse.xml
+        def devices = getDevices()
+        def device = devices.find { it?.key?.contains(body?.device?.UDN?.text()) }
+        if (device) {
+            device.value << [name: body?.device?.roomName?.text(), model: body?.device?.modelName?.text(), serialNumber: body?.device?.serialNum?.text(), verified: true]
+        }
+    }
+
+.. note:: HubResponse is a class supplied by the SmartThings platform. Here are some pieces of data that are included:
+
+    * **description** - The raw message received by the device connectivity layer
+    * **hubId** - The UUID of the SmartThings hub that received the response
+    * **status** - HTTP status code of the response
+    * **headers** - Map of the HTTP headers of the response
+    * **body** - String of the HTTP response body
+    * **error** - Any error encountered during any automatic parsing of the body as either JSON or XML
+    * **json** - If the HTTP response has a Content-Type header of application/json, the body is automatically parsed as JSON and stored here
+    * **xml** - If the HTTP response has a Content-Type header of text/xml, the body is automatically parsed as XML and stored here
+
+----
+
+Inclusion
+---------
+
+Now that the device has been verified, we need to add it as a child device.
 
 .. code-block:: groovy
 
-    if (deviceChangedValues) {
-                def children = getChildDevices()
-                children.each {
-                    if (it.getDeviceDataByName("mac") == parsedEvent.mac) {
-                        it.setDeviceNetworkId((parsedEvent.ip + ":" + parsedEvent.port)) //could error if device with same dni already exists
-                    }
+    def addDevices() {
+        def devices = getDevices()
+
+        selectedDevices.each { dni ->
+            def selectedDevice = devices.find { it.value.mac == dni }
+            def d
+            if (selectedDevice) {
+                d = getChildDevices()?.find {
+                    it.deviceNetworkId == selectedDevice.value.mac
                 }
-        }
+            }
 
-Deleting Devices
-~~~~~~~~~~~~~~~~
-
-You don't need to handle deleting devices within the Service Manager.
-Devices, by nature, can become connected or disconnected at various
-times, and we still want them to persist. An example of this would be a
-laptop - if you were to take it with you somewhere, you'd still want it
-to pair properly later.
-
-The enduser will need to manually delete their device within the
-SmartThings application.
-
-Creating Child Devices
-----------------------
-
-After you have discovered all your devices and the app has been
-installed, you need to add the device(s) the user has selected as a
-child device. You will iterate through a collection created from the
-user's input, and find just the devices they picked and add them.
-
-.. code-block:: groovy
-
-    selectedDevices.each { dni ->
-        def d = getChildDevice(dni)
-        if(!d) {
-            def newDevice = devices.find { (it.value.ip + ":" + it.value.port) == dni               }
-            d = addChildDevice("smartthings", "Device Name", dni, newDevice?.value.hub, ["label":newDevice?.value.name])
-            subscribeAll() //helper method to update devices
+            if (!d) {
+                log.debug "Creating Generic UPnP Device with dni: ${selectedDevice.value.mac}"
+                addChildDevice("smartthings", "Generic UPnP Device", selectedDevice.value.mac, selectedDevice?.value.hub, [
+                    "label": selectedDevice?.value?.name ?: "Generic UPnP Device",
+                    "data": [
+                        "mac": selectedDevice.value.mac,
+                        "ip": selectedDevice.value.ip,
+                        "port": selectedDevice.value.port
+                    ]
+                ])
+            }
         }
     }
 
-.. note:: The addChildDevice, getChildDevices, and deleteChildDevice methods are a part of the :ref:`smartapp_ref` API
+.. note:: It's important to **not** use IP and port as the DNI (Device Network ID) of the device. This is because if/when the IP
+    address changes, we do not want to update the device's DNI. Instead, we choose MAC address as DNI, which is guaranteed not
+    to change.
+
+----
+
+Health
+------
+
+Lastly, we need to handle the possibility of IP address or port changes. Unless you have setup a static DHCP reserveration in
+your network router, there is a possibility that the IP address of the device will change, and the child device can be told
+when this changes by the Service Manager. We'll start by modifying the above ssdpHandler method to handle changing IP and port data:
+
+.. code-block:: groovy
+
+    def ssdpHandler(evt) {
+        def description = evt.description
+        def hub = evt?.hubId
+
+        def parsedEvent = parseEventMessage(description)
+        parsedEvent << ["hub":hub]
+
+        def devices = getDevices()
+        String ssdpUSN = parsedEvent.ssdpUSN.toString()
+        if (devices."${ssdpUSN}") {
+            def d = devices."${ssdpUSN}"
+            if (d.ip != parsedEvent.ip || d.port != parsedEvent.port) {
+                d.ip = parsedEvent.ip
+                d.port = parsedEvent.port
+                def child = getChildDevice(parsedEvent.mac)
+                if (child) {
+                    child.sync(parsedEvent.ip, parsedEvent.port)
+                }
+            }
+        } else {
+            devices << ["${ssdpUSN}": parsedEvent]
+        }
+    }
+
+This assumes that the DeviceType has a **sync** method that has the ability to alter the internally stored ip and port.
+
+.. code-block:: groovy
+
+    def sync(ip, port) {
+        def existingIp = getDataValue("ip")
+        def existingPort = getDataValue("port")
+        if (ip && ip != existingIp) {
+            updateDataValue("ip", ip)
+        }
+        if (port && port != existingPort) {
+            updateDataValue("port", port)
+        }
+    }
+
+Finally, we need to make sure that the M-SEARCH for our desired search target is periodically sent out over the LAN. We can
+use the scheduler to do that from the Service Manager:
+
+.. code-block:: groovy
+
+    runEvery5Minutes("ssdpDiscover")
+
+----
+
+Best Practices
+--------------
+
+For LAN Service Manager SmartApps, there are a couple items to keep in mind that might not be immediately apparent.
+
+* Use something static as the DNI for the child device, such as MAC address.
+* Avoid making calls from your child devices into the parent if possible, as this can lead to increased latency and unnecessary platform load. Instead, supply your child devices with enough information to make calls into the parent unnecessary, and use the Service Manager to manage any child device updates that need to happen based on network changes.
+
+----
+
+References and Resources
+------------------------
+
+- `UPnP Device Architecture 1.1 <http://upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf>`__
