@@ -23,6 +23,8 @@ We love contributions! If you find a typo, error, or think something can be comm
 
 If you have a larger change that might involve a lot of new content or organization, let us know in advance by creating an issue.
 
+For documentation formatting and syntax, please see the [Writing the Docs Guide](http://docs.smartthings.com/en/latest/contributing/style-guide.html).
+
 ## Contact
 
 You can reach us at <mailto:docs@smartthings.com> with any feedback or questions.
