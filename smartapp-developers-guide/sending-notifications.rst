@@ -4,14 +4,10 @@
 Sending Notifications
 =====================
 
-SmartApps can send notifications, either as a push notification in the mobile app, or as SMS messages to designated recipients. This allows SmartApps to notify people when important events happen in their home.
+SmartApps can send notifications, either as a push notification in the mobile app, or as SMS messages to designated recipients.
+This allows SmartApps to notify people when important events happen in their home.
 
-In this guide, you will learn:
-
-- How to send notifications to contacts in a user's Contact Book
-- How to send push notifications to the mobile app
-- How to send SMS notifications
-- How to display messages in the Notifications feed of the mobile app
+----
 
 .. _contanct_book:
 
@@ -32,7 +28,7 @@ This has the advantage that a user does not have to enter in phone numbers for e
 Sending notifications by using the Contact Book feature is the preferred way for sending notifications in a SmartApp.
 
 Selecting Contacts to Notify
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To allow a user to select from a list of their contacts, use the ``"contact"`` input type:
 
@@ -57,11 +53,12 @@ In the example above, the users selected will be stored in a variable named ``re
     When creating contacts, the user can enter an email address. Emails are *not* currently sent by SmartThings, though they are used to identify SmartThings users, and enable them to receive push notifications.
 
 Send Notifications to Contacts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use the ``sendNotificationToContacts()`` method to send a notification to the users (and the specified mode of contact) selected.
 
-``sendNotificationToContacts()`` accepts three parameters - the message to send, the contacts selected, and an optional map of additional parameters. The valid option for the additional parameters is ``[event: false]``, which will suppress the message from appearing in the Notifications feed.
+``sendNotificationToContacts()`` accepts three parameters - the message to send, the contacts selected, and an optional map of additional parameters.
+The valid option for the additional parameters is ``[event: false]``, which will suppress the message from appearing in the Notifications feed.
 
 Assuming the ``"contact"`` input named ``"recipients"`` above, you would use:
 
@@ -78,11 +75,12 @@ If you don't want the message to appear in the Notifications feed, specify ``eve
 .. _disabled_contact_book:
 
 Handling Disabled Contact Book
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A user may not have created any contacts, and SmartApps should be written to handle this.
 
-The ``"contact"`` input element takes an optional closure, where you can define additional input elements that will be displayed if the user has no contacts. If the user has contacts, these input elements won't be seen when installing or configuring the SmartApp.
+The ``"contact"`` input element takes an optional closure, where you can define additional input elements that will be displayed if the user has no contacts.
+If the user has contacts, these input elements won't be seen when installing or configuring the SmartApp.
 
 Modifying our preferences definition from above, to handle the case of a user having no contacts, would look like:
 
@@ -100,7 +98,8 @@ Modifying our preferences definition from above, to handle the case of a user ha
 If the user configuring this SmartApp does have contacts defined, they will only see the input to select from those contacts.
 If they don't have any contacts defined, they will see the input to enter a phone number.
 
-When attempting to send notifications, we should also check to see if the user has enabled the Contact Book and selected contacts. You can check the ``contactBookEnabled`` property on ``location`` to find out if Contact Book has been enabled. It's a good idea to also check if any contacts have been selected.
+When attempting to send notifications, we should also check to see if the user has enabled the Contact Book and selected contacts.
+You can check the ``contactBookEnabled`` property on ``location`` to find out if Contact Book has been enabled. It's a good idea to also check if any contacts have been selected.
 
 .. code-block:: groovy
 
@@ -112,7 +111,7 @@ When attempting to send notifications, we should also check to see if the user h
     }
 
 Complete Example
-~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^
 
 The example SmartApp below sends a notification to selected contacts when a door opens.
 If the user has no contacts, they can enter in a number to receive an SMS notification.
@@ -171,8 +170,6 @@ If the user has no contacts, they can enter in a number to receive an SMS notifi
         }
     }
 
-----
-
 .. note::
 
     The rest of this guide discusses alternative ways to send notifications (push, SMS, Notifications Feed). SmartApps should use Contact Book, and use the methods described below as a precaution in case the user does not have Contact Book enabled.
@@ -229,7 +226,8 @@ Send SMS Notifications
 In addition to sending push notifications through the SmartThings mobile app, you can also send SMS messages to specified numbers using the ``sendSms()`` and ``sendSmsMessage()`` methods.
 
 Both methods take a phone number (as a string) and a message to send.
-The message can be no longer than 140 characters. ``sendSms()`` will display the message in the Notifications feed; ``sendSmsMessage()`` will not.
+The message can be no longer than 140 characters.
+``sendSms()`` will display the message in the Notifications feed; ``sendSmsMessage()`` will not.
 
 Extending the example above, let's add the ability for a user to (optionally) send an SMS message to a specified number:
 
@@ -278,7 +276,8 @@ SMS notifications will be sent from the number 844647 ("THINGS").
 Send Both Push and SMS Notifications
 ------------------------------------
 
-The ``sendNotification()`` method allows you to send both push and/or SMS messages, in one convenient method call. It can also optionally display the message in the Notifications feed.
+The ``sendNotification()`` method allows you to send both push and/or SMS messages, in one convenient method call.
+It can also optionally display the message in the Notifications feed.
 
 ``sendNotification()`` takes a message parameter, and a map of options that control how the message should be sent, if the message should be displayed in the Notifications feed, and a phone number to send an SMS to (if specified):
 

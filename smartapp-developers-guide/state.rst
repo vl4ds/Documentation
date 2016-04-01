@@ -5,11 +5,7 @@ Storing Data
 
 SmartApps and Device Handlers are all provided a ``state`` variable that will allow you to store data across executions.
 
-In this guide, you will learn:
-
-- How to store data across executions using the ``state`` property.
-- A basic understanding of how ``state`` works.
-- When ``state`` may not be the best solution, and what to use instead.
+----
 
 Overview
 --------
@@ -19,11 +15,14 @@ Recall that SmartApps (and Device Handlers) are not always running, but rather e
 Here's a quick example showing how to work with state:
 
 .. code-block:: groovy
+    :linenos:
 
-  state.myData = "some data"
-  log.debug "state.myData = ${state.myData}"
+    state.myData = "some data"
+    log.debug "state.myData = ${state.myData}"
 
-  state.myCounter = state.myCounter + 1
+    state.myCounter = state.myCounter + 1
+
+----
 
 How it Works
 ------------
@@ -46,6 +45,7 @@ The contents of ``state`` are stored as a JSON string. This means that anything 
   This is particularly worth noting when working with dates. If you need to store time information, consider using an epoch time stamp, conveniently available via the ``now()`` method:
 
   .. code-block:: groovy
+    :linenos:
 
     def installed() {
       state.installedAt = now()
@@ -59,6 +59,8 @@ The contents of ``state`` are stored as a JSON string. This means that anything 
       log.debug "this app was installed at ${new Date(state.installedAt)}"
     }
 
+----
+
 Using State
 -----------
 
@@ -68,45 +70,48 @@ To use ``state``, simply use the ``state`` variable that is injected into every 
 As usual, the best way to describe code is by showing code itself.
 
 .. code-block:: groovy
+    :linenos:
 
-  def installed() {
-    // simple number to keep track of executions
-    state.count = 0
+    def installed() {
+        // simple number to keep track of executions
+        state.count = 0
 
-    // we can store maps in state
-    state.myMap = [foo: "bar", baz: "fee"]
+        // we can store maps in state
+        state.myMap = [foo: "bar", baz: "fee"]
 
-    // booleans are ok of course
-    state.myBoolean = true
+        // booleans are ok of course
+        state.myBoolean = true
 
-    // we can use array index notation if we want
-    state['key'] = 'value'
+        // we can use array index notation if we want
+        state['key'] = 'value'
 
-    // we can store lists and maps, so we can make some interesting structures
-    state.myListOfMaps = [[key1: "val1", bool1: true],
-                          [otherKey: ["string 1", "string 2"]]]
+        // we can store lists and maps, so we can make some interesting structures
+        state.myListOfMaps = [[key1: "val1", bool1: true],
+                              [otherKey: ["string 1", "string 2"]]]
 
-  }
-
-  def someEventHandler(evt) {
-
-    // increment by 1
-    state.count = state.count + 1
-
-    log.debug "this event handler has been called ${state.count} times since installed"
-
-    log.debug "state.myMap.foo: ${state.myMap.foo}" // => prints "bar"
-
-    // we can access state value using array notation if we wish
-    log.debug "state['myBoolean']: ${state['myBoolean']}"
-
-    // we can navigate our list of maps
-    state.myListOfMaps.each { map ->
-      log.debug "entry: $map"
-      map.each {
-        log.debug "key: ${it.key}, value: ${it.value}"
-      }
     }
+
+    def someEventHandler(evt) {
+
+        // increment by 1
+        state.count = state.count + 1
+
+        log.debug "this event handler has been called ${state.count} times since installed"
+
+        log.debug "state.myMap.foo: ${state.myMap.foo}" // => prints "bar"
+
+        // we can access state value using array notation if we wish
+        log.debug "state['myBoolean']: ${state['myBoolean']}"
+
+        // we can navigate our list of maps
+        state.myListOfMaps.each { map ->
+          log.debug "entry: $map"
+          map.each {
+            log.debug "key: ${it.key}, value: ${it.value}"
+          }
+    }
+
+----
 
 .. _atomic_state:
 
@@ -151,6 +156,8 @@ To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` wri
 
   It's also worth noting that you should **not** use both ``state`` and ``atomicState`` in the same SmartApp. Doing so will likely cause inconsistencies in in state values.
 
+----
+
 Storage Size Limitations
 ------------------------
 
@@ -176,10 +183,10 @@ When the character limit has been exceeded, a ``physicalgraph.exception.StateCha
 
     Additional helper methods to get the remaining available size and the character limit will be added in a future release.
 
+----
+
 Best Practices
 --------------
-
-A summary of the best practices for using ``state`` or ``atomicState`` in your SmartApp or Device Handler:
 
 - Only data that can be serialized to JSON can be stored in ``state`` or ``atomicState``.
 - Remember that the contents of ``state`` are only written to external storage when the SmartApp or Device Handler finishes executing. All reads/writes from ``state`` are done on the in-memory object until app execution concludes. The contents of ``atomicState`` are written to external storage when a value changes.
@@ -187,6 +194,8 @@ A summary of the best practices for using ``state`` or ``atomicState`` in your S
 - Never use both ``atomicState`` and ``state`` in the same SmartApp.
 - ``atomicState`` is not available to Device Handlers.
 - Don't store too much in ``state`` or ``atomicState``. The limit is 100,000 characters of data per app instance.
+
+----
 
 Examples
 --------

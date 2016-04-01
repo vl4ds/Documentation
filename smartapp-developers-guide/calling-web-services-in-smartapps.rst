@@ -3,26 +3,28 @@
 Calling Web Services
 ====================
 
-SmartApps or device handlers may need to make calls to external web services. There are several APIs available to you to handle making these requests.
+SmartApps or Device Handlers may need to make calls to external web services. There are several APIs available to you to handle making these requests.
 
 The various APIs are named for the underlying HTTP method they will use. ``httpGet()`` makes an HTTP GET request, for example.
 
-.. important::
+----
 
-    Requests are limited to ten seconds. If the request takes longer than that, it will timeout.
+HTTP Methods
+------------
 
-The following methods are available for making HTTP requests. You can read more about each of them in the :ref:`smartapp_ref` API documentation.
+The following methods are available for making HTTP requests.
+You can read more about each of them in the :ref:`smartapp_ref` API documentation.
 
-================ ================
-Method           Description
-================ ================
-httpDelete()     Executes an HTTP DELETE request
-httpGet()        Executes an HTTP GET request
-httpHead()       Executes an HTTP HEAD request
-httpPost()       Executes an HTTP POST request
-httpPostJson()   Executes an HTTP POST request with JSON Content-Type
-httpPutJson()    Executes an HTTP PUT request with JSON Content-Type
-================ ================
+============================== ================
+Method                         Description
+============================== ================
+:ref:`smartapp_http_delete`    Executes an HTTP DELETE request
+:ref:`smartapp_http_get`       Executes an HTTP GET request
+:ref:`smartapp_http_head`      Executes an HTTP HEAD request
+:ref:`smartapp_http_post`      Executes an HTTP POST request
+:ref:`smartapp_http_post_json` Executes an HTTP POST request with JSON Content-Type
+:ref:`smartapp_http_put_json`  Executes an HTTP PUT request with JSON Content-Type
+============================== ================
 
 Here's a simple example of making an HTTP GET request:
 
@@ -44,6 +46,8 @@ Here's a simple example of making an HTTP GET request:
     } catch (e) {
         log.error "something went wrong: $e"
     }
+
+----
 
 Configuring The Request
 -----------------------
@@ -67,18 +71,20 @@ body                Request body that will be encoded based on the given content
     Specifying a ``reqeustContentType`` may override the default behavior of the various http API you are calling.
     For example, ``httpPostJson()`` sets the ``requestContentType`` to ``"application/json"`` by default.
 
+----
+
 Handling The Response
 ---------------------
 
 The HTTP APIs accept a closure that will be called with the response information from the reqeust.
 
-The closure is passed an instance of a `HttpResponseDecorator <https://github.com/jgritman/httpbuilder/blob/855e1784be8585de81cc3c99fd19285798c7bc4f/src/main/java/groovyx/net/http/HttpResponseDecorator.java>`__. 
+The closure is passed an instance of a `HttpResponseDecorator <https://github.com/jgritman/httpbuilder/blob/855e1784be8585de81cc3c99fd19285798c7bc4f/src/main/java/groovyx/net/http/HttpResponseDecorator.java>`__.
 You can inspect this object to get information about the response.
 
 Here's an example of getting various response information:
 
 .. code-block:: groovy
-    
+
     def params = [
         uri: "http://httpbin.org",
         path: "/get"
@@ -94,7 +100,7 @@ Here's an example of getting various response information:
 
             // get an array of all headers with the specified key
             def theHeaders = resp.getHeaders("Content-Length")
-            
+
             // get the contentType of the response
             log.debug "response contentType: ${resp.contentType}"
 
@@ -138,13 +144,13 @@ The ``resp.data`` from the request above would look like this (indented for read
 
 .. code-block:: bash
 
-    resp data: [id:5037649, dt:1432752405, clouds:[all:0], 
-        coord:[lon:-93.26, lat:44.98], wind:[speed:4.26, deg:233.507], 
-        cod:200, sys:[message:0.012, sunset:1432777690, sunrise:1432722741, 
-            country:US], 
-        name:Minneapolis, base:stations, 
-        weather:[[id:800, icon:01d, description:Sky is Clear, main:Clear]], 
-        main:[humidity:73, pressure:993.79, temp_max:298.696, sea_level:1026.82, 
+    resp data: [id:5037649, dt:1432752405, clouds:[all:0],
+        coord:[lon:-93.26, lat:44.98], wind:[speed:4.26, deg:233.507],
+        cod:200, sys:[message:0.012, sunset:1432777690, sunrise:1432722741,
+            country:US],
+        name:Minneapolis, base:stations,
+        weather:[[id:800, icon:01d, description:Sky is Clear, main:Clear]],
+        main:[humidity:73, pressure:993.79, temp_max:298.696, sea_level:1026.82,
             temp_min:298.696, temp:298.696, grnd_level:993.79]]
 
 We can easily get the humidity from this data structure as shown above:
@@ -153,36 +159,43 @@ We can easily get the humidity from this data structure as shown above:
 
     resp.data.main.humidity
 
+----
+
 Try It Out
 ----------
 
 If you're interested in experimenting with the various HTTP APIs, there are a few tools you can use to try out the APIs without signing up for any API keys.
 
-You can use `httpbin.org <http://httpbin.org/>`__ to test making simple requests. The ``httpGet()`` example above uses it.
+You can use `httpbin.org <http://httpbin.org/>`__ to test making simple requests.
+The ``httpGet()`` example above uses it.
 
-For testing POST requests, you can use `PostCatcher <http://postcatcher.in/>`__. You can generate a target URL and then inspect the contents of the request. Here's an example using `httpPostJson()`:
+For testing POST requests, you can use `PostCatcher <http://postcatcher.in/>`__.
+You can generate a target URL and then inspect the contents of the request.
+Here's an example using ``httpPostJson()``:
 
 .. code-block:: groovy
-   
+
     def params = [
         uri: "http://postcatcher.in/catchers/<yourUniquePath>",
         body: [
-            param1: [subparam1: "subparam 1 value", 
+            param1: [subparam1: "subparam 1 value",
                      subparam2: "subparam2 value"],
             param2: "param2 value"
         ]
     ]
-   
+
     try {
         httpPostJson(params) { resp ->
             resp.headers.each {
                 log.debug "${it.name} : ${it.value}"
             }
-            log.debug "response contentType: ${resp.    contentType}"           
+            log.debug "response contentType: ${resp.    contentType}"
         }
     } catch (e) {
         log.debug "something went wrong: $e"
     }
+
+----
 
 See Also
 --------

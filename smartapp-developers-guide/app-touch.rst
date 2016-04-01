@@ -8,6 +8,10 @@ There are certain cases where we want to perform some action when the user choos
 
 For example, a custom voice notification SmartApp might want to play the message when the user presses play.
 
+----
+
+.. _subscribe_to_app:
+
 Subscribe to ``app``
 --------------------
 

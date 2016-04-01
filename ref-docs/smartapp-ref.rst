@@ -413,6 +413,8 @@ Returns a list of all child devices. An example use would be in service manager 
 
 ----
 
+.. _smartapp_get_sunrise_and_sunset:
+
 getSunriseAndSunset()
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -483,6 +485,8 @@ Calls the Weather Underground API to to return weather forecasts and related dat
 
 ----
 
+.. _smartapp_http_delete:
+
 httpDelete()
 ~~~~~~~~~~~~
 
@@ -543,6 +547,8 @@ This should be used to send an HTTP error to any calling client.
 
 ----
 
+.. _smartapp_http_get:
+
 httpGet()
 ~~~~~~~~~
 
@@ -597,6 +603,8 @@ If the response content type is JSON, the response data will automatically be pa
 
 ----
 
+.. _smartapp_http_head:
+
 httpHead()
 ~~~~~~~~~
 
@@ -627,6 +635,8 @@ Executes an HTTP HEAD request and passes control to the specified closure. The c
     `Closure`_ ``closure`` - The closure that will be called with the response of the request.
 
 ----
+
+.. _smartapp_http_post:
 
 httpPost()
 ~~~~~~~~~~
@@ -676,6 +686,8 @@ If the response content type is JSON, the response data will automatically be pa
     }
 
 ----
+
+.. _smartapp_http_post_json:
 
 httpPostJson()
 ~~~~~~~~~~~~~~
@@ -738,6 +750,8 @@ If the response content type is JSON, the response data will automatically be pa
 
 ----
 
+.. _smartapp_http_put:
+
 httpPut()
 ~~~~~~~~~
 
@@ -785,6 +799,8 @@ If the response content type is JSON, the response data will automatically be pa
     }
 
 ----
+
+.. _smartapp_http_put_json:
 
 httpPutJson()
 ~~~~~~~~~~~~~

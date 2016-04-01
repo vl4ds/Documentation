@@ -6,11 +6,7 @@ Modes
 
 SmartThings allows users to specify that SmartApps only execute when in certain *modes*.
 
-In this chapter, you will learn:
-
-- What modes are, and how they are used
-- How to get and set the current mode
-- How to configure your SmartApp to allow a user to select a mode
+----
 
 Overview
 --------
@@ -20,7 +16,10 @@ Modes can be thought of as behavior filters for the smart home. Users can change
 - When in "Home" mode, motion should turn on a light.
 - When in "Away" mode, motion should send a text message and turn on an alarm.
 
-SmartThings comes with a few pre-configured modes, such as "Home", "Away", and "Night". Users can also create their own modes for each location.
+SmartThings comes with a few pre-configured modes, such as "Home", "Away", and "Night".
+Users can also create their own modes for each location.
+
+----
 
 Getting the Current Mode
 ------------------------
@@ -35,6 +34,8 @@ You can get the current mode by using the ``mode`` or ``currentMode`` property o
     def anotherWay = location.currentMode
     log.debug "current mode is $anotherWay"
 
+----
+
 Getting all Modes
 -----------------
 
@@ -45,6 +46,7 @@ You can get a list of all the modes for the location the SmartApp is installed i
     def allModes = location.modes // ex: [Home, Away, Night]
     log.debug "all modes for this location: $allModes"
 
+----
 
 Setting the Mode
 ----------------
@@ -60,6 +62,8 @@ You can use ``setLocationMode()`` or ``location.setMode()`` to set the mode for 
     location.setMode("Away")
 
 These methods will raise an error if the mode specified does not exist for the location.
+
+----
 
 Allowing Users to Select Modes
 ------------------------------
@@ -82,6 +86,8 @@ The SmartApp will then only execute when in the selected mode, without any actio
 
 You can learn more about the various ways to allow a user to select a mode :ref:`here <mode_pref>`.
 
+----
+
 Mode Events
 -----------
 
@@ -98,6 +104,8 @@ You can listen for a mode change by subscribing to the ``"mode"`` on the ``locat
     }
 
 In the example above ``modeChangeHandler()`` will be called whenever the mode changes for the location this SmartApp is installed into.
+
+----
 
 Example
 -------
@@ -150,12 +158,14 @@ First, notice we first check if we are already in the mode specified - if we are
 
     if (location.mode != newMode)
 
-If we do need to change the mode, we first verify that the mode actually exists. This ensures that we don't try and set the mode to one that does not exist for the location.
+If we do need to change the mode, we first verify that the mode actually exists.
+This ensures that we don't try and set the mode to one that does not exist for the location.
 
 .. code-block:: groovy
 
     if (location.modes?.find{it.name == newMode})
 
+----
 
 Further Reading
 ---------------

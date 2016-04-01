@@ -3,18 +3,30 @@ Parent-Child SmartApps
 
 SmartApps can have child SmartApps. This is often useful whe you want to provide multiple automations that act independently on separate devices. This will consolidate multiple separate automations under one parent.
 
-Smart Lighting is an example of a parent-child SmartApp. When you install Smart Lighting, you are installing one parent SmartApp (Smart Lighting), and each unique lighting automation you create is actually a new instance of a child SmartApp. This child SmartApp is what actually controls each lighting automation.
+----
+
+Overview
+--------
+
+Smart Lighting is an example of a parent-child SmartApp.
+When you install Smart Lighting, you are installing one parent SmartApp (Smart Lighting), and each unique lighting automation you create is actually a new instance of a child SmartApp.
+This child SmartApp is what actually controls each lighting automation.
 
 The diagram below illustrates this relationship:
 
 .. image:: ../img/smartapps/smart-lighting-diagram.png
 
-The relationship between a parent SmartApp and its children is a one-to-many relationship. A SmartApp may have many children, and those children can also have children. A child SmartApp can have only one parent.
+The relationship between a parent SmartApp and its children is a one-to-many relationship.
+A SmartApp may have many children, and those children can also have children.
+A child SmartApp can have only one parent.
+
+----
 
 The Parent SmartApp
 -------------------
 
-To define that a SmartApp is a parent to other SmartApps, use the ``app`` input element inside the ``preferences``. This establishes the relationship between parent and child.
+To define that a SmartApp is a parent to other SmartApps, use the ``app`` input element inside the ``preferences``.
+This establishes the relationship between parent and child.
 
 .. code-block:: groovy
 
@@ -27,6 +39,8 @@ To define that a SmartApp is a parent to other SmartApps, use the ``app`` input 
     }
 
 The key options to note are the ``appName``, which must be the name of the child SmartApp, and the ``namespace``, which is the namespace of the child SmartApp.
+
+----
 
 The Child SmartApp
 ------------------
@@ -47,10 +61,13 @@ In the SmartApp you wish to serve as the child, specify the ``parent`` option in
 
     Either make sure your parent SmartApp has been saved first, or come back and add the ``parent`` option after your parent SmartApp has been saved.
 
+----
+
 Communicating Between Parent and Children
 -----------------------------------------
 
-Parents and children may need to talk to each other. In the parent SmartApp, you can get the child SmartApp using the ``getChildApps()`` method:
+Parents and children may need to talk to each other.
+In the parent SmartApp, you can get the child SmartApp using the ``getChildApps()`` method:
 
 .. code-block:: groovy
 
@@ -80,6 +97,7 @@ Children can communicate with their parent by using the ``parent`` property in t
     // assumes the parent SmartApp has a method bar() defined:
     parent.bar()
 
+----
 
 Preventing More Than One Parent Instance
 ----------------------------------------
@@ -94,13 +112,16 @@ If you want to prevent users from installing more than one Parent SmartApp in th
         ...
     )
 
-With ``singleInstance: true``, when a user tries to install a parent SmartApp that has already been installed, they will be taken to the existing installation. From there, they can configure existing child SmartApps or add new ones. This avoids having multiple instances of parent SmartApp, when only one is necessary.
+With ``singleInstance: true``, when a user tries to install a parent SmartApp that has already been installed, they will be taken to the existing installation.
+From there, they can configure existing child SmartApps or add new ones.
+This avoids having multiple instances of parent SmartApp, when only one is necessary.
+
+----
 
 Example
 -------
 
 Below is a simple example illustrating how a parent SmartApp ("Simple Lighting") can be created to allow multiple child SmartApps ("Simple Automations").
-
 
 Here is the parent SmartApp:
 
@@ -384,7 +405,10 @@ Here's the child SmartApp:
     	lights.off()
     }
 
-To try it out, create the parent and child SmartApp with the code as shown above, and publish the parent SmartApp for yourself (you don't need to publish the child SmartApp, since it will be discovered by the parent and you don't want to install it individually from the marketplace). Then, go to the marketplace and install "Simple Lighting" in "My Apps". You can then add multiple automations, with each automation being an instance of the child SmartApp ("Simple Automation").
+To try it out, create the parent and child SmartApp with the code as shown above, and publish the parent SmartApp for yourself (you don't need to publish the child SmartApp, since it will be discovered by the parent and you don't want to install it individually from the marketplace).
+Then, go to the marketplace and install "Simple Lighting" in "My Apps". You can then add multiple automations, with each automation being an instance of the child SmartApp ("Simple Automation").
+
+----
 
 Tips & Best Practices
 ---------------------
@@ -392,11 +416,16 @@ Tips & Best Practices
 - Think carefully about creating more than one level of parent-to-child relationships, as it may negatively impact usability and create unneeded complications.
 - Sharing ``state`` or ``atomicState`` between parent and child SmartApps is not currently supported.
 
+----
+
 Summary
 -------
 
-Parent-child relationships can be useful when you want to provide multiple automations that act independently on separate devices. A parent SmartApp may have many children; a child SmartApp has only one parent.
+Parent-child relationships can be useful when you want to provide multiple automations that act independently on separate devices.
+A parent SmartApp may have many children; a child SmartApp has only one parent.
 
-To create a parent-child relationship, the SmartApp that is to be the parent should use the ``app`` input type to specify what app can be a child. The child SmartApp should specify the ``parent`` option in its definition to specify what SmartApp should serve as the parent.
+To create a parent-child relationship, the SmartApp that is to be the parent should use the ``app`` input type to specify what app can be a child.
+The child SmartApp should specify the ``parent`` option in its definition to specify what SmartApp should serve as the parent.
 
-A parent SmartApp can get its children by using the ``getChildApps()``, or ``findChildAppByName()`` if you know the name of the app you are looking for. Children can get a reference to their parent through the ``parent`` property.
+A parent SmartApp can get its children by using the ``getChildApps()``, or ``findChildAppByName()`` if you know the name of the app you are looking for.
+Children can get a reference to their parent through the ``parent`` property.

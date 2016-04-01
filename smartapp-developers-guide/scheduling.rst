@@ -7,6 +7,11 @@ SmartApps and Device Handlers often need to schedule certain actions to take pla
 For example, an app may want to turn off the lights five minutes after someone leaves.
 Or, an app may want to turn the lights on every day at a certain time.
 
+----
+
+Overview
+--------
+
 Broadly speaking, there are a few different ways we might want to schedule something to happen:
 
 - Do something after a certain time amount from now.
@@ -134,7 +139,7 @@ The various ``schedule()`` methods follow a similar form - they take an argument
     If you call ``schedule()`` with a method that is already scheduled, it will result in the schedule for that method being updated with the new schedule.
 
 Schedule Once Per Day
-`````````````````````
+^^^^^^^^^^^^^^^^^^^^^
 
 Use the ``schedule()`` method to execute a handler method every day at a certain time:
 
@@ -177,7 +182,7 @@ Finally, you can pass a Long representing the desired time in milliseconds (usin
     }
 
 Schedule Using Cron
-```````````````````
+^^^^^^^^^^^^^^^^^^^
 
 Scheduling jobs to execute at a particular time is useful, but what if we want to execute a job at some other interval?
 What if, for example, we want a method to execute at fifteen minutes past the hour, every hour?
@@ -239,7 +244,8 @@ If your cron expression runs more often than once per minute it, will be limited
 For more information, see this `community post`_.
 
 Schedule Every X Minutes or Hours
-`````````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 For common recurring schedules, SmartThings provides some convenience APIs that we can use.
 These methods use cron under the hood, but save you the pain of authoring the expression themselves.
 
@@ -350,7 +356,7 @@ Scheduling Limitations, Best Practices, and Things Good to Know
 When using any of the scheduling APIs, it's important to understand some limitations and best practices.
 
 Avoid Chained ``runIn()`` Calls
-```````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use ``runIn()`` to schedule one-time executions, not recurring schedules.
 
@@ -384,21 +390,21 @@ If you need a recurring schedule, use cron.
 
 
 Execution Time May Not Be in Exact Seconds
-``````````````````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 SmartThings will try to execute your scheduled job at the specified time, but cannot guarantee it will execute at that exact moment.
 As a general rule of thumb, you should expect that your job will be called within the minute of scheduled execution.
 For example, if you schedule a job at 5:30:20 (20 seconds past 5:30) to execute in five minutes, we expect it to be executed at some point in the 5:35 minute.
 
 Do Not Aggressively Schedule
-```````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Every scheduled execution incurs a cost to launch the SmartApp, and counts against the :ref:`SmartApp rate limit <smartapp_rate_limiting>`.
 While there are some limitations in place to prevent excessive scheduling, it's important to note that excessive polling or scheduling is discouraged.
 It is one of the items we look for when reviewing community-developed SmartApps or device-type handlers.
 
 ``unschedule()`` is Expensive
-`````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 As discussed above, ``unschedule()`` is currently a potentially expensive operation.
 
@@ -407,7 +413,7 @@ We plan to address this in the near future. Until we do, be aware of the potenti
 Note that when the SmartApp is uninstalled, all scheduled executions are removed - there is no need to call ``unschedule()`` in the ``uninstalled()`` method.
 
 Number of Scheduled Executions Limit
-````````````````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The :ref:`smartapp_can_schedule` method returns false if four or more scheduled executions are created.
 
