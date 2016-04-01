@@ -3,12 +3,12 @@
 Capability
 ==========
 
-The Capability object encapsulates information about a certain Capability. 
+The Capability object encapsulates information about a certain Capability.
 
 A Capability object cannot be created. You can get the Capabilities for a given device using the `capabilities <device-ref.html#capabilities>`_ method on a :ref:`device_ref` instance:
 
 .. code-block:: groovy
-    
+
     def capabilities = mydevice.capabilities
 
 For documentation for the available Capabilities, you can refer to the :ref:`capabilities_taxonomy`.
@@ -16,7 +16,7 @@ For documentation for the available Capabilities, you can refer to the :ref:`cap
 ----
 
 name
-~~~~
+----
 
 The name of the capability.
 
@@ -43,11 +43,11 @@ The name of the capability.
         log.debug "Capability name: ${cap.name}"
     }
     ...
-    
+
 ----
 
 attributes
-~~~~~~~~~~
+----------
 
 **Signature:**
     ``List<Attribute> attributes``
@@ -80,7 +80,7 @@ attributes
 ----
 
 commands
-~~~~~~~~
+--------
 
 **Signature:**
     ``List<Command> commands``
@@ -101,7 +101,7 @@ commands
     def mySwitchCaps = mySwitch.capabilities
 
     // log each capability supported by the "mySwitch" device, along
-    // with all its supported commands 
+    // with all its supported commands
     mySwitchCaps.each {cap ->
         log.debug "Capability name: ${cap.name}"
         cap.commands.each {comm ->

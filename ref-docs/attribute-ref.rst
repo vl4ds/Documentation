@@ -13,7 +13,7 @@ You can get the supported Attributes of a Device through the Device's :ref:`supp
 
 .. warning::
 
-    Referring to an Attribute directly from a Device by calling ``someDevice.attributeName`` will return an Attribute object with only the ``name`` property available. This is available for legacy purposes only, and will likely be removed at some time. 
+    Referring to an Attribute directly from a Device by calling ``someDevice.attributeName`` will return an Attribute object with only the ``name`` property available. This is available for legacy purposes only, and will likely be removed at some time.
 
     To get a reference to an Attribute object, you should use the ``supportedAttributes`` method on the Device object, and then find the desired Attribute in the returned List.
 
@@ -22,7 +22,7 @@ You can view the available attributes for all Capabilities in our :ref:`capabili
 ----
 
 dataType
-~~~~~~~~~
+--------
 
 Gets the data type of this Attribute.
 
@@ -48,8 +48,10 @@ Gets the data type of this Attribute.
     }
     ...
 
+----
+
 name
-~~~~
+----
 
 The name of the Attribute.
 
@@ -62,7 +64,7 @@ The name of the Attribute.
 **Example:**
 
 .. code-block:: groovy
-    
+
     preferences {
         section() {
             input "myswitch", "capability.switch"
@@ -77,7 +79,7 @@ The name of the Attribute.
 ----
 
 values
-~~~~~~
+------
 
 The possible values for this Attribute, if the data type is "ENUM".
 
