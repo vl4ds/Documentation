@@ -8,9 +8,12 @@ This documentation is written using [reStructuredText](http://docutils.sourcefor
 
 Follow these steps to build the documentation locally:
 
-1. [Install Sphinx](http://sphinx-doc.org/latest/install.html).
-2. In a terminal, execute `make html` from the root of this repository.
-3. Open `_build/html/index.html` in a web browser.
+1. [Install virtualenv](https://virtualenv.pypa.io/en/latest/installation.html).
+2. Create an isolated environment: `virtualenv --no-site-packages .venv`
+3. Activate the environment: `source .venv/bin/activate`
+4. Install dependencies: `(.venv)~/Documentation$ pip install -r requirements.txt`
+5. Build HTML: `(.venv)~/Documentation$ make html`
+6. Open `_build/html/index.html` in a web browser.
 
 To see the available make targets, simply execute `make`.
 
