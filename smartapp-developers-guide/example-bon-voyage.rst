@@ -57,33 +57,31 @@ Each of these inputs corresponds into a preferences section:
 
 Let's look at each section in a bit more detail.
 
-The *When all of these people leave home* section allows the user to
-configure what sensors to use for this app.
+The *When all of these people leave home* section allows the user to configure what sensors to use for this app.
 The user will see a section with the main title "When all of these
-people leave home." A drop down will be populated with all the devices
-that have the presenceSensor capability (``capability.presenceSensor``)
-for them to select the sensor(s) they'd like to use.
+people leave home."
+A drop down will be populated with all the devices that have the presenceSensor capability (``capability.presenceSensor``) for them to select the sensor(s) they'd like to use.
 ``multiple: true`` allows them to add as many sensors as they'd like.
 Their choice(s) are then stored in a variable named ``people``.
 
 The *Change to this mode* section allows the user to specify what mode
-should be triggered when everyone is away. The input type of ``mode``
-is used, so a drop down will be populated with all the modes the user
-has set up. The title property is used to show the title ``"Mode?"`` above
+should be triggered when everyone is away.
+The input type of ``mode``is used, so a drop down will be populated with all the modes the user has set up.
+The title property is used to show the title ``"Mode?"`` above
 the field. The selection is stored in the variable named ``newMode``.
 
 The section *False alarm threshold (defaults to 10 min)* allows the
-user to specify a false alarm threshold. These types of thresholds are
-common in our SmartApps. A section is shown titled "False alarm
-threshold (defaults to 10 min)". The input field type of decimal is
-used, to allow the user to input a numeric value that represents minutes.
+user to specify a false alarm threshold.
+These types of thresholds are common in our SmartApps.
+A section is shown titled "False alarm threshold (defaults to 10 min)".
+The input field type of decimal is used, to allow the user to input a numeric value that represents minutes.
 The title "Number of minutes" is specified, and we set the ``required``
-property to false. By default, all fields are required, so you must
-explicitly state if it is not required. We store the user's input in
-the variable named ``falseAlarmThreshold`` for later use.
+property to false.
+By default, all fields are required, so you must explicitly state if it is not required.
+We store the user's input in the variable named ``falseAlarmThreshold`` for later use.
 
-Finally, a section is shown labeled as "Notifications". This is where
-the user can configure how they want to be notified when everyone is away.
+Finally, a section is shown labeled as "Notifications".
+This is where the user can configure how they want to be notified when everyone is away.
 This input is a little different; it uses the special input type of ``contact``.
 You can read more about sending notifications in a SmartApp in the :ref:`smartapp_sending_notifications` section.
 
@@ -105,13 +103,13 @@ We do this through the required ``installed()`` method:
         subscribe(people, "presence", presence)
     }
 
-Upon installation, we want to keep track of the status of our people. We
-use the ``subscribe()`` method to listen to the ``presence`` attribute
-of the predefined group of presence sensors, ``people``. When the
-presence status changes of any of our people, the method ``presence``
+Upon installation, we want to keep track of the status of our people.
+We use the ``subscribe()`` method to listen to the ``presence`` attribute
+of the predefined group of presence sensors, ``people``.
+When the presence status changes of any of our people, the method ``presence``
 (the last parameter above) will be called.
 
-(Also note the ``log`` statements. We won't discuss log statements in detail,
+(Also note the ``log`` statements.We won't discuss log statements in detail,
 but providing good logging is a habit you will want to get into as a SmartApps
 developer. Good logging is invaluable when trying to debug/troubleshoot your app!)
 
@@ -168,22 +166,21 @@ Let's define our presence method.
 
 Let's break that down a bit.
 
-The first thing we need to do is see what event was triggered. We do this
-by inspecting the ``evt`` variable that is passed to our event handler.
+The first thing we need to do is see what event was triggered.
+We do this by inspecting the ``evt`` variable that is passed to our event handler.
 The presence capability can be either ``"present"`` or ``"not present"``.
 
 Next, we check that the current mode isn't already set to the mode we
 want to trigger. If we're already in our desired mode, there's nothing
 else for us to do!
 
-Now it starts to get fun! If everyone is away, we call the built-in :ref:`smartapp_run_in` method,
-which runs the method ``takeAction`` in a specified amount of time (we'll define that method shortly).
-We use a helper method ``findFalseAlarmThreshold()`` multiplied by 60
-to convert minutes to seconds, which is what the ``runIn()`` method requires.
+Now it starts to get fun! If everyone is away, we call the built-in :ref:`smartapp_run_in` method, which runs the method ``takeAction`` in a specified amount of time (we'll define that method shortly).
+We use a helper method ``findFalseAlarmThreshold()`` multiplied by 60 to convert minutes to seconds, which is what the ``runIn()`` method requires.
 We specify ``overwrite: false`` so that it won't overwrite previously scheduled
-takeAction calls. In the context of this SmartApp, it means that if one user
-leaves, and then another user leaves within the false alarm threshold time,
-``takeAction()`` will still be called twice. By default, ``overwrite`` is true,
+takeAction calls.
+In the context of this SmartApp, it means that if one user leaves, and then another user leaves within the false alarm threshold time,
+``takeAction()`` will still be called twice.
+By default, ``overwrite`` is true,
 meaning that if you scheduled takeAction to run previously, it would be
 canceled and replaced by your current call.
 
@@ -191,13 +188,14 @@ We also have defined two helper methods above, ``everyoneIsAway()``, and
 ``findFalseAlarmThreshold()``.
 
 ``everyoneIsAway()`` returns true if all configured sensors are not present,
-and false otherwise. It iterates over all the sensors configured and stored
-in the ``people`` variable, and inspects the ``currentPresence`` property.
-If the ``currentPresence`` is ``"present"``, we set the result to false, and terminate
-the loop. We then return the value of the result variable.
+and false otherwise.
+It iterates over all the sensors configured and stored in the ``people`` variable, and inspects the ``currentPresence`` property.
+If the ``currentPresence`` is ``"present"``, we set the result to false, and terminate the loop.
+We then return the value of the result variable.
 
 ``findFalseAlarmThreshold()`` gets the false alarm threshold, in minutes,
-as configured by the user. If the threshold preference has not been set,
+as configured by the user.
+If the threshold preference has not been set,
 it returns ten minutes as the default.
 
 Now we need to define our ``takeAction()`` method:
@@ -244,35 +242,27 @@ Now we need to define our ``takeAction()`` method:
 There's a lot going on here, so we'll look at some of the more interesting
 parts.
 
-The first thing we do is check again if everyone is away. This is necessary
-since something may have changed since it was already called, because of
-the ``falseAlarmThreshold``.
+The first thing we do is check again if everyone is away.
+This is necessary since something may have changed since it was already called, because of the ``falseAlarmThreshold``.
 
 If everyone is away, we need to find out how many people have been
-away for long enough, using our false alarm threshold. We create a
-variable, ``awayLongEnough`` and set it through the Groovy `findAll() <http://docs.groovy-lang.org/latest/html/groovy-jdk/java/util/Collection.html#findAll(groovy.lang.Closure)>`__ method.
-The ``findAll()`` method returns a subset of the collection based on the
-logic of the passed-in closure. For each person, we use the
-:ref:`device_current_state` method available to us, and use that to
-get the time elapsed since the event was triggered. If the time elapsed
-since this event exceeds our threshold, we add it to the ``awayLongEnough``
-collection by returning ``true`` in our closure (note that we could omit
-the "return" keyword, as it is implied in Groovy). For more information
-about the ``findAll()`` method, or how Groovy utilizes closures, consult the
-Groovy documentation at http://www.groovy-lang.org/documentation.html
+away for long enough, using our false alarm threshold.
+We create a variable, ``awayLongEnough`` and set it through the Groovy `findAll() <http://docs.groovy-lang.org/latest/html/groovy-jdk/java/util/Collection.html#findAll(groovy.lang.Closure)>`__ method.
+The ``findAll()`` method returns a subset of the collection based on the logic of the passed-in closure.
+For each person, we use the :ref:`device_current_state` method available to us, and use that to get the time elapsed since the event was triggered.
+If the time elapsed since this event exceeds our threshold, we add it to the ``awayLongEnough`` collection by returning ``true`` in our closure (note that we could omit the "return" keyword, as it is implied in Groovy).
 
-If the number of people away long enough equals the total number of
-people configured for this app, we send a message (we'll look at that
-method next), and then call the :ref:`smartapp_set_location_mode` method with the
-desired mode. This is what will cause a mode change.
+For more information about the ``findAll()`` method, or how Groovy utilizes closures, consult the Groovy documentation at http://www.groovy-lang.org/documentation.html
+
+If the number of people away long enough equals the total number of people configured for this app, we send a message (we'll look at that method next), and then call the :ref:`smartapp_set_location_mode` method with the desired mode.
+This is what will cause a mode change.
 
 The ``send()`` method takes a String parameter, ``msg``, which is the message to send.
 This is where our app sends a notification to any of the contacts the user has specified.
 
 Finally, we need to write our ``updated()`` method, which is called whenever
-the user changes any of their preferences. When this method is called,
-we need to call the ``unsubscribe()`` method, and then ``subscribe()``, to
-effectively reset our app.
+the user changes any of their preferences.
+When this method is called, we need to call the ``unsubscribe()`` method, and then ``subscribe()``, to effectively reset our app.
 
 .. code-block:: groovy
 

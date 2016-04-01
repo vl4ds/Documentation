@@ -3,19 +3,14 @@
 Preferences & Settings
 ======================
 
-.. note::
-
-    This topic discusses preferences and settings as it pertains to SmartApps. Information about device type preferences can be found in the `Device Type Developer's Guide <../device-type-developers-guide/index.html>`__
-
-
-The preferences section of a SmartApp specifies what
-kinds of devices and other information is needed in order for the
-application to run. Inputs for each of these are presented to the user
-during installation of the SmartApp from the mobile UI.  You can present all of these
-inputs on a single page, or break them up into multiple pages.
+The preferences section of a SmartApp specifies what kinds of devices and other information is needed in order for the application to run.
+Inputs for each of these are presented to the user during installation of the SmartApp from the mobile UI.
+You can present all of these inputs on a single page, or break them up into multiple pages.
 
 As usual, the best way to become comfortable with something is through trying it yourself.
 So, fire up the `web IDE <http://ide.smartthings.com>`__ and try things out!
+
+----
 
 Preferences Overview
 --------------------
@@ -69,6 +64,8 @@ The values can be accessed like this:
     log.debug "settings.someText is $settings.someText"
     log.debug "settings.someTime is $settings.someTime"
 
+----
+
 Page Definition
 ---------------
 
@@ -119,6 +116,8 @@ The valid options are:
 
 We will see more in-depth examples of pages in the following sections.
 
+----
+
 Section Definition
 ------------------
 
@@ -168,12 +167,15 @@ The valid options are:
 *mobileOnly*
     Boolean - Pass ``true`` to suppress this section from the IDE simulator. Defaults to ``false``.
 
+----
 
 Single Preferences Page
 -----------------------
 
-A single page preferences declaration is composed of one or more *section* elements, which in turn contain one or more
-*elements*. Note that there is no *page* defined in the example below. When creating a single-page preferences app, there's no need to define the page explicitly - it's implied. Here's an example:
+A single page preferences declaration is composed of one or more *section* elements, which in turn contain one or more *elements*.
+Note that there is no *page* defined in the example below.
+When creating a single-page preferences app, there's no need to define the page explicitly - it's implied.
+Here's an example:
 
 .. code-block:: groovy
 
@@ -198,15 +200,20 @@ Which would be rendered in the mobile app UI as:
     :height: 447 px
 
 Note that in the above example, we did not specify the name or mode input, yet they appeared on our preferences page.
-When defining single-page preferences, name and mode are automatically added. Also note that inputs that are marked as ``required: true`` are displayed differently by the mobile application, so that the user knows they are required. The mobile application will prevent the user from going to the next page or installing the SmartApp without entering required inputs.
+When defining single-page preferences, name and mode are automatically added.
+Also note that inputs that are marked as ``required: true`` are displayed differently by the mobile application, so that the user knows they are required.
+The mobile application will prevent the user from going to the next page or installing the SmartApp without entering required inputs.
+
+----
 
 Multiple Preferences Pages
 --------------------------
 
-Preferences can also be broken up into multiple pages. Each page must contain one or more *section*
-elements. Each page specifies a *name* property that is referenced by the *nextPage* property. The *nextPage*
-property is used to define the flow of the pages. Unlike single page preferences, the app name and mode control
-fields are not automatically added, and must be specified on the desired page or pages.
+Preferences can also be broken up into multiple pages.
+Each page must contain one or more *section* elements.
+Each page specifies a *name* property that is referenced by the *nextPage* property.
+The *nextPage* property is used to define the flow of the pages.
+Unlike single page preferences, the app name and mode control fields are not automatically added, and must be specified on the desired page or pages.
 
 Here's an example that defines three pages:
 
@@ -236,8 +243,7 @@ Here's an example that defines three pages:
         }
     }
 
-The resulting pages in the mobile app would show the name and mode control fields only on the third page, and the
-uninstall button on the first and third pages:
+The resulting pages in the mobile app would show the name and mode control fields only on the third page, and the uninstall button on the first and third pages:
 
 ====================================================    ====================================================    ====================================================
 Page 1                                                  Page 2                                                  Page 3
@@ -245,16 +251,16 @@ Page 1                                                  Page 2                  
 .. image:: ../img/smartapps/multiple-pages-page1.png    .. image:: ../img/smartapps/multiple-pages-page2.png    .. image:: ../img/smartapps/multiple-pages-page3.png
 ====================================================    ====================================================    ====================================================
 
+----
+
 Preference Elements & Inputs
 ----------------------------
 
 Preference pages (single or multiple) are composed of one or more sections, each of which contains one or more of the
 following elements:
 
-----
-
 paragraph
-~~~~~~~~~
+^^^^^^^^^
 
 Text that's displayed on the page for messaging and instructional purposes.
 
@@ -290,10 +296,8 @@ Valid options:
 *required*
     Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``.
 
-----
-
 icon
-~~~~
+^^^^
 
 Allows the user to select an icon to be used when displaying the app in the mobile UI
 
@@ -328,10 +332,8 @@ Valid options:
 *required*
     Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``.
 
-----
-
 href
-~~~~
+^^^^
 
 A control that selects another preference page or external HTML page.
 
@@ -453,12 +455,10 @@ Valid options:
 *image*
     String - URL of an image to use, if desired.
 
-----
-
 .. _mode_pref:
 
 mode
-~~~~
+^^^^
 
 Allows the user to select which modes the app executes in. Automatically generated by single-page preferences.
 
@@ -524,10 +524,8 @@ Valid options:
     Both of these methods of using modes are valid. The impact on SmartApp execution is different in each scenario and
     it is up to the SmartApp developer to properly label whichever form is used and code the app accordingly.
 
-----
-
 label
-~~~~~
+^^^^^
 
 Allows the user to name the app installation. Automatically generated by single-page preferences.
 
@@ -563,7 +561,7 @@ The above preferences definition would render as:
 .. note::
 
     Images do not currently render in ``label`` inputs on Android.
-    
+
 Valid options:
 
 *title*
@@ -575,17 +573,13 @@ Valid options:
 *image*
     String - URL to an image to use, if desired
 
-----
-
 app
-~~~
+^^^
 
-Provides user-initiated installation of child apps. Typically used in dashbard solution SmartApps, which are currently not supported for community development.
-
-----
+Provides user-initiated installation of child apps.
 
 input
-~~~~~
+^^^^^
 
 Allows the user to select devices or enter values to be used during execution of the smart app.
 
@@ -661,6 +655,8 @@ Valid input options:
     text                         A text value
     ===========================  ===========================================================================================
 
+----
+
 Dynamic Preferences
 -------------------
 
@@ -731,7 +727,8 @@ on the selections made on the first page.
         }
     }
 
-The previous example shows how you can achieve dynamic behavior between pages. With the ``submitOnChange`` input attribute
+The previous example shows how you can achieve dynamic behavior between pages.
+With the ``submitOnChange`` input attribute
 you can also have dynamic behavior in a single page.
 
 .. code-block:: groovy
@@ -767,6 +764,8 @@ you can also have dynamic behavior in a single page.
     When a ``submitOnChange`` input is changed, the whole page will be saved.
     Then a refresh is triggered with the saved page state.
     This means that all of the methods will execute each time you change a submitOnChange input.
+
+----
 
 Private Settings
 ----------------
@@ -811,6 +810,8 @@ You can access the values like this:
     Any desired type conversion will need to be performed manually.
 
 Any SmartApp that requires the use of API keys or other information that is sensitive in nature should use ``appSettings`` to store this information.
+
+----
 
 Examples
 --------

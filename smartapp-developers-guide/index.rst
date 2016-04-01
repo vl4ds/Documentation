@@ -5,14 +5,7 @@ SmartApps
 
 SmartApps are Groovy-based programs that allow a user to tap into the capabilities of their devices to automate their lives.
 
-If you haven't written a SmartApp yet, there are a few resouces you should check out:
-
- - `How to Build a SmartApp Demo Video <https://youtu.be/WdmKTq6Gk_w>`__ (2 minutes)
- - :ref:`first-smartapp-tutorial` - a tutorial for creating your first SmartApp.
-
-After that, you should review the :ref:`anatomy-and-lifecycle-of-a-smartapp` to understand the overall structure and lifecycle of a SmartApp.
-
-The contents of this guide are below:
+If you haven't written a SmartApp yet, you should work through the :ref:`first-smartapp-tutorial`.
 
 .. toctree::
    :maxdepth: 1

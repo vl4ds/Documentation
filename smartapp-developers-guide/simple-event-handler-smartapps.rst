@@ -4,18 +4,24 @@
 Events and Subscriptions
 ========================
 
-Turn on a light when a door opens. Turn the lights off at sunrise. Send a message if a door opens when you're not home. These are all examples of event-handler SmartApps. They follow a common pattern - subscribe to some event, and take action when the event happens. 
+Turn on a light when a door opens.
+Turn the lights off at sunrise.
+Send a message if a door opens when you're not home.
+These are all examples of event-handler SmartApps.
+They follow a common pattern - subscribe to some event, and take action when the event happens.
 
-This section will discuss events and how you can subscribe to them in your SmartApp. 
+This section will discuss events and how you can subscribe to them in your SmartApp.
+
+----
 
 Subscribe to Specific Device Events
 -----------------------------------
 
 The most common use case for event subscriptions is for device events:
 
-**subscribe(deviceName, "eventToSubscribeTo", handlerMethodName)**
-
-.. code-block:: groovy 
+.. code-block:: groovy
+    :linenos:
+    :emphasize-lines: 8
 
     preferences {
         section {
@@ -31,15 +37,18 @@ The most common use case for event subscriptions is for device events:
         log.debug "switch turned on!"
     }
 
-The handler method must accept an event parameter. 
+The handler method must accept an event parameter.
 
 Refer to the :ref:`event_ref` API documentation for more information about the Event object.
 
-You can find the possible events to subscribe to by referring to the Attributes column for a capability in the :ref:`capabilities_taxonomy`. The general form we use is "<attributeName>.<attributeValue>". If the attribute does not have any possible values (for example, "battery"), you would just use the attribute name. 
+You can find the possible events to subscribe to by referring to the Attributes column for a capability in the :ref:`capabilities_taxonomy`.
+The general form we use is "<attributeName>.<attributeValue>".
+If the attribute does not have any possible values (for example, "battery"), you would just use the attribute name.
 
-In the example above, the switch capability has the attribute "switch", with possible values "on" and "off". Putting these together, we use "switch.on".
+In the example above, the switch capability has the attribute "switch", with possible values "on" and "off".
+Putting these together, we use "switch.on".
 
-.. note::
+----
 
 Subscribe to All Device Events
 ------------------------------
@@ -47,7 +56,7 @@ Subscribe to All Device Events
 You can also subscribe to all states by just specifying the attribute name:
 
 .. code-block:: groovy
-    
+
     subscribe(theSwitch, "switch", switchHandler)
 
     def switchHandler(evt) {
@@ -60,6 +69,8 @@ You can also subscribe to all states by just specifying the attribute name:
 
 
 In this case, the ``switchHandler`` method will be called for both the "on" and "off" events.
+
+----
 
 Subscribe to Multiple Devices
 -----------------------------
@@ -81,6 +92,8 @@ If your SmartApp allows multiple devices, you can subscribe to events for all th
     def switchesHandler(evt) {
         log.debug "one of the configured switches changed states"
     }
+
+----
 
 Subscribe to Location Events
 ----------------------------
@@ -119,6 +132,8 @@ Pass in the location property automatically injected into every SmartApp as the 
 
 Refer to the `Sunset and Sunrise <http://docs.smartthings.com/en/latest/smartapp-developers-guide/sunset-and-sunrise.html>`__ section for more information about sunrise and sunset.
 
+----
+
 The Event Object
 ----------------
 
@@ -139,13 +154,13 @@ A few of the common ways of using the event:
 
         // get the Date this event happened at
         log.debug "This event happened at ${evt.date}"
-        
+
         // did the value of this event change from its previous state?
         log.debug "The value of this event is different from its previous value: ${evt.isStateChange()}"
     }
 
-.. note:: 
-    The contents of each Event instance will vary depending on the exact event. If you refer to the Event reference documentation, you will see different value methods, like "floatValue" or "dateValue". These may or may not be populated depending on the specific event, and may even throw exceptions if not applicable. 
+.. note::
+    The contents of each Event instance will vary depending on the exact event. If you refer to the Event reference documentation, you will see different value methods, like "floatValue" or "dateValue". These may or may not be populated depending on the specific event, and may even throw exceptions if not applicable.
 
 See Also
 --------

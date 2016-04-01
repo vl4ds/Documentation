@@ -11,12 +11,7 @@ Routines
     :width: 250 px
     :height: 447 px
 
-In this chapter, you will learn:
-
-- What Routines are
-- How to get the available Routines for a location
-- How to execute Routines in a SmartApp
-- How to subscribe to a Routine being executed
+----
 
 Overview
 --------
@@ -67,7 +62,8 @@ To execute a Routine, you can call the ``execute()`` method on ``helloHome``:
 Allowing Users to Select Routines
 ---------------------------------
 
-A SmartApp may want to allow a user to execute certain Routines in a SmartApp. Since the routines for each location will vary, we need to get the available routines, and use them as options for an ``enum`` input type.
+A SmartApp may want to allow a user to execute certain Routines in a SmartApp.
+Since the routines for each location will vary, we need to get the available routines, and use them as options for an ``enum`` input type.
 
 This needs to be done in a dynamic preferences page, since we need to execute some code to populate the available actions:
 
@@ -107,7 +103,8 @@ You can then access the selected phrase like so:
 Routine Events
 --------------
 
-When a routine is executed, a ``"routineExecuted"`` event is created for that location. Here's how you can subscribe to a routine being executed in a SmartApp:
+When a routine is executed, a ``"routineExecuted"`` event is created for that location.
+Here's how you can subscribe to a routine being executed in a SmartApp:
 
 .. code-block:: groovy
 
@@ -133,6 +130,8 @@ When a routine is executed, a ``"routineExecuted"`` event is created for that lo
         // e.g., "I'm Back! was executed" or "Goodbye! was executed"
         log.debug "evt descriptionText: ${evt.descriptionText}"
     }
+
+----
 
 Example
 -------
