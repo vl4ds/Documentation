@@ -8,6 +8,11 @@ Writing Your First SmartApp
 
 This tutorial will guide you through writing your first SmartApp. Once you've read through the Getting Started material, this should be your next stop.
 
+----
+
+Goals
+-----
+
 At the end of this tutorial, you will know:
 
 - How to create a SmartApp using the web-based IDE.
@@ -24,12 +29,16 @@ The SmartApp we will create will be fairly simple, but will teach you some core 
 
 The purpose of the SmartApp we'll write is to turn a switch on when motion is detected, and turn it off when motion stops.
 
+----
+
 Prerequisites
 -------------
 
 Before completing this tutorial, you should have read the :ref:`get-started-overview`, and registered for an account as discussed in the :ref:`quick-start` page. It's recommended that you are at least familiar with the basic Groovy concepts discussed in the :ref:`groovy-basics` and :ref:`groovy-for-smartthings` tutorials.
 
 The SmartApp will utilize a motion sensor and a smart switch. If you don't have these devices, or even a hub, you can still complete the majority of this tutorial. We will call out any special steps required if you don't have the hardware.
+
+----
 
 Create a SmartApp
 -----------------
@@ -632,13 +641,13 @@ Here is the entire code for our SmartApp:
 But How Does the Switch Actually Turn On (or off)!?
 ---------------------------------------------------
 
-Now that we understand how to control devices in a SmartApp, you may be wondering how exactly the method ``switch.on()`` turns on the switch. The answer is Device Type Handlers.
+Now that we understand how to control devices in a SmartApp, you may be wondering how exactly the method ``switch.on()`` turns on the switch. The answer is Device Handlers.
 
-Device Type Handlers are software much the same way SmartApps are. They define what actually happens when you call ``switch.on()``. Let's look at an example to further understand this.
+Device Handlers are software much the same way SmartApps are. They define what actually happens when you call ``switch.on()``. Let's look at an example to further understand this.
 
-When you connect a new device to your SmartThings Hub, a Device Type Handler is picked for it based on the signature the device delivered to the Hub as part of its pairing communication. The Device Type Handler will have methods defined in it that support that device. So in our case, the Device Type Handler for the specific switch being used will have both ``on()`` and ``off()`` methods defined. The actual implementation of these methods vary depending upon the underlying device protocols, but are typically low-level protocol-specific commands to send to the device (like Z-Wave or ZigBee).
+When you connect a new device to your SmartThings Hub, a Device Handler is picked for it based on the signature the device delivered to the Hub as part of its pairing communication. The Device Handler will have methods defined in it that support that device. So in our case, the Device Handler for the specific switch being used will have both ``on()`` and ``off()`` methods defined. The actual implementation of these methods vary depending upon the underlying device protocols, but are typically low-level protocol-specific commands to send to the device (like Z-Wave or ZigBee).
 
-So, when ``switch.on()`` gets executed from your SmartApp, the SmartThings platform will look up the Device Type Handler associated with the device and call its ``on()`` method, which will in turn send the protocol and device-specific command through the hub to the device. Device Type Handlers are discussed in the :ref:`device_type_dev_guide` guide.
+So, when ``switch.on()`` gets executed from your SmartApp, the SmartThings platform will look up the Device Handler associated with the device and call its ``on()`` method, which will in turn send the protocol and device-specific command through the hub to the device. Device Handlers are discussed in the :ref:`device_type_dev_guide` guide.
 
 ----
 
@@ -662,20 +671,20 @@ Next Steps
 Now that you've written your first SmartApp and have a basic understanding of the SmartThings developer tools, language, and workflow, here are some further topics for you to pursue.
 
 More About SmartApps
-````````````````````
+^^^^^^^^^^^^^^^^^^^^
 
 There is much more you can do with SmartApps than this tutorial covered. SmartApps can :ref:`send notifications <smartapp-sending-notifications>`, :ref:`execute routines <smartapp-routines>`, :ref:`define advanced schedules <smartapp-scheduling>` for which they execute, :ref:`call external web services <calling_web_services>`, and more. You can learn more about developing SmartApps in the :ref:`smartapp_dev_guide` guide.
 
 You can also make your SmartApp into a web service, capable of exposing its own REST endpoints. You can read about them in the :ref:`smartapp_web_services_guide` guide.
 
 Fork It!
-````````
+^^^^^^^^
 
-SmartThings SmartApps and Device Type Handlers are now hosted in GitHub. Further, the IDE can integrate with GitHub, to provide a seamless developer experience. Learn more about it in the :ref:`github_integration` chapter of the :ref:`tools_ide` guide. Happy forking!
+SmartThings SmartApps and Device Handlers are now hosted in GitHub. Further, the IDE can integrate with GitHub, to provide a seamless developer experience. Learn more about it in the :ref:`github_integration` chapter of the :ref:`tools_ide` guide. Happy forking!
 
-Device Type Development
-```````````````````````
+Device Handler Development
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you're interested in learning more about Device Type Handlers, and how to write one, head over to the :ref:`device_type_dev_guide` guide.
+If you're interested in learning more about Device Handlers, and how to write one, head over to the :ref:`device_type_dev_guide` guide.
 
 .. [1] Solution Module SmartApps are not currently available for developers, but support for this is planned in the near future.

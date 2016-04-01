@@ -13,6 +13,8 @@ The Groovy programming language is documented at http://www.groovy-lang.org/docu
 
 To develop with SmartThings, you do not need to be an expert in Groovy. The SmartThings development environment was created to be easy-to-use, so that it does not require someone to be proficient in Groovy (or any other language). That said, having a basic understanding of some of the core concepts of Groovy will help you be most productive in your development.
 
+----
+
 Overview
 --------
 
@@ -771,10 +773,12 @@ Groovy imports several Java and Groovy packages by default. The following packag
 - ``groovy.lang.*``
 - ``groovy.util.*``
 
+----
+
 What About Classes?
 -------------------
 
-At the beginning of this tutorial, we said that Groovy is an object-oriented language. Yet, we haven't discussed creating classes in this tutorial. The reason for this is that in SmartThings, creating your own classes actually isn't possible. In SmartThings, each SmartApp or Device Type Handler is a relatively small, contained piece of code that runs in a sandboxed environment.
+At the beginning of this tutorial, we said that Groovy is an object-oriented language. Yet, we haven't discussed creating classes in this tutorial. The reason for this is that in SmartThings, creating your own classes actually isn't possible. In SmartThings, each SmartApp or Device Handler is a relatively small, contained piece of code that runs in a sandboxed environment.
 
 If you want to learn more about classes in Groovy in general or for usage outside of SmartThings, see the Groovy documentation.
 

@@ -5,22 +5,24 @@ Groovy With SmartThings
 
 SmartThings runs Groovy in a sandboxed environment. This means that not all features of the Groovy programming language are available in SmartThings. To understand why, we need to understand where SmartThings code is executed.
 
-All SmartThings code is executed in, and by, the SmartThings ecosystem. When you write a SmartApp or a Device Type Handler, it will ultimately be executed by the SmartThings platform. It may execute on the Hub or in the SmartThings cloud, but the important thing to note is that it is executed by SmartThings.
+All SmartThings code is executed in, and by, the SmartThings ecosystem. When you write a SmartApp or a Device Handler, it will ultimately be executed by the SmartThings platform. It may execute on the Hub or in the SmartThings cloud, but the important thing to note is that it is executed by SmartThings.
 
-Because SmartApps and Device Type Handlers execute within the SmartThings ecosystem, SmartThings restricts access to certain methods or features. You can't create or open a file, for example.
+Because SmartApps and Device Handlers execute within the SmartThings ecosystem, SmartThings restricts access to certain methods or features. You can't create or open a file, for example.
 
-Before we discuss the specifics of what is and what is not available to your SmartApps and Device Type Handlers, we'll first discuss how SmartThings makes several APIs available within your SmartApp or Device Type Handler. While this is not strictly necessary to understand to be able to develop with SmartThings, it may help to shed light on what is happening behind the scenes.
+Before we discuss the specifics of what is and what is not available to your SmartApps and Device Handlers, we'll first discuss how SmartThings makes several APIs available within your SmartApp or Device Handler. While this is not strictly necessary to understand to be able to develop with SmartThings, it may help to shed light on what is happening behind the scenes.
+
+----
 
 How It Works
 ------------
 
 One of the first things you'll notice when starting to develop with SmartThings, is that there are many methods available to you that do not require any import statements. In fact, it's rare to see import statements at all in SmartThings.
 
-This is because every SmartApp or Device Type Handler is actually an instance of an abstract *Executor* class defined in the SmartThings platform. This *Executor* class defines or includes many methods. The result of this is that every SmartApp or Device Type Handler has available to it (through inheritance) a large number of methods without importing anything.
+This is because every SmartApp or Device Handler is actually an instance of an abstract *Executor* class defined in the SmartThings platform. This *Executor* class defines or includes many methods. The result of this is that every SmartApp or Device Handler has available to it (through inheritance) a large number of methods without importing anything.
 
-This model provides a simple framework in which you can develop your SmartApps and Device Type Handlers - all the necessary methods are simply available to call without needing to import anything.
+This model provides a simple framework in which you can develop your SmartApps and Device Handlers - all the necessary methods are simply available to call without needing to import anything.
 
-Now that we understand (at least at a high level) how SmartApps and Device Type Handlers make various methods available, let's look at some of the things that are *not* allowed within SmartThings code. After that, we'll look at the entire whitelist of allowable classes.
+Now that we understand (at least at a high level) how SmartApps and Device Handlers make various methods available, let's look at some of the things that are *not* allowed within SmartThings code. After that, we'll look at the entire whitelist of allowable classes.
 
 ----
 
@@ -28,14 +30,14 @@ Language Simplifications
 ------------------------
 
 Classes and JARs
-````````````````
+^^^^^^^^^^^^^^^^
 
-As a SmartApp or Device Type Handler author, you cannot create your own classes, or import any custom JARs. While at first this may seem like a significant restriction, in practice you'll rarely find this to be the case. Because of the nature of SmartApps and Device Type Handlers, and the various methods available to you, the need to create your own classes or object structures is rarely needed.
+As a SmartApp or Device Handler author, you cannot create your own classes, or import any custom JARs. While at first this may seem like a significant restriction, in practice you'll rarely find this to be the case. Because of the nature of SmartApps and Device Handlers, and the various methods available to you, the need to create your own classes or object structures is rarely needed.
 
 There may be certain scenarios in which you discover your task would be easier if only you could import some third-party library or create your own helper class. In cases like these, reach out to us on the forums and let us know your specific use case. It's possible there already exists an API to do what you need, and if not, we may be able to get it added to SmartThings.
 
 Restricted Methods
-``````````````````
+^^^^^^^^^^^^^^^^^^
 
 Because SmartThings code executes within its own ecosystem, there are a few methods that we restrict for security purposes. Many of these methods deal with Groovy's advanced metaprogramming concepts. Groovy metaprogramming allows developers to get and modify runtime information for objects. In SmartThings, this isn't necessary to do and is a potential security risk, so they are disabled.
 
@@ -56,10 +58,10 @@ Here are the methods that are not available in SmartThings. Trying to access the
 - ``sleep()``
 
 Global Variables
-````````````````
+^^^^^^^^^^^^^^^^
 
 Constants
-~~~~~~~~~
+`````````
 
 Due to the sandboxed nature of SmartApp and Device Handler execution, defining global constant variables like this will **not** work:
 
@@ -80,7 +82,7 @@ Instead, for any global constants you'd like in your SmartApp or Device Handler,
 You can then call the method directly, or use some :ref:`Groovy magic <groovy_getters_setters>` to invoke no-arg getters.
 
 Mutable Variables
-~~~~~~~~~~~~~~~~~
+`````````````````
 
 Similarly, creating a global variable and then updating it will **not** work:
 
@@ -96,7 +98,7 @@ Similarly, creating a global variable and then updating it will **not** work:
 Instead, any information you need persisted between executions needs to be stored the application :ref:`state <storing-data>`.
 
 Other Notable Restrictions
-``````````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There are a few other notable restrictions in SmartThings worth discussing:
 
@@ -112,7 +114,7 @@ Allowed Classes
 
 SmartThings also specifies a *whitelist* of allowed classes. Only classes included in this whitelist are available for use within SmartThings. Whenever a method is called (any method), SmartThings first checks to see that the *receiver* of the method (the object the method is being called on) is in the allowable types whitelist. If it isn't, a ``SecurityException`` will be thrown. This same principle applies to the creation of new objects with the ``new`` keyword - if the object being created is not in the whitelist, a ``SecurityException`` is also thrown.
 
-Most SmartThings solutions will not need to instantiate any of these classes directly. The majority of objects you work with will be available to you via callback parameters or injected right into your SmartApp or Device Type Handler.
+Most SmartThings solutions will not need to instantiate any of these classes directly. The majority of objects you work with will be available to you via callback parameters or injected right into your SmartApp or Device Handler.
 Here is the whitelist of available, non-SmartThings-specific types (i.e., Java, Groovy and third party library classes):
 
 .. important::
