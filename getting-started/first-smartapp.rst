@@ -23,7 +23,7 @@ At the end of this tutorial, you will know:
 - How to schedule a SmartApp to execute in the future.
 - How to use the simulator to test your SmartApp.
 - How to publish your SmartApp and install it on your mobile phone.
-- :strike:`How to achieve world domination, without even trying`
+- :strike:`How to achieve world domination, without even trying.`
 
 The SmartApp we will create will be fairly simple, but will teach you some core concepts of SmartThings, and get you familiar with the development process.
 
@@ -65,7 +65,7 @@ For our SmartApp, let's stick to the "From Form" option.
 Fill out the form as follows:
 
 Name
-    A name for your SmartApp. Call it something like "My First SmartApp"
+    A name for your SmartApp. Call it something like "My First SmartApp".
 
 Namespace
     This field uniquely identifies your SmartApp in the event that someone else has written a SmartApp with the exact same name. This should be your GitHub username (or if you don't have a GitHub account, some other unique identifier).
@@ -77,7 +77,7 @@ Description
     This describes the intent and functionality of your SmartApp. This appears in the SmartApp marketplace, so the better the description, the less confusing it is to users.
 
 Category
-    SmartApps are categorized based on functionality. This is used by the mobile applications. When publishing SmartApps for your own use (which is what we will be doing), all SmartApps will appear in "My Apps" category. Just to be complete, go ahead and select "My Apps".
+    SmartApps are categorized based on functionality. This is used by the mobile applications. When publishing SmartApps for your own use (which is what we will be doing), all SmartApps will appear in "My Apps" category.
 
 Leave the rest of the fields as they are, and click the "Create" button at the bottom. This will create the SmartApp and populate it with some skeleton code. In the next section we will dive into using the editor to begin writing your first SmartApp.
 
@@ -231,7 +231,7 @@ The last thing to note in our ``input`` method call is the ``required: true`` ar
 
     By requiring users to select which devices the SmartApp will work with, SmartThings is providing a basic security feature - SmartThings can only control those devices which a user explicitly chooses. SmartApps cannot control devices which the user did not select, and this is by design.
 
-To summarize, when the user installs the SmartApp on their mobile phone, they will be prompted to select a device that supports the switch capability. The mobile app will provide them with a list of devices for this user's location that support the switch capability. The device chosen will then be be identified within the SmartApp as ``theswitch``.
+To summarize, when the user installs the SmartApp on their mobile phone, they will be prompted to select a device that supports the switch capability. The mobile app will provide them with a list of devices for this user's location that support the switch capability. The device chosen will then be identified within the SmartApp as ``theswitch``.
 
 We covered a lot of information for such a small amount of code, but it's important that you understand the importance of ``preferences`` and capabilities.
 
@@ -275,7 +275,7 @@ Similarly, the ``updated()`` method is called when a user updates their installa
 
 In our ``updated()`` method, notice that the first thing we do (aside from some logging, which is discussed shortly), is to call a method called :ref:`smartapp_unsubscribe`. This method is provided by the SmartThings platform, and simply removes any existing subscriptions this SmartApp has created. This is important, since the user has just changed their preferences for this SmartApp. If we didn't do this, we might still be subscribed to events for devices that the user has removed from the SmartApp.
 
-Also, note that both ``installed()`` and ``updated()`` call a method named ``initialize()``. Since both ``installed()`` and ``upated()`` typically both create subscriptions or schedules, we can reduce code duplication by using a helper method.
+Also, note that both ``installed()`` and ``updated()`` call a method named ``initialize()``. Since both ``installed()`` and ``updated()`` typically both create subscriptions or schedules, we can reduce code duplication by using a helper method.
 
 We also use the built-in logger (``log``) to log information. SmartThings does not currently have a debugger within the IDE, so use the ``log()`` method to log information that might be useful for debugging. The logs are available by clicking *Live Logging* at the top of the IDE.
 
@@ -567,24 +567,24 @@ Here is the entire code for our SmartApp:
 .. code-block:: groovy
 
     definition(
-            name: "My First SmartApp",
-            namespace: "mygithubusername",
-            author: "Peter Gregory",
-            description: "This is my first SmartApp. Woot!",
-            category: "My Apps",
-            iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
-            iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
-            iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+        name: "My First SmartApp",
+        namespace: "mygithubusername",
+        author: "Peter Gregory",
+        description: "This is my first SmartApp. Woot!",
+        category: "My Apps",
+        iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+        iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
+        iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
 
     preferences {
     	section("Turn on when motion detected:") {
-        	input "themotion", "capability.motionSensor", required: true, title: "Where?"
+            input "themotion", "capability.motionSensor", required: true, title: "Where?"
         }
         section("Turn off when there's been no movement for") {
-        	input "minutes", "number", required: true, title: "Minutes?"
+            input "minutes", "number", required: true, title: "Minutes?"
         }
         section("Turn on this light") {
-        	input "theswitch", "capability.switch", required: true
+            input "theswitch", "capability.switch", required: true
         }
     }
 
@@ -618,27 +618,27 @@ Here is the entire code for our SmartApp:
     	def motionState = themotion.currentState("motion")
 
         if (motionState.value == "inactive") {
-    		// get the time elapsed between now and when the motion reported inactive
+            // get the time elapsed between now and when the motion reported inactive
             def elapsed = now() - motionState.date.time
 
             // elapsed time is in milliseconds, so the threshold must be converted to milliseconds too
             def threshold = 1000 * 60 * minutes
 
-    		if (elapsed >= threshold) {
+            if (elapsed >= threshold) {
                 log.debug "Motion has stayed inactive long enough since last check ($elapsed ms):  turning switch off"
                 theswitch.off()
-        	} else {
+            } else {
             	log.debug "Motion has not stayed inactive long enough since last check ($elapsed ms):  doing nothing"
             }
         } else {
-        	// Motion active; just log it and do nothing
-        	log.debug "Motion is active, do nothing and wait for inactive"
+            // Motion active; just log it and do nothing
+            log.debug "Motion is active, do nothing and wait for inactive"
         }
     }
 
 ----
 
-But How Does the Switch Actually Turn On (or off)!?
+But How Does the Switch Actually Turn On (or Off)!?
 ---------------------------------------------------
 
 Now that we understand how to control devices in a SmartApp, you may be wondering how exactly the method ``switch.on()`` turns on the switch. The answer is Device Handlers.
