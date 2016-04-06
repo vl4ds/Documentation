@@ -1,6 +1,6 @@
 .. _prefs_and_settings:
 
-Preferences & Settings
+Preferences and Settings
 ======================
 
 The preferences section of a SmartApp specifies what kinds of devices and other information is needed in order for the application to run.
@@ -249,11 +249,13 @@ The resulting pages in the mobile app would show the name and mode control field
 Page 1                                                  Page 2                                                  Page 3
 ====================================================    ====================================================    ====================================================
 .. image:: ../img/smartapps/multiple-pages-page1.png    .. image:: ../img/smartapps/multiple-pages-page2.png    .. image:: ../img/smartapps/multiple-pages-page3.png
+    :width: 250 px                                          :width: 250 px                                          :width: 250 px
+    :height: 447 px                                         :height: 447 px                                         :height: 447 px
 ====================================================    ====================================================    ====================================================
 
 ----
 
-Preference Elements & Inputs
+Preference Elements and Inputs
 ----------------------------
 
 Preference pages (single or multiple) are composed of one or more sections, each of which contains one or more of the

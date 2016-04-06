@@ -66,7 +66,7 @@ Their choice(s) are then stored in a variable named ``people``.
 
 The *Change to this mode* section allows the user to specify what mode
 should be triggered when everyone is away.
-The input type of ``mode``is used, so a drop down will be populated with all the modes the user has set up.
+The input type of ``mode`` is used, so a drop down will be populated with all the modes the user has set up.
 The title property is used to show the title ``"Mode?"`` above
 the field. The selection is stored in the variable named ``newMode``.
 
@@ -82,7 +82,7 @@ We store the user's input in the variable named ``falseAlarmThreshold`` for late
 
 Finally, a section is shown labeled as "Notifications".
 This is where the user can configure how they want to be notified when everyone is away.
-This input is a little different; it uses the special input type of ``contact``.
+This input is a little different; it uses the special input type ``contact``.
 You can read more about sending notifications in a SmartApp in the :ref:`smartapp_sending_notifications` section.
 
 ----
@@ -109,9 +109,9 @@ of the predefined group of presence sensors, ``people``.
 When the presence status changes of any of our people, the method ``presence``
 (the last parameter above) will be called.
 
-(Also note the ``log`` statements.We won't discuss log statements in detail,
-but providing good logging is a habit you will want to get into as a SmartApps
-developer. Good logging is invaluable when trying to debug/troubleshoot your app!)
+(Also note the ``log`` statements. We won't discuss log statements in detail,
+but providing thorough logging is a habit you will want to get into as a SmartApps
+developer. It is invaluable when trying to debug or troubleshoot your app!)
 
 Let's define our presence method.
 
@@ -174,18 +174,10 @@ Next, we check that the current mode isn't already set to the mode we
 want to trigger. If we're already in our desired mode, there's nothing
 else for us to do!
 
-Now it starts to get fun! If everyone is away, we call the built-in :ref:`smartapp_run_in` method, which runs the method ``takeAction`` in a specified amount of time (we'll define that method shortly).
-We use a helper method ``findFalseAlarmThreshold()`` multiplied by 60 to convert minutes to seconds, which is what the ``runIn()`` method requires.
-We specify ``overwrite: false`` so that it won't overwrite previously scheduled
-takeAction calls.
-In the context of this SmartApp, it means that if one user leaves, and then another user leaves within the false alarm threshold time,
-``takeAction()`` will still be called twice.
-By default, ``overwrite`` is true,
-meaning that if you scheduled takeAction to run previously, it would be
-canceled and replaced by your current call.
+Now it starts to get fun!
 
-We also have defined two helper methods above, ``everyoneIsAway()``, and
-``findFalseAlarmThreshold()``.
+We have defined two helper methods above:
+``everyoneIsAway()`` and ``findFalseAlarmThreshold()``.
 
 ``everyoneIsAway()`` returns true if all configured sensors are not present,
 and false otherwise.
@@ -196,7 +188,17 @@ We then return the value of the result variable.
 ``findFalseAlarmThreshold()`` gets the false alarm threshold, in minutes,
 as configured by the user.
 If the threshold preference has not been set,
-it returns ten minutes as the default.
+it returns 10 minutes as the default.
+
+If everyone is away, we call the built-in :ref:`smartapp_run_in` method, which runs the method ``takeAction()`` in a specified amount of time (we'll define that method shortly).
+We use ``findFalseAlarmThreshold()`` multiplied by 60 to convert minutes to seconds, which is what the ``runIn()`` method requires.
+We specify ``overwrite: false`` so it won't overwrite previously scheduled
+``takeAction()`` calls.
+In the context of this SmartApp, it means that if one user leaves, and then another user leaves within the false alarm threshold time,
+``takeAction()`` will still be called twice.
+By default, ``overwrite`` is true,
+so any previously scheduled ``takeAction()`` calls would be
+canceled and replaced by your current call.
 
 Now we need to define our ``takeAction()`` method:
 
@@ -243,7 +245,7 @@ There's a lot going on here, so we'll look at some of the more interesting
 parts.
 
 The first thing we do is check again if everyone is away.
-This is necessary since something may have changed since it was already called, because of the ``falseAlarmThreshold``.
+This is necessary since something may have changed since it was already called, because of the ``falseAlarmThreshold()``.
 
 If everyone is away, we need to find out how many people have been
 away for long enough, using our false alarm threshold.
