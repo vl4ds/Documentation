@@ -151,9 +151,9 @@ Unordered lists use a ``-`` or ``*`` character:
 Inline Markup
 ^^^^^^^^^^^^^
 
-- Surround text with \* for *italics text*
-- Surround text with \** for **strong text**
-- Surround text with \`` for code samples (``someMethod()``)
+- Surround text with \* for *italics text*.
+- Surround text with \** for **strong text**.
+- Surround text with \`` for code samples (``someMethod()``).
 
 When referring to method calls in the documentation, place ``()`` after the method name: ``methodName()``.
 This helps distinguish methods from other code literals.
