@@ -427,9 +427,9 @@ Examples
 
 Here are some examples in the ``SmartThingsPublic`` repository that make use of schedules:
 
-- Once-A-Day_ - uses ``schedule()`` turn switches on and off every day at a specified time.
-- Turn-It-On_ - uses ``runIn()`` to turn a switch off after five minutes.
-- Left-It-Open_ - uses ``runIn()`` to see if a door has been left open for a specified number of minutes.
+- Once-A-Day_ uses ``schedule()`` turn switches on and off every day at a specified time.
+- Turn-It-On_ uses ``runIn()`` to turn a switch off after five minutes.
+- Left-It-Open_ uses ``runIn()`` to see if a door has been left open for a specified number of minutes.
 
 ----
 

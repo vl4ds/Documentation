@@ -26,10 +26,12 @@ Big Picture
 
 .. TODO: I think we need a nicer looking picture. (Jesse O'Neill-Oine)
 
+.. TODO: Picture says "Web IU", should be "UI"? (charlie@gorichanaz.com)
+
 |Container Hierarchy|
 
 Devices
-```````
+^^^^^^^
 
 Devices are the building blocks of the SmartThings infrastructure. They
 are the connection between the SmartThings system and the physical
@@ -40,11 +42,11 @@ The real power of SmartThings is that our system works with most home
 automation devices already on the market. We believe in a fully
 integrated approach, where you aren't tied into a particular technology
 or protocol. We offer compatibility with standards such as ZigBee,
-Z-Wave, and IP/WiFi, so we work with literally hundreds of off the shelf
+Z-Wave, and IP/Wi-Fi, so we work with literally hundreds of off the shelf
 third-party devices.
 
 Hub
-```
+^^^
 
 The SmartThings Hub connects directly to your broadband router and
 provides communication between all connected Things and the SmartThings
@@ -61,7 +63,7 @@ cloud and mobile application.
 The new Samsung SmartThings Hub also supports the ability to execute certain automations locally on the Hub itself, and ships with four AA batteries. This allows for certain automations to continue, even without power. It also ships with USB ports and is Bluetooth Low Energy capable. While not active at launch, this allows for greater expansion in the future without requiring new hardware.
 
 Connectivity Management
-```````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^
 
 Connectivity Management is the layer that connects your SmartThings Hub
 and client devices (mobile phones) to our servers, and the cloud as a
@@ -73,17 +75,17 @@ whole. We have two parts of this layer currently:
 These are the highways by which your messages are sent to the internet.
 
 Device Type Execution
-`````````````````````
+^^^^^^^^^^^^^^^^^^^^^
 
 The SmartThings system determines what device type you are using based
 on Device Type Handlers. Once the device type handler is selected, the
 incoming messages are parsed by that particular device type. The input
-of the device type handler are device specific messages, and the output
+of the device type handler is device specific messages, and the output
 is normalized SmartThings events. Note that one message can lead to many
 SmartThings events.
 
 Subscription Management
-```````````````````````
+^^^^^^^^^^^^^^^^^^^^^^^
 
 When events are created in the SmartThings platform, they don't
 inherently do anything besides publish that they've happened. Instead of
@@ -93,17 +95,17 @@ management layer is to match up events that are triggered by the device
 type handlers with which SmartApp is using them.
 
 SmartApp Execution
-``````````````````
+^^^^^^^^^^^^^^^^^^
 
 The SmartApp is run when trigged via subscriptions, external calls to
 SmartApp endpoints, or scheduled methods. It's transient in nature, as
 it runs and then stops running on completion of its task. Any data that
 needs to persist throughout SmartApp instances must be stored in a special ``state`` variable that is discussed in the :ref:`storing-data` documentation.
 
-Web-UI & IDE
-````````````
+Web UI and IDE
+^^^^^^^^^^^^^^
 
-The Web-UI sits on top of all of the other technology and allows you to
+The Web UI sits on top of all of the other technology and allows you to
 monitor your devices, hubs, locations and many other aspects of your
 SmartThings system.
 
@@ -116,8 +118,8 @@ not required to own the devices you develop for.
 Important Concepts
 ------------------
 
-Asynchronous & Eventually Consistent Programming
-````````````````````````````````````````````````
+Asynchronous and Eventually Consistent Programming
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When dealing with the physical graph there will always be a delay between when you request something to happen and when it actually happens. There is latency in all networks, but it's especially pronounced when dealing with the physical graph.
 
@@ -127,7 +129,7 @@ Our basic methodology towards executing a command, such as turning a light switc
 
 You cannot be guaranteed that your command has been executed, because another SmartApp could interact with your end device, and change its state. For example, you might turn a light switch on, but another app might sneak in and turn it off.
 
-If you needed to know if a command was executed, you can subscribe to an event triggered by the command you executed and check its timestamp to ensure it fired after you told it to. You will, however, still have latency issues to take into consideration, so it's impossible to know the exact current status at any given time.
+If you need to know if a command was executed, you can subscribe to an event triggered by the command you executed and check its timestamp to ensure it fired after you told it to. You will, however, still have latency issues to take into consideration, so it's impossible to know the exact current status at any given time.
 
 The SmartApps platform follows eventually consistent programming, meaning that responses to a request for a value in SmartApps will eventually be the same, but in the short term they might differ.
 
@@ -138,7 +140,7 @@ The SmartApps platform follows eventually consistent programming, meaning that r
     Also, as we move some of our logic into the hub, we may consider allowing blocking methods (synchronous) as they wouldn't weigh down our network as a whole.
 
 Containers
-``````````
+^^^^^^^^^^
 
 Within the SmartThings platform, there are three different “containers”
 that are important concepts to understand. These are: accounts,
@@ -153,22 +155,22 @@ containers. Each type of container is described below in more detail.
    :alt: Container Hierarchy
 
 Accounts
-````````
+^^^^^^^^
 
 Accounts are the top-level container that represents the SmartThings
 ‘customer’. Accounts contain only Locations and no other types of
 objects.
 
-Locations & Users
-`````````````````
+Locations and Users
+^^^^^^^^^^^^^^^^^^^
 
-Locations are meant to represent a geo-location such as “Home” or
-“Office”. Locations can optionally be tagged with a geo-location
-(lat/long). In addition, Locations don’t have to have a SmartThings Hub,
+Locations are meant to represent a geolocation such as “Home” or
+“Office”. Locations can optionally be tagged with a geolocation
+(latitude and longitude). In addition, Locations don’t have to have a SmartThings Hub,
 but generally do. Finally, locations contain Groups or Devices.
 
 Groups
-``````
+^^^^^^
 
 Groups are meant to represent a room or other physical space within a
 location. This allows for devices to be organized into groups making
@@ -195,8 +197,8 @@ Capabilities themselves may decompose into both ‘Actions’ or ‘Commands’ 
 control or actuate the device, whereas Attributes represent state
 information or properties of the device.
 
-Attributes & Events
-```````````````````
+Attributes and Events
+^^^^^^^^^^^^^^^^^^^^^
 
 Attributes represent the various properties or characteristics of a
 device. Generally speaking device attributes represent a current device
@@ -205,7 +207,7 @@ might be an attribute. For a door lock, an attribute such as ‘status’
 with values of ‘open’ or ‘closed’ might be a typical.
 
 Commands
-````````
+^^^^^^^^
 
 Commands are ways in which you can control the device. A capability is
 supported by a specific set of commands. For example, the ‘Switch’
@@ -214,7 +216,7 @@ supports a specific capability, it must generally support all of the
 commands required of that capability.
 
 Custom Capabilities
-```````````````````
+^^^^^^^^^^^^^^^^^^^
 
 We do not currently support creating custom capabilities. You can, however,
 create a device-type handler that exposes custom commands or attributes.
@@ -230,7 +232,7 @@ The second generation of our hub, the Samsung SmartThings Hub, allows for some h
 
 This is accomplished by delivering certain automations to the Samsung SmartThings Hub itself, where it can execute locally. The engine that executes these automations are typically referred to as "AppEngine". Events are still sent to the SmartThings cloud - this is necessary to ensure that the mobile application reflects the current state of the home, as well as to send any notifications or perform other cloud-based services.
 
-The specific automations that execute locally is expanding, and is currently managed by the SmartThings internal team. The ability for developers to execute their own SmartApps or Device Type Handlers locally will be coming in the future.
+The specific automations that execute locally are expanding and currently managed by the SmartThings internal team. The ability for developers to execute their own SmartApps or Device Type Handlers locally is planned.
 
 That said, there are a number of important scenarios where the Cloud is
 simply required and where we can’t reduce or eliminate dependence on the
@@ -238,9 +240,9 @@ Cloud:
 
 **There may not be a hub at all**
 
-Many devices are now connected devices, via WiFi/IP.
+Many devices are now connected devices, via Wi-Fi/IP.
 
-The advantage of Wifi devices is that they can eliminate the need for a gateway
+The advantage of Wi-Fi devices is that they can eliminate the need for a gateway
 device (hub) and connect directly to the cloud.
 When you consider the breadth of devices like this that are coming onto the market, it’s easy to imagine that there will be customers who want to be able to add intelligence to those devices through SmartApps, but that may not have a SmartThings Hub at all because all of their devices are directly connected to the vendor cloud or the SmartThings Cloud.
 
@@ -278,7 +280,7 @@ Accordingly, SmartApps that use web services will run in the Cloud as well.
        myGarageDoor.open()
 
 Benefits
-````````
+^^^^^^^^
 
 There are a number of important benefits to the overall SmartThings approach:
 
@@ -297,10 +299,10 @@ For consumers, that will mean the power of choice and the ability to solve probl
 
 As a developer or maker, it means broad access to consumers and distribution channels for your product.
 
-**Increased Ease of Use, Accessibility, Reliability & Availability**
+**Increased Ease of Use, Accessibility, Reliability and Availability**
 
 By centralizing many capabilities into the SmartThings Cloud, we increase our ability to monitor, manage, and respond to any failures or other issues. More importantly, we can simplify the customer experience and make our solution easier to use than ever before. Further, we ensure that customers have an increased level of access and visibility.
 
-This is not a new trend - there are many examples where on-premise capabilities have migrated to the service provider, because it improved the overall service reliability and customer experience.
+This is not a new trend. There are many examples where on-premise capabilities have migrated to the service provider, because it improved the overall service reliability and customer experience.
 
 .. |Container Hierarchy| image:: ../img/architecture/overview.png

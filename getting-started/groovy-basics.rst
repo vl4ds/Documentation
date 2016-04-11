@@ -169,7 +169,7 @@ Omitting the explicit type information in favor of ``def`` allows us to build fl
 
 .. note::
 
-    Strict statically typed languages like Java determines the method that will be called at *compile time*. Groovy determines the methods to invoke at *runtime*, using something called multi-methods or dynamic dispatch. You can read more about multi-methods `here <http://www.groovy-lang.org/differences.html#_multi_methods>`__ in the Groovy documentation.
+    Strict statically typed languages like Java determine the method that will be called at *compile time*. Groovy determines the methods to invoke at *runtime*, using something called multi-methods or dynamic dispatch. You can read more about multi-methods `here <http://www.groovy-lang.org/differences.html#_multi_methods>`__ in the Groovy documentation.
 
 ----
 
@@ -462,7 +462,7 @@ Don't worry if that's somewhat confusing; just know that if you a reference to a
 Defining Methods
 ----------------
 
-For the most part, methods are defined and invoked as in other modern languages. There are some notable enhancements that are worth noting, however.
+Methods are generally defined and invoked as in other modern languages, with some notable enhancements.
 
 First, the basics. Method signatures can accept both typed and untyped arguments:
 
@@ -637,7 +637,7 @@ Here's the code to do this:
 
 The ``pickEven()`` method accepts an upper bound (``n``), and a closure (``block``). It iterates over all the even numbers up to the upper bound, and calls the passed-in closure on each (``block(i)``).
 
-When we call ``pickEven()``, the closure simply calls ``println`` on each item. Running this would result in the following output:
+When we call ``pickEven()``, the closure simply calls ``println()`` on each item. Running this would result in the following output:
 
 .. code-block:: bash
 
@@ -755,7 +755,7 @@ That's a lot of noise in the code just to check that the map is not empty. With 
         // here we know that the map is not null, and contains items.
     }
 
-There's more to know about Groovy truth, but the above should get you through 99% of the code you'll see and write with SmartThings. Read more about Groovy truth in the Groovy documentation `here <http://docs.groovy-lang.org/latest/html/documentation/#Groovy-Truth>`__.
+The above should get you through 99% of the code you'll see and write with SmartThings, but see the Groovy documentation for `more on the Groovy Truth <http://docs.groovy-lang.org/latest/html/documentation/#Groovy-Truth>`__.
 
 ----
 

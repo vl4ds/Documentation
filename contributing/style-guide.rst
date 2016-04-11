@@ -151,9 +151,9 @@ Unordered lists use a ``-`` or ``*`` character:
 Inline Markup
 ^^^^^^^^^^^^^
 
-- Surround text with \* for *italics text*
-- Surround text with \** for **strong text**
-- Surround text with \`` for code samples (``someMethod()``)
+- Surround text with \* for *italics text*.
+- Surround text with \** for **strong text**.
+- Surround text with \`` for code samples (``someMethod()``).
 
 When referring to method calls in the documentation, place ``()`` after the method name: ``methodName()``.
 This helps distinguish methods from other code literals.
@@ -245,7 +245,7 @@ The above results in:
 Tables
 ^^^^^^
 
-Simple tables in rst look like this:
+Simple tables in RST look like this:
 
 .. code-block:: rst
 
@@ -300,10 +300,10 @@ Which results in:
 Writing Style and Miscellaneous Tips
 ------------------------------------
 
-- Spell check before committing
-- Show, don't tell - include example code
-- Place each sentence on a new line to help with review and readability
-- Not all documents currently follow these guidelines. See the `Contributing <https://github.com/SmartThingsCommunity/Documentation/blob/master/README.md>`_ guide to learn how you can contribute, and help address that :)
+- Spell check before committing.
+- Show, don't tell - include example code.
+- Place each sentence on a new line to help with review and readability.
+- Not all documents currently follow these guidelines. See the `Contributing <https://github.com/SmartThingsCommunity/Documentation/blob/master/README.md>`_ guide to learn how you can contribute, and help address that. :)
 
 ----
 

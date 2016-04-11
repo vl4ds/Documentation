@@ -316,8 +316,8 @@ Examples
 
 Several examples exist in the SmartApp templates that send notifications. Here are a few you can look at to learn more:
 
-- "Notify Me When" sends push or text messages in response to a variety of events.
-- "Presence Change Push" and "Presence Change Text" send notifications when people arrive or depart.
+- `Notify Me When <https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/notify-me-when.src/notify-me-when.groovy>`__ sends push or text messages in response to a variety of events.
+- `Presence Change Push <https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/presence-change-push.src/presence-change-push.groovy>`__ and `Presence Change Text <https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/presence-change-text.src/presence-change-text.groovy>`__ send notifications when people arrive or depart.
 
 ----
 
