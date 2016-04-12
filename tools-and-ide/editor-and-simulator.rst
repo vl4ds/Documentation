@@ -75,18 +75,3 @@ When simulating a SmartApp, any selected devices will appear in the IDE, along w
 .. note::
 
    Not all of the capabilities we support will work properly in the simulator. We are actively working to close those gaps.
-
-----
-
-Log Console
------------
-
-.. figure:: ../img/ide/console.png
-   :alt: Console
-
-Once installed in the simulator, you will see a log console on the bottom of the page.
-This is where any logging statements in your code will appear.
-
-The most recent logging statements will appear at the top of the logging console.
-
-For more information about logging, refer to the :ref:`logging` chapter of this guide.
