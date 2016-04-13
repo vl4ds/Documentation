@@ -273,7 +273,7 @@ You can also use the ``$`` without the ``{}`` for simple property substitutions 
     def greeting = "Hello, $person.firstName $person.lastName"
 
 .. note::
-    Dotted expressions are expressions of the form ``a.b`` or ``a.b.c``. Expressions that would contain parentheses like method calls, curly braces for closures, or arithmetic operators, are not dotted expressions and you should use ``${}``.
+    Dotted expressions are expressions of the form ``a.b`` or ``a.b.c``. Expressions that would contain parentheses like method calls, curly braces for closures, or arithmetic operators, are not dotted expressions and you should use ``${}``. We recommend always using the ``${}`` notation.
 
 You'll see String interpolations frequently in SmartThings.
 
