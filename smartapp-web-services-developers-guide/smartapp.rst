@@ -160,6 +160,11 @@ When a request is made to one of the SmartApp's endpoints, its associated reques
 
 Every request handler method has available to it a ``request`` object that represents information about the request, and a ``params`` object that contains information about the request parameters.
 
+.. important::
+
+    All request or path parameters should be validated in your request handler.
+    **Never** allow parameters to arbitrarily execute device commands or otherwise modify data.
+
 Path variables
 ^^^^^^^^^^^^^^
 
@@ -176,6 +181,16 @@ Any path variables you defined in the ``path`` are available via the injected ``
     def updateSwitches() {
         def cmd = params.command
         log.debug "command: $cmd"
+        switch(cmd) {
+            case "on":
+                // handle on command
+                break
+            case "off":
+                // handle off command
+                break
+            default:
+                httpError(501, "$command is not a valid command for all switches specified")
+        }
     }
 
 Query parameters
@@ -190,6 +205,7 @@ URL query parameters sent on the request are available via the ``params`` object
         def fooParam = params.foo
         log.debug "foo parameter: $foo"
     }
+
 
 Request body parameters
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -338,7 +354,7 @@ If not specified, the ``contentType`` will be "application/json", and the ``stat
 Error Handling
 --------------
 
-Default Errors
+Default errors
 ^^^^^^^^^^^^^^
 
 The following errors may be returned by the SmartThings platform:
@@ -354,7 +370,7 @@ HTTP Response Code           Error Message                                      
 ``500 (Server Error)``       {"error":true, "type":"<EXCEPTION-TYPE>", "message": "An unexpected error has occurred"}                        An unhandled exception occurred in the processing of the request. Check the SmartThings live logging to debug.
 ============================ =============================================================================================================== =====
 
-Custom Errors
+Custom errors
 ^^^^^^^^^^^^^
 
 If your endpoint needs to send an error response, use the :ref:`smartapp_http_error` method:
