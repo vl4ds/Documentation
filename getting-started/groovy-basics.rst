@@ -272,6 +272,9 @@ You can also use the ``$`` without the ``{}`` for simple property substitutions 
     def person = [firstName: 'Walter', lastName: 'Sobchak']
     def greeting = "Hello, $person.firstName $person.lastName"
 
+.. note::
+    Dotted expressions are expressions of the form ``a.b`` or ``a.b.c``. Expressions that would contain parentheses like method calls, curly braces for closures, or arithmetic operators, are not dotted expressions and you should use ``${}``.
+
 You'll see String interpolations frequently in SmartThings.
 
 There are some other handy Groovy String features, like the ability to remove part of a string using the ``-`` operator:
