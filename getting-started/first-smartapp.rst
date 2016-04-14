@@ -362,7 +362,7 @@ Now we see the simulator section appear:
 .. image:: ../img/getting-started/first-smartapp/ide-simulator-unactuated.png
    :width: 35%
 
-We have two devices. A motion sensor, and a switch. We can manipulate the motion sensor by choosing "active" or "inactive" and clicking the play button. The same with the switch, it can be "on" or "off". We wrote our SmartApp to turn the switch on when motion is detected, so let's give that a try. Choose "active" if it's not already selected and then hit the play button. You should see some log messages in the console, and the switch should go on:
+We have two devices. A motion sensor, and a switch. We can manipulate the motion sensor by choosing "active" or "inactive" and clicking the play button. The same with the switch, it can be "on" or "off". We wrote our SmartApp to turn the switch on when motion is detected, so let's give that a try. Choose "active" if it's not already selected and then hit the play button. You should see the switch should go on:
 
 .. image:: ../img/getting-started/first-smartapp/ide-simulator-actuated.png
    :width: 35%
