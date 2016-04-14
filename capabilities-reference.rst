@@ -1567,6 +1567,7 @@ shock                    String   ``"detected"``
 **Commands:**
 
 None.
+
 ----
 
 .. _signal_strength:
