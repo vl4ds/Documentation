@@ -4,10 +4,7 @@ September 2015 Release FAQ
 
 *A collection of frequently asked questions about the new Samsung SmartThings Hub, and updated SmartThings mobile applications, for SmartThings developers.*
 
-.. image:: img/new-mobile-app.png
-    :align: left
-    :width: 250 px
-    :height: 400 px
+----
 
 **What can developers do with the new Samsung SmartThings Hub and updated mobile apps?**
 
