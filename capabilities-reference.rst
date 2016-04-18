@@ -1818,6 +1818,11 @@ level           Number  A number that represents the current light level, usuall
 *setLevel(number, number)*
     Set the level to the given numbers
 
+.. note::
+
+    The capability is defined to accept two parameters, the level and the rate of dimming.
+    The vast majority of Devices and Device Handlers will *not* support the rate parameter, however, so you'll typically only see this command in the form of ``setLevel(number)``.
+
 **SmartApp Example:**
 
 .. code-block:: groovy
