@@ -331,7 +331,7 @@ Get a list of Events for the Device in reverse chronological order (newest first
     ======= ========== ===========
     option  Type       Description
     ======= ========== ===========
-    ``max`` `Number`_  The maximum number of Events to return.
+    ``max`` `Number`_  The maximum number of Events to return. By default, the maximum is 10.
     ======= ========== ===========
 
 **Returns:**
@@ -368,7 +368,7 @@ Get a list of Events between the specified start and end dates.
     ======= ========== ===========
     option  Type       Description
     ======= ========== ===========
-    ``max`` `Number`_  The maximum number of Events to return.
+    ``max`` `Number`_  The maximum number of Events to return. By default, the maximum is 10.
     ======= ========== ===========
 
 **Returns:**
@@ -412,7 +412,7 @@ Get a list of Events since the specified date.
     ======= ========== ===========
     option  Type       Description
     ======= ========== ===========
-    ``max`` `Number`_  The maximum number of Events to return.
+    ``max`` `Number`_  The maximum number of Events to return. By default, the maximum is 10.
     ======= ========== ===========
 
 **Returns:**
@@ -709,7 +709,7 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute betwee
     ======= ========== ===========
     option  Type       Description
     ======= ========== ===========
-    ``max`` `Number`_  The maximum number of Events to return.
+    ``max`` `Number`_  The maximum number of Events to return. By default, the maximum is 10.
     ======= ========== ===========
 
 **Returns:**
@@ -756,7 +756,7 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute since 
     ======= ========== ===========
     option  Type       Description
     ======= ========== ===========
-    ``max`` `Number`_  The maximum number of Events to return.
+    ``max`` `Number`_  The maximum number of Events to return. By default, the maximum is 10.
     ======= ========== ===========
 
 **Returns:**
