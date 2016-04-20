@@ -145,7 +145,7 @@ Visit `http://localhost:4567 <http://localhost:4567>`__.
 You should see a pretty boring web page with a link to "Connect with SmartThings".
 
 We're using the `OAuth2 module <https://github.com/intridea/oauth2>`__ to handle the OAuth2 flow.
-We create a new Client, using the ``client_id`` and ``api_key``.
+We create a new ``client`` object, using the ``client_id`` and ``client_secret``.
 We also configure it with the ``options`` data structure that defines the information about the SmartThings OAuth endpoint.
 
 We've handled the root URL to simply display a link that points to the ``/authorize`` URL of our server. We'll fill that in next.
@@ -159,7 +159,7 @@ When the user clicks on the "Connect with SmartThings" link, we need to get our 
 
 To do this, the user will need to authenticate with SmartThings, and authorize the devices this application can work with.
 Once that has been done, the user will be directed back to a specified ``redirect_url``, with the OAuth authorization code.
-This will be used (along with the Client ID and secret), to get the access token.
+This will be used (along with the ``client_id`` and ``client_secret``), to get the access token.
 
 .. important::
 

@@ -54,6 +54,10 @@ An example of a simple, single page that will allow the user to select from a se
 
 Here is an example that specifies a specific page to be used during authorization, using the ``oauthPage`` option to ``preferences``:
 
+.. warning::
+
+    Currently, using required inputs does not work inside of page declarations when using ``oauthPage``. This is a known issue and is currently being worked on. We recommend using non-required inputs, by explicitly setting ``required: false``, when using ``oauthPage`` pages.
+
 .. code-block:: groovy
 
     preferences(oauthPage: "deviceAuthorization") {
@@ -61,8 +65,8 @@ Here is an example that specifies a specific page to be used during authorizatio
         page(name: "deviceAuthorization", title: "", nextPage: "instructionPage",
              install: false, uninstall: true) {
             section("Select Devices to Authorize") {
-                input "switches", "capability.switch", title: "Switches:"
-                input "motions", "capability.motionSensor", title: "Motion Sensors:"
+                input "switches", "capability.switch", title: "Switches:", required: false
+                input "motions", "capability.motionSensor", title: "Motion Sensors:", required: false
             }
 
         }
@@ -84,8 +88,8 @@ The ``oauthPage`` must be a static (non-dynamic) page, and be the first page dis
         page(name: "deviceAuthorization", title: "", nextPage: "otherPage",
              install: false, uninstall: true) {
             section("Select Devices to Authorize") {
-                input "switches", "capability.switch", title: "Switches:"
-                input "motions", "capability.motionSensor", title: "Motion Sensors:"
+                input "switches", "capability.switch", title: "Switches:", required: false
+                input "motions", "capability.motionSensor", title: "Motion Sensors:", required: false
             }
 
         }
