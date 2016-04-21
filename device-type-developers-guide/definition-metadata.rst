@@ -128,6 +128,9 @@ The fingerprinting process is dependent on the type of device you are looking to
 SmartThings attempts to match devices coming in based on the input and output clusters a device uses, as well as a profileId (for ZigBee) or deviceId (for Z-Wave).
 Basically, by determining what capabilities your device has, SmartThings determines what your device is.
 
+
+.. _zigbee-fingerprinting-label:
+
 ZigBee Fingerprinting
 ^^^^^^^^^^^^^^^^^^^^^
 
