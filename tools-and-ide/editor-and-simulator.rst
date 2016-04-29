@@ -19,6 +19,10 @@ There are three different tabs on the *New SmartApp* page that allow you to crea
 - *From Code* allows you to create a new SmartApp directly from existing code. This is useful if you receive the code for a SmartApp - just paste it in to the page and a new SmartApp will be created from it.
 - *From Template* allows you to create a new SmartApp based upon existing SmartApps. This is especially useful if you are new to SmartThings development, since you can start from an existing SmartApp.
 
+.. important::
+
+    Only install source code into your account that you fully understand, or that comes from a trusted source.
+
 ----
 
 Creating a new Device Handler
@@ -31,6 +35,10 @@ There are three different tabs on the *New SmartDevice* page that allow you to c
 - *From Form* allows you to create a new Device Type Handler based on the some metadata you can enter into the form.
 - *From Code* allows you to create a new Device Type Handler directly from existing code. This is useful if you receive the code for a Device Type Handler - just paste it in to the page and a new Device Type Handler will be created from it.
 - *From Template* allows you to create a new Device Type Handler based upon existing Device Type Handlers. This is especially useful if you are new to SmartThings development, since you can start from an existing Device Type Handlers.
+
+.. important::
+
+    Only install source code into your account that you fully understand, or that comes from a trusted source.
 
 ----
 
