@@ -51,6 +51,7 @@ Commands:
 :ref:`battery`                capability.battery                     - battery
 :ref:`beacon`                 capability.beacon                      - presence
 :ref:`button`                 capability.button                      - button
+                                                                     - numberOfButtons
 :ref:`c_d_measurement`        capability.carbonDioxideMeasurement    - carbonDioxide
 :ref:`c_m_detector`           capability.carbonMonoxideDetector      - carbonMonoxide
 :ref:`color_control`          capability.colorControl                - hue                                 - setHue(number)
@@ -65,10 +66,14 @@ Commands:
 :ref:`door_control`           capability.doorControl                 - door                                - open()
                                                                                                            - close()
 :ref:`energy_meter`           capability.energyMeter                 - energy
+:ref:`eta`                    capability.estimatedTimeOfArrival      - eta
 :ref:`garage_door`            capability.garageDoorControl           - door                                - open()
                                                                                                            - close()
 :ref:`illuminance_mesurmnt`   capability.illuminanceMeasurement      - illuminance
 :ref:`image_capture`          capability.imageCapture                - image                               - take()
+:ref:`indicator`              capability.indicator                   - indicatorStatus                     - indicatorWhenOn()
+                                                                                                           - indicatorWhenOff()
+                                                                                                           - indicatorNever()
 :ref:`lock`                   capability.lock                        - lock                                - lock()
                                                                                                            - unlock()
 :ref:`media_controller`       capability.mediaController             - activities                          - startActivity(string)
@@ -90,9 +95,11 @@ Commands:
                                                                                                            - resumeTrack(string)
                                                                                                            - restoreTrack(string)
 :ref:`notification`           capability.notification                                                      - deviceNotification(string)
+:ref:`occupancy`              capability.occupancy                   - occupancy
 :ref:`ph_measurement`         capability.pHMeasurement               - pH
 :ref:`polling`                capability.polling                                                           - poll()
 :ref:`power_meter`            capability.powerMeter                  - power
+:ref:`power`                  capability.power                       - powerSource
 :ref:`presence_sensor`        capability.presenceSensor              - presence
 :ref:`refresh`                capability.refresh                                                           - refresh()
 :ref:`rel_hmdty_mesurmnt`     capability.relativeHumidityMeasurement - humidity
@@ -106,6 +113,7 @@ Commands:
 :ref:`sleep_sensor`           capability.sleepSensor                 - sleeping
 :ref:`smoke_detector`         capability.smokeDetector               - smoke
 :ref:`sound_sensor`           capability.soundSensor                 - sound
+:ref:`speech_recognition`     capability.speechRecognition           - phraseSpoken
 :ref:`speech_synthesis`       capability.speechSynthesis                                                   - speak(string)
 :ref:`step_sensor`            capability.stepSensor                  - steps
                                                                      - goal
@@ -149,6 +157,7 @@ Commands:
                                                                                                            - cancel()
 :ref:`tone`                   capability.tone                                                              - beep()
 :ref:`touch_sensor`           capability.touchSensor                 - touch
+:ref:`ultraviolet_index`      capability.ultravioletIndex            - ultravioletIndex
 :ref:`valve`                  capability.valve                       - contact                             - open()
                                                                                                            - close()
 :ref:`voltage_measuremet`     capability.voltageMeasurement          - voltage
@@ -411,13 +420,14 @@ Button           capability.button
 
 **Attributes:**
 
-=========== ======= ====================================
-Attribute   Type    Possible Values
-=========== ======= ====================================
-button      String  ``"held"`` if the button is held (longer than a push)
+=============== ======= ====================================
+Attribute       Type    Possible Values
+=============== ======= ====================================
+button          String  ``"held"`` if the button is held (longer than a push)
 
-                    ``"pushed"`` if the button is pushed
-=========== ======= ====================================
+                        ``"pushed"`` if the button is pushed
+numberOfButtons Number
+=============== ======= ====================================
 
 **Commands:**
 
@@ -853,6 +863,31 @@ None.
 
 ----
 
+.. _eta:
+
+Estimated Time of Arrival
+-------------------------
+
+=========================   =================================
+Capability Name             SmartApp Preferences Reference
+=========================   =================================
+Estimated Time Of Arrival   capability.estimatedTimeOfArrival
+=========================   =================================
+
+**Attributes:**
+
+========= =======
+Attribute Type
+========= =======
+eta       Date
+========= =======
+
+**Commands:**
+
+None.
+
+----
+
 .. _garage_door:
 
 Garage Door Control
@@ -985,6 +1020,52 @@ image     String  ``string value representing the image captured``
     }
     log.debug "$camera.currentImage"
   }
+
+----
+
+.. _indicator:
+
+Indicator
+---------
+
+The indicator capability gives you the ability to set the indicator LED light on a Z-Wave switch. As such, the most common use case for the indicator capability is in a Device Handler like the example given below.
+
+=========================   ==============================
+Capability Name             SmartApp Preferences Reference
+=========================   ==============================
+Indicator                   capability.indicator
+=========================   ==============================
+
+**Attributes:**
+
+=============== ======= =================
+Attribute       Type    Possible Values
+=============== ======= =================
+indicatorStatus String  ``"when off"``
+                        ``"when on"``
+                        ``"never"``
+=============== ======= =================
+
+**Commands:**
+
+*indicatorWhenOn()*
+    Set indicator LED on when the switch is on.
+
+*indicatorWhenOff()*
+    Set indicator LED off when the the switch is on.
+
+*indicatorNever()*
+    Set the indicator LED to be always off.
+
+**Device Handler Example:**
+
+.. code-block:: groovy
+
+    standardTile("indicator", "device.indicatorStatus", width: 2, height: 2, inactiveLabel: false, decoration: "flat") {
+	    state "when off", action:"indicator.indicatorWhenOn", icon:"st.indicators.lit-when-off"
+	    state "when on", action:"indicator.indicatorNever", icon:"st.indicators.lit-when-on"
+	    state "never", action:"indicator.indicatorWhenOff", icon:"st.indicators.never-lit"
+	}
 
 ----
 
@@ -1276,6 +1357,32 @@ None.
 
 ----
 
+.. _occupancy:
+
+Occupancy
+---------
+
+=========================   ==============================
+Capability Name             SmartApp Preferences Reference
+=========================   ==============================
+Occupancy                   capability.occupancy
+=========================   ==============================
+
+**Attributes:**
+
+=============== ======= =================
+Attribute       Type    Possible Values
+=============== ======= =================
+occupancy       String  ``"occupied"``
+                        ``"not occupied"``
+=============== ======= =================
+
+**Commands:**
+
+None.
+
+----
+
 .. _ph_measurement:
 
 pH Measurement
@@ -1372,6 +1479,34 @@ None.
       switches.off()
     }
   }
+
+----
+
+.. _power:
+
+Power
+-----
+
+=========================   ==============================
+Capability Name             SmartApp Preferences Reference
+=========================   ==============================
+Power                       capability.power
+=========================   ==============================
+
+**Attributes:**
+
+=============== ======= =================
+Attribute       Type    Possible Values
+=============== ======= =================
+power           String  ``"unknown"``
+                        ``"mains"``
+                        ``"battery"``
+                        ``"dc"``
+=============== ======= =================
+
+**Commands:**
+
+None.
 
 ----
 
@@ -1688,6 +1823,31 @@ Attribute   Type    Possible Values
 sound       String  ``"detected"``
                     ``"not detected"``
 =========== ======= =================
+
+**Commands:**
+
+None.
+
+----
+
+.. _speech_recognition:
+
+Speech Recognition
+------------------
+
+=========================   ==============================
+Capability Name             SmartApp Preferences Reference
+=========================   ==============================
+Speech Recognition          capability.speechRecognition
+=========================   ==============================
+
+**Attributes:**
+
+============ =======
+Attribute    Type
+============ =======
+phraseSpoken String
+============ =======
 
 **Commands:**
 
@@ -2296,6 +2456,31 @@ Attribute   Type    Possible Values
 =========== ======= =================
 touch       String  ``"touched"``
 =========== ======= =================
+
+**Commands:**
+
+None.
+
+----
+
+.. _ultraviolet_index:
+
+Ultraviolet Index
+-----------------
+
+================= ==============================
+Capability Name   SmartApp Preferences Reference
+================= ==============================
+Ultraviolet Index capability.ultravioletIndex
+================= ==============================
+
+**Attributes:**
+
+================ =======
+Attribute        Type
+================ =======
+ultravioletIndex Number
+================ =======
 
 **Commands:**
 
