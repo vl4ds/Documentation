@@ -577,7 +577,7 @@ Valid options:
 *title*
     String - the title of the label field
 *description*
-    String - the default text in the input field
+    String - the text in the input field
 *required*
     Boolean - ``true`` or ``false`` to specify this input is required. Defaults to ``false``. Defaults to ``true``.
 *image*
