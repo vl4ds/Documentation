@@ -1498,7 +1498,7 @@ Power                       capability.power
 =============== ======= =================
 Attribute       Type    Possible Values
 =============== ======= =================
-power           String  ``"unknown"``
+powerSource     String  ``"unknown"``
                         ``"mains"``
                         ``"battery"``
                         ``"dc"``
@@ -1506,8 +1506,7 @@ power           String  ``"unknown"``
 
 **Commands:**
 
-*powerSource(String)*
-    String value can be one of ``"unknown"``, ``"mains"``, ``"battery"``, or ``"dc"``.
+None.
 
 ----
 
