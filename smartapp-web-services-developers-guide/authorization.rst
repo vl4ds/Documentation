@@ -113,19 +113,25 @@ The access token should be supplied via a ``Authorization: Bearer`` header:
 
     GET -H "Authorization: Bearer ACCESS-TOKEN" "https://graph.api.smartthings.com/api/smartapps/endpoints"
 
-A successful response will look like this:
+A successful response will return a list of JSON objects that look like this:
 
 .. code-block:: javascript
 
-    {
-        "oauthClient": {
-            "clientId": "CLIENT-ID"
+    [
+        {
+            "oauthClient": {
+                "clientId": "CLIENT-ID"
+            },
+            "location": {
+                "id": ID,
+                "name": "LOCATION-NAME"
+            }
+            "uri": "BASE-URL/api/smartapps/installations/INSTALLATION-ID",
+            "base_url": "BASE-URL",
+            "url": "/api/smartapps/installations/INSTALLATION-ID"
         },
-        "uri": "BASE-URL/api/smartapps/installations/INSTALLATION-ID",
-        "base_url": "BASE-URL",
-        "url": "/api/smartapps/installations/INSTALLATION-ID"
-    }
-
+        ...
+    ]
 
 .. important::
 
