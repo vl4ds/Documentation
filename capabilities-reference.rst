@@ -1506,7 +1506,8 @@ power           String  ``"unknown"``
 
 **Commands:**
 
-None.
+*powerSource(String)*
+    String value can be one of ``"unknown"``, ``"mains"``, ``"battery"``, or ``"dc"``.
 
 ----
 
@@ -2378,7 +2379,7 @@ timeRemaining  Number
 
 **Commands:**
 
-*setTimeRemaining()*
+*setTimeRemaining(Number)*
     Set time remaining
 
 *start()*
