@@ -1498,7 +1498,7 @@ Power                       capability.power
 =============== ======= =================
 Attribute       Type    Possible Values
 =============== ======= =================
-power           String  ``"unknown"``
+powerSource     String  ``"unknown"``
                         ``"mains"``
                         ``"battery"``
                         ``"dc"``
@@ -2378,7 +2378,7 @@ timeRemaining  Number
 
 **Commands:**
 
-*setTimeRemaining()*
+*setTimeRemaining(Number)*
     Set time remaining
 
 *start()*
