@@ -113,7 +113,7 @@ The access token should be supplied via a ``Authorization: Bearer`` header:
 
     GET -H "Authorization: Bearer ACCESS-TOKEN" "https://graph.api.smartthings.com/api/smartapps/endpoints"
 
-A successful response will return a list of JSON objects that look like this:
+A successful response will return a list of all installed SmartApps for the ``clientID`` associated with the given access token.
 
 .. code-block:: javascript
 
