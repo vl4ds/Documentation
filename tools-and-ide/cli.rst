@@ -3,7 +3,7 @@ Command Line Tool
 =================
 
 What is a CLI?
-^^^^^^^^^^^^^^
+--------------
 A CLI (command line interface) is a user interface to a computer's operating
 system or an application in which the user responds to a visual prompt by typing
 in a command on a specified line, receives a response back from the system, and
@@ -30,8 +30,8 @@ The CLI tool requires that you have a command prompt that is accessable on your
 computer. This means you must have an application like *Terminal* on **OS (X)**
 and **Linux** or the command prompt, *CMD* on **Windows**.
 
-Supported Operating Systems:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Supported Operating Systems
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 **Mac OS (X) (Beta)**
 
 **Windows (Beta)**
@@ -63,6 +63,9 @@ Place the .exe file in your path (`tutorial <http://www.howtogeek.com/118594/how
 
 **OS X**
 `SmartThings Windows CLI <https://cdn-cli.smartthings.com/releases/latest/osx/stdev>`_
+
+Install
+^^^^^^^
 
 Place the downloaded binary in a safe place, and add it to your system path. This
 will make it available in all your terminal sessions.
@@ -108,7 +111,7 @@ Optionally you can run the following to get help with a specific command:
 
     ``stdev <command> --help``
 
-The commands available in the CLI will be detailed in the `Commands`_ section.
+The commands available in the CLI are detailed in the `Commands`_ section.
 
 ----
 
@@ -141,6 +144,23 @@ can use the up and down arrows on the keyboard to select a location and hit *ent
 to choose it.
 
 The CLI tool is now configured and ready to use.
+
+----
+
+Configuration
+-------------
+
+.stconfig
+^^^^^^^^^
+The configuration file is stored in your home directory with the name ``.stconfig``.
+This file should never be edited directly. Instead, use the configuration command
+outlined below in the `Commands`_ section to make configuration changes. To see
+what is currently configured, use the command ``stdev info``.
+
+.stignore
+^^^^^^^^^
+You can place a ``.stignore`` file in any project src directory. The ``.stignore``
+file works exactly the same as a `.gitignore <https://git-scm.com/docs/gitignore>`_ file.
 
 ----
 
@@ -283,13 +303,108 @@ info
 Common Scenarios
 ----------------
 
-asdfasdfsad
+Create a new project
+^^^^^^^^^^^^^^^^^^^^
+
+A common scenario is creating a new SmartApp. Let's see how we can do this with
+the CLI tool.
+
+.. code-block:: bash
+
+    stdev generate ./turnon
+
+This command will walk us through a couple of questions and then create a new
+project for us in the directory specified on the command line. In the example
+above, a new directory named *turnon* will be created in our current working
+directory.
+
+The CLI tool will create the SmartThings recommended directory structure for our
+project. It looks like this:
+
+.. code-block:: bash
+
+    ./turnon
+    |
+    + - /devicetypes
+    |
+    + - /smartapps
+        |
+        + - <namespace>
+            |
+            + - turnon.src
+                |
+                + - turnon.groovy
+
+
+Let's paste come code into the turnon.groovy file:
+
+.. code-block:: groovy
+
+    preferences {
+        section("When the door opens..."){
+            input "contact1", "capability.contactSensor", title: "Where?"
+        }
+        section("Turn on a light..."){
+            input "switches", "capability.switch", multiple: true
+        }
+    }
+
+
+    def installed() {
+        subscribe(contact1, "contact.open", contactOpenHandler)
+    }
+
+    def updated() {
+        unsubscribe()
+        subscribe(contact1, "contact.open", contactOpenHandler)
+    }
+
+    def contactOpenHandler(evt) {
+        log.debug "$evt.value: $evt, $settings"
+        log.trace "Turning on switches: $switches"
+        switches.on()
+    }
+
+The next step is to save this new SmartApp in our SmartThings account. Recall that
+the save command requires a path to a src directory.
+
+.. code-block:: bash
+
+    stdev save ./smartapps/<namespace>/turnon.src
+
+You should receive a success message:
+
+.. code-block:: bash
+
+    Executable successfully saved [id: 12345678-1234-1234-1234-123456789101]
+
+You should now be able to browse to the `SmartThings Web IDE <https://graph.api.smartthings.com>`_
+and see your new SmartApp in your SmartApp list.
+
+The last step is to publish our SmartApp so we can install it in the mobile app.
+
+.. code-block:: bash
+
+    stdev publish ./smartapps/<namespace>/turnon.src
+
+Again, you should receive a success message:
+
+.. code-block:: bash
+
+    Executable successfully published [smartapps/<namespace>/turnon.src]
 
 ----
 
 FAQ
 ---
 
-asdflaasdfasdf
+**Can I download existing SmartApps from the Wed IDE with the CLI?**
+
+**Answer:** This is currently not possible. However, you can keep your code synced 
+in the cloud with the use of a SCM tool like git.
+
+**Will the CLI ever have command completion?**
+
+**Answer:** Command completion is coming soon!
 
 ----
