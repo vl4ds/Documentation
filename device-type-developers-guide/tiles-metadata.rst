@@ -736,7 +736,7 @@ These values are not controlled by the color palette, so are not useful.
 
 .. note::
 
-    You may some code for Color Control bulbs that adjusts the Hue using some magic numbers and fun math.
+    You may see code for Color Control bulbs that adjusts the Hue using some magic numbers and fun math.
 
     This is an artifact of the original Hue bulb sacrificing the ability to render greens in favor of more pleasant whites.
     This tradeoff threw off the actual colors version the apparent color on the color wheel.
@@ -893,7 +893,7 @@ Key                  Description
 ``NEXT_TRACK``       Renders a control for going to the next track
 ``SLIDER_CONTROL``   Renders a control to select a volume level
 ``MEDIA_MUTED``      Allows the user to press the volume icon to mute
-``MARQUEE``          Will display the currently playing track description below the ``PRIMARY_CONTROL``
+``MARQUEE``          Will display the currently playing track description below the ``PRIMARY_CONTROL``. Use newlines (``"\n"``) to delimit fields such as title, artist, album, etc.
 ===================  ===========
 
 .. note::
@@ -909,18 +909,18 @@ Key                  Description
 Generic Multi-Attribute Tile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If none of the predefined Multi-Attribute Tile types fit our needs, we can use the Generic Multi-Attribute Tile.
+If none of the predefined Multi-Attribute Tile types fit your needs, you can use the Generic Multi-Attribute Tile.
 The supported tile attribute types for the Generic Multi-Attribute Tile are shown in the following table:
 
-====================  ===========
-Key                   Description
-====================  ===========
-``PRIMARY_CONTROL``   The primary control tile for this device, controls the background color
-``SECONDARY_CONTROL`` Displays textual data below the primary control
-``VALUE_CONTROL``     Renders Up and Down buttons for increasing or decreasing values
-``SLIDER_CONTROL``    Renders a slider control for selecting a value along a range
-``COLOR_CONTROL``     Renders the color picker that allows users to select a color (useful for Color Control devices)
-====================  ===========
+=====================  ===========
+Key                    Description
+=====================  ===========
+``PRIMARY_CONTROL``    The primary control tile for this device, controls the background color
+``SECONDARY_CONTROL``  Displays textual data below the primary control
+``VALUE_CONTROL``      Renders Up and Down buttons for increasing or decreasing values
+``SLIDER_CONTROL``     Renders a slider control for selecting a value along a range
+``COLOR_CONTROL``      Renders the color picker that allows users to select a color (useful for Color Control devices)
+=====================  ===========
 
 Here's an example of a generic tile:
 
