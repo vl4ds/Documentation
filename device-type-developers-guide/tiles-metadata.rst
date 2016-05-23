@@ -273,7 +273,7 @@ The following label values can be used to display real-time information about th
 Label                         Description
 ============================= ============
 ``label: '${currentValue}'``  The current value of this attribute's state. This is used when the attribute doesn't have a discrete value set, like temperature or power.
-``label: '${name}'``          The name of the attribute state. This is useful when the attribute state is a discreet value, like "on" or "off".
+``label: '${name}'``          The name of the attribute state. This is useful when the attribute state is a discrete value, like "on" or "off".
 ============================= ============
 
 Here's an example of using the state name as the label:
@@ -843,7 +843,7 @@ It can also display information about the currently playing track.
 
 .. image:: ../img/device-types/multimedia-tile.png
     :scale: 25
-    
+
 The code for this tiles configuration is shown below:
 
 .. code-block:: groovy
