@@ -97,6 +97,19 @@ colorTemperature   0x0300
 Low Level Commands
 ------------------
 
+additionalParams
+^^^^^^^^^^^^^^^^
+
+There are several ZigBee methods that support an optional map parameter called additionalParams.  This is
+intended to be used to support future params without affecting backward compatibility.  The following keys are
+supported:
+
+======= ======== ==============
+Key     Type     Description
+======= ======== ==============
+mfgCode integer  The ZigBee manufacturing code (e.g. 0x110A)
+======= ======== ==============
+
 zigbee.command()
 ^^^^^^^^^^^^^^^^
 
@@ -134,17 +147,23 @@ Read the current attribute value of the specified Cluster.
 **Signature:**
     .. code-block:: groovy
 
-        zigbee.readAttribute(Integer Cluster, Integer attributeId)
+        zigbee.readAttribute(Integer Cluster, Integer attributeId, Map additionalParams=[:])
 
 **Parameters:**
     - **Cluster**: The Cluster ID to read from
     - **attributeId**: The ID of the attribute to read
-
+    - **additionalParams**: An optional map to specify additional parameters.  See `additionalParams`_ for supported attributes.
 **Example:**
     - Read *CurrentLevel* attribute of the *Level Control* Cluster.
         .. code-block:: groovy
 
             zigbee.readAttribute(0x0008, 0x0000)
+
+    - Read a manufacturer specific attribute on the SmartThings multi-sensor
+        .. code-block:: groovy
+
+            zigbee.readAttribute(0xFC02, 0x0010, [mfgCode: 0x110A])
+
 
 
 zigbee.writeAttribute()
@@ -155,19 +174,26 @@ Write the attribute value of the specified Cluster.
 **Signature:**
     .. code-block:: groovy
 
-        zigbee.writeAttribute(Integer Cluster, Integer attributeId, Integer dataType, value)
+        zigbee.writeAttribute(Integer Cluster, Integer attributeId, Integer dataType, value, Map additionalParams=[:])
 
 **Parameters:**
     - **Cluster**: The Cluster ID to write
     - **attributeId**: The attribute ID to write
     - **dataType**: The data type ID of the attribute as specified in the `ZigBee Cluster library <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__
     - **value**: The Integer value to write for data types of *boolean*, *unsigned int*, *signed int*, *general data*, and *enumerations*. Other data types are not currently supported but will be added in the future. Let us know if you need a data type that is not currently supported.
+    - **additionalParams**: An optional map to specify additional parameters.  See `additionalParams`_ for supported attributes.
+
 
 **Example**:
     - Write the value 0x12AB to a unsigned 16-bit integer attribute
         .. code-block:: groovy
 
             zigbee.writeAttribute(0x0008, 0x0010, 0x21, 0x12AB)
+
+    - Write a manufacturer specific attribute on the SmartThings multi-sensor
+        .. code-block:: groovy
+
+            zigbee.writeAttribute(0xFC02, 0x0000, 0x20, 1, [mfgCode: 0x110A])
 
 
 zigbee.configureReporting()
@@ -182,7 +208,8 @@ Configure a ZigBee device's reporting properties. Refer to the *Configure Report
     zigbee.configureReporting(Integer Cluster,
         Integer attributeId, Integer dataType,
         Integer minReportTime, Integer MaxReportTime,
-        [Integer reportableChange])
+        [Integer reportableChange],
+        Map additionalParams=[:])
 
 **Parameters:**
     - **Cluster**: The Cluster ID of the requested report
@@ -191,6 +218,8 @@ Configure a ZigBee device's reporting properties. Refer to the *Configure Report
     - **minReportTime**: Minimum number of seconds between reports
     - **maxReportTime**: Maximum number of seconds between reports
     - **reportableChange** (optional): Amount of change needed to trigger a report. Required for analog data types. Discrete data types should always provide *null* for this value.
+    - **additionalParams**: An optional map to specify additional parameters.  See `additionalParams`_ for supported attributes.
+
 
 **Examples:**
     - Discrete data type
@@ -203,6 +232,10 @@ Configure a ZigBee device's reporting properties. Refer to the *Configure Report
 
             zigbee.configureReporting(0x0008, 0x0000, 0x20, 1, 3600, 0x01)
 
+    - Configure a manufacturer specific report on the SmartThings multi-sensor
+        .. code-block:: groovy
+
+            zigbee.configureReporting(0xFC02, 0x0010, 0x18, 10, 3600, 0x01, [mfgCode: 0x110A])
 ----
 
 ZigBee Capabilities
