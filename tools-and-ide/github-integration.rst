@@ -3,6 +3,10 @@
 GitHub Integration
 ==================
 
+.. note::
+
+    GitHub IDE integration is only available in the US.
+
 As an open platform, we recognize that giving our community developers access to the repository housing our SmartApps and Device Handlers is extremely important.
 While you can browse the code in the IDE, not having access to the repository itself is limiting.
 The `SmartThingsCommunity/SmartThingsPublic <https://github.com/SmartThingsCommunity/SmartThingsPublic>`__ GitHub repository is now public, allowing you to browse the source code in a more traditional format.
