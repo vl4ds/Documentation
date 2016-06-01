@@ -403,7 +403,7 @@ info
 FAQ
 ---
 
-**Question: Can I download existing SmartApps from the Wed IDE with the CLI?**
+**Question: Can I download existing SmartApps from the Web IDE with the CLI?**
 
 *Answer: This is currently not possible. However, you can keep your code synced
 in the cloud with the use of a SCM tool like git.*
