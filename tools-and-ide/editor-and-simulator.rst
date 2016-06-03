@@ -55,6 +55,48 @@ You can choose from a variety of themes, key maps, and font sizes to suit your p
 
 ----
 
+Importing and Exporting SmartApps and Device Handlers
+-----------------------------------------------------
+
+The web editor allows you to import and export a SmartApp or Device Handler.
+Currently, this feature is meant to allow the developer to easily share SmartApps and Device Handlers.
+
+Export
+^^^^^^
+
+The IDE provides the user the ability to export a SmartApp or Device Handler to their computer.
+The file that gets exported is a compressed ``.tar.gz`` file.
+In the IDE, above the code editor, there is an Export button:
+
+.. image:: ../img/ide/export.png
+   :alt: Export
+   :scale: 50%
+
+When you click this button, your browser will download a compressed ``.tar.gz`` file.
+This file can then be shared with others who would then import the compressed file into their own account.
+
+Import
+^^^^^^
+
+The IDE provides the user the ability to import a SmartApp or Device Handler into their SmartThings account.
+The file must be a ``tar.gz`` file, the same kind of file that was exported from the IDE.
+In the IDE, on the `My SmartApps` and `My Device Handlers` pages, there is an Import button:
+
+.. image:: ../img/ide/import.png
+   :alt: Import
+   :scale: 50%
+
+Clicking on the button will prompt you for a file to upload:
+
+.. image:: ../img/ide/importprompt.png
+   :alt: Import Prompt
+   :scale: 50%
+
+Browse to the file on your computer that you want to import, select it, and click the import button.
+You should now see the SmartApp or Device Handler in the IDE.
+
+----
+
 Using the Simulator
 -------------------
 
