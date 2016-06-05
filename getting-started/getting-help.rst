@@ -30,7 +30,11 @@ Many of the SmartThings staff frequents these forums as well. We'll chime in and
 SmartThings Developer Support
 -----------------------
 
-While our `community <https://community.smartthings.com/>`__ is amazing and there are tons of awesome people there to support you, you may sometimes have more in depth questions that our communtiy can't answer. When that happens we're here to help. `This form <https://support.smartthings.com/hc/en-us/requests/new?ticket_form_id=110843>`__ is a direct line to our developer advocates in the rare occasion our `community <https://community.smartthings.com/>`__ can't help with your question. 
+While our `community <https://community.smartthings.com/>`__ is amazing and there are tons of awesome people there to support you, you may sometimes have more in depth questions that our communtiy can't answer. When that happens we're here to help. `This form <https://support.smartthings.com/hc/en-us/requests/new?ticket_form_id=110843>`__ is a direct line to our developer advocates in the rare occasion our `community <https://community.smartthings.com/>`__ can't help with your question. Once you submit a ticket you should expect to get a response in 48 hours. 
+
+.. note::
+
+    This form is for developers writing SmartApps and Device Handlers on the platform. If you need support for a SmartApp or Device Handler that you found on our community, please reach out to the developer of that SmartApp or Device Handler for support. If they need further support we will work directly with them to support their development.
 
 ----
 
