@@ -28,9 +28,13 @@ Many of the SmartThings staff frequents these forums as well. We'll chime in and
 ----
 
 SmartThings Developer Support
------------------------
+-----------------------------
 
-While our `community <https://community.smartthings.com/>`__ is amazing and there are tons of awesome people there to support you, you may sometimes have more in depth questions that our communtiy can't answer. When that happens we're here to help. `This form <https://support.smartthings.com/hc/en-us/requests/new?ticket_form_id=110843>`__ is a direct line to our developer advocates in the rare occasion our `community <https://community.smartthings.com/>`__ can't help with your question. Once you submit a ticket you should expect to get a response in 48 hours. 
+While our `community <https://community.smartthings.com/>`__ is amazing and there are tons of awesome people there to support you, you may sometimes have more in-depth questions that our communtiy can't answer.
+When that happens, we're here to help.
+
+`This form <https://support.smartthings.com/hc/en-us/requests/new?ticket_form_id=110843>`__ is a direct line to our developer advocates in the rare occasion our community can't help with your question.
+Once you submit a ticket you should expect to get a response in 48 hours.
 
 .. note::
 
