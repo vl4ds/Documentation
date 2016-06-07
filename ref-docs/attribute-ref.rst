@@ -38,7 +38,7 @@ Gets the data type of this Attribute.
 
     preferences {
         section() {
-            input "thetemp", "capbility.temperatureMeasurement"
+            input "thetemp", "capability.temperatureMeasurement"
         }
     }
     ...
@@ -95,7 +95,7 @@ The possible values for this Attribute, if the data type is "ENUM".
 
     preferences {
         section() {
-            input "thetemp", "capbility.temperatureMeasurement"
+            input "thetemp", "capability.temperatureMeasurement"
         }
     }
     ...
