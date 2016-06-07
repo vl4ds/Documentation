@@ -650,7 +650,7 @@ Valid input options:
 
                                  See the *Preferences Reference* column of the :ref:`capabilities_taxonomy`
                                  table for possible values.
-    device.deviceTypeName        Prompts for all devices of the specified type.
+    device.deviceTypeName        Prompts for all devices of the specified type. See :ref:`device_specific_inputs` for more information.
     bool                         A ``true`` or ``false`` value (value returned as a boolean).
     boolean                      A ``"true"`` or ``"false"`` value (value returned as a string). It's recommended that you use the "bool" input instead, since the simulator and mobile support for this type may not be consistent, and using "bool" will return you a boolean (instead of a string). The "boolean" input type may be removed in the near future.
     decimal                      A floating point number, i.e. one that can contain a decimal point
@@ -664,6 +664,78 @@ Valid input options:
     time                         A time of day. The value will be stored as a string in the Java `SimpleDateFormat <http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html>`__ (e.g., "2015-01-09T15:50:32.000-0600")
     text                         A text value
     ===========================  ===========================================================================================
+
+.. _device_specific_inputs:
+
+Using device-specific inputs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If a specific device is required for this SmartApp, and not a capability, the ``"device.<deviceName>"`` input type can be used.
+For example, if your SmartApp specifically requires a device named "My Fancy Device", you can prompt the user for that device this way:
+
+.. code-block:: groovy
+
+    input "myDevice", "device.myFancyDevice"
+
+The format of the device name is determined by the following algorithm:
+
+#. Remove ``"device."`` prefix (``"device.myFancyDevice"`` -> ``"myFancyDevice"``)
+#. Capitalize the result (``"myFancyDevice"`` -> ``"MyFancyDevice"``)
+#. Split the result by camel case (``"MyFancyDevice"`` -> ``["My", "Fancy", "Device"]``)
+#. Join result with a space (``["My", "Fancy", "Device"]`` -> ``"My Fancy Device"``)
+#. Replace occurrences of any of these strings in the result with the following, as shown:
+
+============================  =============
+Original                      Replaced With
+============================  =============
+``"Smart Sense"``             ``"SmartSense"``
+``"Smart Power Outlet V 1"``  ``"SmartPower Outlet V1"``
+``"Smart Power Outlet"``      ``"SmartPower Outlet"``
+``"Open Closed Sensor"``      ``"Open/Closed Sensor"``
+``"On Off"``                  ``"On/Off"``
+``"Door Window"``             ``"Door/Window"``
+``"Motion Temp Sensor"``      ``"Motion/Temp Sensor"``
+``"Z Wave"``                  ``"Z-Wave"``
+``"Zwave"``                   ``"Z-Wave"``
+``"Smart Phone"``             ``"Mobile Presence"``
+``"Mobile   Presence"``       ``"Mobile Presence"``
+============================  =============
+
+Here are some examples:
+
+============================= ========================
+Device Preference Input       Device Name Searched For
+============================= ========================
+``"device.myFancyDevice"``    ``"My Fancy Device"``
+``"device.ecobeeThermostat"`` ``"Ecobee Thermostat"``
+``"device.myOnOffDevice"``    ``"My On/Off Device"``
+============================= ========================
+
+When using ``device.<name>`` inputs, the platform first looks up which Device Handler it is, then finds any devices of that type for that location.
+The algorithm searches for a Device Handler in the following order:
+
+#. A Device Handler published by SmartThings that matches the name
+#. A Device Handler published by the current user that matches the name
+
+If there are multiple Device Handlers with the same name, the first Device Handler found will be returned.
+Only the name of the Device Handler is searched for; namespace is not considered.
+
+There are some caveats to be aware of due to the way the algorithm works:
+
+- The name of the device should have every word capitalized
+- Use of numbers can cause unexpected results
+- Use of spaces in the device input can cause unexpected results
+
+Here are some interesting examples that illustrate this:
+
+======================== ========================
+Device Preference Input  Device Name Searched For
+======================== ========================
+``"device.myDevice v1"`` ``"My Device   v 1"``
+``"device.myDeviceV1"``  ``"My Device V 1"``
+``"device.myDevicev1"``  ``"My Devicev 1"``
+``"device.mydevice"``    ``"Mydevice"``
+======================== ========================
 
 ----
 
