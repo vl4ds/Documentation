@@ -6,7 +6,7 @@ A log of changes to this documentation.
 
 ----
 
-8 June 2016
+9 June 2016
 -----------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/09-June-2016>`__
