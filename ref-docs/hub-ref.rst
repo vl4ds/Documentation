@@ -22,7 +22,7 @@ Here's a code snippet of a SmartApp that logs all available information for the 
 
         log.debug "name: ${hub.name}"
         log.debug "firmwareVersionString: ${hub.firmwareVersionString}"
-        log.debug "localIp: ${hub.localIP}"
+        log.debug "localIP: ${hub.localIP}"
         log.debug "localSrvPortTCP: ${hub.localSrvPortTCP}"
     }
 
@@ -71,13 +71,13 @@ The unique system identifier for this Hub.
 
 ----
 
-localIp
+localIP
 -------
 
 The local IP address of the Hub.
 
 **Signature:**
-    ``String localIp``
+    ``String localIP``
 
 **Returns:**
     `String`_ - The IP address of the Hub.
