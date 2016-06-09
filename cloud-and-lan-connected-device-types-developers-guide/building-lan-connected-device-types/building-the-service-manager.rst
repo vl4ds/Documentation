@@ -19,6 +19,8 @@ The above referenced Generic UPnP Device is incomplete. For the complete guide, 
 
 ----
 
+.. _lan_device_discovery:
+
 Discovery
 ---------
 
@@ -193,6 +195,8 @@ Now that the device has been verified, we need to add it as a child device.
     to change.
 
 ----
+
+.. _lan_device_health:
 
 Health
 ------
