@@ -27,6 +27,8 @@ Many of the SmartThings staff frequents these forums as well. We'll chime in and
 
 ----
 
+.. _developer_support_form:
+
 SmartThings Developer Support
 -----------------------------
 
