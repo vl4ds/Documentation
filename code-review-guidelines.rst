@@ -1,5 +1,6 @@
-Review Guidelines and Best Practices
-====================================
+=========================================
+Code Review Guidelines and Best Practices
+=========================================
 
 Before submitting your SmartApp or Device Handler, you should ensure that your code adheres to the guidelines documented here.
 Any code that does not adhere to these guidelines may be rejected.
