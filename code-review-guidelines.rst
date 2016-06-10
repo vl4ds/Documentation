@@ -138,7 +138,7 @@ That's great for a lot of things, but it's a sharp knife - highly effective, yet
 A method should return a single type of data, regardless of if the method signature is typed or not.
 For example, don't do something like this:
 
-.. code-block::
+.. code-block:: groovy
 
     def getSomeResult(input) {
         if (input == "option1") {
