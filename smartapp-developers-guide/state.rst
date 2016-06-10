@@ -24,6 +24,8 @@ Here's a quick example showing how to work with state:
 
 ----
 
+.. _state_how_it_works:
+
 How it Works
 ------------
 
@@ -157,6 +159,8 @@ To avoid this type of scenario, you can use ``atomicState``. ``atomicState`` wri
   It's also worth noting that you should **not** use both ``state`` and ``atomicState`` in the same SmartApp. Doing so will likely cause inconsistencies in in state values.
 
 ----
+
+.. _state_size_limit:
 
 Storage Size Limitations
 ------------------------
