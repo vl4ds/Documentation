@@ -355,6 +355,8 @@ Scheduling Limitations, Best Practices, and Things Good to Know
 
 When using any of the scheduling APIs, it's important to understand some limitations and best practices.
 
+.. _scheduling_chained_run_in:
+
 Avoid Chained ``runIn()`` Calls
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

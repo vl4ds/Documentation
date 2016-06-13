@@ -6,6 +6,13 @@ A log of changes to this documentation.
 
 ----
 
+13 June 2016
+------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/13-June-2016>`__
+
+- Adding :doc:`Code Review Guidelines and Best Practices <code-review-guidelines>` for SmartApps and Device Handlers.
+
 9 June 2016
 -----------
 
