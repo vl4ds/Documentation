@@ -9,7 +9,7 @@ This allows SmartApps to notify people when important events happen in their hom
 
 ----
 
-.. _contanct_book:
+.. _contact_book:
 
 Send Notifications with Contact Book
 ------------------------------------
