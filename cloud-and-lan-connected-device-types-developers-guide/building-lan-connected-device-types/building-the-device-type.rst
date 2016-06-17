@@ -137,6 +137,41 @@ You'll see the rest of the examples in this document use these helper methods.
 
 ----
 
+Wake On Lan (WOL)
+-----------------
+
+``HubAction`` can be used to make `WOL <https://en.wikipedia.org/wiki/Wake-on-LAN>`__ requests.
+
+Here is an example:
+
+.. code-block:: groovy
+
+    def myWOLCommand() {
+        def result = new physicalgraph.device.HubAction (
+            "wake on lan <your mac address w/o ':'>",
+            physicalgraph.device.Protocol.LAN,
+            null,
+            [secureCode: "111122223333"]
+        )
+        return result
+    }
+
+The first argument to ``HubAction`` tells the HubAction class that this will be a WOL request.
+The argument must be in the form "wake on lan <mac address>" where the mac address is the address without the ':' separator characters.
+For example, if the mac address of the NIC is ``01:23:45:67:89:ab``, the first parameter to ``HubAction`` would be ``"wake on lan 0123456789ab"``.
+
+The second parameter simply specifies that the request will be a LAN request.
+This will always be the case for a WOL type request. So the value must always be ``physicalgraph.device.Protocol.LAN``.
+
+The third parameter is the Device Network ID, or dni. In the case of a WOL request, this parameter should be ``null``.
+
+The last parameter is a map representing the options on the request.
+For a WOL request, this map will only ever consist of one parameter, ``secureCode``.
+Some NIC's support the *SecureOn* feature which requires the request to not only have a valid mac address, but also supply a valid password.
+This password must be configured on the NIC. If the NIC does not support *SecureOn* or does not have a password set, simply leave out the options map.
+
+----
+
 REST Requests
 -------------
 
