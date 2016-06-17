@@ -62,6 +62,7 @@ When appropriate, we have included various tips or warnings. In cases where an A
    device-ref
    event-ref
    hub-ref
+   installed-smart-app-wrapper-ref
    location-ref
    mode-ref
    state-ref

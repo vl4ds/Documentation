@@ -198,6 +198,32 @@ time        `String`_ - the full date string in the format of “yyyy-MM-dd’T�
 
 ----
 
+.. _add_child_app:
+
+addChildApp()
+~~~~~~~~~~~~~
+
+Adds a child app to a SmartApp.
+
+**Signature:**
+    ``InstalledSmartAppWrapper addChildApp(String namespace, String smartAppVersionName, String label, Map properties)``
+
+**Throws:**
+    ``IllegalArgumentException`` - If a label was not supplied
+    ``NotFoundException`` - If the given SmartApp name was not found in the given Namespace.
+
+**Parameters:**
+    `String`_ ``namespace`` - the namespace of the child SmartApp
+
+    `String`_ ``smartAppVersionName`` - the name of the SmartApp
+
+    `String`_ ``label`` - a label to give the child app
+
+    `Map`_ ``properties`` *(optional)* - A map with SmartApp properties for the child app.
+
+**Returns:**
+    ``InstalledSmartAppWrapper`` - The InstalledSmartAppWrapper instance that represents the child SmartApp that was created. See :ref:`installed_smart_app_wrapper` for more information.
+
 addChildDevice()
 ~~~~~~~~~~~~~~~~
 
