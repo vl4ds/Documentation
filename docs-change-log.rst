@@ -6,6 +6,13 @@ A log of changes to this documentation.
 
 ----
 
+17 June 2016
+------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/17-June-2016>`__
+
+- Adding `WOL (Wake On Lan) documentation <http://docs.smartthings.com/en/latest/cloud-and-lan-connected-device-types-developers-guide/building-lan-connected-device-types/building-the-device-type.html#wake-on-lan-wol>`_
+
 13 June 2016
 ------------
 
