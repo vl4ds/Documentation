@@ -38,7 +38,7 @@ Commands:
     The commands (and their signatures) that the capability defines.
 
 ============================= ====================================== ===================================== ========================
-       Name                   Preferences Reference                  Attributes                            Commands
+Name                          Preferences Reference                  Attributes                            Commands
 ============================= ====================================== ===================================== ========================
 :ref:`acceleration-sensor`    capability.accelerationSensor          - acceleration
 
@@ -47,7 +47,14 @@ Commands:
                                                                                                            - strobe()
                                                                                                            - siren()
                                                                                                            - both()
-
+:ref:`audio_notification`     capability.audioNotification                                                 - playSoundAndTrack()
+                                                                                                           - playText()
+                                                                                                           - playTextAndResume()
+                                                                                                           - playTextAndRestore()
+                                                                                                           - playTrack()
+                                                                                                           - playTrackAndResume()
+                                                                                                           - playTrackAndRestore()
+                                                                                                           - playTrackAtVolume()
 :ref:`battery`                capability.battery                     - battery
 :ref:`beacon`                 capability.beacon                      - presence
 :ref:`button`                 capability.button                      - button
@@ -85,15 +92,10 @@ Commands:
                                                                      - level                               - pause()
                                                                      - trackDescription                    - stop()
                                                                      - trackData                           - nextTrack()
-                                                                     - mute                                - playTrack(string)
-                                                                                                           - setLevel(number)
-                                                                                                           - playText(string)
+                                                                     -mute                                 - playText(string)
                                                                                                            - mute()
                                                                                                            - previousTrack()
                                                                                                            - unmute()
-                                                                                                           - setTrack(string)
-                                                                                                           - resumeTrack(string)
-                                                                                                           - restoreTrack(string)
 :ref:`notification`           capability.notification                                                      - deviceNotification(string)
 :ref:`occupancy`              capability.occupancy                   - occupancy
 :ref:`ph_measurement`         capability.pHMeasurement               - pH
@@ -157,6 +159,13 @@ Commands:
                                                                                                            - cancel()
 :ref:`tone`                   capability.tone                                                              - beep()
 :ref:`touch_sensor`           capability.touchSensor                 - touch
+:ref:`tracking_music_player`  capability.trackingMusicPlayer         - level                               - mute()
+                                                                     - mute                                - nextTrack()
+                                                                     - status                              - pause()
+                                                                     - trackData                           - play()
+                                                                     - trackDescription                    - previousTrack()
+                                                                                                           - stop()
+                                                                                                           - unmute()
 :ref:`ultraviolet_index`      capability.ultravioletIndex            - ultravioletIndex
 :ref:`valve`                  capability.valve                       - contact                             - open()
                                                                                                            - close()
@@ -311,6 +320,65 @@ alarm       String      ``"strobe"`` if the alarm is strobing.
       log.debug "unexpected event: ${evt.value}"
     }
   }
+
+----
+
+.. _audio_notification:
+
+Audio Notification
+------------------
+
+================== ==============================
+Capability Name    SmartApp Preferences Reference
+================== ==============================
+Audio Notification capability.audioNotification
+================== ==============================
+
+**Attributes:**
+
+None
+
+**Commands:**
+
+===================== ================== =============
+Command               Parameters         Required
+===================== ================== =============
+playSoundAndTrack()   `String`_ URI      Yes
+
+                      `Number`_ duration No
+
+                      `String`_ track    Yes
+
+                      `Number`_ volume   No
+
+playText()            `String`_ message  Yes
+
+                      `Number`_ volume   No
+
+playTextAndResume()   `String`_ message  Yes
+
+                      `Number`_ volume   No
+
+playTextAndRestore()  `String`_ message  Yes
+
+                      `Number`_ volume   No
+
+playTrack()           `String`_ URI      Yes
+
+                      `Number`_ volume   No
+
+playTrackAndResume()  `String`_ URI      Yes
+
+                      `Number`_ volume   No
+
+playTrackAndRestore() `String`_ URI      Yes
+
+                      `Number`_ volume   No
+
+playTrackAtVolume()   `String`_ URI      Yes
+
+                      `Number`_ volume   Yes
+===================== ================== =============
 
 ----
 
@@ -1293,24 +1361,12 @@ mute             String  ``"muted"``
     Stop music playback
 *nextTrack()*
     Advance to next track
-*playTrack(string)*
-    Play the track matching the given string (the string is a URI for the track to be played)
-*setLevel(number)*
-    Set the volume to the specified level (the number represents a percent)
-*playText(string)*
-    play the given string as text to speech
 *mute()*
     Mute playback
 *previousTrack()*
     Go back to the previous track
 *unmute()*
     Unmute playback
-*setTrack(string)*
-    Set the track to be played (does not play the track)
-*resumeTrack(map)*
-    Set and play the given track and maintain queue position
-*restoreTrack(map)*
-    Restore the track with the given data
 
 **SmartApp Example:**
 
@@ -1328,8 +1384,9 @@ mute             String  ``"muted"``
   }
 
   def myHandler(evt) {
+    // turn on the music when I get home
     if("open" == evt.value) {
-      player.playText("The front door is open")
+      player.play()
     }
   }
 
@@ -2463,6 +2520,56 @@ None.
 
 ----
 
+.. _tracking_music_player:
+
+Tracking Music Player
+---------------------
+
+===================== ==============================
+Capability Name       SmartApp Preferences Reference
+===================== ==============================
+Tracking Music Player capability.trackingMusicPlayer
+===================== ==============================
+
+**Attributes:**
+
+================ ======= =================
+Attribute        Type    Possible Values
+================ ======= =================
+level            Number  ``0-100`` (percent)
+mute             String  ``muted`` or ``unmuted``
+status           String
+trackData        JSON
+trackDescription String
+================ ======= =================
+
+**Commands:**
+
+*play()*
+    Start music playback
+*pause()*
+    Pause music playback
+*stop()*
+    Stop music playback
+*nextTrack()*
+    Advance to next track
+*playTrack(string)*
+    Play the track matching the given string (the string is a URI for the track to be played)
+*mute()*
+    Mute playback
+*previousTrack()*
+    Go back to the previous track
+*unmute()*
+    Unmute playback
+*setTrack(String)*
+    Set the track to be played (does not play the track)
+*resumeTrack(String)*
+    Set and play the given track and maintain queue position
+*restoreTrack(String)*
+    Restore the track with the given name
+
+----
+
 .. _ultraviolet_index:
 
 Ultraviolet Index
@@ -2601,3 +2708,13 @@ windowShade String  ``"unknown"``
 *close()*
 
 *presetPosition()*
+
+----
+
+.. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html
+.. _Date: http://docs.oracle.com/javase/7/docs/api/java/util/Date.html
+.. _Map: http://docs.oracle.com/javase/7/docs/api/java/util/Map.html
+.. _Number: http://docs.oracle.com/javase/7/docs/api/java/lang/Number.html
+.. _Object: http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
+.. _List: http://docs.oracle.com/javase/7/docs/api/java/util/List.html
+.. _String: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html

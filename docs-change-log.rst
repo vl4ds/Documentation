@@ -6,6 +6,18 @@ A log of changes to this documentation.
 
 ----
 
+23 June 2016
+------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/23-June-2016>`__
+
+- Splitting the Music Player `capability <http://docs.smartthings.com/en/latest/capabilities-reference.html>`_ into three capabilities
+    - Audio Notification
+    - Music Player
+    - Tracking Music Player
+
+----
+
 17 June 2016
 ------------
 
@@ -13,12 +25,16 @@ A log of changes to this documentation.
 
 - Adding `WOL (Wake On Lan) documentation <http://docs.smartthings.com/en/latest/cloud-and-lan-connected-device-types-developers-guide/building-lan-connected-device-types/building-the-device-type.html#wake-on-lan-wol>`_
 
+----
+
 13 June 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/13-June-2016>`__
 
 - Adding :doc:`Code Review Guidelines and Best Practices <code-review-guidelines>` for SmartApps and Device Handlers.
+
+----
 
 9 June 2016
 -----------
