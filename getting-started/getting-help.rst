@@ -51,4 +51,4 @@ Every second Wednesday of the month at 2 PM PST, SmartThings holds an open call 
 
 You'll often get sneak peeks or additional insight not found anywhere else, so we encourage you to stop by.
 
-You can find out more information, including a link to the calendar invite, at http://smartthings.com/developers. We'll also typically provide an agenda for the upcoming developer call on the community site (in the Groups and Events category).
+You can find out more information, including a link to the calendar invite, on our `developer site <https://developers.smartthings.com/developers/participate>`__. We'll also typically provide an agenda for the upcoming developer call on the community site (in the Groups and Events category).
