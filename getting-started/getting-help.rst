@@ -47,7 +47,7 @@ Once you submit a ticket you should expect to get a response in 48 hours.
 Open Developer Discussions
 --------------------------
 
-Every other Wednesday at 5 PM PST, SmartThings holds an open call for SmartThings developers. The topics vary, but this is an opportunity for you to hear directly from the SmartThings staff, as well as to ask questions.
+Every second Wednesday of the month at 2 PM PST, SmartThings holds an open call for SmartThings developers. The topics vary, but this is an opportunity for you to hear directly from the SmartThings staff, as well as to ask questions.
 
 You'll often get sneak peeks or additional insight not found anywhere else, so we encourage you to stop by.
 
