@@ -15,7 +15,6 @@ Recall that SmartApps (and Device Handlers) are not always running, but rather e
 Here's a quick example showing how to work with state:
 
 .. code-block:: groovy
-    :linenos:
 
     state.myData = "some data"
     log.debug "state.myData = ${state.myData}"
@@ -47,7 +46,6 @@ The contents of ``state`` are stored as a JSON string. This means that anything 
   This is particularly worth noting when working with dates. If you need to store time information, consider using an epoch time stamp, conveniently available via the ``now()`` method:
 
   .. code-block:: groovy
-    :linenos:
 
     def installed() {
       state.installedAt = now()
@@ -72,7 +70,6 @@ To use ``state``, simply use the ``state`` variable that is injected into every 
 As usual, the best way to describe code is by showing code itself.
 
 .. code-block:: groovy
-    :linenos:
 
     def installed() {
         // simple number to keep track of executions
@@ -186,6 +183,49 @@ When the character limit has been exceeded, a ``physicalgraph.exception.StateCha
     If using ``atomicState``, which reads and writes to the external data store when the object is updated or accessed, you will be able to handle a ``StateCharacterLimitExceededException`` in your code.
 
     Additional helper methods to get the remaining available size and the character limit will be added in a future release.
+
+----
+
+.. _state_using_collections:
+
+Using Collections in State
+--------------------------
+
+When storing collections in State, things are pretty straightforward.
+Simply assign the collection to ``state``, and update entries as needed:
+
+.. code-block:: groovy
+
+    def initialize() {
+        state.myMap = ["key1": "val1"]
+        log.debug "state: $state"
+        state.myMap.key1 = "UPDATED"
+        log.debug "state: $state" // state is now [key1: UPDATED]
+    }
+
+Updating collections stored in Atomic State is a little trickier - following the same pattern as above **will not work**.
+Instead, you will need to assign the collection to a local variable, make changes as needed, then assign it back to ``atomicState``.
+Here's an example:
+
+.. code-block:: groovy
+
+    def initialize() {
+        atomicState.myMap = [key1: "val1"]
+        log.debug "atomicState: $atomicState"
+
+        // assign collection to local variable and update
+        def temp = atomicState.myMap
+        // update existing entry
+        temp.key1 = "UPDATED"
+        // add new entry
+        temp.key2 = "val2"
+
+        // assign collection back to atomicState
+        atomicState.myMap = temp
+        log.debug "atomicState: $atomicState"
+    }
+
+This applies to all collection operations on items stored in Atomic State (adding, removing, modifying, etc).
 
 ----
 
