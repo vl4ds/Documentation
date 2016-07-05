@@ -206,7 +206,7 @@ addChildApp()
 Adds a child app to a SmartApp.
 
 **Signature:**
-    ``InstalledSmartAppWrapper addChildApp(String namespace, String smartAppVersionName, String label, Map properties)``
+    ``InstalledSmartApp addChildApp(String namespace, String smartAppVersionName, String label, Map properties)``
 
 **Throws:**
     ``IllegalArgumentException`` - If a label was not supplied
@@ -222,7 +222,7 @@ Adds a child app to a SmartApp.
     `Map`_ ``properties`` *(optional)* - A map with SmartApp properties for the child app.
 
 **Returns:**
-    ``InstalledSmartAppWrapper`` - The InstalledSmartAppWrapper instance that represents the child SmartApp that was created. See :ref:`installed_smart_app_wrapper` for more information.
+    :ref:`installed_smart_app_wrapper` - The InstalledSmartAppWrapper instance that represents the child SmartApp that was created.
 
 addChildDevice()
 ~~~~~~~~~~~~~~~~
@@ -632,7 +632,7 @@ If the response content type is JSON, the response data will automatically be pa
 .. _smartapp_http_head:
 
 httpHead()
-~~~~~~~~~
+~~~~~~~~~~
 
 Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -1095,7 +1095,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_10_minutes:
 
 runEvery10Minutes()
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every ten minutes. Using this method will pick a random start time in the next ten minutes, and run every ten minutes after that.
 
@@ -1132,7 +1132,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_15_minutes:
 
 runEvery15Minutes()
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every fifteen minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
@@ -1169,7 +1169,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_30_minutes:
 
 runEvery30Minutes()
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every thirty minutes. Using this method will pick a random start time in the next thirty minutes, and run every thirty minutes after that.
 
@@ -1243,7 +1243,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_3_hours:
 
 runEvery3Hours()
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every three hours. Using this method will pick a random start time in the next hour, and run every three hours after that.
 
@@ -2084,6 +2084,7 @@ Get a `Date`_ object for the specified string.
     ...
     Date myTimeAsDate = toDateTime(mytime)
     ...
+    
 ----
 
 .. _smartapp_unschedule:

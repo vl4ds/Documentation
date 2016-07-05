@@ -36,9 +36,12 @@ Gets the current state of the given attribute.
 ----
 
 appSettings
---------------
+-----------
 
 Gets the settings currently associated with this SmartApp.
+
+.. note::
+    This method applies to the SmartApp's :ref:`app_settings`.
 
 **Signature:**
     ``Map`` app.appSettings
@@ -87,12 +90,12 @@ Gets a list child devices associated with this SmartApp.
 
 **Example:**
 
-..code-block:: groovy
+.. code-block:: groovy
 
     // When uninstalling a SmartApp, remove all devices created.
     // This is most likely used with the connect app type architecture.
     def uninstalled() {
-        removeChildDevices(app.childDevices
+        removeChildDevices(app.childDevices)
     }
 
     private removeChildDevices(delete) {
@@ -126,12 +129,10 @@ executableModes
 Get a list of modes that this SmartApp is allowed to execute in.
 
 **Signature:**
-    ``ModeWrapper[]`` executableModes
+    :ref:`mode_ref` executableModes
 
 **Returns:**
-    `ModeWrapper[]` - A list of modes that this SmartApp is allowed to execute in
-
-**Example:**
+    :ref:`mode_ref` - A list of modes that this SmartApp is allowed to execute in
 
 ----
 
@@ -227,14 +228,14 @@ subscriptions
 statesBetween
 -------------
 
-Get a list of Device :ref:`state_ref` objects for the specified attribute between the specified times in reverse chronological order (newest first).
+Get a list of app :ref:`app_state` objects for the specified attribute between the specified times in reverse chronological order (newest first).
 
 .. note::
 
     Only State instances from the *last seven days* is query-able. Using a date range that ends more than seven days ago will return zero State objects.
 
 **Signature:**
-    ``List<State> statesBetween(String attributeName, Date startDate, Date endDate [, Map options])``
+    ``List<AppState> statesBetween(String attributeName, Date startDate, Date endDate [, Map options])``
 
 **Parameters:**
     `String`_ attributeName - The name of the attribute to get the States for.
@@ -252,22 +253,17 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute betwee
     ======= ========== ===========
 
 **Returns:**
-    `List`_ <:ref:`state_ref`> - A list of State objects between the dates specified. A maximum of 1000 :ref:`state_ref` objects will be returned.
+    `List`_ <:ref:`app_state`> - A list of State objects between the dates specified. A maximum of 1000 :ref:`state_ref` objects will be returned.
 
 **Example:**
 
 .. code-block:: groovy
 
-    preferences {
-        section() {
-            input "theswitch", "capability.switch"
-        }
-    }
     ...
     def start = new Date() - 5
     def end = new Date() - 1
 
-    def theStates = theswitch.statesBetween("switch", start, end)
+    def theStates = app.statesBetween("myAttribute", start, end)
     log.debug "There are ${theStates.size()} between five days ago and yesterday"
     ...
 
@@ -276,14 +272,14 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute betwee
 statesSince
 -------------
 
-Get a list of Device :ref:`state_ref` objects for the specified attribute since the date specified.
+Get a list of app :ref:`app_state` objects for the specified attribute since the date specified.
 
 .. note::
 
     Only State instances from the *last seven days* is query-able. Using a date range that ends more than seven days ago will return zero State objects.
 
 **Signature:**
-    ``List<State> statesSince(String attributeName, Date startDate [, Map options])``
+    ``List<AppState> statesSince(String attributeName, Date startDate [, Map options])``
 
 **Parameters:**
     `String`_ attributeName - The name of the attribute to get the States for.
@@ -299,19 +295,13 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute since 
     ======= ========== ===========
 
 **Returns:**
-    `List`_ <:ref:`state_ref`> - A list of State records since the specified start date. A maximum of 1000 :ref:`state_ref` instances will be returned.
+    `List`_ <:ref:`app_state`> - A list of State records since the specified start date. A maximum of 1000 :ref:`state_ref` instances will be returned.
 
 **Example:**
 
 .. code-block:: groovy
 
-    preferences {
-        section() {
-            input "theswitch", "capability.switch"
-        }
-    }
-    ...
-    def theStates = theswitch.statesBetween("switch", new Date() -3)
+    def theStates = app.statesSince("myAttribute", new Date() -3)
     log.debug "There are ${theStates.size()} State records in the last 3 days"
     ...
 

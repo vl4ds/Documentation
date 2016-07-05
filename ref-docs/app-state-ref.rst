@@ -44,7 +44,7 @@ The value of this Event, if the value can be parsed to a Date.
     def eventHander(evt) {
         def myState = app.currentState("someAttribute")
         // get the value of this event as an Double
-        // throws an exception of the value is not convertable to a Double
+        // throws an exception of the value is not convertable to a Date
         try {
             log.debug "The dateValue of this event is ${myState.dateValue}"
             log.debug "myState.dateValue instanceof Date? ${myState.dateValue instanceof Date}"
@@ -131,6 +131,7 @@ The value of this Event, if the value can be parsed to a Double.
             log.debug "Trying to get the doubleValue for ${myState.name} threw an exception: $e"
         }
     }
+
 ----
 
 floatValue
@@ -308,7 +309,7 @@ The value of this Event as a Long.
         // throws an exception if not convertable to Long
         try {
             def evtLongValue = myState.longVaue
-            log.debug "The longValue of this event is evtLongValue"
+            log.debug "The longValue of this event is $evtLongValue"
             log.debug "evt.longValue instanceof Long? ${evtLongValue instanceof Long}"
         } catch (e) {
             log.debug "Trying to get the longValue for ${myState.name} threw an exception: $e"
@@ -399,7 +400,7 @@ The value of this Event as a Number.
     def eventHandler(evt) {
         def myState = app.currentState("someAttribute")
         // get the value of this event as an Number
-        // throws an exception if the value is not convertable to a Number
+        // throws an exception if the value is not convertable to a BigDecimal
         try {
             def evtNumberValue = myState.numericValue
             log.debug "The numericValue of this event is ${evtNumberValue}"
@@ -423,6 +424,9 @@ The unit of measure for this Event, if applicable.
     `String`_ - the unit of measure of this Event, if applicable. ``null`` otherwise.
 
 **Example:**
+
+.. code-block:: groovy
+
     def eventHandler(evt) {
         def myState = app.currentState("someAttribute")
         log.debug "The unit for this event: ${myState.unit}"

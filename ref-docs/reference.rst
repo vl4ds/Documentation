@@ -66,5 +66,6 @@ When appropriate, we have included various tips or warnings. In cases where an A
    location-ref
    mode-ref
    state-ref
+   app-state-ref
    zigbee-ref
    z-wave-ref

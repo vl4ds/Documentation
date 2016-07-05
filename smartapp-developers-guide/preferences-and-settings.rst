@@ -849,6 +849,8 @@ you can also have dynamic behavior in a single page.
 
 ----
 
+.. _app_settings:
+
 Private Settings
 ----------------
 
