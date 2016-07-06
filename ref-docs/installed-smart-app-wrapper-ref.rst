@@ -54,7 +54,7 @@ Gets the settings currently associated with this SmartApp.
 childApps
 ------------
 
-Gets a list child apps associated with this SmartApp.
+Gets a list of child apps associated with this SmartApp.
 
 **Signature:**
     ``InstalledSmartApp[]`` childApps
@@ -80,7 +80,7 @@ Gets a list child apps associated with this SmartApp.
 childDevices
 ---------------
 
-Gets a list child devices associated with this SmartApp.
+Gets a list of child devices associated with this SmartApp.
 
 **Signature:**
     ``DeviceWrapper[]`` app.childDevices
