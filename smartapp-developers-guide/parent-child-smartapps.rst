@@ -1,3 +1,5 @@
+.. _parent_child_smartapps:
+
 Parent-Child SmartApps
 ======================
 

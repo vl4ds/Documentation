@@ -304,6 +304,12 @@ Understand when to use ``atomicState`` vs. ``state``
 
 Understand the :ref:`difference <atomic_state>` between ``atomicState`` and ``state``, make sure you use the correct one for your needs, and avoid using both in the same SmartApp.
 
+Take care when storing collections in ``atomicState``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Modifying collections in Atomic State does not work as it does with State.
+:ref:`Read the documentation <state_using_collections>` to understand how to best work with collections stored in Atomic State.
+
 ----
 
 Web Services
