@@ -167,6 +167,8 @@ Publish the app for yourself, by clicking on the "Publish" button and selecting 
 
 ----
 
+.. _run_api_smartapp_simulator:
+
 Run the SmartApp in the Simulator
 ---------------------------------
 
@@ -174,7 +176,16 @@ Using the simulator, we can quickly test our Web Services SmartApp.
 
 Click the *Install* button in the simulator, select a Location to install the SmartApp into, and select a switch.
 
-Note that in the lower right of the simulator there is an API token and an API endpoint.
+Note that in the lower right of the simulator there is an API token and an API endpoint URL:
+
+.. image:: ../img/smartapps/web-services/web-services-smartapp-simulator-install.png
+
+.. important::
+
+    The base URL for of your SmartApp's API endpoint will vary depending on the location being installed into.
+
+    **Be sure to copy the URL from the simulator to ensure you have the correct URL!**
+
 We can use these to test making requests to our SmartApp.
 
 ----
@@ -186,9 +197,15 @@ Using whatever tool you prefer for making web requests (this example will use cu
 
 From the simulator, grab the API endpoint. It will look something like this::
 
-  https://graph.api.smartthings.com/api/smartapps/installations/158ef595-3695-49ab-acc1-80e93288c0c8
+  https://<BASE-URL>/api/smartapps/installations/158ef595-3695-49ab-acc1-80e93288c0c8
 
 Your installation will have a different, unique URL.
+
+.. important::
+
+    The base URL for of your SmartApp's API endpoint will vary depending on the location being installed into.
+
+    **Be sure to copy the URL from the simulator to ensure you have the correct URL!**
 
 To get information about the switch, we will call the /switch endpoint using a GET request.
 You'll need to substitute your unique endpoint and API key.
