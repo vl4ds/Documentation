@@ -6,6 +6,19 @@ A log of changes to this documentation.
 
 ----
 
+07 July 2016
+------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/07-July-2016>`__
+
+- Added documentation for :ref:`working with collections in State and Atomic State <state_using_collections>`
+- Added documentation for :doc:`ref-docs/app-state-ref`
+- Added documentation for :doc:`ref-docs/installed-smart-app-wrapper-ref`
+- Added :ref:`clarification <run_api_smartapp_simulator>` that the callable URL for Web Services SmartApps will vary by installed location
+- Updated :ref:`developer_discussions` with the new developer call schedule
+
+----
+
 23 June 2016
 ------------
 

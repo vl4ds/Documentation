@@ -167,6 +167,8 @@ Publish the app for yourself, by clicking on the "Publish" button and selecting 
 
 ----
 
+.. _run_api_smartapp_simulator:
+
 Run the SmartApp in the Simulator
 ---------------------------------
 

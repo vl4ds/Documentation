@@ -57,6 +57,7 @@ Contents
    arduino/index
    code-review-guidelines
    contributing/index
+   docs-change-log
 
 .. toctree::
     :maxdepth: 1
