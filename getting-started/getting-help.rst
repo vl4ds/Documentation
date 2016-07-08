@@ -44,6 +44,8 @@ Once you submit a ticket you should expect to get a response in 48 hours.
 
 ----
 
+.. _developer_discussions:
+
 Open Developer Discussions
 --------------------------
 
