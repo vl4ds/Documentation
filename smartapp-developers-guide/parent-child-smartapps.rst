@@ -3,7 +3,7 @@
 Parent-Child SmartApps
 ======================
 
-SmartApps can have child SmartApps. This is often useful whe you want to provide multiple automations that act independently on separate devices. This will consolidate multiple separate automations under one parent.
+SmartApps can have child SmartApps. This is often useful when you want to provide multiple automations that act independently on separate devices. This will consolidate multiple separate automations under one parent.
 
 ----
 
