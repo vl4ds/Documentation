@@ -22,16 +22,16 @@ Logging Levels
 
 The log instance currently supports these log levels, in decreasing order of severity:
 
-===== ===================== ====================================================================
-Level Usage                 Description
-===== ===================== ====================================================================
-ERROR ``log.error(string)`` Runtime errors or unexpected conditions.
-WARN  ``log.warn(string)``  Runtime situations that are unexpected, but not wrong.
-                            Can also be used to log use of deprecated APIs.
-INFO  ``log.info(string)``  Interesting runtime events. For example, turning a switch on or off.
-DEBUG ``log.debug(string)`` Detailed information about the flow of the SmartApp.
-TRACE ``log.trace(string)`` Most detailed information.
-===== ===================== ====================================================================
+===== ======================================= ====================================================================
+Level Usage                                   Description
+===== ======================================= ====================================================================
+ERROR ``log.error(String, Throwable = null)`` Runtime errors or unexpected conditions.
+WARN  ``log.warn(String, Throwable = null)``  Runtime situations that are unexpected, but not wrong.
+                                              Can also be used to log use of deprecated APIs.
+INFO  ``log.info(String, Throwable = null)``  Interesting runtime events. For example, turning a switch on or off.
+DEBUG ``log.debug(String, Throwable = null)`` Detailed information about the flow of the SmartApp.
+TRACE ``log.trace(String, Throwable = null)`` Most detailed information.
+===== ======================================= ====================================================================
 
 ----
 
