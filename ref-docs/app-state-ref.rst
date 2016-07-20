@@ -49,7 +49,7 @@ The value of this Event, if the value can be parsed to a Date.
             log.debug "The dateValue of this event is ${myState.dateValue}"
             log.debug "myState.dateValue instanceof Date? ${myState.dateValue instanceof Date}"
         } catch (e) {
-            log.debug "Trying to get the dateValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the dateValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -128,7 +128,7 @@ The value of this Event, if the value can be parsed to a Double.
             log.debug "The doubleValue of this event is ${myState.doubleValue}"
             log.debug "myState.doubleValue instanceof Double? ${myState.doubleValue instanceof Double}"
         } catch (e) {
-            log.debug "Trying to get the doubleValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the doubleValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -163,7 +163,7 @@ The value of this Event as a Float, if it can be parsed into a Float.
             log.debug "The floatValue of this event is ${myState.floatValue}"
             log.debug "myState.floatValue instanceof Float? ${myState.floatValue instanceof Float}"
         } catch (e) {
-            log.debug "Trying to get the floatValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the floatValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -198,7 +198,7 @@ The value of this Event as an Integer.
             log.debug "The integerValue of this event is ${myState.integerValue}"
             log.debug "The integerValue of this event is an Integer: ${myState.integerValue instanceof Integer}"
         } catch (e) {
-            log.debug "Trying to get the integerValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the integerValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -254,7 +254,7 @@ Value of the Event as a parsed JSON data structure.
         try {
             log.debug "The jsonValue of this event is ${myState.jsonValue}"
         } catch (e) {
-            log.debug "Trying to get the jsonValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the jsonValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -312,7 +312,7 @@ The value of this Event as a Long.
             log.debug "The longValue of this event is $evtLongValue"
             log.debug "evt.longValue instanceof Long? ${evtLongValue instanceof Long}"
         } catch (e) {
-            log.debug "Trying to get the longValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the longValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -370,7 +370,7 @@ The value of this Event as a Number.
             log.debug "The numberValue of this event is ${evtNumberValue}"
             log.debug "evt.numberValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
         } catch (e) {
-            log.debug "Trying to get the numberValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the numberValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -406,7 +406,7 @@ The value of this Event as a Number.
             log.debug "The numericValue of this event is ${evtNumberValue}"
             log.debug "evt.numericValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
         } catch (e) {
-            log.debug "Trying to get the numericValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the numericValue for ${myState.name} threw an exception", e)
         }
     }
 
@@ -492,7 +492,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
             log.debug "The xyzValue of this event is ${myState.xyzValue }"
             log.debug "myState.xyzValue instanceof Map? ${myState.xyzValue  instanceof Map}"
         } catch (e) {
-            log.debug "Trying to get the xyzValue for ${myState.name} threw an exception: $e"
+            log.debug("Trying to get the xyzValue for ${myState.name} threw an exception", e)
         }
     }
 

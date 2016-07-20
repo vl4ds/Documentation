@@ -217,6 +217,7 @@ The unique system identifer of the :ref:`device_ref` associated with this Event.
 
 ----
 
+.. _event_ref_double_value:
 
 doubleValue
 -----------
@@ -246,7 +247,7 @@ The value of this Event, if the value can be parsed to a Double.
             log.debug "The doubleValue of this event is ${evt.doubleValue}"
             log.debug "evt.doubleValue instanceof Double? ${evt.doubleValue instanceof Double}"
         } catch (e) {
-            log.debug "Trying to get the doubleValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the doubleValue for ${evt.name} threw an exception", e)
         }
     }
 ----
@@ -279,7 +280,7 @@ The value of this Event as a Float, if it can be parsed into a Float.
             log.debug "The floatValue of this event is ${evt.floatValue}"
             log.debug "evt.floatValue instanceof Float? ${evt.floatValue instanceof Float}"
         } catch (e) {
-            log.debug "Trying to get the floatValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the floatValue for ${evt.name} threw an exception", e)
         }
     }
 
@@ -359,7 +360,7 @@ The value of this Event as an Integer.
             log.debug "The integerValue of this event is ${evt.integerValue}"
             log.debug "The integerValue of this event is an Integer: ${evt.integerValue instanceof Integer}"
         } catch (e) {
-            log.debug "Trying to get the integerValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the integerValue for ${evt.name} threw an exception", e)
         }
     }
 
@@ -476,7 +477,7 @@ Value of the Event as a parsed JSON data structure.
         try {
             log.debug "The jsonValue of this event is ${evt.jsonValue}"
         } catch (e) {
-            log.debug "Trying to get the jsonValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the jsonValue for ${evt.name} threw an exception", e)
         }
     }
 
@@ -550,7 +551,7 @@ The value of this Event as a Long.
             log.debug "The longValue of this event is evtLongValue"
             log.debug "evt.longValue instanceof Long? ${evtLongValue instanceof Long}"
         } catch (e) {
-            log.debug "Trying to get the longValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the longValue for ${evt.name} threw an exception", e)
         }
     }
 
@@ -606,7 +607,7 @@ The value of this Event as a Number.
             log.debug "The numberValue of this event is ${evtNumberValue}"
             log.debug "evt.numberValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
         } catch (e) {
-            log.debug "Trying to get the numberValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the numberValue for ${evt.name} threw an exception", e)
         }
     }
 
@@ -641,7 +642,7 @@ The value of this Event as a Number.
             log.debug "The numericValue of this event is ${evtNumberValue}"
             log.debug "evt.numericValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
         } catch (e) {
-            log.debug "Trying to get the numericValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the numericValue for ${evt.name} threw an exception", e)
         }
     }
 
@@ -775,7 +776,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
             log.debug "The xyzValue of this event is ${evt.xyzValue }"
             log.debug "evt.xyzValue instanceof Map? ${evt.xyzValue  instanceof Map}"
         } catch (e) {
-            log.debug "Trying to get the xyzValue for ${evt.name} threw an exception: $e"
+            log.debug("Trying to get the xyzValue for ${evt.name} threw an exception", e)
         }
     }
 
