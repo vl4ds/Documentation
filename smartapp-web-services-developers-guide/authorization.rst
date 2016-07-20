@@ -51,7 +51,7 @@ parameter      value
 response_type  Use ``code`` to obtain the authorization code.
 client_id      The OAuth client ID of the SmartApp.
 scope          This should always be "app" for this authorization flow.
-redirect_uri   The URI of your server that will receive the authorization code.
+redirect_uri   The URI of your server that will receive the authorization code. This URI must match one of the redirect URIs specified in the SmartApp settings, otherwise validation will fail.
 ============== ===========
 
 This will require the user to log in with their SmartThings account credentials, choose a Location, and select what devices may be accessed by the third party.
