@@ -8,6 +8,8 @@ It can then do anything a normal SmartApp can do - get device status, actuate de
 
 ----
 
+.. _webservices_smartapp_enable_oauth:
+
 Enable OAuth
 ------------
 
