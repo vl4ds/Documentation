@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+21 July 2016
+------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/21-July-2016>`__
+
+- :ref:`Documented <webservices_smartapp_enable_oauth>` the new redirect URI field on OAuth SmartApps
+
+----
+
 07 July 2016
 ------------
 
