@@ -18,6 +18,27 @@ In the *OAuth* section, check the box to enable OAuth.
 A client ID and secret will be generated for this SmartApp.
 These will be used as part of the OAuth flow to obtain an access token for this SmartApp.
 
+There is an option to specify a Redirect URI.
+This URI will be used to validate the ``redirect_uri`` passed in with the request for the authorization code.
+The value of this field can be a single value, or a comma-delimited list of values.
+For example:
+
+``http://myserverhostname.com``
+
+or
+
+``http://myserverhostname1.com,http://myserverhostname2.com,http://myserverhostname3.com``
+
+During validation, the ``redirect_uri`` passed in with the authorization code request will be checked against the URIs defined in this field.
+The port does matter during validation.
+If there is no match, validation will fail with the following error:
+
+.. code-block:: html
+
+    OAuth2 Error
+
+    error="invalid_grant", error_description="Invalid redirect: http://myserverhostname.com/oauth/callback does not match one of the registered values: [http://myserverhostname1.com/oauth/callback]"
+
 You can also set the Client Display Name and Client Display Link.
 These will be used on the SmartThings Authorization page to inform the user who is requesting access to their devices.
 
