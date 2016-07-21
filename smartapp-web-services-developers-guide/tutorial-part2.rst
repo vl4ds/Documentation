@@ -158,7 +158,9 @@ Get an Authorization Code
 When the user clicks on the "Connect with SmartThings" link, we need to get our OAuth authorization code.
 
 To do this, the user will need to authenticate with SmartThings, and authorize the devices this application can work with.
-Once that has been done, the user will be directed back to a specified ``redirect_url``, with the OAuth authorization code.
+Once that has been done, the user will be directed back to a specified ``redirect_uri``, with the OAuth authorization code.
+When we created the SmartApp in the first part of this tutorial, we set the redirect URI to ``http://localhost:4567/oauth/callback``.
+It is important that the redirect URI in the SmartApp and the ``redirect_uri`` field in this Sinatra app match, as validation will occur with the authorization code request that will make sure these two URIs match.
 This will be used (along with the ``client_id`` and ``client_secret``), to get the access token.
 
 .. important::
