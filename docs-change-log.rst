@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+25 July 2016
+------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/25-July-2016>`__
+
+- Add a strong warning to the :ref:`State documentation <storing-data>` to emphasize the importance of never mixing ``atomicState`` and ``state`` in the same SmartApp.
+
+----
+
 21 July 2016
 ------------
 
