@@ -5,6 +5,13 @@ Storing Data
 
 SmartApps and Device Handlers are all provided a ``state`` variable that will allow you to store data across executions.
 
+.. warning::
+
+    As discussed in the documentation below, ``state`` and ``atomicState`` should **never** be used in the same SmartApp.
+
+    Doing so can cause inconsistencies or even loss of data.
+    At some point, this may be enforced through a compile-time check to prevent making this mistake.
+
 ----
 
 Overview
