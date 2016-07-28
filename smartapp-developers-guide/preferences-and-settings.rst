@@ -739,6 +739,8 @@ Device Preference Input  Device Name Searched For
 
 ----
 
+.. _prefs_hide_when_empty:
+
 Hide When Empty
 ---------------
 
