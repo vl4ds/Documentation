@@ -739,6 +739,90 @@ Device Preference Input  Device Name Searched For
 
 ----
 
+.. _prefs_hide_when_empty:
+
+Hide When Empty
+---------------
+
+Inputs, sections, and pages, support the ``hideWhenEmpty`` attribute.
+The attribute will hide the element that it is associated with when the element is empty.
+For example, if you have an input that prompts the user for an audio device, but that user does not have any audio devices, the ``hideWhenEmpty`` attribute will hide the input from the user.
+Let's take a look at a few examples.
+
+Add the ``hideWhenEmpty`` attribute to SmartApp inputs to completely hide UI control if there are no devices available.
+In this example, the SmartApp will not display the valve input if there were no valves in this users location, but would display the switch input even if there were no switches.
+
+.. code-block:: groovy
+
+    preferences {
+        section {
+            input "switches", "capability.switch", title: "Select a switch"
+            input "valves", "capability.valve", title: "Select a valve", hideWhenEmpty: true, required: false
+        }
+    }
+
+Adding the ``hideWhenEmpty`` attribute to a `section` or a `page` will cascade the attribute down to all of the child `input` elements.
+This means that adding the ``hideWhenEmpty`` attribute to any parent element is in effect the same as adding the ``hideWhenEmpty`` attribute to all of the child `input` elements.
+Let's look at a few examples.
+
+The following example will hide the entire section if there are no valves and no switches.
+If the use did have a switch or a valve, then the section would be displayed with only that input element available.
+
+.. code-block:: groovy
+
+    preferences {
+        section(hideWhenEmpty: true) {
+            input "switches", "capability.switch", title: "Select a switch"
+            input "valves", "capability.valve", title: "Select a valve", required: false
+        }
+    }
+
+The last example illustrates how this attribute applies to an entire page element.
+In this case, any empty sections on the page will be hidden if all of their elements are empty.
+
+.. code-block:: groovy
+
+    preferences {
+        page(name: "mainPage", title: "Select some things", hideWhenEmpty: true) {
+            section {
+                input "switches", "capability.switch", title: "Select a switch"
+                input "valves", "capability.valve", title: "Select a valve", required: false
+            }
+            section {
+                input "audio", "capability.musicPlayer", title: "Select a music player"
+            }
+        }
+    }
+
+It is worth noting that in the last example, the audio input does not have the usual ``required: false`` attribute.
+This is because the input will not be displayed if there are no audio devices associated to this location.
+However, the SmartApp would have to be able to handle a ``null`` value for that input.
+Also, it is worth remembering that if the user does have an audio device in this location, the default value of ``required: true`` will be applicable.
+
+Working with other input types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We've seen how the ``hideWhenEmpty`` attribute works with device inputs, but what about other types of inputs like Number, text, or Boolean inputs?
+These types of inputs will always show up because they can never have empty selections.
+It is possible to hide these kinds of input elements if they relate to another input element.
+Let's look at an example where we have two inputs, an audio device input, and a volume input.
+The volume input can never be empty, so we can't hide it. But it is related to the audio input which can be empty and hidden.
+In this case, we can hide the entire section containing the two inputs by telling the volume input to hide if the audio input is empty.
+We do this by referencing the name of the related input.
+
+.. code-block:: groovy
+
+    preferences {
+        page(name: "mainPage", title: "Select some things", hideWhenEmpty: true) {
+            section {
+                input "audio", "capability.musicPlayer", title: "Select a music player"
+                input "volume", "number", title: "Set it to this volume level", hideWhenEmpty: "audio"
+            }
+        }
+    }
+
+----
+
 Dynamic Preferences
 -------------------
 
