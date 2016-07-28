@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+28 July 2016
+------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/28-July-2016>`__
+
+- Document the new :ref:`hideWhenEmpty <prefs_hide_when_empty>` preferences option.
+
+----
+
 25 July 2016
 ------------
 
