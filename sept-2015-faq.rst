@@ -1,6 +1,6 @@
-==========================
-September 2015 Release FAQ
-==========================
+===========================
+Sumsung SmartThings Hub FAQ
+===========================
 
 *A collection of frequently asked questions about the new Samsung SmartThings Hub, and updated SmartThings mobile applications, for SmartThings developers.*
 
