@@ -3,13 +3,13 @@
 Event
 =====
 
-Events are core to the SmartThings platform. The allow SmartApps to respond to changes in the physical environment, and build automations around them.
+Events are core to the SmartThings platform. They allow SmartApps to respond to changes in the physical environment, and build automations around them.
 
 Event instances are not created directly by SmartApp or Device Handlers. They are created internally by the SmartThings platform, and passed to SmartApp event handlers that have subscribed to those events.
 
 .. note::
 
-    In a SmartApp or Device Handler, the method ``createEvent`` exists to create a Map that defines properties of an Event. Only by returning the resulting map from a Device Handler's ``parse`` method is an actual Event instance created and propogated through the SmartThings system.
+    In a SmartApp or Device Handler, the method ``createEvent`` exists to create a Map that defines properties of an Event. Only by returning the resulting map from a Device Handler's ``parse`` method is an actual Event instance created and propagated through the SmartThings system.
 
 The reference documentation here lists all properties and methods available on an Event object instance.
 
@@ -99,26 +99,14 @@ The value of the event as a `Date`_ object, if applicable.
 **Returns:**
     `Date`_ - If the value of this event is date, a Date will be returned. ``null`` will be returned if the value of the event is not parseable to a Date.
 
-.. warning::
-
-    Calling ``dateValue`` on an Event that does not have a value that is parseable into a Date object will throw an exception.
-
-    You should wrap calls in a try/catch block.
-
-
 **Example:**
 
 .. code-block:: groovy
 
     def eventHandler(evt) {
         // get the value of this event as a Date
-        // throws an exception if the value is not convertable to a Date
-        try {
-            log.debug "The dateValue of this event is ${evt.dateValue}"
-            log.debug "evt.dateValue instanceof Date? ${evt.dateValue instanceof Date}"
-        } catch (e) {
-            log.debug "Trying to get the dateValue for ${evt.name} threw an exception: $e"
-        }
+        log.debug "The dateValue of this event is ${evt.dateValue}"
+        log.debug "evt.dateValue instanceof Date? ${evt.dateValue instanceof Date}"
     }
 
 ----

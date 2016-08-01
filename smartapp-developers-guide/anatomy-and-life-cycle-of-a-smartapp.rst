@@ -77,7 +77,7 @@ The *defintion* section of the SmartApp specifies the name of the app along with
 Preferences
 ^^^^^^^^^^^
 
-The *preferences* section is responsible for defining the screens that appear in the mobile app when a SmartApp isnstalled or updated.
+The *preferences* section is responsible for defining the screens that appear in the mobile app when a SmartApp is installed or updated.
 These screens allow the user to specify which devices the SmartApp interacts with along with other configuration options that affect its behavior.
 
 Pre-defined Callbacks
