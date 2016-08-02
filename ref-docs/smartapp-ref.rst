@@ -2148,3 +2148,4 @@ Typically should be called in the `updated()`_ method, since device preferences 
 .. _TimeZone: http://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html
 .. _HttpResponseDecorator: http://javadox.com/org.codehaus.groovy.modules.http-builder/http-builder/0.6/groovyx/net/http/HttpResponseDecorator.html
 .. _Collection: https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html
+.. _Integer: http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html

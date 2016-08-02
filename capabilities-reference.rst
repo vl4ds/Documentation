@@ -92,7 +92,7 @@ Name                          Preferences Reference                  Attributes 
                                                                      - level                               - pause()
                                                                      - trackDescription                    - stop()
                                                                      - trackData                           - nextTrack()
-                                                                     -mute                                 - playText(string)
+                                                                     - mute                                - playText(string)
                                                                                                            - mute()
                                                                                                            - previousTrack()
                                                                                                            - unmute()
@@ -1931,6 +1931,7 @@ None.
 
 *speak(string)*
     It can talk!
+
 ----
 
 .. _step_sensor:
@@ -2413,7 +2414,7 @@ None.
 .. _timed_session:
 
 Timed Session
-----------
+-------------
 
 ================ ==============================
 Capability Name  SmartApp Preferences Reference

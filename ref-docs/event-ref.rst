@@ -163,6 +163,7 @@ The :ref:`device_ref` associated with this Event.
 
 **Returns:**
     :ref:`device_ref` - the Device associated with this Event, or ``null`` if no Device is associated with this Event.
+
 ----
 
 displayName
@@ -237,6 +238,7 @@ The value of this Event, if the value can be parsed to a Double.
             log.debug "Trying to get the doubleValue for ${evt.name} threw an exception: $e"
         }
     }
+
 ----
 
 floatValue
@@ -701,6 +703,9 @@ The unit of measure for this Event, if applicable.
     `String`_ - the unit of measure of this Event, if applicable. ``null`` otherwise.
 
 **Example:**
+
+.. code-block:: groovy
+
     def eventHandler(evt) {
         log.debug "The unit for this event: ${evt.unit}"
     }
