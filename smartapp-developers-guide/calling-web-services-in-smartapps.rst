@@ -1,7 +1,7 @@
 .. _calling_web_services:
 
-Calling Web Services
-====================
+Making External HTTP Requests
+=============================
 
 SmartApps or Device Handlers may need to make calls to external web services. There are several APIs available to you to handle making these requests.
 

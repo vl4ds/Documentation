@@ -1,7 +1,7 @@
 .. _storing-data:
 
-Storing Data
-============
+State - Storing Data
+====================
 
 SmartApps and Device Handlers are all provided a ``state`` variable that will allow you to store data across executions.
 
