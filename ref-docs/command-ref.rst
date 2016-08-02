@@ -57,6 +57,7 @@ The list of argument types for the command.
         log.debug "arguments for swithLevel command ${it.name}: ${it.arguments}"
     }
     ...
+    
 ----
 
 name

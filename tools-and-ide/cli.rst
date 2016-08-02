@@ -411,5 +411,3 @@ in the cloud with the use of a SCM tool like git.*
 **Question: Will the CLI ever have command completion?**
 
 *Answer: Command completion is coming soon!*
-
-----

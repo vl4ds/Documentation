@@ -236,6 +236,7 @@ Configure a ZigBee device's reporting properties. Refer to the *Configure Report
         .. code-block:: groovy
 
             zigbee.configureReporting(0xFC02, 0x0010, 0x18, 10, 3600, 0x01, [mfgCode: 0x110A])
+            
 ----
 
 ZigBee Capabilities
