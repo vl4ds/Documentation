@@ -408,3 +408,121 @@ Returns true if the compared hex values are not equal.
 **Parameters:**
     - **hex1**: Hex value to compare
     - **hex2**: Hex value to compare against first value
+
+zigbee.parseZoneStatus()
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Returns a ZoneStatus object (see below) withe the parsed value form the message description.  The description
+should be of the form "zone status {number}" where {number} is a hex number.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    zigbee.parseZoneStatus(String description)
+
+**Parameters:**
+    - **description**: A zone status message description.
+
+
+
+Additional ZigBee Classes
+-------------------------
+
+There are some additional classes that are provided to make interacting with and handling Zigbee messages easier.
+
+ZoneStatus
+^^^^^^^^^^
+
+The purpose of the ZoneStatus class is to handle the ZoneStatus attribute in the IAS Zone cluster.  It has a
+single constructor that takes an int which is the ZoneStatus attribute value.
+
+**Constructor:**
+
+.. code-block:: groovy
+
+   ZoneStatus(int zonestatus)
+
+**Example:**
+
+.. code-block:: groovy
+
+   ZoneStatus zs = ZoneStatus(0x41) // Trouble & Alarm1
+
+Accessing a Property/attribute
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Once you have created the ZoneStatus object you can query the individual bits in a number of ways.  First
+you can get the value of each individual bit (1 or 0) by accessing the property with the same name.  The
+properties are as follows:
+
+========== ===================== ===========================================
+Bit Number  Property Name         Values  
+========== ===================== ===========================================
+0           alarm1                | 1 - opened or alarmed
+                                  | 0 - closed or not alarmed
+1           alarm2                | 1 - opened or alarmed
+                                  | 0 - closed or not alarmed
+2           tamper                | 1 - tampered
+                                  | 0 - not tampered
+3           battery               | 1 - low battery
+                                  | 0 - battery OK
+4           supervisionReports    | 1 - reports
+                                  | 0 - does not report
+5           restoreReports        | 1 - reports restore
+                                  | 0 - does not report restore
+6           trouble               | 1 - trouble/failure
+                                  | 0 - OK
+7           ac                    | 1 - ac/mains fault
+                                  | 0 - ac/mains OK
+8           test                  | 1 - sensor is in test mode
+                                  | 0 - sensor is in operation mode
+9           batteryDefect         | 1 - sensor detects a defective battery
+                                  | 0 - sensor battery is functioning normally
+========== ===================== ===========================================
+
+See the `ZigBee Home Automation (HA) <http://www.zigbee.org/zigbee-for-developers/applicationstandards/zigbeehomeautomation/>`__
+specification and the `ZigBee Cluster Library (ZCL) <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__
+specification for more information.
+
+**Example:**
+
+.. code-block:: groovy
+
+   ZoneStatus zs = ZoneStatus(0x41) // Trouble & Alarm1
+
+   zs.alarm1  // 1
+   zs.alarm2  // 0
+   zs.trouble // 1
+
+The ZoneStatus object also exposes a number of query methods for getting a true/false for each attribute
+value.  They are as follows:
+
+===================== ===========================
+Property Name         Query method
+===================== ===========================
+alarm1                 isAlarm1Set()
+alarm2                 isAlarm2Set()
+tamper                 isTamperSet()
+battery                isBatterySet()
+supervisionReports     isSupervisionReportsSet()
+restoreReports         isRestoreReportsSet()
+trouble                isTroubleSet()
+ac                     isAcSet()
+test                   isTestSet()
+batteryDefect          isBatteryDefectSet()
+===================== ===========================
+
+**Example of DTH parseIasMessage for a motion sensor:**
+
+.. code-block:: groovy
+
+   private Map parseIasMessage(String description) {
+       ZoneStatus zs = zigbee.parseZoneStatus(description)
+       Map resultMap = [:]
+
+       resultMap.name = 'motion'
+       resultMap.value = zs.isAlarm1Set() ? 'active' : 'inactive'
+
+       return resultMap
+   }
