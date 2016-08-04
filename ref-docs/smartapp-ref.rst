@@ -329,16 +329,18 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 findChildAppByName()
 ~~~~~~~~~~~~~~~~~~~~
 
-Gets the specified child SmartApps, if it is found.
+Returns the first :ref:`installed_smart_app_wrapper` found as a child of this SmartApp that has the specified name.
+
 
 **Signature:**
-    ``App findChildAppByName(String appName)``
+    ``InstalledSmartApp findChildAppByName(String appName)``
 
 **Parameters:**
     `String`_ ``appName`` - the name of the SmartApp to find.
 
 **Returns:**
-    The instance of the child SmartApp.
+    A :ref:`installed_smart_app_wrapper` if a child app is found that matches the specified name; ``null`` if no child app that matches the name is found.
+    If there are multiple child apps that match the specified name, only the first one found will be returned.
 
 **Example:**
 
