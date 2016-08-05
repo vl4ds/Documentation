@@ -88,6 +88,8 @@ Then in an event handler method, we can get at the data like this:
 
 ----
 
+.. _event_date_value:
+
 dateValue
 ---------
 

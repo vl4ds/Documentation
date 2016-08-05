@@ -236,7 +236,7 @@ Configure a ZigBee device's reporting properties. Refer to the *Configure Report
         .. code-block:: groovy
 
             zigbee.configureReporting(0xFC02, 0x0010, 0x18, 10, 3600, 0x01, [mfgCode: 0x110A])
-            
+
 ----
 
 ZigBee Capabilities
@@ -409,8 +409,10 @@ Returns true if the compared hex values are not equal.
     - **hex1**: Hex value to compare
     - **hex2**: Hex value to compare against first value
 
+.. _zigbee_parse_zone_status:
+
 zigbee.parseZoneStatus()
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Returns a ZoneStatus object (see below) withe the parsed value form the message description.  The description
 should be of the form "zone status {number}" where {number} is a hex number.
@@ -425,6 +427,7 @@ should be of the form "zone status {number}" where {number} is a hex number.
     - **description**: A zone status message description.
 
 
+.. _zigbee_additional_zigbee_classes:
 
 Additional ZigBee Classes
 -------------------------
@@ -457,7 +460,7 @@ you can get the value of each individual bit (1 or 0) by accessing the property 
 properties are as follows:
 
 ========== ===================== ===========================================
-Bit Number  Property Name         Values  
+Bit Number  Property Name         Values
 ========== ===================== ===========================================
 0           alarm1                | 1 - opened or alarmed
                                   | 0 - closed or not alarmed
