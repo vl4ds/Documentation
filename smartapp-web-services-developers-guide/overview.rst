@@ -86,7 +86,7 @@ The first step is to initiate the connection with the SmartThings cloud from the
 This is different for each web application, but is just a URL.
 
 Authentication and Authorization
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The typical OAuth journey is the OAuth2 authorization code flow, initiated from the website of the external system, whereby the user is redirected to the SmartThings website.
 This is where they enter their SmartThings credentials, as shown below:

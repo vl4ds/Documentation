@@ -1,5 +1,5 @@
 Submitting Device Handlers for Publication
-=======================================
+==========================================
 
 To submit your Device Handlers for consideration for publication to the SmartThings Platform, you can create a Publication Request by clicking on the `My Publication Requests <https://graph.api.smartthings.com/ide/submissions>`__  tab in the `SmartThings IDE <http://ide.smartthings.com>`__, then clicking on the *New Request*  button in the upper-right-hand corner of the screen.
 

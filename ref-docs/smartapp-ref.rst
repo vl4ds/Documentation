@@ -326,19 +326,23 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 
 ----
 
+.. _smartapp_find_child_app_by_name: 
+
 findChildAppByName()
 ~~~~~~~~~~~~~~~~~~~~
 
-Gets the specified child SmartApps, if it is found.
+Returns the first :ref:`installed_smart_app_wrapper` found as a child of this SmartApp that has the specified name.
+
 
 **Signature:**
-    ``App findChildAppByName(String appName)``
+    ``InstalledSmartApp findChildAppByName(String appName)``
 
 **Parameters:**
     `String`_ ``appName`` - the name of the SmartApp to find.
 
 **Returns:**
-    The instance of the child SmartApp.
+    A :ref:`installed_smart_app_wrapper` if a child app is found that matches the specified name; ``null`` if no child app that matches the name is found.
+    If there are multiple child apps that match the specified name, only the first one found will be returned.
 
 **Example:**
 
@@ -1529,9 +1533,9 @@ Sends the specified message to the specified contacts.
 **Parameters:**
     `String`_ ``message`` - the message to send
 
-    `String`_ ``contact`` - the contact to send the notification to. Typically set through the ``contacts`` input type.
+    `String`_ ``contact`` - the contact to send the notification to. Typically set through the ``contact`` input type.
 
-    `Collection`_ ``contacts`` - the collection of contacts to send the notification to. Typically set through the ``contacts`` input type.
+    `Collection`_ ``contacts`` - the collection of contacts to send the notification to. Typically set through the ``contact`` input type.
 
     `Map`_ ``options`` *(optional)* - a map of additional parameters. The valid parameter is ``[event: boolean]`` to specify if the message should be displayed in the Notifications feed. Defaults to ``true`` (message will be displayed in the Notifications feed).
 
@@ -2084,7 +2088,7 @@ Get a `Date`_ object for the specified string.
     ...
     Date myTimeAsDate = toDateTime(mytime)
     ...
-    
+
 ----
 
 .. _smartapp_unschedule:
@@ -2147,3 +2151,5 @@ Typically should be called in the `updated()`_ method, since device preferences 
 .. _GPathResult: http://docs.groovy-lang.org/latest/html/api/groovy/util/slurpersupport/GPathResult.html
 .. _TimeZone: http://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html
 .. _HttpResponseDecorator: http://javadox.com/org.codehaus.groovy.modules.http-builder/http-builder/0.6/groovyx/net/http/HttpResponseDecorator.html
+.. _Collection: https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html
+.. _Integer: http://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html

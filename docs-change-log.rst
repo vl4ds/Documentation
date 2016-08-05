@@ -6,6 +6,21 @@ A log of changes to this documentation.
 
 ----
 
+04 August 2016
+--------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/04-August-2016>`__
+
+- Added :ref:`zigbee_parse_zone_status` documentation
+- Added documentation for :ref:`zigbee_additional_zigbee_classes`
+- Clarified :ref:`smartapp_find_child_app_by_name` API documentation
+- Added :doc:`documentation <device-type-developers-guide/other-available-apis>` to Device Handler Guide for other useful APIs available to Device Handlers, including Scheduling, HTTP Requests, and State.
+- Fixed documentation for :ref:`Event.dateValue <event_date_value>` to indicate that it returns ``null`` if date cannot be parsed
+- Various fixes for reStructuredText formatting and legal syntax warnings
+- Moved this documentation change log to top of navigation
+
+----
+
 28 July 2016
 ------------
 
@@ -15,7 +30,7 @@ A log of changes to this documentation.
 
 ----
 
-25 July 2016
+July 25 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/25-July-2016>`__
@@ -24,7 +39,7 @@ A log of changes to this documentation.
 
 ----
 
-21 July 2016
+July 21 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/21-July-2016>`__
@@ -33,7 +48,7 @@ A log of changes to this documentation.
 
 ----
 
-07 July 2016
+July 07 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/07-July-2016>`__
@@ -46,7 +61,7 @@ A log of changes to this documentation.
 
 ----
 
-23 June 2016
+June 23 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/23-June-2016>`__
@@ -58,7 +73,7 @@ A log of changes to this documentation.
 
 ----
 
-17 June 2016
+June 17 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/17-June-2016>`__
@@ -67,7 +82,7 @@ A log of changes to this documentation.
 
 ----
 
-13 June 2016
+June 13 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/13-June-2016>`__
@@ -76,7 +91,7 @@ A log of changes to this documentation.
 
 ----
 
-9 June 2016
+June 9 2016
 -----------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/09-June-2016>`__
@@ -90,14 +105,14 @@ A log of changes to this documentation.
 
 ----
 
-27 May 2016
+May 27 2016
 -----------
 
 - Add ``additionalParams`` argument for ZigBee library. :doc:`Docs <ref-docs/zigbee-ref>` | `GitHub PR <https://github.com/SmartThingsCommunity/Documentation/pull/315>`__
 
 ----
 
-23 May 2016
+May 23 2016
 -----------
 
 - Updated and expanded Device Handler tiles docs. :doc:`Docs <device-type-developers-guide/tiles-metadata>`  | `GitHub PR <https://github.com/SmartThingsCommunity/Documentation/pull/314>`__.

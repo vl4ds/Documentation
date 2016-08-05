@@ -973,6 +973,7 @@ The above tiles render as:
 
     Check out the :ref:`tiles_examples` to see it in action!
 
+.. _control_ref:
 
 Controls summary
 ^^^^^^^^^^^^^^^^

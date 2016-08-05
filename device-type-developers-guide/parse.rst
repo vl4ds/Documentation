@@ -114,5 +114,5 @@ Tips
 ----
 
 When creating a Device Handler, determining what messages need to be handled by the ``parse()`` method varies by device.
-A common practice to figure out what messages need to be handled is to simply log the messages in your ``parse()`` method (``log.debug "description: $description").
+A common practice to figure out what messages need to be handled is to simply log the messages in your ``parse()`` method (``log.debug "description: $description"``).
 This allows you to see what the incoming message is for various actuations or states.

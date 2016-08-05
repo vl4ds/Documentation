@@ -29,9 +29,9 @@ Contents
 --------
 
 .. toctree::
-    :maxdepth: 1
+   :maxdepth: 1
 
-    sept-2015-faq
+   docs-change-log
 
 .. toctree::
    :caption: Getting Started
@@ -57,7 +57,7 @@ Contents
    arduino/index
    code-review-guidelines
    contributing/index
-   docs-change-log
+   sept-2015-faq
 
 .. toctree::
     :maxdepth: 1

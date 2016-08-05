@@ -1,6 +1,6 @@
-==========================
-September 2015 Release FAQ
-==========================
+===========================
+Sumsung SmartThings Hub FAQ
+===========================
 
 *A collection of frequently asked questions about the new Samsung SmartThings Hub, and updated SmartThings mobile applications, for SmartThings developers.*
 
@@ -10,7 +10,7 @@ September 2015 Release FAQ
 
 Developers can use the new Contact Book feature to easily send notifications to a user’s selected contacts, without requesting the user to enter in a phone number for each SmartApp. You can learn more about it in the :ref:`smartapp_sending_notifications` documentation.
 
-The new iOS and Android mobile apps also make use of a new Device Tiles layout, that uses a 6 column grid. There is also a new tile available to use for devices - multi-attribute tiles allow a single tile to display information about more than one attribute of a device. You can learn more in the :ref:`device-tiles` documentation.
+The new iOS and Android mobile apps also make use of a new Device Tiles layout, that uses a 6 column grid. There is also a new tile available to use for devices - multi-attribute tiles allow a single tile to display information about more than one attribute of a device. You can learn more in the :doc:`device-type-developers-guide/tiles-metadata` documentation.
 
 With the new Hub and mobile experience, we've also laid the groundwork for exciting new developer features in the near future. Our developers are what makes SmartThings great, and we're excited to build together!
 

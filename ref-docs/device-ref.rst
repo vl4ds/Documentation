@@ -120,6 +120,7 @@ Some commands may take parameters; you will pass those parameters to the command
     theswitch.on([delay: 30000]) // send command after 30 seconds
     thethermostat.setHeatingSetpoint(72, [delay: 30000])
     ...
+    
 ----
 
 .. _currentAttributeName:

@@ -1,7 +1,7 @@
 .. _prefs_and_settings:
 
 Preferences and Settings
-======================
+========================
 
 The preferences section of a SmartApp specifies what kinds of devices and other information is needed in order for the application to run.
 Inputs for each of these are presented to the user during installation of the SmartApp from the mobile UI.
@@ -264,7 +264,7 @@ Page 1                      Page 2                      Page 3
 ----
 
 Preference Elements and Inputs
-----------------------------
+------------------------------
 
 Preference pages (single or multiple) are composed of one or more sections, each of which contains one or more of the
 following elements:
