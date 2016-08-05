@@ -6,6 +6,21 @@ A log of changes to this documentation.
 
 ----
 
+04 August 2016
+--------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/04-August-2016>`__
+
+- Added :ref:`zigbee_parse_zone_status` documentation
+- Added documentation for :ref:`zigbee_additional_zigbee_classes`
+- Clarified :ref:`smartapp_find_child_app_by_name` API documentation
+- Added :doc:`documentation <device-type-developers-guide/other-available-apis>` to Device Handler Guide for other useful APIs available to Device Handlers, including Scheduling, HTTP Requests, and State.
+- Fixed documentation for :ref:`Event.dateValue <event_date_value>` to indicate that it returns ``null`` if date cannot be parsed
+- Various fixes for reStructuredText formatting and legal syntax warnings
+- Moved this documentation change log to top of navigation
+
+----
+
 28 July 2016
 ------------
 

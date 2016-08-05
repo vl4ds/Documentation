@@ -326,6 +326,8 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 
 ----
 
+.. _smartapp_find_child_app_by_name: 
+
 findChildAppByName()
 ~~~~~~~~~~~~~~~~~~~~
 
