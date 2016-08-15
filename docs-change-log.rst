@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+15 August 2016
+--------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/15-August-2016>`__
+
+- Make edits to Makefile as a first step in getting generated capabilities documentation integrated into the documentation build.
+
+----
+
 04 August 2016
 --------------
 
