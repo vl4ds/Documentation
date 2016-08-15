@@ -6,6 +6,7 @@ SPHINXOPTS            =
 SPHINXBUILD           = sphinx-build
 PAPER                 =
 BUILDDIR              = _build
+STATICDIR             = _static
 MKDIR_P               = mkdir -p
 CAPABILITIES_ZIP      = capabilities.zip
 CAPABILITIES_ZIP_URL  = https://smartthings-documentation.s3.amazonaws.com/$(CAPABILITIES_ZIP)
@@ -59,14 +60,13 @@ html: download_capabilities extract_capabilities
 
 download_capabilities:
 	@echo
-	@echo "Downloading $(CAPABILITIES_ZIP) from $(CAPABILITIES_ZIP_URL) into $(BUILDDIR)"
-	${MKDIR_P} ${BUILDDIR}
-	curl -s -S -L -f $(CAPABILITIES_ZIP_URL) -z $(BUILDDIR)/$(CAPABILITIES_ZIP) -o $(BUILDDIR)/$(CAPABILITIES_ZIP).tmp && mv -f $(BUILDDIR)/$(CAPABILITIES_ZIP).tmp $(BUILDDIR)/$(CAPABILITIES_ZIP) 2>/dev/null || rm -f $(BUILDDIR)/$(CAPABILITIES_ZIP).tmp
+	@echo "Downloading $(CAPABILITIES_ZIP) from $(CAPABILITIES_ZIP_URL)"
+	curl -s -S -L -f $(CAPABILITIES_ZIP_URL) -z $(STATICDIR)/$(CAPABILITIES_ZIP) -o $(STATICDIR)/$(CAPABILITIES_ZIP).tmp && mv -f $(STATICDIR)/$(CAPABILITIES_ZIP).tmp $(STATICDIR)/$(CAPABILITIES_ZIP) 2>/dev/null || rm -f $(STATICDIR)/$(CAPABILITIES_ZIP).tmp
 
 extract_capabilities:
 	@echo
-	@echo "Extracting $(BUILDDIR)/$(CAPABILITIES_ZIP)"
-	unzip $(BUILDDIR)/$(CAPABILITIES_ZIP) -d $(BUILDDIR) 1>/dev/null
+	@echo "Extracting $(CAPABILITIES_ZIP) into $(STATICDIR)"
+	unzip -o $(STATICDIR)/$(CAPABILITIES_ZIP) -d $(STATICDIR) 1>/dev/null
 	@echo
 
 dirhtml:
