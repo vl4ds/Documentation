@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Switch'>
+	<attribute name='switch' type='ENUM'>
+		<value name='off' />
+		<value name='on' />
+	</attribute>
+	<command name='off' />
+	<command name='on' />
+</capability>
