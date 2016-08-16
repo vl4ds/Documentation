@@ -35,6 +35,8 @@ TRACE ``log.trace(String, Throwable = null)`` Most detailed information.
 
 ----
 
+.. _logging_exceptions:
+
 Logging Exceptions
 ------------------
 
