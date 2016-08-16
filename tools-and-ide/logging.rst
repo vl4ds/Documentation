@@ -22,16 +22,45 @@ Logging Levels
 
 The log instance currently supports these log levels, in decreasing order of severity:
 
-===== ===================== ====================================================================
-Level Usage                 Description
-===== ===================== ====================================================================
-ERROR ``log.error(string)`` | Runtime errors or unexpected conditions.
-WARN  ``log.warn(string)``  | Runtime situations that are unexpected, but not wrong.
-                            | Can also be used to log use of deprecated APIs.
-INFO  ``log.info(string)``  | Interesting runtime events. For example, turning a switch on or off.
-DEBUG ``log.debug(string)`` | Detailed information about the flow of the SmartApp.
-TRACE ``log.trace(string)`` | Most detailed information.
-===== ===================== ====================================================================
+===== ======================================= ====================================================================
+Level Usage                                   Description
+===== ======================================= ====================================================================
+ERROR ``log.error(String, Throwable = null)`` Runtime errors or unexpected conditions.
+WARN  ``log.warn(String, Throwable = null)``  Runtime situations that are unexpected, but not wrong.
+                                              Can also be used to log use of deprecated APIs.
+INFO  ``log.info(String, Throwable = null)``  Interesting runtime events. For example, turning a switch on or off.
+DEBUG ``log.debug(String, Throwable = null)`` Detailed information about the flow of the SmartApp.
+TRACE ``log.trace(String, Throwable = null)`` Most detailed information.
+===== ======================================= ====================================================================
+
+----
+
+Logging Exceptions
+------------------
+
+All log methods accept a second, optional parameter of type ``Throwable``.
+This is useful when catching an exception - you can pass the exception to any of the log methods, and it will include the exception message along with the line number that caused it.
+
+Consider the following example that simply forces a ``NullPointerException`` by invoking a method on an object that does not exist:
+
+*(Real applications should never attempt to handle possible NullPointerExceptions like this, of course. It is shown here only to illustrate how to pass the exception to the log methods.)*
+
+.. code-block:: groovy
+
+    def initialize() {
+        try {
+            // foo doesn't exist, causing exception
+            foo.boom()
+        } catch (e) {
+            log.error("caught exception", e)
+        }
+    }
+
+Executing the above code would result in the following message in Live Logging:
+
+.. code-block:: groovy
+
+    12:42:03 PM: debug caught exception java.lang.NullPointerException: Cannot invoke method boom() on null object @ line 47
 
 ----
 
@@ -135,7 +164,5 @@ of getting the exception.
         def x = "some string"
         x.somethingThatDoesNotExist
     } catch (all) {
-        log.error "Something went horribly wrong!\n${all}"
+        log.error("Something went horribly wrong!", all)
     }
-
-.. figure:: ../img/ide/log_example4.png
