@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Music Player'>
+	<attribute name='level' type='NUMBER' />
+	<attribute name='mute' type='ENUM'>
+		<value name='muted' />
+		<value name='unmuted' />
+	</attribute>
+	<attribute name='status' type='STRING' />
+	<attribute name='trackData' type='JSON_OBJECT' />
+	<attribute name='trackDescription' type='STRING' />
+	<command name='mute' />
+	<command name='nextTrack' />
+	<command name='pause' />
+	<command name='play' />
+	<command name='playTrack'>
+		<argument name='trackToPlay' type='STRING' />
+	</command>
+	<command name='previousTrack' />
+	<command name='restoreTrack'>
+		<argument name='trackToPlay' type='STRING' />
+	</command>
+	<command name='resumeTrack'>
+		<argument name='trackToPlay' type='STRING' />
+	</command>
+	<command name='setLevel'>
+		<argument name='level' type='NUMBER' />
+	</command>
+	<command name='setTrack'>
+		<argument name='trackToPlay' type='STRING' />
+	</command>
+	<command name='stop' />
+	<command name='unmute' />
+</capability>

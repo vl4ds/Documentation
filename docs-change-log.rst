@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+16 August 2016
+--------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/16-August-2016>`__
+
+- :ref:`Documentation <logging_exceptions>` for the ability to pass a ``Throwable`` to logging methods to get more logging details about the exception shown in the logs.
+
+----
+
 15 August 2016
 --------------
 
