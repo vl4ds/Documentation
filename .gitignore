@@ -4,5 +4,4 @@
 .idea
 .DS_Store
 _build
-_static/capabilities
 _static/capabilities.zip
