@@ -326,7 +326,7 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 
 ----
 
-.. _smartapp_find_child_app_by_name: 
+.. _smartapp_find_child_app_by_name:
 
 findChildAppByName()
 ~~~~~~~~~~~~~~~~~~~~
@@ -1850,6 +1850,8 @@ All event handler methods will be passed an :ref:`event_ref` that represents the
     }
 
 ----
+
+.. _smartapp_subscribe_to_command:
 
 subscribeToCommand()
 ~~~~~~~~~~~~~~~~~~~~

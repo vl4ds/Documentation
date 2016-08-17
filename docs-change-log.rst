@@ -6,7 +6,17 @@ A log of changes to this documentation.
 
 ----
 
-16 August 2016
+August 17 2016
+--------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/16-August-2017>`__
+
+- Fix :ref:`documentation <smartapp_subscribe_to_command>` for ``subscribeToCommand()`` (only takes a Device argument, not a list of Devices)
+- Typos and spelling fixes
+
+----
+
+August 16 2016
 --------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/16-August-2016>`__
@@ -15,7 +25,7 @@ A log of changes to this documentation.
 
 ----
 
-15 August 2016
+August 15 2016
 --------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/15-August-2016>`__
@@ -24,7 +34,7 @@ A log of changes to this documentation.
 
 ----
 
-04 August 2016
+August 04 2016
 --------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/04-August-2016>`__
@@ -39,7 +49,7 @@ A log of changes to this documentation.
 
 ----
 
-28 July 2016
+July 28 2016
 ------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/28-July-2016>`__
