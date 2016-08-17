@@ -1854,16 +1854,16 @@ All event handler methods will be passed an :ref:`event_ref` that represents the
 subscribeToCommand()
 ~~~~~~~~~~~~~~~~~~~~
 
-Subscribes to device commands that are sent to a device or devices. The specified ``handlerMethod`` will be called whenever the specified ``command`` is sent.
+Subscribes to device commands that are sent to a device. The specified ``handlerMethod`` will be called whenever the specified ``command`` is sent.
 
 **Signature:**
-    ``void subscribeToCommand(deviceOrDevices, commandName, handlerMethod)``
+    ``void subscribeToCommand(device, commandName, handlerMethod)``
 
 **Parameters:**
 
-    ``deviceOrDevices`` - The :ref:`device_ref` or list of devices to subscribe to.
+    ``device`` - The :ref:`device_ref` to subscribe to.
 
-    `String`_ ``commandName`` - The command to subscribe to to
+    `String`_ ``commandName`` - The command to subscribe to
 
     ``handlerMethod`` - the method to call when the command is called.
 
