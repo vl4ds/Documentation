@@ -1,5 +1,5 @@
 ===========================
-Sumsung SmartThings Hub FAQ
+Samsung SmartThings Hub FAQ
 ===========================
 
 *A collection of frequently asked questions about the new Samsung SmartThings Hub, and updated SmartThings mobile applications, for SmartThings developers.*
