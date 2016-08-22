@@ -1,4 +1,4 @@
-Account Managment
+Account Management
 =================
 
 The SmartThings IDE allows you to view and edit information about your Locations, Hubs, Devices, custom SmartApps and Device Handlers, as well as view a live log for all your SmartThings devices and apps.
