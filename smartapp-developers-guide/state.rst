@@ -9,7 +9,7 @@ This is often adequate for most SmartApps or Device Handlers, but sometimes, the
 
 For this reason, SmartApps and Device Handlers can store small amounts of data using a map-like API, and retrieve this data in later executions.
 
-SmartApps can persist and retrieve data one of two ways - using the built-in ``state`` or ``atomicState`` objects (the details and difference between these implementations is discussed in detail in this document).
+SmartApps can persist and retrieve data one of two ways - using the built-in ``state`` or ``atomicState`` objects (the details and difference between these implementations are discussed in detail in this document).
 Device Handlers can use the built-in ``state`` object, just as SmartApps can, but do not have ``atomicState`` available.
 
 .. warning::
