@@ -341,7 +341,7 @@ def rstjinja(app, docname, source):
     Render our pages as a jinja template for fancy templating goodness.
     """
     # Make sure we're outputting HTML
-    if app.builder.format != 'html':
+    if app.builder.format != 'html' or app.builder.templates is None:
         return
     src = source[0]
     rendered = app.builder.templates.render_string(
@@ -356,6 +356,8 @@ def rstjinja(app, docname, source):
 
 # Add custom tests to Jinja
 def add_jinja_tests(app):
+    if app.builder.format != 'html' or app.builder.templates is None:
+        return
     app.builder.templates.environment.tests.update({
         'a_list': a_list # Test if the given argument is a list.
     })
