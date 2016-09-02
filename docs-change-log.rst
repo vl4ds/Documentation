@@ -6,8 +6,17 @@ A log of changes to this documentation.
 
 ----
 
-September 02 2016
------------------
+September 02 2016 (3)
+---------------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/02-September-2016-03>`__
+
+- Fixing RTD build
+
+----
+
+September 02 2016 (2)
+---------------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/02-September-2016-02>`__
 
