@@ -6,10 +6,22 @@ A log of changes to this documentation.
 
 ----
 
+September 02 2016
+-----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/02-September-2016>`__
+
+- Typos and spelling fixes
+- Added more around the generated capabilities documentation framework
+- Added troubleshooting information to the SmartApp Web Services guide
+- Fixed Color Control example code in the capabilities reference
+
+----
+
 August 17 2016
 --------------
 
-`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/16-August-2017>`__
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/17-August-2016>`__
 
 - Fix :ref:`documentation <smartapp_subscribe_to_command>` for ``subscribeToCommand()`` (only takes a Device argument, not a list of Devices)
 - Typos and spelling fixes

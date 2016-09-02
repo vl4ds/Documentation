@@ -627,6 +627,7 @@ If the response content type is JSON, the response data will automatically be pa
         }
         log.debug "response contentType: ${resp.contentType}"
         log.debug "response data: ${resp.data}"
+        }
     } catch (e) {
         log.error "something went wrong: $e"
     }

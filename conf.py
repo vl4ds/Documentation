@@ -14,8 +14,55 @@
 
 import sys
 import os
+import xml.etree.ElementTree as ET
+from xml.etree.ElementTree import Element, tostring
+import xmltodict
 
+# Convert a passed in capability name to the preference reference name.
+def getReferenceName(name):
+    result=""
+    for index, value in enumerate(name.split()):
+        if index == 0:
+            result+=value.lower()
+        else:
+            result+=value
+    return result
 
+# Read in capability XML files
+root = Element('capabilities')
+properties = {}
+
+# Read in the capability XML and properties files.
+path = '_static/capabilities'
+for dirpath, dirs, files in os.walk(path):
+    for filename in files:
+        if filename.endswith('.xml'):
+            # If we have a XML file, read and parse it into and element tree
+            # structure. Then use xmltodict to convert the XML structure into a
+            # dictionary.
+            fname = os.path.join(dirpath, filename)
+            tree = ET.parse(fname)
+            prefRef = Element('reference', {'name': getReferenceName(tree.getroot().get('name'))})
+            tree.getroot().append(prefRef)
+            root.append(tree.getroot())
+        elif filename.endswith('.properties'):
+            # If we have a properties file, create a dictionary of its values
+            # and stuff it into the properties dictionary
+            key = filename.split(".", 1)[0]
+            fname = os.path.join(dirpath, filename)
+            with open(fname, 'r') as f:
+                tempdict = {}
+                for line in f:
+                    line = line.rstrip()
+                    if "=" not in line: continue
+                    if line.startswith("#"): continue
+                    k, v = line.split("=", 1)
+                    tempdict[k] = v
+            properties[key] = tempdict
+        else:
+            continue
+
+capabilitiesDict = xmltodict.parse(tostring(root))
 
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
 
@@ -34,6 +81,7 @@ import os
 # ones.
 extensions = [
     'sphinx.ext.todo',
+    'sphinxcontrib.datatemplates'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -187,6 +235,13 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'SmartThingsDocumentationdoc'
 
+# Add the capabilities and properties dictionaries to the html_context so they
+# are available to our Jinja templates.
+html_context = {
+    'capabilities': capabilitiesDict.get('capabilities').get('capability'),
+    'properties': properties
+}
+
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -257,6 +312,8 @@ texinfo_documents = [
 
 def setup(app):
   app.add_stylesheet("custom.css")
+  app.connect("source-read", rstjinja) # Add Jinja template processing to HTML build.
+  app.connect("builder-inited", add_jinja_tests) # Add custom Jinja tests.
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []
@@ -277,3 +334,33 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
     import sphinx_rtd_theme
     html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+# Run rst files through the Jinja templating system. Currently only supports
+# HTML output formats.
+def rstjinja(app, docname, source):
+    """
+    Render our pages as a jinja template for fancy templating goodness.
+    """
+    # Make sure we're outputting HTML
+    if app.builder.format != 'html':
+        return
+    src = source[0]
+    rendered = app.builder.templates.render_string(
+        src, app.config.html_context
+    )
+#    Uncomment this code if you want to see the generated RST file, output.txt
+#    if 'test' in docname:
+#        f = open('output.txt', 'w')
+#        f.write(rendered.encode('utf8'))
+#        f.close()
+    source[0] = rendered
+
+# Add custom tests to Jinja
+def add_jinja_tests(app):
+    app.builder.templates.environment.tests.update({
+        'a_list': a_list # Test if the given argument is a list.
+    })
+
+# Test for Jinja that will return true if the given value argument is a list.
+def a_list(value):
+    return isinstance(value, list)
