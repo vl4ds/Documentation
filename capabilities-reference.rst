@@ -671,12 +671,12 @@ switch        ``"on"`` or ``"off"``
 
   def contactHandler(evt) {
     if("open" == "$evt.value") {
-      bulb.on()  // Turn the bulb on when open (this method does not come directly from the colorControl capability)
+      if(bulb.hasCommand('on')) bulb.on()  // Turn the bulb on when open (this method does not come from the colorControl capability)
       bulb.setHue(80)
       bulb.setSaturation(100)  // Set the color to something fancy
-      bulb.setLevel(100)  // Make sure the light brightness is 100%
+      if(bulb.hasCommand('setLevel')) bulb.setLevel(100)  // Make sure the light brightness is 100% (this method does not come from the colorControl capability)
     } else {
-      bulb.off()  // Turn the bulb off when closed (this method does not come directly from the colorControl capability)
+      if(bulb.hasCommand('off')) bulb.off()  // Turn the bulb off when closed (this method does not come directly from the colorControl capability)
     }
   }
 

@@ -16,3 +16,4 @@ This allows external applications to make web API calls to a SmartApp, and get i
    smartapp
    authorization
    rate-limiting
+   troubleshooting
