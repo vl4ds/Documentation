@@ -97,7 +97,6 @@ Name                          Preferences Reference                  Attributes 
                                                                                                            - previousTrack()
                                                                                                            - unmute()
 :ref:`notification`           capability.notification                                                      - deviceNotification(string)
-:ref:`occupancy`              capability.occupancy                   - occupancy
 :ref:`ph_measurement`         capability.pHMeasurement               - pH
 :ref:`polling`                capability.polling                                                           - poll()
 :ref:`power_meter`            capability.powerMeter                  - power
@@ -1411,32 +1410,6 @@ None.
 
 *deviceNotification(string)*
     Send the device the specified notification.
-
-----
-
-.. _occupancy:
-
-Occupancy
----------
-
-=========================   ==============================
-Capability Name             SmartApp Preferences Reference
-=========================   ==============================
-Occupancy                   capability.occupancy
-=========================   ==============================
-
-**Attributes:**
-
-=============== ======= =================
-Attribute       Type    Possible Values
-=============== ======= =================
-occupancy       String  ``"occupied"``
-                        ``"not occupied"``
-=============== ======= =================
-
-**Commands:**
-
-None.
 
 ----
 

@@ -6,6 +6,14 @@ A log of changes to this documentation.
 
 ----
 
+September 09 2016
+-----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/09-September-2016>`__
+
+- Removed Occupancy capability
+- Fixed :ref:`smartapp_unschedule` docs to clarify that a specific handler method name can be passed to ``unschedule()``.
+
 September 02 2016 (3)
 ---------------------
 
