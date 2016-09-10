@@ -2099,17 +2099,18 @@ Get a `Date`_ object for the specified string.
 unschedule()
 ~~~~~~~~~~~~
 
-Deletes all scheduled jobs for the installed SmartApp.
+Deletes all scheduled jobs for the SmartApp.
+If using the optional ``method`` parameter, then it deletes the scheduled job for the specified handler name only.
 
 **Signature:**
-    ``void unschedule()``
+    ``void unschedule(String method = '')``
 
 **Returns:**
     void
 
 .. note::
 
-    This can be an expensive operation; make sure you need to do this before calling. Typically called in the `updated()`_ method if the SmartApp has set up recurring schedules.
+    This can be an expensive operation if unscheduling all scheduled jobs; make sure you need to do this before calling. Typically called in the `updated()`_ method if the SmartApp has set up recurring schedules.
 
 
 ----
