@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+September 14 2016
+-----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/14-September-2016>`__
+
+- Update to the :ref:`State and Atomic State documentation <storing-data>` to reorganize, clarify, and expand content.
+
+----
+
 September 09 2016
 -----------------
 
@@ -39,8 +48,8 @@ September 02 2016
 
 - Typos and spelling fixes
 - Added more around the generated capabilities documentation framework
-- Added troubleshooting information to the SmartApp Web Services guide
-- Fixed Color Control example code in the capabilities reference
+- Added :ref:`web_services_smartapps_troubleshooting` document to the SmartApp Web Services guide
+- Fixed :ref:`color_control` example code in the capabilities reference
 
 ----
 

@@ -1,3 +1,5 @@
+.. _web_services_smartapps_troubleshooting:
+
 ===============
 Troubleshooting
 ===============
