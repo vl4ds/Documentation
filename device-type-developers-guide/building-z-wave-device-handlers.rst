@@ -1,8 +1,8 @@
 Building Z-Wave Device Handlers
 ===============================
 
-Z-Wave is a proprietary protocol, so we cannot document the full details of the interface.
-Instead, Device Handlers use command objects that represent the standard commands and messages that Z-Wave devices use to send and request information.
+The Z-Wave public specification is available `here <http://z-wave.sigmadesigns.com/design-z-wave/z-wave-public-specification/>`__.
+SmartThings provides custom Z-Wave command objects that represent the standard commands and messages that Z-Wave devices use to send and request information.
 
 ----
 

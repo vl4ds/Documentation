@@ -4,6 +4,7 @@ Z-Wave Primer
 This document covers some important aspects of the Z-Wave application-level standard that you may come in contact with when developing Device Handlers for Z-Wave devices.
 If you are already familiar with Z-Wave development, you can learn how SmartThings integrates with it in `Building Z-Wave Device
 Handlers <building-z-wave-device-handlers.html>`__.
+You can also consult the `Z-Wave public specification <http://z-wave.sigmadesigns.com/design-z-wave/z-wave-public-specification/>`__ for more information about the Z-Wave protocol.
 
 ----
 
