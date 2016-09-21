@@ -639,9 +639,6 @@ key           value
 ============= ===============================
 hue           ``0-100 (percent)``
 saturation    ``0-100 (percent)``
-hex           ``"#000000" - "#FFFFFF" (Hex)``
-level         ``0-100 (percent)``
-switch        ``"on"`` or ``"off"``
 ============= ===============================
 
 **Commands:**
