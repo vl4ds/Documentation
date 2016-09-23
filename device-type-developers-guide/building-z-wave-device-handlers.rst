@@ -1,3 +1,5 @@
+.. _zwave-device-handlers:
+
 Building Z-Wave Device Handlers
 ===============================
 

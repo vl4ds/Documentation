@@ -1,3 +1,5 @@
+.. _zwave-primer:
+
 Z-Wave Primer
 =============
 
