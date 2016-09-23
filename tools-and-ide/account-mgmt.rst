@@ -55,7 +55,7 @@ Device Handlers
 ---------------
 
 *My Device Handlers* will show all your custom (written or edited by you) Device Handlers.
-ou can view the status, supported capabilities, and sessions from this list, as well as edit the metadata associated with this Device Handler.
+You can view the status, supported capabilities, and sessions from this list, as well as edit the metadata associated with this Device Handler.
 You can click on the name to be taken to the editor, where you can view and modify the code.
 
 ----
