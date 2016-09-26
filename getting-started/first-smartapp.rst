@@ -367,6 +367,13 @@ We have two devices. A motion sensor, and a switch. We can manipulate the motion
 .. image:: ../img/getting-started/first-smartapp/ide-simulator-actuated.png
    :width: 35%
 
+.. warning::
+
+   The behavior of the simulator is known to have inconsistencies with the mobile application.
+   If you are unable to see the correct device status, or actuate the device, you may just be experiencing issues with the simulator.
+
+   In that case, just skip ahead to the next section to install the SmartApp via the SmartThings mobile app.
+
 ----
 
 Publishing and Installing

@@ -77,9 +77,13 @@ Click the *Install* button to run the simulator.
 
 When simulating a SmartApp, any selected devices will appear in the IDE, along with controls to actuate the devices:
 
+.. warning::
+
+    The behavior of the simulator is known to have inconsistencies with the mobile application.
+    It is possible that simulated devices do not show the correct status, or respond to actuation commands.
+    Certain capabilities are also not supported within the simulator.
+
+    While the simulator can be useful at times, we recommend installing into the SmartThings mobile application as the primary means of testing.
+    
 .. figure:: ../img/ide/simulator.png
    :alt: Simulator
-
-.. note::
-
-   Not all of the capabilities we support will work properly in the simulator. We are actively working to close those gaps.
