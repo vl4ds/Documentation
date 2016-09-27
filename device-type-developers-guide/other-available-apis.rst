@@ -10,7 +10,7 @@ While not often necessary for Device Handlers, these features can be useful for 
 Scheduling
 ----------
 
-Device Handlers can schedule future executions, just like SmartApps, with one notable difference - the ``runEvery*()`` methods are **not available**.
+Device Handlers can schedule future executions, just like SmartApps.
 
 You can learn about scheduling in the :ref:`smartapp-scheduling` guide.
 

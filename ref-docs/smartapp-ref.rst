@@ -1342,7 +1342,7 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
 
 .. tip::
 
-    Full documentation for the cron expression format can be found in the `Quartz Cron Trigger Tutorial <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__
+    Full documentation for the cron expression format can be found in the `Quartz Cron Trigger Tutorial <http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html>`__
 
 **Example:**
 
@@ -1361,8 +1361,8 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
     // call handlerMethod2 every day at 3:36 PM CST
     schedule("2015-01-09T15:36:00.000-0600", handlerMethod2)
 
-    // execute handlerMethod3 every hour on the half hour
-    schedule("0 30 & & & ?", handlerMethod3)
+    // execute handlerMethod3 every hour on the half hour (using a randomly chosen seconds field)
+    schedule("12 30 * * * ?", handlerMethod3)
     ...
 
     def handlerMethod1() {...}

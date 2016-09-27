@@ -450,5 +450,5 @@ Here are some examples in the ``SmartThingsPublic`` repository that make use of 
 .. _Turn-It-On: https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/turn-it-on-for-5-minutes.src/turn-it-on-for-5-minutes.groovy
 .. _Left-It-Open: https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/left-it-open.src/left-it-open.groovy
 .. _community post: https://community.smartthings.com/t/announcement-changes-coming-to-cron-jobs/41656
-.. _Quartz Cron Trigger Tutorial: http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger
+.. _Quartz Cron Trigger Tutorial: http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html
 .. _SimpleDateFormat JavaDoc: http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html
