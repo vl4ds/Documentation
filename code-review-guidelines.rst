@@ -469,3 +469,15 @@ Handle IP change
 
 Service managers for LAN-connected devices should :ref:`handle any IP change <lan_device_health>`.
 This can happen when the router power cycles and loses its DHCP mappings.
+
+----
+
+Parent-Child Relationships
+--------------------------
+
+Use separate files
+^^^^^^^^^^^^^^^^^^
+
+When using a parent-child relationship, be it a parent SmartApp with child devices, or a parent SmartApp with child SmartApps, the parent and child should exist in separate files.
+
+Putting the parent and child code in the same file leads to file size bloat, makes the code harder to understand, is error-prone, and difficult to debug.
