@@ -462,7 +462,7 @@ LAN-Specific
 Use the device-specific search
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Serivce managers for LAN-connected devices should :ref:`subscribe to the device search target <lan_device_discovery>` for device discovery.
+Service managers for LAN-connected devices should :ref:`subscribe to the device search target <lan_device_discovery>` for device discovery.
 
 Handle IP change
 ^^^^^^^^^^^^^^^^
