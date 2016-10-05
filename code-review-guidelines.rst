@@ -472,6 +472,8 @@ This can happen when the router power cycles and loses its DHCP mappings.
 
 ----
 
+.. _review_guidelines_parent_child:
+
 Parent-Child Relationships
 --------------------------
 
