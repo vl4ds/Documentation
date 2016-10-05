@@ -1038,7 +1038,14 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 
     ``handlerMethod`` - The method to call after ``delayInSeconds`` has passed. Can be a string or a reference to the method.
 
-    ``options`` *(optional)* - A map of parameters. Currently only the value ``[overwrite: true/false]`` is supported. Normally, if within the time window betwen calling ``runIn()`` and the ``handlerMethod`` being called, if you call runIn(300, 'handlerMethod') method again we will stop the original schedule and just use the new one. In this case there is at most one schedule for the `handlerMethod`. However, if you were to call runIn(300, 'handlerMethod', [overwrite: false]), then we let the original schedule continue and also add a new one for another 5 minutes out. This could lead to many different schedules. If you are going to use this, be sure to handle multiple calls to the 'handlerMethod' method.
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1048,14 +1055,14 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 .. code-block:: groovy
 
     runIn(300, myHandlerMethod)
-    runIn(400, "myOtherHandlerMethod")
+    runIn(400, "myOtherHandlerMethod", [data: [flag: true]])
 
     def myHandlerMethod() {
         log.debug "handler method called"
     }
 
-    def myOtherHandlerMethod() {
-        log.debug "other handler method called"
+    def myOtherHandlerMethod(data) {
+        log.debug "other handler method called with flag: $data.flag"
     }
 
 ----
@@ -1068,7 +1075,7 @@ runEvery5Minutes()
 Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
 **Signature:**
-    ``void runEvery5Minutes(handlerMethod)``
+    ``void runEvery5Minutes(handlerMethod[, options])``
 
 .. tip::
 
@@ -1076,6 +1083,15 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 **Parameters:**
     ``handlerMethod`` - The method to call every five minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1105,7 +1121,7 @@ runEvery10Minutes()
 Creates a recurring schedule that executes the specified ``handlerMethod`` every ten minutes. Using this method will pick a random start time in the next ten minutes, and run every ten minutes after that.
 
 **Signature:**
-    ``void runEvery10Minutes(handlerMethod)``
+    ``void runEvery10Minutes(handlerMethod[, options])``
 
 .. tip::
 
@@ -1113,6 +1129,15 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 **Parameters:**
     ``handlerMethod`` - The method to call every ten minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1142,7 +1167,7 @@ runEvery15Minutes()
 Creates a recurring schedule that executes the specified ``handlerMethod`` every fifteen minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
 **Signature:**
-    ``void runEvery15Minutes(handlerMethod)``
+    ``void runEvery15Minutes(handlerMethod[, options])``
 
 .. tip::
 
@@ -1150,6 +1175,15 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 **Parameters:**
     ``handlerMethod`` - The method to call every fifteen minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1179,7 +1213,7 @@ runEvery30Minutes()
 Creates a recurring schedule that executes the specified ``handlerMethod`` every thirty minutes. Using this method will pick a random start time in the next thirty minutes, and run every thirty minutes after that.
 
 **Signature:**
-    ``void runEvery30Minutes(handlerMethod)``
+    ``void runEvery30Minutes(handlerMethod[, options])``
 
 .. tip::
 
@@ -1187,6 +1221,15 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 **Parameters:**
     ``handlerMethod`` - The method to call every thirty minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1216,7 +1259,7 @@ runEvery1Hour()
 Creates a recurring schedule that executes the specified ``handlerMethod`` every hour. Using this method will pick a random start time in the next hour, and run every hour after that.
 
 **Signature:**
-    ``void runEvery1Hour(handlerMethod)``
+    ``void runEvery1Hour(handlerMethod[, options])``
 
 .. tip::
 
@@ -1224,6 +1267,15 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 **Parameters:**
     ``handlerMethod``- The method to call every hour. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1253,7 +1305,7 @@ runEvery3Hours()
 Creates a recurring schedule that executes the specified ``handlerMethod`` every three hours. Using this method will pick a random start time in the next hour, and run every three hours after that.
 
 **Signature:**
-    ``void runEvery3Hours(handlerMethod)``
+    ``void runEvery3Hours(handlerMethod[, options])``
 
 .. tip::
 
@@ -1261,6 +1313,15 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 
 **Parameters:**
     ``handlerMethod`` - The method to call every three hours. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1290,12 +1351,21 @@ runOnce()
 Executes the ``handlerMethod`` once at the specified date and time.
 
 **Signature:**
-    ``void runOnce(dateTime, handlerMethod)``
+    ``void runOnce(dateTime, handlerMethod [, options])``
 
 **Parameters:**
     ``dateTime`` - When to execute the ``handlerMethod``. Can be either a `Date`_ object or an ISO-8601 date string. For example, ``new Date() + 1`` would run at the current time tomorrow, and ``"2017-07-04T12:00:00.000Z"`` would run at noon GMT on July 4th, 2017.
 
     ``handlerMethod`` - The method to execute at the specified ``dateTime``. This can be a reference to the method, or the method name as a string.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1321,9 +1391,9 @@ schedule()
 Creates a scheduled job that calls the ``handlerMethod`` once per day at the time specified, or according to a cron schedule.
 
 **Signature:**
-    ``void schedule(dateTime, handlerMethod)``
+    ``void schedule(dateTime, handlerMethod [, options])``
 
-    ``void schedule(cronExpression, handlerMethod)``
+    ``void schedule(cronExpression, handlerMethod [, options])``
 
 **Parameters:**
 
@@ -1332,6 +1402,15 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
     `String`_ ``cronExpression`` - A cron expression that specifies the schedule to execute on.
 
     ``handlerMethod`` - The method to call. This can be a reference to the method itself, or the method name as a string.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1342,7 +1421,7 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
 
 .. tip::
 
-    Full documentation for the cron expression format can be found in the `Quartz Cron Trigger Tutorial <http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger>`__
+    Full documentation for the cron expression format can be found in the `Quartz Cron Trigger Tutorial <http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html>`__
 
 **Example:**
 
@@ -1361,8 +1440,8 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
     // call handlerMethod2 every day at 3:36 PM CST
     schedule("2015-01-09T15:36:00.000-0600", handlerMethod2)
 
-    // execute handlerMethod3 every hour on the half hour
-    schedule("0 30 & & & ?", handlerMethod3)
+    // execute handlerMethod3 every hour on the half hour (using a randomly chosen seconds field)
+    schedule("12 30 * * * ?", handlerMethod3)
     ...
 
     def handlerMethod1() {...}

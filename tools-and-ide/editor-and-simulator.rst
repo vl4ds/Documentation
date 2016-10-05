@@ -1,3 +1,6 @@
+.. _editor_and_simulator:
+
+====================
 Editor and Simulator
 ====================
 

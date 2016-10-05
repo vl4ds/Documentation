@@ -279,6 +279,45 @@ Using them is similar to other scheduling methods:
 
 ----
 
+Passing Data to the Handler Method
+----------------------------------
+
+Sometimes it is useful to pass data to the handler method.
+This is possible by passing in a map as the last argument to the various schedule methods with ``data`` as the key and another map as the value.
+
+.. code-block:: groovy
+    :emphasize-lines: 2
+
+    def someEventHandler(evt) {
+        runIn(60, handler, [data: [flag: true]])
+    }
+
+    def handler(data) {
+        if (data.flag) {
+            theswitch.off()
+        }
+    }
+
+By passing data directly to the handler method, you can avoid having to store data in the SmartApp or Device Handler state.
+The following scheduling methods support passing data to their handler methods:
+
+- ``runIn()``
+- ``runOnce()``
+- ``schedule()``
+- All ``runEveryXMinutes()`` methods
+- All ``runEveryXHours()`` methods
+
+.. note::
+
+    To also specify the overwrite flag, pass it as an additional property in the map: ``[overwrite: false, data: [foo: 'bar']]``.
+
+Similar to state, :ref:`only data that can be serialized to JSON <state_what_can_be_stored>` can be passed to the handler.
+
+The amount of data is limited to 2500 characters after being serialized.
+If this limit is exceeded, a ``physicalgraph.exception.DataCharacterLimitExceededException`` exception will be thrown, and the schedule will not be created.
+
+----
+
 Removing Scheduled Executions
 -----------------------------
 
@@ -450,5 +489,5 @@ Here are some examples in the ``SmartThingsPublic`` repository that make use of 
 .. _Turn-It-On: https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/turn-it-on-for-5-minutes.src/turn-it-on-for-5-minutes.groovy
 .. _Left-It-Open: https://github.com/SmartThingsCommunity/SmartThingsPublic/blob/master/smartapps/smartthings/left-it-open.src/left-it-open.groovy
 .. _community post: https://community.smartthings.com/t/announcement-changes-coming-to-cron-jobs/41656
-.. _Quartz Cron Trigger Tutorial: http://quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger
+.. _Quartz Cron Trigger Tutorial: http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html
 .. _SimpleDateFormat JavaDoc: http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html
