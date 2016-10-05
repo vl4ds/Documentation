@@ -1,3 +1,6 @@
+.. _device_handler_ref:
+
+==============
 Device Handler
 ==============
 

@@ -6,6 +6,19 @@ A log of changes to this documentation.
 
 ----
 
+October 5 2016
+--------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/05-October-2016>`__
+
+- Added :ref:`best practices <review_guidelines_parent_child>` for parent-child relationships.
+- Updated the :doc:`README` with pull request guidelines.
+- Added scheduling APIs to the :ref:`device_handler_ref` reference documentation (including all ``runEvery*`` APIs, which are now supported in Device Handlers).
+- Fixed broken cron tutorial link the :ref:`smartapp-scheduling` guide.
+- Added note to the :ref:`first SmartApp tutorial <first-smartapp-tutorial>` and :ref:`editor_and_simulator` that the simulator is inconsistent with the mobile application.
+
+----
+
 September 23 2016
 -----------------
 
