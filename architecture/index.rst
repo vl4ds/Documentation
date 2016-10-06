@@ -52,7 +52,7 @@ The SmartThings Hub connects directly to your broadband router and
 provides communication between all connected Things and the SmartThings
 cloud and mobile application.
 
--  Connects any SmartThings or SmartThings Ready device to your
+-  Connects any SmartThings or SmartThings-ready device to your
    SmartThings account.
 -  Simply plug into your Ethernet router and provide power.
 -  Build your own SmartThings kit by combining with other SmartThings
