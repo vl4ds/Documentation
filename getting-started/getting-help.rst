@@ -42,6 +42,20 @@ Once you submit a ticket you should expect to get a response in 48 hours.
 
     This form is for developers writing SmartApps and Device Handlers on the platform. If you need support for a SmartApp or Device Handler that you found on our community, please reach out to the developer of that SmartApp or Device Handler for support. If they need further support we will work directly with them to support their development.
 
+In order to receive the best support, you should provide a **simplified** example that clearly illustrates the issue.
+This should be in the form of a simple SmartApp or Device Handler that can be easily installed and clearly shows the issue.
+This allows us to quickly verify the issue, and use it as a test for any fix provided.
+
+We recommend creating a `gist <https://gist.github.com/>`__ with a complete and easily installable SmartApp or Device Handler, and referencing it in your support ticket.
+
+.. important::
+
+    We recognize that sometimes, providing a simple SmartApp or Device Handler that illustrates the issue is not possible.
+    More often than not, however, it is.
+    A simplified example enables you (and us) to verify that the issue is in fact with the API in question, and not some other factor.
+
+    If you do not provide a simplified example that can be easily installed, our ability to quickly verify, diagnose, and address the issue may be limited.
+
 ----
 
 .. _developer_discussions:
