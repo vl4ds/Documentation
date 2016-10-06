@@ -823,6 +823,71 @@ We do this by referencing the name of the related input.
 
 ----
 
+Custom Remove Button
+--------------------
+
+By default, a "Remove" button is added to the bottom of a preferences page that specifies ``uninstall: true``.
+This button can be customized by using the ``remove()`` method:
+
+.. code-block:: groovy
+
+    page(name: "firstPage") {
+        section {
+            paragraph "The remove button below normally says 'Remove'"
+        }
+        remove("Custom Button Text")
+    }
+
+The specified text is used as the label of the button on the page, as well as the label of the confirmation button on the resulting confirmation dialog:
+
+.. image:: ../img/smartapps/remove-custom-basic.png
+    :width: 50 %
+
+We can also specify custom confirmation text:
+
+.. code-block:: groovy
+
+    page(name: "firstPage") {
+        section {
+            paragraph "The remove button below normally says 'Remove'"
+        }
+        remove("Custom Button Text", "Custom Confirmation Text")
+    }
+
+This renders as:
+
+.. image:: ../img/smartapps/remove-custom-confirmation.png
+    :width: 50 %
+
+Finally, we can specify custom detail text to show on the confirmation dialog:
+
+.. code-block:: groovy
+
+    page(name: "firstPage") {
+        section {
+            paragraph "The remove button below normally says 'Remove'"
+        }
+        remove("Custom Button Text!", "Custom Confirmation Text!", "Custom detail text")
+    }
+
+This renders as:
+
+.. image:: ../img/smartapps/remove-custom-all-options.png
+    :width: 50 %
+
+The use of ``remove()`` must follow these rules:
+
+- It must be defined after all other sections
+- It must not be nested inside a section
+- It can only be used inside a page
+- It must only be used once per page
+
+If these rules are not followed, exceptions are thrown and error messages are displayed when pressing "Save".
+
+``remove()`` also sets the page ``uninstall`` to ``true``.
+
+----
+
 Dynamic Preferences
 -------------------
 
