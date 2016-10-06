@@ -823,6 +823,8 @@ We do this by referencing the name of the related input.
 
 ----
 
+.. _custom_remove_button:
+
 Custom Remove Button
 --------------------
 
