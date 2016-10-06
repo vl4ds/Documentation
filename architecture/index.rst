@@ -97,7 +97,7 @@ type handlers with which SmartApp is using them.
 SmartApp Execution
 ^^^^^^^^^^^^^^^^^^
 
-The SmartApp is run when trigged via subscriptions, external calls to
+The SmartApp is run when triggered via subscriptions, external calls to
 SmartApp endpoints, or scheduled methods. It's transient in nature, as
 it runs and then stops running on completion of its task. Any data that
 needs to persist throughout SmartApp instances must be stored in a special ``state`` variable that is discussed in the :ref:`storing-data` documentation.
