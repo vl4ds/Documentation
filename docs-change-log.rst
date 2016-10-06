@@ -6,8 +6,18 @@ A log of changes to this documentation.
 
 ----
 
-October 5 2016
---------------
+October 06 2016
+---------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/06-October-2016>`__
+
+- Added instructions for creating a simple code example when :ref:`creating a developer support ticket <developer_support_form>`.
+- Add :ref:`documentation <custom_remove_button>` for specifying a custom Remove button for preferences.
+
+----
+
+October 05 2016
+---------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/05-October-2016>`__
 
