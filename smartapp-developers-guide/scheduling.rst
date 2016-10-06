@@ -279,6 +279,8 @@ Using them is similar to other scheduling methods:
 
 ----
 
+.. _scheduling_passing_data:
+
 Passing Data to the Handler Method
 ----------------------------------
 

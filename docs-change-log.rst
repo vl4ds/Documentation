@@ -21,6 +21,7 @@ October 05 2016
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/05-October-2016>`__
 
+- Added documentation for :ref:`passing data to schedule handler methods <scheduling_passing_data>`.
 - Added :ref:`best practices <review_guidelines_parent_child>` for parent-child relationships.
 - Updated the :doc:`README` with pull request guidelines.
 - Added scheduling APIs to the :ref:`device_handler_ref` reference documentation (including all ``runEvery*`` APIs, which are now supported in Device Handlers).
