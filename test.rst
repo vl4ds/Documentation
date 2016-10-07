@@ -67,10 +67,11 @@ Capabilities Reference
     {{ properties[referenceName][referenceName+".description"] }}
     {%- endif %}
     {# Capability preference reference #}
-    Preferences Reference:
+    **Preferences Reference:**
     {{ ("capability."+referenceName)|indent(2, true) }}
     {# Capability attributes section #}
     **Attributes:**
+    ^^^^^^^^^^^^^^^
     {% if capability['attribute'] %}
     {#- check if the attribute key in dict is a list. It will not be a list if there is only one attribute #}
     {%- if capability['attribute'] is a_list %}
@@ -83,7 +84,11 @@ Capabilities Reference
         {%- if attribute['value'] %}
         {%- if attribute['value'] is a_list %}
         {%- for value in attribute['value'] %}
-            ``{{ value['@name'] }}`` - {{ value['@type'] }}
+	  {% if attribute['@type'] == 'ENUM' %}
+	  ``{{ value['@name'] }}``
+	  {%- else %}
+          ``{{ value['@name'] }}`` - {{ value['@type'] }}
+	  {%- endif %}
           {% if properties[referenceName][referenceName+".attr."+attribute['@name']+"."+value['@name']+".value"] %}
           {{ properties[referenceName][referenceName+".attr."+attribute['@name']+"."+value['@name']+".value"]|indent(4, true) }}
           {%- endif %}
@@ -101,10 +106,17 @@ Capabilities Reference
     {%- else %}
     {#- for this attribute, print its name and type followed by its attribute value list if present #}
       *{{ capability['attribute']['@name'] }}:* {{ capability['attribute']['@type'] }}
+	{%- if properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+".description"] %}
+	{{ properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+".description"]|indent(2, true) }}
+	{%- endif %}
         {%- if capability['attribute']['value'] %}
         {%- if capability['attribute']['value'] is a_list %}
         {%- for value in capability['attribute']['value'] %}
-            ``{{ value['@name'] }}`` - {{ value['@type'] }}
+	  {% if capability['attribute']['@type'] == 'ENUM' %}
+	  ``{{ value['@name'] }}``
+	  {%- else %}
+	  ``{{ value['@name'] }}`` - {{ value['@type'] }}
+	  {%- endif %}
           {% if properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+"."+value['@name']+".value"] %}
           {{ properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+"."+value['@name']+".value"]|indent(4, true) }}
           {%- endif %}
@@ -124,6 +136,7 @@ Capabilities Reference
 
     {# Capability commands section #}
     **Commands:**
+    ^^^^^^^^^^^^^
     {% if capability['command'] %}
     {#- check if the command key in dict is a list. It will not be a list if there is only one command #}
     {%- if capability['command'] is a_list %}
@@ -141,12 +154,12 @@ Capabilities Reference
               {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+arg['@name']+".description"] %}
                 {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+arg['@name']+".description"]|indent(2, true) }}
               {%- endif %}
-              {%- if arg['value'] %}
-                {%- if arg['value'] is a_list %}
-                  {%- for value in arg['value'] %}
-                    ``{{ value['@name'] }}`` - {{ value['@type'] }}
-                    {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+value['@name']+".value"] %}
-                      {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+value['@name']+".value"]|indent(2, true) }}
+              {%- if arg['component'] %}
+                {%- if arg['component'] is a_list %}
+                  {%- for component in arg['component'] %}
+                    ``{{ component['@name'] }}`` - {{ component['@type'] }}
+                    {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+component['@name']+".value"] %}
+                      {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+component['@name']+".value"]|indent(2, true) }}
                     {%- endif %}
                   {%- endfor %}
                 {%- endif %}
@@ -157,16 +170,16 @@ Capabilities Reference
             {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+".description"] %}
               {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+".description"]|indent(2, true) }}
             {%- endif %}
-            {%- if command['argument']['value'] %}
-              {%- if command['argument']['value'] is a_list %}
-                {%- for value in command['argument']['value'] %}
-                  ``{{ value['@name'] }}`` - {{ value['@type'] }}
-                  {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+"."+value['@name']+".value"] %}
-                    {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+"."+value['@name']+".value"]|indent(2, true) }}
+            {%- if command['argument']['component'] %}
+              {%- if command['argument']['component'] is a_list %}
+                {%- for component in command['argument']['component'] %}
+                  ``{{ component['@name'] }}`` - {{ component['@type'] }}
+                  {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+"."+component['@name']+".value"] %}
+                    {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+"."+component['@name']+".value"]|indent(2, true) }}
                   {%- endif %}
                 {%- endfor %}
               {%- else %}
-                {{ command['argument']['value']['@name']}}
+                {{ command['argument']['component']['@name']}}
               {%- endif %}
             {%- endif %}
           {%- endif %}
