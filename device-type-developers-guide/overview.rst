@@ -143,7 +143,7 @@ Protocols
 SmartThings currently supports both the `Z-Wave <http://en.wikipedia.org/wiki/Z-Wave>`__ and `ZigBee <http://en.wikipedia.org/wiki/ZigBee>`__ wireless protocols.
 
 Since the device handler is responsible for communicating between the device and the SmartThings platform, it is usually necessary to understand and communicate in whatever protocol the device supports.
-This guide will discuss both Z-Wave and ZibBee protocols at a high level.
+This guide will discuss both Z-Wave and ZigBee protocols at a high level.
 
 ----
 
