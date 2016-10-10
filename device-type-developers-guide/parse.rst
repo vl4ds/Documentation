@@ -12,7 +12,7 @@ All messages from the device are passed to the ``parse()`` method.
 It is responsible for turning those messages into something the SmartThings platform can understand.
 
 Because the ``parse()`` method is responsible for handling raw device messages, their implementations vary greatly across different device types.
-This document will not discuss all these different scenarios (see the `Z-Wave Device Handler Guide <building-z-wave-device-handlers.html>`__ or `ZibBee Device Handler guide <building-zigbee-device-handlers.html>`__ for protocol-specific information).
+This document will not discuss all these different scenarios (see the `Z-Wave Device Handler Guide <building-z-wave-device-handlers.html>`__ or `ZigBee Device Handler guide <building-zigbee-device-handlers.html>`__ for protocol-specific information).
 
 Consider an example of a simplified ``parse()`` method (modified from the CentraLite Switch):
 
