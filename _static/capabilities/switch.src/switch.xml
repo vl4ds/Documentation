@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<capability name='Switch'>
+<capability name='Switch' public='true'>
 	<attribute name='switch' type='ENUM'>
-		<value name='off' />
-		<value name='on' />
+		<value name='off'/>
+		<value name='on'/>
 	</attribute>
 	<command name='off' />
 	<command name='on' />

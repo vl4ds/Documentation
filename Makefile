@@ -66,7 +66,7 @@ download_capabilities:
 extract_capabilities:
 	@echo
 	@echo "Extracting $(CAPABILITIES_ZIP) into $(STATICDIR)"
-	unzip -o $(STATICDIR)/$(CAPABILITIES_ZIP) -d $(STATICDIR) 1>/dev/null
+	unzip -o $(STATICDIR)/$(CAPABILITIES_ZIP) -d $(STATICDIR)/capabilities 1>/dev/null
 	@echo
 
 dirhtml:

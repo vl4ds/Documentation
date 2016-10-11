@@ -4,7 +4,10 @@
 	<attribute name='hue' type='NUMBER' />
 	<attribute name='saturation' type='NUMBER' />
 	<command name='setColor'>
-		<argument name='' type='COLOR_MAP' />
+		<argument name='color' type='COLOR_MAP'>
+			<component name='hue' type='NUMBER'/>
+			<component name='saturation' type='NUMBER'/>
+		</argument>
 	</command>
 	<command name='setHue'>
 		<argument name='hue' type='NUMBER' />

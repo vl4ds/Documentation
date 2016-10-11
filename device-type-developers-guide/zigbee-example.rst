@@ -1,7 +1,7 @@
 ZigBee Example
 ==============
 
-An example of a ZibBee device-type is a ZigBee dimmer.
+An example of a ZigBee device-type is a ZigBee dimmer.
 
 Here is the code.
 

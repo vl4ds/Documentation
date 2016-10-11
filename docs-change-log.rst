@@ -6,13 +6,24 @@ A log of changes to this documentation.
 
 ----
 
+October 11 2016
+---------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/11-October-2016>`__
+
+- Documented :ref:`sms_rate_limits`
+- Fixed typos
+
+----
+
+
 October 06 2016
 ---------------
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/06-October-2016>`__
 
 - Added instructions for creating a simple code example when :ref:`creating a developer support ticket <developer_support_form>`.
-- Add :ref:`documentation <custom_remove_button>` for specifying a custom Remove button for preferences.
+- Added :ref:`documentation <custom_remove_button>` for specifying a custom Remove button for preferences.
 
 ----
 

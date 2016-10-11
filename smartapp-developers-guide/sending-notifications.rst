@@ -311,6 +311,21 @@ Use the ``sendNotificationEvent()`` method to display a message in the Notificat
 
 ----
 
+.. _sms_rate_limits:
+
+SMS Rate Limits
+---------------
+
+No more than 15 SMS messages may be sent to the same number per minute.
+
+If this limit is exceeded, no additional SMS messages will be sent until the next minute.
+
+.. note::
+
+    This limit applies **per number**, not per SmartApp or user.
+
+----
+
 Examples
 --------
 
