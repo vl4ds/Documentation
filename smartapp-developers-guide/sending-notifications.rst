@@ -311,6 +311,8 @@ Use the ``sendNotificationEvent()`` method to display a message in the Notificat
 
 ----
 
+.. _sms_rate_limits:
+
 SMS Rate Limits
 ---------------
 
