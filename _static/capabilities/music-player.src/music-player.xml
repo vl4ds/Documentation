@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<capability name='Music Player'>
+<capability name='Music Player' public='true'>
 	<attribute name='level' type='NUMBER' />
 	<attribute name='mute' type='ENUM'>
-		<value name='muted' />
-		<value name='unmuted' />
+		<value name='muted'/>
+		<value name='unmuted'/>
 	</attribute>
 	<attribute name='status' type='STRING' />
 	<attribute name='trackData' type='JSON_OBJECT' />
@@ -17,16 +17,16 @@
 	</command>
 	<command name='previousTrack' />
 	<command name='restoreTrack'>
-		<argument name='trackToPlay' type='STRING' />
+		<argument name='trackToRestore' type='STRING' />
 	</command>
 	<command name='resumeTrack'>
-		<argument name='trackToPlay' type='STRING' />
+		<argument name='trackToResume' type='STRING' />
 	</command>
 	<command name='setLevel'>
 		<argument name='level' type='NUMBER' />
 	</command>
 	<command name='setTrack'>
-		<argument name='trackToPlay' type='STRING' />
+		<argument name='trackToSet' type='STRING' />
 	</command>
 	<command name='stop' />
 	<command name='unmute' />
