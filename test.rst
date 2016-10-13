@@ -47,14 +47,14 @@ Capabilities Reference
     {{ '|' }} Name{{ ' ' * 35 }}{{ '|' }} Preferences Reference{{ ' ' * 18 }}{{ '|' }}
     {{ '+' }}{{ '=' * 40 }}{{ '+' }}{{ '=' * 40 }}{{ '+' }}
     {% endif -%}
-    {{ '|' }} :ref:`{{ referenceName }}`{{ ' ' * (40 - (referenceName|length) - 8) }}{{ '|' }} {{ "capability."+referenceName }}{{ ' ' * (40 - (referenceName|length) - 12)}}{{ '|' }}
+    {{ '|' }} :ref:`test-{{ referenceName }}`{{ ' ' * (40 - (referenceName|length) - 13) }}{{ '|' }} {{ "capability."+referenceName }}{{ ' ' * (40 - (referenceName|length) - 12)}}{{ '|' }}
     {{ '+' }}{{ '-' * 40 }}{{ '+' }}{{ '-' * 40 }}{{ '+' }}
     {% endfor %}
     ----
     {#- Generate detail section for each capability #}
     {% for capability in capabilities %}
     {% set referenceName = capability['reference']['@name'] %}
-    .. _{{ referenceName }}:
+    .. _test-{{ referenceName }}:
     {# Capability name as section header #}
     {{ capability['@name'] }}
     {{ '-' * capability['@name']|length }}

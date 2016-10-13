@@ -5,7 +5,7 @@ Anatomy & Life-Cycle of a SmartApp
 
 SmartApps are applications that allow users to tap into the capabilities of
 their devices to automate their lives.
-Most SmartApps are installed by the user via the SmartThings mobile client application, though some come pre-installed.
+Most SmartApps are installed by the user via the SmartThings mobile client application. In addition, a few pre-installed SmartApps are readily available in the SmartThings system out-of-the-box. 
 
 ----
 
@@ -13,6 +13,7 @@ Types of SmartApps
 ------------------
 
 Generally speaking, there are three different kinds of SmartApps: *Event-Handlers*, *Solution Modules*, and *Service Managers*.
+If you are familiar with back-end web development, then you will be more than capable of developing SmartApps.
 
 Event-Handler SmartApps
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -23,10 +24,9 @@ They allow you to subscribe to events from devices and call a
 handler method upon their firing.
 This method can then do a variety of
 things, most commonly invoking a command on another device.
-We're confident that if you are familiar with back end development of web
-sites, then you will be more than capable of developing SmartApps.
 
-A very simple example of a SmartApp would involve you walking through a
+
+A very simple example of an Event-Handler SmartApp would involve you walking through a
 door and having the lights turn on automatically.
 
 Solution Module SmartApps
@@ -41,21 +41,17 @@ One example of this would be the "Home & Family" section of
 the dashboard which allows you to see the comings and goings of your
 family.
 
-Solution Module SmartApps have traditionally been built by our internal
-team, but we will be opening them up for external development in the
-near future.
-
 Service Manager SmartApps
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Service Manager SmartApps are used to connect to LAN or cloud devices,
-such as the Sonos or WeMo.
-They are the connecting glue between the unique protocols of your external devices and a Device Handler you'd create for those devices.
-They discover devices and then continue to maintain the connection for those devices.
+such as a Sonos or a WeMo device.
+These SmartApps are the connecting glue between the unique protocols of such LAN or cloud devices and a Device Handler you would create for such devices.
+These Service Manager SmartApps discover LAN or cloud devices and then continue to maintain their connection.
 
 The Service Manager SmartApp must be installed when a user utilizes a
-device using LAN or the cloud, so for example, there is a Sonos Service
-Manager SmartApp that is installed when pairing with a Sonos.
+device using LAN or the cloud. So, for example, there is a Sonos Service
+Manager SmartApp that is installed when pairing with a Sonos device.
 
 ----
 
@@ -88,7 +84,7 @@ The following methods, if present, are automatically called at various times dur
 #. ``installed()`` - Called when a SmartApp is first installed
 #. ``updated()`` - Called when the preferences of an installed smart app are updated
 #. ``uninstalled()`` - Called when a SmartApp is uninstalled.
-#. ``childUninstalled()`` - Called for the parent app when a child app is uninstalled
+#. ``childUninstalled()`` - Called for the parent app when a child app is uninstalled (a SmartApp can have child SmartApps)
 
 The ``installed()`` and ``updated()`` methods are commonly found in all apps.
 Since the selected devices may have changed when an app is updated, both of these methods typically set up the same event subscriptions, so it is common practice to put those calls in an ``initialize()`` method and call it from both the installed and updated methods.
@@ -141,7 +137,7 @@ For example, to specify that an app requires one contact sensor:
 This will generate an input element in the mobile UI that prompts for the selection of a single contact sensor (``capability.contactSensor``).
 ``contact1`` is the name of a variable that provides access to the device in the SmartApp.
 
-Device inputs can also prompt for more than one device, so to ask for the selection of one or more switches:
+Device inputs can also prompt for more than one device. So to ask for the selection of one or more switches:
 
 .. code-block:: groovy
 
@@ -154,7 +150,7 @@ You can find more information about SmartApp preferences `here <preferences-and-
 Event Subscriptions
 -------------------
 
-Subscriptions allow a SmartApp to listen for events from devices, the location, and the SmartApp tile in the mobile UI.
+Subscriptions allow a SmartApp to listen for events from devices, or from a location, or from the SmartApp tile in the mobile UI.
 Device subscriptions are the most common and take the form:
 
 .. code-block:: groovy
@@ -198,34 +194,3 @@ Execution location varies depending on a variety of factors, and is managed by t
 
 As a SmartThings developer, you should write your SmartApps to satisfy their specific use cases, regardless of where the app executes.
 There is currently no way to specify or force a certain execution location.
-
-----
-
-.. _smartapp_rate_limiting:
-
-Rate Limiting
--------------
-
-SmartApps are monitored for excessive resource utilization.
-Rate limiting ensures that no single SmartApp can consume too many shared resources.
-
-Execution Time Limits
-^^^^^^^^^^^^^^^^^^^^^
-
-- Methods are limited to a continuous execution time of 20 seconds.
-- SmartApps and Device Handlers are limited to a total continuous execution time of 40 seconds.
-
-If these limits are exceeded, the current execution will be suspended.
-
-Execution Count Limits
-^^^^^^^^^^^^^^^^^^^^^^
-
-SmartApps are limited to executing no more than 250 times in 60 seconds.
-If the limit is reached in a 60 second time window, no further exceptions will occur until the next time window.
-A log entry will be created for the SmartApp that was rate limited.
-
-.. note::
-
-    The common cause for exceeding the 250 executions within 60 seconds limit is excessive subscriptions. This may be an infinite loop of events (for example, subscribing to an "on" and "off" event, and the "on" command actually triggers the "off" event and vice versa - leading to a never-ending chain of event handlers being called). It's also possible that a SmartApp that subscribes to a very large number of particularly "chatty" devices may run into this limit.
-
-Additional rate limiting restrictions apply to SmartApps or Device Handlers that expose endpoints via the ``mappings`` definitions. You can learn about those in the `SmartApp Web Services Guide <../smartapp-web-services-developers-guide/overview.html>`__.

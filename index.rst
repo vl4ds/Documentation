@@ -55,6 +55,7 @@ Contents
    device-type-developers-guide/index
    cloud-and-lan-connected-device-types-developers-guide/index
    arduino/index
+   ratelimits/index
    code-review-guidelines
    contributing/index
    sept-2015-faq

@@ -156,15 +156,3 @@ Execution location varies depending on a variety of factors, and is managed by t
 
 As a SmartThings developer, you should write your Device Handlers to satisfy their specific use cases, regardless of where the handler executes.
 There is currently no way to specify or force a certain execution location.
-
-----
-
-Rate Limiting
--------------
-
-Like SmartApps, Device Handlers are restricted to executing no more than 250 times in a 60 second window.
-Execution attempts exceeding this limit will be prevented, and a message will be logged indicating that the limit has been reached.
-The count will start over when the current time window closes, and the next begins.
-
-Common causes for exceeding this limit are a SmartApp that sends many commands to one device by receiving a large number of event subscriptions (if that doesn’t first hit the limit for SmartApps).
-For example, DLNA players that are extremely chatty or devices that bind to frequently changing energy/power values may also encounter this limit.
