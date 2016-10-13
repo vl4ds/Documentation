@@ -15,5 +15,4 @@ This allows external applications to make web API calls to a SmartApp, and get i
    tutorial-part2
    smartapp
    authorization
-   rate-limiting
    troubleshooting
