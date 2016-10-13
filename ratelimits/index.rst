@@ -37,6 +37,7 @@ Similarly, a Device Handler may exceed Rate Limit when it sends many commands to
 
 ----
 
+.. _web_services_rate_limiting:
 
 Web Services SmartApps Rate Limits
 ----------------------------------
