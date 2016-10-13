@@ -6,6 +6,16 @@ A log of changes to this documentation.
 
 ----
 
+October 13 2016
+---------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/13-October-2016>`__
+
+- Moved rate limiting documentation into its own :doc:`guide <ratelimits/index>`
+- Typo fixes and other copy edits
+
+----
+
 October 11 2016
 ---------------
 
