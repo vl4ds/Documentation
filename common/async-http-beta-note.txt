@@ -1,0 +1,14 @@
+.. admonition:: Beta Feature
+   :class: beta-feature
+
+   The ability to make asynchronous HTTP requests is currently available as a beta development feature.
+
+   All beta asynchronous HTTP APIs exist in the ``asynchttp_v1`` :ref:`namespace <include_statement>`.
+   Approximately 30 days after the launch of this beta feature, we will evaluate metrics and your feedback, and make adjustments as necessary.
+
+   When released generally, it is likely that the ``v1`` postfix will be dropped, and a deprecation period will be announced to change existing usages accordingly.
+
+   If, for unexpected reasons, usage of asynchronous HTTP requests has negative impacts on the SmartThings platform, SmartThings reserves the right to alter or remove any impacted asynchronous HTTP APIs without notice.
+   This is highly unlikely and every effort will be made to avoid such a scenario.
+
+   If you experience issues or have feedback on these asynchronous HTTP APIs, please share them on `this community thread <https://community.smartthings.com/t/asynchronous-http-beta-feedback-thread/60280>`__.
