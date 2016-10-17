@@ -6,6 +6,17 @@ A log of changes to this documentation.
 
 ----
 
+October 17 2016
+---------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/17-October-2016>`__
+
+- Documentation for :ref:`beta asynchronous HTTP APIs <async_http_guide>`
+- Typo fixes and other copy edits
+
+----
+
+
 October 13 2016
 ---------------
 
