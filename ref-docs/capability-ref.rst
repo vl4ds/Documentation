@@ -15,42 +15,11 @@ For documentation for the available Capabilities, you can refer to the :ref:`cap
 
 ----
 
-name
-----
-
-The name of the capability.
+getAttributes()
+---------------
 
 **Signature:**
-    ``String name``
-
-**Returns:**
-    `String`_ - the name of the capability.
-
-**Example:**
-
-.. code-block:: groovy
-
-    preferences {
-        section() {
-            input "mySwitch", "capability.switch"
-        }
-    }
-    ...
-    def mySwitchCaps = mySwitch.capabilities
-
-    // log each capability supported by the "mySwitch" device
-    mySwitchCaps.each {cap ->
-        log.debug "Capability name: ${cap.name}"
-    }
-    ...
-
-----
-
-attributes
-----------
-
-**Signature:**
-    ``List<Attribute> attributes``
+    ``List<Attribute> getAttributes()``
 
 **Returns:**
     `List`_ <:ref:`attribute_ref`> - A list of Attributes of this capability. An empty list will be returned if this Capability has no Attributes.
@@ -79,11 +48,11 @@ attributes
 
 ----
 
-commands
---------
+getCommands()
+-------------
 
 **Signature:**
-    ``List<Command> commands``
+    ``List<Command> getCommands()``
 
 **Returns:**
     `List`_ <:ref:`command_ref`> - A list of Commands of this capability. An empty list will be returned if this Capability has no commands.
@@ -107,6 +76,37 @@ commands
         cap.commands.each {comm ->
             log.debug "-- Command name: ${comm.name}"
         }
+    }
+    ...
+
+----
+
+getName()
+---------
+
+The name of the capability.
+
+**Signature:**
+    ``String getName()``
+
+**Returns:**
+    `String`_ - the name of the capability.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "mySwitch", "capability.switch"
+        }
+    }
+    ...
+    def mySwitchCaps = mySwitch.capabilities
+
+    // log each capability supported by the "mySwitch" device
+    mySwitchCaps.each {cap ->
+        log.debug "Capability name: ${cap.name}"
     }
     ...
 

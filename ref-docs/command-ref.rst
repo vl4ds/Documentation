@@ -29,13 +29,13 @@ An instance of a Command object encapsulates information about that Command. You
 
 ----
 
-arguments
----------
+getArguments()
+--------------
 
 The list of argument types for the command.
 
 **Signature:**
-    ``List<String> arguments``
+    ``List<String> getArguments()``
 
 **Returns:**
     `List`_ < `String`_ > - A list of the argument types for this command. One of `"STRING"`, `"NUMBER"`, `"VECTOR3`", or `"ENUM"`.
@@ -57,16 +57,16 @@ The list of argument types for the command.
         log.debug "arguments for swithLevel command ${it.name}: ${it.arguments}"
     }
     ...
-    
+
 ----
 
-name
-----
+getName()
+---------
 
 The name of the command.
 
 **Signature:**
-    ``String name``
+    ``String getName()``
 
 **Returns:**
     `String`_ - the name of this command.
