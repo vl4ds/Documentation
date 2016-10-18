@@ -13,21 +13,21 @@ You can get the supported Attributes of a Device through the Device's :ref:`supp
 
 .. warning::
 
-    Referring to an Attribute directly from a Device by calling ``someDevice.attributeName`` will return an Attribute object with only the ``name`` property available. This is available for legacy purposes only, and will likely be removed at some time.
+    Referring to an Attribute directly from a Device by calling ``someDevice.getAttributeName()`` will return an Attribute object with only the ``name`` property available. This is available for legacy purposes only, and will likely be removed at some time.
 
-    To get a reference to an Attribute object, you should use the ``supportedAttributes`` method on the Device object, and then find the desired Attribute in the returned List.
+    To get a reference to an Attribute object, you should use the ``getSupportedAttributes()`` method on the Device object, and then find the desired Attribute in the returned List.
 
 You can view the available attributes for all Capabilities in our :ref:`capabilities_taxonomy`.
 
 ----
 
-dataType
---------
+getDataType()
+-------------
 
 Gets the data type of this Attribute.
 
 **Signature:**
-    ``String dataType``
+    ``String getDataType()``
 
 **Returns:**
     `String`_ - the data type of this Attribute. Possible types are "STRING", "NUMBER", "VECTOR3", "ENUM".
@@ -50,13 +50,13 @@ Gets the data type of this Attribute.
 
 ----
 
-name
-----
+getName()
+---------
 
 The name of the Attribute.
 
 **Signature:**
-    ``String name``
+    ``String getName()``
 
 **Returns:**
     `String`_ - the name of this attribute
@@ -78,13 +78,13 @@ The name of the Attribute.
 
 ----
 
-values
-------
+getValues()
+-----------
 
 The possible values for this Attribute, if the data type is "ENUM".
 
 **Signature:**
-    ``List<String> values``
+    ``List<String> getValues()``
 
 **Returns:**
     `List`_ < `String`_ > - the possible values for this Attribute, if the data type is "ENUM". An empty list is returned if there are no possible values or if the data type is not "ENUM".

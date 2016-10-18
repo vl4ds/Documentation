@@ -30,13 +30,13 @@ A few ways to get a State object instance from a device (See the :ref:`device_re
 
 ----
 
-date
-----
+getDate()
+---------
 
 The date and time the State object was created.
 
 **Signature:**
-    ``Date date``
+    ``Date getDate()``
 
 **Returns:**
     `Date`_ - the Date this State object was created.
@@ -49,33 +49,33 @@ The date and time the State object was created.
 
 ----
 
-dateValue
----------
+getDateValue()
+--------------
 
 The value of the underlying attribute as a Date.
 
 **Signature:**
-    ``Date dateValue``
+    ``Date getDateValue()``
 
 **Returns:**
     `Date`_ - the value if the underlying attribute as a Date. Returns ``null`` if the attribute value cannot be parsed into a Date.
 
 ----
 
-doubleValue
------------
+getDoubleValue()
+----------------
 
 The value of the underlying Attribute as a Double.
 
 **Signature:**
-    ``Double doubleValue``
+    ``Double getDoubleValue()``
 
 **Returns:**
     `Double`_ - the value of the underlying attribute as a Double.
 
 .. warning::
 
-    ``doubleValue`` throws an Exception if the underlying attribute value cannot be parsed into a Double.
+    ``getDoubleValue()`` throws an Exception if the underlying attribute value cannot be parsed into a Double.
 
     You should wrap calls in a try/catch block.
 
@@ -92,20 +92,20 @@ The value of the underlying Attribute as a Double.
 
 ----
 
-floatValue
-----------
+getFloatValue()
+---------------
 
 The value of the underlying Attribute as a Float.
 
 **Signature:**
-    ``Float floatValue``
+    ``Float getFloatValue()``
 
 **Returns:**
     `Float`_ - the value of the underlying Attribute as a Float.
 
 .. warning::
 
-    ``doubleValue`` throws an Exception if the underlying attribute value cannot be parsed into a Double.
+    ``getFloatValue()`` throws an Exception if the underlying attribute value cannot be parsed into a Double.
 
     You should wrap calls in a try/catch block.
 
@@ -122,13 +122,13 @@ The value of the underlying Attribute as a Float.
 
 ----
 
-id
---
+getId()
+-------
 
 The unique system identifier for the State object.
 
 **Signature:**
-    ``String id``
+    ``String getId()``
 
 **Returns:**
     `String`_ - the unique system identifer for the State object.
@@ -142,20 +142,20 @@ The unique system identifier for the State object.
 
 ----
 
-integerValue
-------------
+getIntegerValue()
+-----------------
 
 The value of the underlying Attribute as an Integer.
 
 **Signature:**
-    ``Integer floatValue``
+    ``Integer getIntegerValue()``
 
 **Returns:**
     `Integer`_ - the value of the underlying Attribute as a Integer.
 
 .. warning::
 
-    ``integerValue`` throws an Exception if the underlying attribute value cannot be parsed into a Integer.
+    ``getIntegerValue()`` throws an Exception if the underlying attribute value cannot be parsed into a Integer.
 
     You should wrap calls in a try/catch block.
 
@@ -173,13 +173,13 @@ The value of the underlying Attribute as an Integer.
 
 ----
 
-isoDate
--------
+getIsoDate()
+------------
 
 The acquisition time of this State object as an ISO-8601 String
 
 **Signature:**
-    ``String isoDate``
+    ``String getIsoDate()``
 
 **Returns:**
     `String`_ - the time this Sate object was created as an ISO-8601 Strring
@@ -193,20 +193,20 @@ The acquisition time of this State object as an ISO-8601 String
 
 ----
 
-jsonValue
----------
+getJsonValue()
+--------------
 
 Value of the underlying Attribute parsed into a JSON data structure.
 
 **Signature:**
-    ``Object jsonValue``
+    ``Object getJsonValue()``
 
 **Returns:**
     `Object`_ - the value if the underlying Attribute parsed into a JSON data structure.
 
 .. warning::
 
-    ``jsonValue`` throws an Exception of the underlying attribute value cannot be parsed into a Integer.
+    ``getJsonValue()`` throws an Exception of the underlying attribute value cannot be parsed into a Integer.
 
     You should wrap calls in a try/catch block.
 
@@ -223,20 +223,20 @@ Value of the underlying Attribute parsed into a JSON data structure.
 
 ----
 
-longValue
----------
+getLongValue()
+--------------
 
 The value of the underlying Attribute as a Long.
 
 **Signature:**
-    ``Long longValue``
+    ``Long getLongValue()``
 
 **Returns:**
     `Long`_ - the value if the underlying Attribute as a Long.
 
 .. warning::
 
-    ``longValue`` throws an Exception of the underlying attribute value cannot be parsed into a Long.
+    ``getLongValue()`` throws an Exception of the underlying attribute value cannot be parsed into a Long.
 
     You should wrap calls in a try/catch block.
 
@@ -254,13 +254,13 @@ The value of the underlying Attribute as a Long.
 
 ----
 
-name
-----
+getName()
+---------
 
 The name of the underlying Attribute.
 
 **Signature:**
-    ``String name``
+    ``String getName()``
 
 **Returns:**
     `String`_ - the name of the underlying Attribute.
@@ -274,20 +274,20 @@ The name of the underlying Attribute.
 
 ----
 
-numberValue
------------
+getNumberValue()
+----------------
 
 The value of the underlying Attribute as a BigDecimal.
 
 **Signature:**
-    ``BigDecimal numberValue``
+    ``BigDecimal getNumberValue()``
 
 **Returns:**
-    `BigDecimal`_ - the value if the underlying Attribute as a BigDecimal.
+    `Number`_ - the value if the underlying Attribute as a Number.
 
 .. warning::
 
-    ``numberValue`` throws an Exception of the underlying attribute value cannot be parsed into a BigDecimal.
+    ``getNumberValue()`` throws an Exception of the underlying attribute value cannot be parsed into a getNumberValue().
 
     You should wrap calls in a try/catch block.
 
@@ -304,20 +304,20 @@ The value of the underlying Attribute as a BigDecimal.
 
 ----
 
-numericValue
-------------
+getNumericValue()
+-----------------
 
-The value of the underlying Attribute as a BigDecimal.
+The value of the underlying Attribute as a Number.
 
 **Signature:**
-    ``BigDecimal numericValue``
+    ``Number getNumericValue()``
 
 **Returns:**
-    `BigDecimal`_ - the value if the underlying Attribute as a BigDecimal.
+    `Number`_ - the value if the underlying Attribute as a Number.
 
 .. warning::
 
-    ``numericValue`` throws an Exception of the underlying attribute value cannot be parsed into a BigDecimal.
+    ``getNumericValue()`` throws an Exception of the underlying attribute value cannot be parsed into a Number.
 
     You should wrap calls in a try/catch block.
 
@@ -334,13 +334,13 @@ The value of the underlying Attribute as a BigDecimal.
 
 ----
 
-stringValue
------------
+getStringValue()
+----------------
 
 The value of the underlying Attribute as a String
 
 **Signature:**
-    ``String stringValue``
+    ``String getStringValue()``
 
 **Returns:**
     `String`_ - the value of the underlying Attribute as a String.
@@ -354,13 +354,13 @@ The value of the underlying Attribute as a String
 
 ----
 
-unit
-----
+getUnit()
+---------
 
 The unit of measure for the underlying Attribute.
 
 **Signature:**
-    ``String unit``
+    ``String getUnit()``
 
 **Returns:**
     `String`_ - the unit of measure for the underlying Attribute, if applicable, ``null`` otherwise.
@@ -374,13 +374,13 @@ The unit of measure for the underlying Attribute.
 
 ----
 
-value
------
+getValue()
+----------
 
 The value of the underlying Attribute as a String
 
 **Signature:**
-    ``String value``
+    ``String getUnit()``
 
 **Returns:**
     `String`_ - the value of the underlying Attribute as a String.
@@ -394,8 +394,8 @@ The value of the underlying Attribute as a String
 
 ----
 
-xyzValue
---------
+getXyzValue()
+-------------
 
 Value of the underlying Attribute as a 3-entry Map with keys 'x', 'y', and 'z' with BigDecimal values. For example:
 
@@ -406,7 +406,7 @@ Value of the underlying Attribute as a 3-entry Map with keys 'x', 'y', and 'z' w
 Typically only useful for getting position data from the "Three Axis" Capability.
 
 **Signature:**
-    ``Map<String, BigDecimal> xyzValue``
+    ``Map<String, BigDecimal> getXyzValue()``
 
 **Returns:**
     `Map`_ < `String`_ , `BigDecimal`_ > - A map representing the X, Y, and Z coordinates.
@@ -432,7 +432,7 @@ Typically only useful for getting position data from the "Three Axis" Capability
     } catch (e) {
         log.debug "Trying to get the xyzValue threw an exception: $e"
     }
-    
+
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html
