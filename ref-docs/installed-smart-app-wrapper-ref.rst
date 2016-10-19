@@ -42,7 +42,7 @@ Gets a list of child SmartApps associated with this SmartApp.
 This includes both "complete" and "incomplete" child SmartApp installs.
 
 **Signature:**
-    ``List<InstalledSmartApp> getAllChildApps()``
+    ``def getAllChildApps()``
 
 **Returns:**
     `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
@@ -79,7 +79,7 @@ Gets a list of child apps associated with this SmartApp.
 This only returns child apps that have an installation state of "complete".
 
 **Signature:**
-    ``List<InstalledSmartApp> getChildApps()``
+    ``def getChildApps()``
 
 **Returns:**
     `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps

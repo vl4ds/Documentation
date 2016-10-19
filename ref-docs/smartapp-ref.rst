@@ -345,7 +345,7 @@ This includes both "complete" and "incomplete" child SmartApp installs.
 
 .. code-block:: groovy
 
-    def children = findAllChildAppsByName(My Child App")
+    def children = findAllChildAppsByName("My Child App")
     log.debug "found ${children.size()} child apps"
 
 ----
@@ -425,8 +425,8 @@ This includes both "complete" and "incomplete" child SmartApp installs.
 
 .. code-block:: groovy
 
-    def child = findChildAppsByNamespaceAndName("somenamespace", "My Child App")
-    log.debug "child app id: ${child.id}"
+    def child = findChildAppByNamespaceAndName("somenamespace", "My Child App")
+    log.debug "child app id: ${child?.id}"
 
 ----
 
