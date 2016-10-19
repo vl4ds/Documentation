@@ -399,7 +399,7 @@ This includes both "complete" and "incomplete" child SmartApp installs.
 .. code-block:: groovy
 
     def child = findChildAppByName("My Child App")
-    log.debug "child app id: ${child.id}"
+    log.debug "child app id: ${child?.id}"
 
 ----
 
