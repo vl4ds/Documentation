@@ -883,6 +883,49 @@ The :ref:`location_ref` into which this SmartApp has been installed.
 
 ----
 
+.. _smartapp_nextoccurrence:
+
+nextOccurrence()
+----------------
+
+Returns a Date when the time specified in the input occurs next.
+
+**Signature:**
+    ``Date nextOccurrence(String timeString)``
+
+**Parameters:**
+    `String`_ ``timeString`` - An ISO-8601 date string as returned from ``time`` input preferences of the SmartApp.
+
+.. note::
+
+    Note that if the input ``timeString`` does not contain time zone, this method will throw an ``IllegalArgumentException``.
+
+**Returns:**
+    `Date`_ - The Date when the time specified in the ``timeString`` occurs next. If the specified time has already occurred, then returns the next day Date object when the specified time occurs next. If the specified time has not yet occurred, then returns today's Date object when the specified time will occur.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+
+      section() {
+            input "Time1", "time", title: "Time1"
+            input "Time2", "time", title: "Time2"
+      }
+    }
+
+    ...
+
+    // Current time is 16:25 October 24, 2016, Time1 input is 16:23 and Time2 input is 16:34
+    log.debug "nextOccurrence(Time1) value is: ${nextOccurrence(Time1)}"
+    log.debug "nextOccurrence(Time2) value is: ${nextOccurrence(Time2)}"
+    // The above log statements will print the following:
+    nextOccurrence(Time1) value is: Tue Oct 25 23:23:00 UTC 2016
+    nextOccurrence(Time2) value is: Mon Oct 24 23:34:00 UTC 2016
+
+----
+
 .. _smartapp_now:
 
 now()
