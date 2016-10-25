@@ -326,16 +326,66 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 
 ----
 
+findAllChildAppsByName()
+------------------------
+
+Finds all child SmartApps matching the specified name.
+This includes both "complete" and "incomplete" child SmartApp installs.
+
+**Signature:**
+    ``List<InstalledSmartApp> findAllChildAppsByName(String namespace, String name)``
+
+**Parameters:**
+    `String`_ ``name`` - the name of the SmartApp to find.
+
+**Returns:**
+    A list of :ref:`installed_smart_app_wrapper`, or an empty list if none are found.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def children = findAllChildAppsByName("My Child App")
+    log.debug "found ${children.size()} child apps"
+
+----
+
+findAllChildAppsByNamespaceAndName()
+------------------------------------
+
+Finds all child SmartApps matching the specified namespace and name.
+This includes both "complete" and "incomplete" child SmartApp installs.
+
+**Signature:**
+    ``List<InstalledSmartApp> findAllChildAppsByNamespaceAndName(String namespace, String name)``
+
+**Parameters:**
+    `String`_ ``namespace`` - the namespace of the SmartApp to find.
+
+    `String`_ ``name`` - the name of the SmartApp to find.
+
+**Returns:**
+    A list of :ref:`installed_smart_app_wrapper`, or an empty list if none are found.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def children = findAllChildAppsByNamespaceAndName("somenamespace", "My Child App")
+    log.debug "found ${children.size()} child apps"
+
+----
+
 .. _smartapp_find_child_app_by_name:
 
 findChildAppByName()
 --------------------
 
-Returns the first :ref:`installed_smart_app_wrapper` found as a child of this SmartApp that has the specified name.
-
+Finds a child SmartApp matching the specified name.
+This includes both "complete" and "incomplete" child SmartApp installs.
 
 **Signature:**
-    ``InstalledSmartApp findChildAppByName(String appName)``
+    ``def findChildAppByName(String appName)``
 
 **Parameters:**
     `String`_ ``appName`` - the name of the SmartApp to find.
@@ -349,20 +399,82 @@ Returns the first :ref:`installed_smart_app_wrapper` found as a child of this Sm
 .. code-block:: groovy
 
     def child = findChildAppByName("My Child App")
-    log.debug "child app id: ${child.id}"
+    log.debug "child app id: ${child?.id}"
+
+----
+
+findChildAppByNamespaceAndName()
+--------------------------------
+
+Finds a child SmartApp matching the specified namespace and name.
+This includes both "complete" and "incomplete" child SmartApp installs.
+
+**Signature:**
+    ``def findChildAppsByNamespaceAndName(String namespace, String name)``
+
+**Parameters:**
+    `String`_ ``namespace`` - the namespace of the SmartApp to find.
+
+    `String`_ ``name`` - the name of the SmartApp to find.
+
+**Returns:**
+    A :ref:`installed_smart_app_wrapper`, or null if no child app is found.
+    If multiple child apps are found that match the namespace and name, the first one will be returned.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def child = findChildAppByNamespaceAndName("somenamespace", "My Child App")
+    log.debug "child app id: ${child?.id}"
+
+----
+
+getAllChildApps()
+-----------------
+
+Gets a list of child apps associated with this SmartApp.
+This includes both "complete" and "incomplete" child SmartApp installs.
+
+**Signature:**
+    ``List<InstalledSmartApp> getAllChildApps()``
+
+**Returns:**
+    `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
+
+**Example:**
+
+.. code-block:: groovy
+
+    def childApps = app.getAllChildApps()
+    log.debug "This app has ${childApps.size()} child apps"
 
 ----
 
 getChildApps()
 --------------
 
-Get all child SmartApps for this SmartApp, if they exist.
+Gets a list of child apps associated with this SmartApp.
+This only returns child apps that have an installation state of "complete".
 
 **Signature:**
-    ``List getChildApps()``
+    ``List<InstalledSmartApp> getChildApps()``
 
 **Returns:**
-    A list of all the child SmartApps for th is SmartApp, if they exist.
+    `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
+
+**Example:**
+
+.. code-block:: groovy
+
+    def childApps = getChildApps()
+
+    // Update the label for all child apps
+    childApps.each {
+        if (!it.label?.startsWith(app.name)) {
+            it.updateLabel("$app.name/$it.label")
+        }
+    }
 
 ----
 

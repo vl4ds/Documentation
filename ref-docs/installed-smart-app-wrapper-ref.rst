@@ -35,6 +35,27 @@ Gets the current state of the given attribute.
 
 ----
 
+getAllChildApps()
+-----------------
+
+Gets a list of child SmartApps associated with this SmartApp.
+This includes both "complete" and "incomplete" child SmartApp installs.
+
+**Signature:**
+    ``def getAllChildApps()``
+
+**Returns:**
+    `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
+
+**Example:**
+
+.. code-block:: groovy
+
+    def childApps = app.getAllChildApps()
+    log.debug "The app has ${childApps.size()} child SmartApps"
+
+----
+
 getAppSettings()
 ----------------
 
@@ -55,9 +76,10 @@ getChildApps()
 --------------
 
 Gets a list of child apps associated with this SmartApp.
+This only returns child apps that have an installation state of "complete".
 
 **Signature:**
-    ``List<InstalledSmartApp> getChildApps()``
+    ``def getChildApps()``
 
 **Returns:**
     `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
