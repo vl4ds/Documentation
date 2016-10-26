@@ -2249,15 +2249,15 @@ Gets a `Date`_ object for today's date, for the specified time in the date-time 
 timeTodayAfter()
 ----------------
 
-Gets a `Date`_ object for the specified input that is guaranteed to be after the specified starting date.
+Returns a `Date`_ of the next occurrence of the time specified in the input, relative to a reference time.
 
 **Signature:**
     ``Date timeTodayAfter(String startTimeString, String timeString [, TimeZone timeZone])``
 
 **Parameters:**
-    `String`_ ``startTimeString`` - The time for which the returned date must be after. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
+    `String`_ ``startTimeString`` - The reference time. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
 
-    `String`_ ``timeString`` - The time string to get the date object for. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
+    `String`_ ``timeString`` - The time string whose next occurrence is queried. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
 
     `TimeZone`_ ``timeZone`` *(optional)* - The time zone used for determining the current date and time.
 
@@ -2270,8 +2270,8 @@ Gets a `Date`_ object for the specified input that is guaranteed to be after the
     Future releases may remove the option to call ``timeToday`` without a time zone.
 
 **Returns:**
-    `Date`_ - the Date for the specified ``timeString`` that is guaranteed to be after the ``startTimeString``.
-
+    `Date`_ - If time specified by ``timeString`` has already occurred prior to ``startTimeString`` then returns the next day Date object when the ``timeString`` time occurs next. If ``timeString`` time has not yet occurred relative to ``startTimeString``, then returns today's Date object when the ``timeString`` time will occur. Since only the occurrence of ``timeString`` after the elapse of ``startTimeString`` time is considered, the Date returned is guaranteed to be later than the ``startTimeString`` date.
+:
 **Example:**
 
 .. code-block:: groovy
@@ -2285,11 +2285,12 @@ Gets a `Date`_ object for the specified input that is guaranteed to be after the
     ...
     // assume time1 entered as 20:20
     // assume time2 entered as 14:05
-    // nextTime would be tomorrow's date, 14:05 time.
+    // since 14:05 time today has already elapsed prior to 20:20 reference time today,
+    // the nextTime would be tomorrow's date, 14:05 time (the next occurrence of 14:05 time)
     def nextTime = timeTodayAfter(time1, time2, location.timeZone)
-    ...
 
 ----
+
 
 timeZone()
 ----------
