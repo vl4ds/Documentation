@@ -39,7 +39,7 @@ getAllChildApps()
 -----------------
 
 Gets a list of child SmartApps associated with this SmartApp.
-This includes both "complete" and "incomplete" child SmartApp installs.
+This returns child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
     ``def getAllChildApps()``
@@ -76,7 +76,7 @@ getChildApps()
 --------------
 
 Gets a list of child apps associated with this SmartApp.
-This only returns child apps that have an installation state of "complete".
+This only returns child SmartApps that have an :ref:`installation states <isa_get_installation_state>` of "complete".
 
 **Signature:**
     ``def getChildApps()``
@@ -170,6 +170,8 @@ Get the id of the SmartApp
     The ID of the SmartApp
 
 ----
+
+.. _isa_get_installation_state:
 
 getInstallationState()
 ----------------------
