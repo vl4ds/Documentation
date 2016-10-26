@@ -330,7 +330,7 @@ findAllChildAppsByName()
 ------------------------
 
 Finds all child SmartApps matching the specified name.
-This includes both "complete" and "incomplete" child SmartApp installs.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
     ``List<InstalledSmartApp> findAllChildAppsByName(String namespace, String name)``
@@ -348,13 +348,17 @@ This includes both "complete" and "incomplete" child SmartApp installs.
     def children = findAllChildAppsByName("My Child App")
     log.debug "found ${children.size()} child apps"
 
+    children.each { child ->
+        log.debug "child app ${child.id} has installation state ${child.installationState}"
+    }
+
 ----
 
 findAllChildAppsByNamespaceAndName()
 ------------------------------------
 
 Finds all child SmartApps matching the specified namespace and name.
-This includes both "complete" and "incomplete" child SmartApp installs.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
     ``List<InstalledSmartApp> findAllChildAppsByNamespaceAndName(String namespace, String name)``
@@ -374,6 +378,10 @@ This includes both "complete" and "incomplete" child SmartApp installs.
     def children = findAllChildAppsByNamespaceAndName("somenamespace", "My Child App")
     log.debug "found ${children.size()} child apps"
 
+    children.each { child ->
+        log.debug "child app ${child.id} has installation state ${child.installationState}"
+    }
+
 ----
 
 .. _smartapp_find_child_app_by_name:
@@ -382,7 +390,7 @@ findChildAppByName()
 --------------------
 
 Finds a child SmartApp matching the specified name.
-This includes both "complete" and "incomplete" child SmartApp installs.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
     ``def findChildAppByName(String appName)``
@@ -399,7 +407,7 @@ This includes both "complete" and "incomplete" child SmartApp installs.
 .. code-block:: groovy
 
     def child = findChildAppByName("My Child App")
-    log.debug "child app id: ${child?.id}"
+    log.debug "child app id ${child?.id} has installation state ${child.installationState}"
 
 ----
 
@@ -407,7 +415,7 @@ findChildAppByNamespaceAndName()
 --------------------------------
 
 Finds a child SmartApp matching the specified namespace and name.
-This includes both "complete" and "incomplete" child SmartApp installs.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
     ``def findChildAppsByNamespaceAndName(String namespace, String name)``
@@ -426,7 +434,7 @@ This includes both "complete" and "incomplete" child SmartApp installs.
 .. code-block:: groovy
 
     def child = findChildAppByNamespaceAndName("somenamespace", "My Child App")
-    log.debug "child app id: ${child?.id}"
+    log.debug "child app id ${child?.id} has installation state ${child.installationState}"
 
 ----
 
@@ -434,7 +442,7 @@ getAllChildApps()
 -----------------
 
 Gets a list of child apps associated with this SmartApp.
-This includes both "complete" and "incomplete" child SmartApp installs.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
     ``List<InstalledSmartApp> getAllChildApps()``
@@ -449,13 +457,17 @@ This includes both "complete" and "incomplete" child SmartApp installs.
     def childApps = app.getAllChildApps()
     log.debug "This app has ${childApps.size()} child apps"
 
+    childApps.each { child ->
+        log.debug "child app with id ${child.id} has installation state ${child.installationState}"
+    }
+
 ----
 
 getChildApps()
 --------------
 
 Gets a list of child apps associated with this SmartApp.
-This only returns child apps that have an installation state of "complete".
+This only includes child SmartApps that have an :ref:`installation state <isa_get_installation_state>` of "complete".
 
 **Signature:**
     ``List<InstalledSmartApp> getChildApps()``
