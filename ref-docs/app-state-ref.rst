@@ -20,20 +20,20 @@ Here is a small code snippet that illustrates a potential use case.
 
 ----
 
-dateValue
----------
+getDateValue()
+--------------
 
 The value of this Event, if the value can be parsed to a Date.
 
 **Signature:**
-    ``Date dateValue``
+    ``Date getDateValue()``
 
 **Returns:**
     `Date`_ - the value of this Event as a Date.
 
 .. warning::
 
-    ``dateValue`` will throw an Exception if the value of the event is not parseable to a Date.
+    ``getDateValue()`` will throw an Exception if the value of the event is not parseable to a Date.
 
     You should wrap calls in a try/catch block.
 
@@ -55,13 +55,13 @@ The value of this Event, if the value can be parsed to a Date.
 
 ----
 
-id
---
+getId()
+-------
 
 The unique system identifier for this event.
 
 **Signature:**
-    ``String id``
+    ``String getId()``
 
 **Returns:**
     `String`_ - the unique device identifier for this event.
@@ -77,13 +77,13 @@ The unique system identifier for this event.
 
 ----
 
-descriptionText
----------------
+getDescriptionText()
+--------------------
 
 The description of the event that is to be displayed to the user in the mobile application.
 
 **Signature:**
-    ``String descriptionText``
+    ``String getDescriptionText()``
 
 **Returns:**
     `String`_ - the description of this event to be displayed to the user in the mobile application.
@@ -99,20 +99,20 @@ The description of the event that is to be displayed to the user in the mobile a
 
 ----
 
-doubleValue
------------
+getDoubleValue()
+----------------
 
 The value of this Event, if the value can be parsed to a Double.
 
 **Signature:**
-    ``Double doubleValue``
+    ``Double getDoubleValue()``
 
 **Returns:**
     `Double`_ - the value of this Event as a Double.
 
 .. warning::
 
-    ``doubleValue`` will throw an Exception if the value of the event is not parseable to a Double.
+    ``getDoubleValue()`` will throw an Exception if the value of the event is not parseable to a Double.
 
     You should wrap calls in a try/catch block.
 
@@ -134,20 +134,20 @@ The value of this Event, if the value can be parsed to a Double.
 
 ----
 
-floatValue
-----------
+getFloatValue()
+---------------
 
 The value of this Event as a Float, if it can be parsed into a Float.
 
 **Signature:**
-    ``Float foatValue``
+    ``Float getFoatValue()``
 
 **Returns:**
     `Float`_ - the value of this Event as a Float.
 
 .. warning::
 
-    ``floatValue`` will throw an Exception if the Event's value is not parseable to a Float.
+    ``getFloatValue()`` will throw an Exception if the Event's value is not parseable to a Float.
 
     You should wrap calls in a try/catch block.
 
@@ -169,20 +169,20 @@ The value of this Event as a Float, if it can be parsed into a Float.
 
 ----
 
-integerValue
-------------
+getIntegerValue()
+-----------------
 
 The value of this Event as an Integer.
 
 **Signature:**
-    ``Integer integerValue``
+    ``Integer getIntegerValue()``
 
 **Returns:**
     `Integer`_ - the value of this Event as an Integer.
 
 .. warning::
 
-    ``integerValue`` throws an Exception of the Event value cannot be parsed to an Integer.
+    ``getIntegerValue()`` throws an Exception of the Event value cannot be parsed to an Integer.
 
     You should wrap calls in a try/catch block.
 
@@ -204,13 +204,13 @@ The value of this Event as an Integer.
 
 ----
 
-isoDate
--------
+getIsoDate()
+------------
 
 Acquisition time of this Event as an ISO-8601 String.
 
 **Signature:**
-    ``String isoDate``
+    ``String getIsoDate()``
 
 **Returns:**
     `String`_ - The acquisition time of this Event as an ISO-8601 String.
@@ -226,20 +226,20 @@ Acquisition time of this Event as an ISO-8601 String.
 
 ----
 
-jsonValue
----------
+getJsonValue()
+--------------
 
 Value of the Event as a parsed JSON data structure.
 
 **Signature:**
-    ``Object jsonValue``
+    ``Object getJsonValue()``
 
 **Returns:**
     `Object`_ - The value of the Event as a JSON structure
 
 .. warning::
 
-    ``jsonValue`` throws an Exception if the value of the Event cannot be parsed into a JSON object.
+    ``getJsonValue()`` throws an Exception if the value of the Event cannot be parsed into a JSON object.
 
     You should wrap calls in a try/catch block.
 
@@ -260,13 +260,13 @@ Value of the Event as a parsed JSON data structure.
 
 ----
 
-lastUpdated
------------
+getLastUpdated()
+----------------
 
 The last time this event was updated as a Date.
 
 **Signature:**
-    ``Date lastUpdated``
+    ``Date getLastUpdated()``
 
 **Returns:**
     `Date`_ - The last time this event was updated as a Date.
@@ -282,20 +282,20 @@ The last time this event was updated as a Date.
 
 ----
 
-longValue
----------
+getLongValue()
+--------------
 
 The value of this Event as a Long.
 
 **Signature:**
-    ``Long longValue``
+    ``Long getLongValue()``
 
 **Returns:**
     `Long`_ - the value of this Event as a Long.
 
 .. warning::
 
-    ``longValue`` throws an Exception if the value of the Event cannot be parsed to a Long.
+    ``getLongValue()`` throws an Exception if the value of the Event cannot be parsed to a Long.
 
     You should wrap calls in a try/catch block.
 
@@ -308,7 +308,7 @@ The value of this Event as a Long.
         // get the value of this event as an Long
         // throws an exception if not convertable to Long
         try {
-            def evtLongValue = myState.longVaue
+            def evtLongValue = myState.longValue
             log.debug "The longValue of this event is $evtLongValue"
             log.debug "evt.longValue instanceof Long? ${evtLongValue instanceof Long}"
         } catch (e) {
@@ -318,13 +318,13 @@ The value of this Event as a Long.
 
 ----
 
-name
-----
+getName()
+---------
 
 The name of this Event.
 
 **Signature:**
-    ``String name``
+    ``String getName()``
 
 **Returns:**
     `String`_ - the name of this event.
@@ -340,20 +340,20 @@ The name of this Event.
 
 ----
 
-numberValue
------------
+getNumberValue()
+----------------
 
 The value of this Event as a Number.
 
 **Signature:**
-    ``BigDecimal numberValue``
+    ``Number getNumberValue()``
 
 **Returns:**
-    `BigDecimal`_ - the value of this event as a BigDecimal.
+    `Number`_ - the value of this event as a BigDecimal.
 
 .. warning::
 
-    ``numberValue`` throws an Exception if the value of the Event cannot be parsed to a BigDecimal.
+    ``getNumberValue()`` throws an Exception if the value of the Event cannot be parsed to a Number.
 
     You should wrap calls in a try/catch block.
 
@@ -368,7 +368,7 @@ The value of this Event as a Number.
         try {
             def evtNumberValue = myState.numberValue
             log.debug "The numberValue of this event is ${evtNumberValue}"
-            log.debug "evt.numberValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
+            log.debug "evt.numberValue instanceof BigDecimal? ${evtNumberValue instanceof Number}"
         } catch (e) {
             log.debug("Trying to get the numberValue for ${myState.name} threw an exception", e)
         }
@@ -376,20 +376,20 @@ The value of this Event as a Number.
 
 ----
 
-numericValue
-------------
+getNumericValue()
+-----------------
 
 The value of this Event as a Number.
 
 **Signature:**
-    ``BigDecimal numericValue``
+    ``Number getNumericValue()``
 
 **Returns:**
-    `BigDecimal`_ - the value of this event as a BigDecimal.
+    `Number`_ - the value of this event as a BigDecimal.
 
 .. warning::
 
-    ``numericValue`` throws an Exception if the value of the Event cannot be parsed to a BigDecimal.
+    ``getNumericValue()`` throws an Exception if the value of the Event cannot be parsed to a Number.
 
     You should wrap calls in a try/catch block.
 
@@ -404,7 +404,7 @@ The value of this Event as a Number.
         try {
             def evtNumberValue = myState.numericValue
             log.debug "The numericValue of this event is ${evtNumberValue}"
-            log.debug "evt.numericValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
+            log.debug "evt.numericValue instanceof Number? ${evtNumberValue instanceof Number}"
         } catch (e) {
             log.debug("Trying to get the numericValue for ${myState.name} threw an exception", e)
         }
@@ -412,13 +412,13 @@ The value of this Event as a Number.
 
 ----
 
-unit
-----
+getUnit()
+---------
 
 The unit of measure for this Event, if applicable.
 
 **Signature:**
-    ``String unit``
+    ``String getUnit()``
 
 **Returns:**
     `String`_ - the unit of measure of this Event, if applicable. ``null`` otherwise.
@@ -434,13 +434,13 @@ The unit of measure for this Event, if applicable.
 
 ----
 
-value
------
+getValue()
+----------
 
 The value of this Event as a String.
 
 **Signature:**
-    ``String stringValue``
+    ``String getValue()``
 
 **Returns:**
     `String`_ - the value of this event as a String.
@@ -451,13 +451,13 @@ The value of this Event as a String.
 
     def eventHandler(evt) {
         def myState = app.currentState("someAttribute")
-        log.debug "The value of this event as a string: ${myState.value}"
+        log.debug "The value of this event as a string: ${myState.getValue()}"
     }
 
 ----
 
-xyzValue
---------
+getXyzValue()
+-------------
 
 Value of the event as a 3-entry Map with keys 'x', 'y', and 'z' with BigDecimal values. For example:
 
@@ -468,14 +468,14 @@ Value of the event as a 3-entry Map with keys 'x', 'y', and 'z' with BigDecimal 
 Typically only useful for getting position data from the "Three Axis" Capability.
 
 **Signature:**
-    ``Map<String, BigDecimal> xyzValue``
+    ``Map<String, BigDecimal> getXyzValue()``
 
 **Returns:**
     `Map`_ < `String`_ , `BigDecimal`_ > - A map representing the X, Y, and Z coordinates.
 
 .. warning::
 
-    ``xyzValue`` throws an Exception if the value of the Event cannot be parsed to an X-Y-Z data structure.
+    ``getXyzValue()`` throws an Exception if the value of the Event cannot be parsed to an X-Y-Z data structure.
 
     You should wrap calls in a try/catch block.
 

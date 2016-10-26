@@ -1151,6 +1151,8 @@ Attribute       Type    Possible Values
 =============== ======= =================
 lock            String  ``"locked"``
                         ``"unlocked"``
+                        ``"unknown"``
+                        ``"unlocked with timeout"``
 =============== ======= =================
 
 **Commands:**

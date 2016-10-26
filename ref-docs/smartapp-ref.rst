@@ -16,7 +16,7 @@ The following methods should be defined by all SmartApps. They are called by the
 .. _smartapp_installed:
 
 installed()
-~~~~~~~~~~~
+-----------
 
 .. note::
 
@@ -45,7 +45,7 @@ Called when an instance of the app is installed. Typically subscribes to events 
 .. _smartapp_updated:
 
 updated()
-~~~~~~~~~
+---------
 
 .. note::
 
@@ -72,7 +72,7 @@ Called when the preferences of an installed app are updated. Typically unsubscri
 ----
 
 uninstalled()
-~~~~~~~~~~~~~
+-------------
 
 .. note::
 
@@ -100,7 +100,7 @@ Called, if declared, when an app is uninstalled. Does not need to be declared un
 The following methods and attributes are available to call in a SmartApp:
 
 <device or capability preference name>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------------------
 
 A reference to the device or devices selected during app installation or update.
 
@@ -133,7 +133,7 @@ A reference to the device or devices selected during app installation or update.
 ----
 
 <number or decimal preference name>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------------------
 
 A reference to the value entered for a number or decimal input preference.
 
@@ -160,7 +160,7 @@ A reference to the value entered for a number or decimal input preference.
 ----
 
 <text, mode, or time preference name>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
 
 A reference to the value entered for a ``text``, ``mode``, or ``time`` input type.
 
@@ -201,7 +201,7 @@ time        `String`_ - the full date string in the format of “yyyy-MM-dd’T�
 .. _add_child_app:
 
 addChildApp()
-~~~~~~~~~~~~~
+-------------
 
 Adds a child app to a SmartApp.
 
@@ -225,7 +225,7 @@ Adds a child app to a SmartApp.
     :ref:`installed_smart_app_wrapper` - The InstalledSmartAppWrapper instance that represents the child SmartApp that was created.
 
 addChildDevice()
-~~~~~~~~~~~~~~~~
+----------------
 
 Adds a child device to a SmartApp. An example use is in service manager SmartApps.
 
@@ -252,7 +252,7 @@ Adds a child device to a SmartApp. An example use is in service manager SmartApp
 ----
 
 apiServerUrl()
-~~~~~~~~~~~~~~
+--------------
 
 Returns the URL of the server where this SmartApp can be reached for API calls, along with the specified path appended to it. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
 
@@ -279,7 +279,7 @@ Returns the URL of the server where this SmartApp can be reached for API calls, 
 ----
 
 atomicState
-~~~~~~~~~~~
+-----------
 
 A map of name/value pairs that SmartApp can use to save and retrieve data across SmartApp executions. This is similar to :ref:`smartapp-state`, but will immediately write and read from the backing data store. Prefer using ``state`` over ``atomicState`` when possible.
 
@@ -308,7 +308,7 @@ A map of name/value pairs that SmartApp can use to save and retrieve data across
 .. _smartapp_can_schedule:
 
 canSchedule()
-~~~~~~~~~~~~~
+-------------
 
 Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are limited to 4 scheduled jobs. That limit includes operations such as runIn and runOnce.
 
@@ -326,16 +326,78 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 
 ----
 
+.. _smartapp_find_all_child_apps_by_name:
+
+findAllChildAppsByName()
+------------------------
+
+Finds all child SmartApps matching the specified name.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
+
+**Signature:**
+    ``List<InstalledSmartApp> findAllChildAppsByName(String namespace, String name)``
+
+**Parameters:**
+    `String`_ ``name`` - the name of the SmartApp to find.
+
+**Returns:**
+    A list of :ref:`installed_smart_app_wrapper`, or an empty list if none are found.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def children = findAllChildAppsByName("My Child App")
+    log.debug "found ${children.size()} child apps"
+
+    children.each { child ->
+        log.debug "child app ${child.id} has installation state ${child.installationState}"
+    }
+
+----
+
+.. _smartapp_find_all_child_apps_by_namespace_and_name:
+
+findAllChildAppsByNamespaceAndName()
+------------------------------------
+
+Finds all child SmartApps matching the specified namespace and name.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
+
+**Signature:**
+    ``List<InstalledSmartApp> findAllChildAppsByNamespaceAndName(String namespace, String name)``
+
+**Parameters:**
+    `String`_ ``namespace`` - the namespace of the SmartApp to find.
+
+    `String`_ ``name`` - the name of the SmartApp to find.
+
+**Returns:**
+    A list of :ref:`installed_smart_app_wrapper`, or an empty list if none are found.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def children = findAllChildAppsByNamespaceAndName("somenamespace", "My Child App")
+    log.debug "found ${children.size()} child apps"
+
+    children.each { child ->
+        log.debug "child app ${child.id} has installation state ${child.installationState}"
+    }
+
+----
+
 .. _smartapp_find_child_app_by_name:
 
 findChildAppByName()
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
-Returns the first :ref:`installed_smart_app_wrapper` found as a child of this SmartApp that has the specified name.
-
+Finds a child SmartApp matching the specified name.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
-    ``InstalledSmartApp findChildAppByName(String appName)``
+    ``def findChildAppByName(String appName)``
 
 **Parameters:**
     `String`_ ``appName`` - the name of the SmartApp to find.
@@ -349,25 +411,97 @@ Returns the first :ref:`installed_smart_app_wrapper` found as a child of this Sm
 .. code-block:: groovy
 
     def child = findChildAppByName("My Child App")
-    log.debug "child app id: ${child.id}"
+    log.debug "child app id ${child?.id} has installation state ${child.installationState}"
 
 ----
 
-getChildApps()
-~~~~~~~~~~~~~~
+.. _smartapp_find_child_app_by_namespace_and_name:
 
-Get all child SmartApps for this SmartApp, if they exist.
+findChildAppByNamespaceAndName()
+--------------------------------
+
+Finds a child SmartApp matching the specified namespace and name.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
 
 **Signature:**
-    ``List getChildApps()``
+    ``def findChildAppsByNamespaceAndName(String namespace, String name)``
+
+**Parameters:**
+    `String`_ ``namespace`` - the namespace of the SmartApp to find.
+
+    `String`_ ``name`` - the name of the SmartApp to find.
 
 **Returns:**
-    A list of all the child SmartApps for th is SmartApp, if they exist.
+    A :ref:`installed_smart_app_wrapper`, or null if no child app is found.
+    If multiple child apps are found that match the namespace and name, the first one will be returned.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def child = findChildAppByNamespaceAndName("somenamespace", "My Child App")
+    log.debug "child app id ${child?.id} has installation state ${child.installationState}"
+
+----
+
+.. _smartapp_get_all_child_apps:
+
+getAllChildApps()
+-----------------
+
+Gets a list of child apps associated with this SmartApp.
+This includes child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
+
+**Signature:**
+    ``List<InstalledSmartApp> getAllChildApps()``
+
+**Returns:**
+    `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
+
+**Example:**
+
+.. code-block:: groovy
+
+    def childApps = app.getAllChildApps()
+    log.debug "This app has ${childApps.size()} child apps"
+
+    childApps.each { child ->
+        log.debug "child app with id ${child.id} has installation state ${child.installationState}"
+    }
+
+----
+
+.. _smartapp_get_child_apps:
+
+getChildApps()
+--------------
+
+Gets a list of child apps associated with this SmartApp.
+This only includes child SmartApps that have an :ref:`installation state <isa_get_installation_state>` of "complete".
+
+**Signature:**
+    ``List<InstalledSmartApp> getChildApps()``
+
+**Returns:**
+    `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
+
+**Example:**
+
+.. code-block:: groovy
+
+    def childApps = getChildApps()
+
+    // Update the label for all child apps
+    childApps.each {
+        if (!it.label?.startsWith(app.name)) {
+            it.updateLabel("$app.name/$it.label")
+        }
+    }
 
 ----
 
 deleteChildDevice()
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Deletes the child device with the specified device network id.
 
@@ -386,7 +520,7 @@ Deletes the child device with the specified device network id.
 ----
 
 getAllChildDevices()
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Returns a list of all child devices, including virtual devices. This is a wrapper for ``getChildDevices(true)``.
 
@@ -399,7 +533,7 @@ Returns a list of all child devices, including virtual devices. This is a wrappe
 ----
 
 getApiServerUrl()
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Returns the URL of the server where this SmartApp can be reached for API calls. Use this instead of hard-coding a URL to ensure that the correct server URL for this installed instance is returned.
 
@@ -412,7 +546,7 @@ Returns the URL of the server where this SmartApp can be reached for API calls. 
 ----
 
 getChildDevice()
-~~~~~~~~~~~~~~~~
+----------------
 
 Returns a device based upon the specified device network id. This is mostly used in service manager SmartApps.
 
@@ -428,7 +562,7 @@ Returns a device based upon the specified device network id. This is mostly used
 ----
 
 getChildDevices()
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Returns a list of all child devices. An example use would be in service manager SmartApps.
 
@@ -446,7 +580,7 @@ Returns a list of all child devices. An example use would be in service manager 
 .. _smartapp_get_sunrise_and_sunset:
 
 getSunriseAndSunset()
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Gets a map containing the local sunrise and sunset times.
 
@@ -491,7 +625,7 @@ Gets a map containing the local sunrise and sunset times.
 ----
 
 getWeatherFeature()
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Calls the Weather Underground API to to return weather forecasts and related data.
 
@@ -518,7 +652,7 @@ Calls the Weather Underground API to to return weather forecasts and related dat
 .. _smartapp_http_delete:
 
 httpDelete()
-~~~~~~~~~~~~
+------------
 
 Executes an HTTP DELETE request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -554,7 +688,7 @@ Executes an HTTP DELETE request and passes control to the specified closure. The
 .. _smartapp_http_error:
 
 httpError()
-~~~~~~~~~~~
+-----------
 
 Throws a ``SmartAppException`` with the specified status code and message.
 
@@ -580,7 +714,7 @@ This should be used to send an HTTP error to any calling client.
 .. _smartapp_http_get:
 
 httpGet()
-~~~~~~~~~
+---------
 
 Executes an HTTP GET request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -637,7 +771,7 @@ If the response content type is JSON, the response data will automatically be pa
 .. _smartapp_http_head:
 
 httpHead()
-~~~~~~~~~~
+----------
 
 Executes an HTTP HEAD request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -670,7 +804,7 @@ Executes an HTTP HEAD request and passes control to the specified closure. The c
 .. _smartapp_http_post:
 
 httpPost()
-~~~~~~~~~~
+----------
 
 Executes an HTTP POST request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -721,7 +855,7 @@ If the response content type is JSON, the response data will automatically be pa
 .. _smartapp_http_post_json:
 
 httpPostJson()
-~~~~~~~~~~~~~~
+--------------
 
 Executes an HTTP POST request with a JSON-encoded body and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -784,7 +918,7 @@ If the response content type is JSON, the response data will automatically be pa
 .. _smartapp_http_put:
 
 httpPut()
-~~~~~~~~~
+---------
 
 Executes an HTTP PUT request and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -834,7 +968,7 @@ If the response content type is JSON, the response data will automatically be pa
 .. _smartapp_http_put_json:
 
 httpPutJson()
-~~~~~~~~~~~~~
+-------------
 
 Executes an HTTP PUT request with a JSON-encoded body and content type, and passes control to the specified closure. The closure is passed one `HttpResponseDecorator`_ argument from which the response content and header information can be extracted.
 
@@ -870,23 +1004,66 @@ If the response content type is JSON, the response data will automatically be pa
 
 ----
 
-location
-~~~~~~~~
+getLocation()
+-------------
 
 The :ref:`location_ref` into which this SmartApp has been installed.
 
 **Signature:**
-    ``Location location``
+    ``Location getLocation()``
 
 **Returns:**
     :ref:`location_ref` - The Location into which this SmartApp has been installed.
 
 ----
 
+.. _smartapp_nextoccurrence:
+
+nextOccurrence()
+----------------
+
+Returns a Date when the time specified in the input occurs next.
+
+**Signature:**
+    ``Date nextOccurrence(String timeString)``
+
+**Parameters:**
+    `String`_ ``timeString`` - An ISO-8601 date string as returned from ``time`` input preferences of the SmartApp.
+
+.. note::
+
+    Note that if the input ``timeString`` does not contain time zone, this method will throw an ``IllegalArgumentException``.
+
+**Returns:**
+    `Date`_ - The Date when the time specified in the ``timeString`` occurs next. If the specified time has already occurred, then returns the next day Date object when the specified time occurs next. If the specified time has not yet occurred, then returns today's Date object when the specified time will occur.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+
+      section() {
+            input "Time1", "time", title: "Time1"
+            input "Time2", "time", title: "Time2"
+      }
+    }
+
+    ...
+
+    // Current time is 16:25 October 24, 2016, Time1 input is 16:23 and Time2 input is 16:34
+    log.debug "nextOccurrence(Time1) value is: ${nextOccurrence(Time1)}"
+    log.debug "nextOccurrence(Time2) value is: ${nextOccurrence(Time2)}"
+    // The above log statements will print the following:
+    nextOccurrence(Time1) value is: Tue Oct 25 23:23:00 UTC 2016
+    nextOccurrence(Time2) value is: Mon Oct 24 23:34:00 UTC 2016
+
+----
+
 .. _smartapp_now:
 
 now()
-~~~~~
+----
 
 Gets the current Unix time in milliseconds.
 
@@ -899,7 +1076,7 @@ Gets the current Unix time in milliseconds.
 ----
 
 parseJson()
-~~~~~~~~~~~
+-----------
 
 Parses the specified string into a JSON data structure.
 
@@ -915,7 +1092,7 @@ Parses the specified string into a JSON data structure.
 ----
 
 parseXml()
-~~~~~~~~~~
+----------
 
 Parses the specified string into an XML data structure.
 
@@ -931,7 +1108,7 @@ Parses the specified string into an XML data structure.
 ----
 
 parseLanMessage()
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Parses a Base64-encoded LAN message received from the hub into a map with header and body elements, as well as parsing the body into an XML document.
 
@@ -955,7 +1132,7 @@ Parses a Base64-encoded LAN message received from the hub into a map with header
 ----
 
 parseSoapMessage()
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Parses a Base64-encoded LAN message received from the hub into a map with header and body elements, as well as parsing the body into an XML document. This method is commonly used to parse `UPNP SOAP <http://www.w3.org/TR/soap12-part1/>`__ messages.
 
@@ -983,7 +1160,7 @@ Parses a Base64-encoded LAN message received from the hub into a map with header
 .. _smartapp_render:
 
 render()
-~~~~~~~~
+--------
 
 Returns a HTTP response to the calling client with the options specified.
 
@@ -1022,7 +1199,7 @@ Returns a HTTP response to the calling client with the options specified.
 .. _smartapp_run_in:
 
 runIn()
-~~~~~~~
+-------
 
 Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 
@@ -1070,7 +1247,7 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 .. _smartapp_run_every_5_minutes:
 
 runEvery5Minutes()
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
@@ -1116,7 +1293,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_10_minutes:
 
 runEvery10Minutes()
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every ten minutes. Using this method will pick a random start time in the next ten minutes, and run every ten minutes after that.
 
@@ -1162,7 +1339,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_15_minutes:
 
 runEvery15Minutes()
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every fifteen minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
@@ -1208,7 +1385,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_30_minutes:
 
 runEvery30Minutes()
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every thirty minutes. Using this method will pick a random start time in the next thirty minutes, and run every thirty minutes after that.
 
@@ -1254,7 +1431,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_1_hours:
 
 runEvery1Hour()
-~~~~~~~~~~~~~~~
+---------------
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every hour. Using this method will pick a random start time in the next hour, and run every hour after that.
 
@@ -1300,7 +1477,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_every_3_hours:
 
 runEvery3Hours()
-~~~~~~~~~~~~~~~~
+----------------
 
 Creates a recurring schedule that executes the specified ``handlerMethod`` every three hours. Using this method will pick a random start time in the next hour, and run every three hours after that.
 
@@ -1346,7 +1523,7 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. _smartapp_run_once:
 
 runOnce()
-~~~~~~~~~
+---------
 
 Executes the ``handlerMethod`` once at the specified date and time.
 
@@ -1386,7 +1563,7 @@ Executes the ``handlerMethod`` once at the specified date and time.
 .. _smartapp_schedule:
 
 schedule()
-~~~~~~~~~~
+----------
 
 Creates a scheduled job that calls the ``handlerMethod`` once per day at the time specified, or according to a cron schedule.
 
@@ -1453,7 +1630,7 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
 .. _smartapp_send_event:
 
 sendEvent()
-~~~~~~~~~~~
+-----------
 
 Creates and sends an event constructed from the specified properties. If a device is specified, then a DEVICE event will be created, otherwise an APP event will be created.
 
@@ -1506,7 +1683,7 @@ Creates and sends an event constructed from the specified properties. If a devic
 ----
 
 sendLocationEvent()
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 Sends a LOCATION event constructed from the specified properties. See the :ref:`event_ref` reference for a list of available properties. Other SmartApps can receive location events by subscribing to the location. Examples of exisisting location events include sunrise and sunset.
 
@@ -1539,7 +1716,7 @@ Sends a LOCATION event constructed from the specified properties. See the :ref:`
 .. _smartapp_send_notification:
 
 sendNotification()
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Sends the specified message and displays it in the *Hello, Home* portion of the mobile application.
 
@@ -1577,7 +1754,7 @@ Sends the specified message and displays it in the *Hello, Home* portion of the 
 .. _smartapp_send_notification_event:
 
 sendNotificationEvent()
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
 Displays a message in *Hello, Home*, but does not send a push notification or SMS message.
 
@@ -1601,7 +1778,7 @@ Displays a message in *Hello, Home*, but does not send a push notification or SM
 .. _smartapp_send_notification_to_contact:
 
 sendNotificationToContacts()
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+----------------------------
 
 Sends the specified message to the specified contacts.
 
@@ -1648,7 +1825,7 @@ Sends the specified message to the specified contacts.
 .. _smartapp_send_push:
 
 sendPush()
-~~~~~~~~~~
+----------
 
 Sends the specified message as a push notification to users mobile devices and displays it in *Hello, Home*.
 
@@ -1672,7 +1849,7 @@ Sends the specified message as a push notification to users mobile devices and d
 .. _smartapp_send_push_message:
 
 sendPushMessage()
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Sends the specified message as a push notification to users mobile devices but does not display it in *Hello, Home*.
 
@@ -1696,7 +1873,7 @@ Sends the specified message as a push notification to users mobile devices but d
 .. _smartapp_send_sms:
 
 sendSms()
-~~~~~~~~~
+---------
 
 Sends the message as an SMS message to the specified phone number and displays it in Hello, Home. The message can be no longer than 140 characters.
 
@@ -1722,7 +1899,7 @@ Sends the message as an SMS message to the specified phone number and displays i
 .. _smartapp_send_sms_message:
 
 sendSmsMessage()
-~~~~~~~~~~~~~~~~
+----------------
 
 Sends the message as an SMS message to the specified phone number but does not display it in Hello, Home. The message can be no longer than 140 characters.
 
@@ -1748,7 +1925,7 @@ Sends the message as an SMS message to the specified phone number but does not d
 .. _smartapp_set_location_mode:
 
 setLocationMode()
-~~~~~~~~~~~~~~~~~
+-----------------
 
 Set the mode for this location.
 
@@ -1768,7 +1945,7 @@ Set the mode for this location.
 ----
 
 settings
-~~~~~~~~
+--------
 
 A map of name/value pairs containing all of the installed SmartApp's preferences.
 
@@ -1805,7 +1982,7 @@ A map of name/value pairs containing all of the installed SmartApp's preferences
 .. _smartapp-state:
 
 state
-~~~~~
+-----
 
 A map of name/value pairs that SmartApps can use to save and retrieve data across SmartApp executions.
 
@@ -1836,7 +2013,7 @@ A map of name/value pairs that SmartApps can use to save and retrieve data acros
 ----
 
 stringToMap()
-~~~~~~~~~~~~~
+-------------
 
 Parses a comma-delimited string into a map.
 
@@ -1865,7 +2042,7 @@ Parses a comma-delimited string into a map.
 .. _smartapp_subscribe:
 
 subscribe()
-~~~~~~~~~~~
+-----------
 
 Subscribes to the various events for a device or location. The specified ``handlerMethod`` will be called when the event is fired.
 
@@ -1934,7 +2111,7 @@ All event handler methods will be passed an :ref:`event_ref` that represents the
 .. _smartapp_subscribe_to_command:
 
 subscribeToCommand()
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Subscribes to device commands that are sent to a device. The specified ``handlerMethod`` will be called whenever the specified ``command`` is sent.
 
@@ -1971,7 +2148,7 @@ Subscribes to device commands that are sent to a device. The specified ``handler
 ----
 
 timeOfDayIsBetween()
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Find if a given date is between a lower and upper bound.
 
@@ -2001,7 +2178,7 @@ Find if a given date is between a lower and upper bound.
 ----
 
 timeOffset()
-~~~~~~~~~~~~
+------------
 
 Gets a time offset in milliseconds for the specified input.
 
@@ -2030,7 +2207,7 @@ Gets a time offset in milliseconds for the specified input.
 ----
 
 timeToday()
-~~~~~~~~~~~
+-----------
 
 Gets a `Date`_ object for today's date, for the specified time in the date-time parameter.
 
@@ -2070,7 +2247,7 @@ Gets a `Date`_ object for today's date, for the specified time in the date-time 
 ----
 
 timeTodayAfter()
-~~~~~~~~~~~~~~~~
+----------------
 
 Gets a `Date`_ object for the specified input that is guaranteed to be after the specified starting date.
 
@@ -2115,7 +2292,7 @@ Gets a `Date`_ object for the specified input that is guaranteed to be after the
 ----
 
 timeZone()
-~~~~~~~~~~
+----------
 
 Get a `TimeZone` object for the specified time value entered as a SmartApp preference. This will get the current time zone of the mobile app (not the hub location).
 
@@ -2145,7 +2322,7 @@ Get a `TimeZone` object for the specified time value entered as a SmartApp prefe
 ----
 
 toDateTime()
-~~~~~~~~~~~~
+------------
 
 Get a `Date`_ object for the specified string.
 
@@ -2176,7 +2353,7 @@ Get a `Date`_ object for the specified string.
 .. _smartapp_unschedule:
 
 unschedule()
-~~~~~~~~~~~~
+------------
 
 Deletes all scheduled jobs for the SmartApp.
 If using the optional ``method`` parameter, then it deletes the scheduled job for the specified handler name only.
@@ -2197,7 +2374,7 @@ If using the optional ``method`` parameter, then it deletes the scheduled job fo
 .. _smartapp_unsubscribe:
 
 unsubscribe()
-~~~~~~~~~~~~~
+-------------
 
 Deletes all subscriptions for the installed SmartApp, or for a specific device or devices if specified.
 

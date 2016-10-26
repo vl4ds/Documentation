@@ -120,7 +120,7 @@ Some commands may take parameters; you will pass those parameters to the command
     theswitch.on([delay: 30000]) // send command after 30 seconds
     thethermostat.setHeatingSetpoint(72, [delay: 30000])
     ...
-    
+
 ----
 
 .. _currentAttributeName:
@@ -173,28 +173,6 @@ For example, the Carbon Monoxide Detector capability has an attribute "carbonMon
     log.debug "tempatt instanceof Number? ${tempattr instanceof Number}"
 
     ...
-
-----
-
-capabilities
-------------
-
-The List of Capabilities provided by this Device.
-
-**Signature:**
-    ``List<Capability> capabilities``
-
-**Returns:**
-    `List`_ <:ref:`capability_ref`> - a List of Capabilities supported by this Device.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def supportedCaps = somedevice.capabilities
-    supportedCaps.each {cap ->
-        log.debug "This device supports the ${cap.name} capability"
-    }
 
 ----
 
@@ -277,13 +255,35 @@ Gets the latest reported values of the specified attribute.
 
 ----
 
-displayName
------------
+getCapabilities()
+-----------------
+
+The List of Capabilities provided by this Device.
+
+**Signature:**
+    ``List<Capability> getCapabilities()``
+
+**Returns:**
+    `List`_ <:ref:`capability_ref`> - a List of Capabilities supported by this Device.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def supportedCaps = somedevice.capabilities
+    supportedCaps.each {cap ->
+        log.debug "This device supports the ${cap.name} capability"
+    }
+
+----
+
+getDisplayName()
+----------------
 
 The label of the Device assigned by the user.
 
 **Signature:**
-    ``String label``
+    ``String getDisplayName()``
 
 **Returns:**
     `String`_ - the label of the Device assigned by the user, ``null`` if no label iset.
@@ -301,16 +301,121 @@ The label of the Device assigned by the user.
 
 ----
 
-id
---
+getHub()
+--------
+
+The Hub associated with this Device.
+
+**Signature:**
+    ``Hub getHub()``
+
+**Returns:**
+    :ref:`hub_ref` - the Hub for this Device.
+
+**Example:**
+
+.. code-block:: groovy
+
+    log.debug "Hub: ${someDevice.hub.name}"
+
+----
+
+getId()
+-------
 
 The unique system identifier for this Device.
 
 **Signature:**
-    ``String id``
+    ``String getId()``
 
 **Returns:**
     `String`_ - the unique system identifer for this Device.
+
+----
+
+getLabel()
+----------
+
+The name of the Device set by the user in the mobile application or Web IDE.
+
+**Signature:**
+    ``String getLabel()``
+
+**Returns:**
+    `String`_ - the name of the Device as configured by the user.
+
+----
+
+getName()
+---------
+
+The internal name of the Device. Typically assigned by the system and editable only by a user in the IDE.
+
+**Signature:**
+    ``String getName()``
+
+**Returns:**
+    `String`_ - the internal name of the Device.
+
+----
+
+.. _supportedAttributes:
+
+getSupportedAttributes()
+------------------------
+
+The list of :ref:`attribute_ref` s for this Device.
+
+**Signature:**
+    ``List<Attribute> getSupportedAttributes()``
+
+**Returns:**
+    `List`_ <:ref:`attribute_ref`> - the list of Attributes for this Device. Includes both capability attributes as well as Device-specific attributes.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "theswitch", "capability.switch"
+        }
+    }
+    ...
+    def theAtts = theswitch.supportedAttributes
+    theAtts.each {att ->
+        log.debug "Supported Attribute: ${att.name}"
+    }
+    ...
+
+----
+
+getSupportedCommands()
+----------------------
+
+The list of :ref:`command_ref` s for this Device.
+
+**Signature:**
+    ``List<Command> getSupportedCommands()``
+
+**Returns:**
+    `List`_ <:ref:`command_ref`> - the list of Commands for this Device. Includes both capability commands as well as Device-specific commands.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "theswitch", "capability.switch"
+        }
+    }
+    ...
+    def theCommands = theswitch.supportedCommands
+    theCommands.each {com ->
+        log.debug "Supported Command: ${com.name}"
+    }
+    ...
 
 ----
 
@@ -569,25 +674,6 @@ Determine if this Device has the specified command name.
 
 ----
 
-hub
----
-
-The Hub associated with this Device.
-
-**Signature:**
-    ``Hub hub``
-
-**Returns:**
-    :ref:`hub_ref` - the Hub for this Device.
-
-**Example:**
-
-.. code-block:: groovy
-
-    log.debug "Hub: ${someDevice.hub.name}"
-
-----
-
 latestState()
 -------------
 
@@ -657,32 +743,6 @@ Get the latest reported value for the specified attribute.
 
     ...
 
-
-----
-
-name
-----
-
-The internal name of the Device. Typically assigned by the system and editable only by a user in the IDE.
-
-**Signature:**
-    ``String name``
-
-**Returns:**
-    `String`_ - the internal name of the Device.
-
-----
-
-label
------
-
-The name of the Device set by the user in the mobile application or Web IDE.
-
-**Signature:**
-    ``String label``
-
-**Returns:**
-    `String`_ - the name of the Device as configured by the user.
 
 ----
 
@@ -778,65 +838,6 @@ Get a list of Device :ref:`state_ref` objects for the specified attribute since 
     ...
 
 ----
-
-.. _supportedAttributes:
-
-supportedAttributes
--------------------
-
-The list of :ref:`attribute_ref` s for this Device.
-
-**Signature:**
-    ``List<Attribute> supportedAttributes``
-
-**Returns:**
-    `List`_ <:ref:`attribute_ref`> - the list of Attributes for this Device. Includes both capability attributes as well as Device-specific attributes.
-
-**Example:**
-
-.. code-block:: groovy
-
-    preferences {
-        section() {
-            input "theswitch", "capability.switch"
-        }
-    }
-    ...
-    def theAtts = theswitch.supportedAttributes
-    theAtts.each {att ->
-        log.debug "Supported Attribute: ${att.name}"
-    }
-    ...
-
-----
-
-supportedCommands
------------------
-
-The list of :ref:`command_ref` s for this Device.
-
-**Signature:**
-    ``List<Command> supportedCommands``
-
-**Returns:**
-    `List`_ <:ref:`command_ref`> - the list of Commands for this Device. Includes both capability commands as well as Device-specific commands.
-
-**Example:**
-
-.. code-block:: groovy
-
-    preferences {
-        section() {
-            input "theswitch", "capability.switch"
-        }
-    }
-    ...
-    def theCommands = theswitch.supportedCommands
-    theCommands.each {com ->
-        log.debug "Supported Command: ${com.name}"
-    }
-    ...
-
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html

@@ -11,26 +11,26 @@ All SmartApps and Device Handlers are injected with a ``location`` property that
 
 .. _location_contact_book_enabled:
 
-contactBookEnabled
-------------------
+getContactBookEnabled()
+-----------------------
 
 ``true`` if this location has contact book enabled (has contacts), ``false`` otherwise.
 
 **Signature:**
-    ``Boolean contactBookEnabled``
+    ``Boolean getContactBookEnabled()``
 
 **Returns:**
     ``true`` if this location has contact book enabled (has contacts), ``false`` otherwise.
 
 ----
 
-currentMode
------------
+getCurrentMode()
+----------------
 
 The current Mode for the Location.
 
 **Signature:**
-    ``Mode currentMode``
+    ``Mode getCurrentMode()``
 
 **Returns:**
     :ref:`mode_ref` - The current mode for the Location.
@@ -43,13 +43,13 @@ The current Mode for the Location.
 
 ----
 
-id
---
+getId()
+-------
 
 The unique internal system identifier for the Location.
 
 **Signature:**
-    ``String id``
+    ``String getId()``
 
 **Returns:**
     `String`_ - the unique internal system identifier for the Location.
@@ -62,13 +62,13 @@ The unique internal system identifier for the Location.
 
 ----
 
-hubs
-----
+getHubs()
+---------
 
 The list of Hubs for this location. Currently only Hub can be installed into a Location, thought this API returns a List to allow for future expandability.
 
 **Signature:**
-    ``List<Hub> hubs``
+    ``List<Hub> getHubs()``
 
 **Returns:**
     List <:ref:`hub_ref`> - the Hubs for this Location.
@@ -81,13 +81,13 @@ The list of Hubs for this location. Currently only Hub can be installed into a L
 
 ----
 
-latitude
---------
+getLatitude()
+-------------
 
 Geographical latitude of the location. Southern latitudes are negative. Requires that location services are enabled in the mobile app.
 
 **Signature:**
-    ``BigDecimal latitude``
+    ``BigDecimal getLatitude()``
 
 **Returns:**
     `BigDecimal`_ - the latitude for the Location.
@@ -100,13 +100,13 @@ Geographical latitude of the location. Southern latitudes are negative. Requires
 
 ----
 
-longitude
----------
+getLongitude()
+--------------
 
 Geographical longitude of the location. Western longitudes are negative. Requires that location services are enabled in the mobile app.
 
 **Signature:**
-    ``BigDecimal longitude``
+    ``BigDecimal getLongitude()``
 
 **Returns:**
     `BigDecimal`_ - the longitude for the Location.
@@ -119,13 +119,13 @@ Geographical longitude of the location. Western longitudes are negative. Require
 
 ----
 
-mode
-----
+getMode()
+---------
 
 The current Mode name for the Location.
 
 **Signature:**
-    ``String mode``
+    ``String getMode()``
 
 **Returns:**
     `String`_ - the name of the current Mode for the Location.
@@ -138,13 +138,13 @@ The current Mode name for the Location.
 
 ----
 
-modes
------
+getModes()
+----------
 
 List of Modes for the Location.
 
 **Signature:**
-    ``List<Mode> modes``
+    ``List<Mode> getModes()``
 
 **Returns:**
     `List`_ <:ref:`mode_ref`> - the List of Modes for the Location.
@@ -157,13 +157,13 @@ List of Modes for the Location.
 
 ----
 
-name
-----
+getName()
+---------
 
 The name of the Location, as assigned by the user.
 
 **Signature:**
-    ``String name``
+    ``String getName()``
 
 **Returns:**
     `String`_ - the name of the Location as assigned by the user.
@@ -203,13 +203,15 @@ Set the mode for this location.
         location.setMode("Home")
     }
 
-temperatureScale
-----------------
+----
+
+getTemperatureScale()
+---------------------
 
 The temperature scale ("F" for fahrenheit, "C" for celsius) for this location.
 
 **Signature:**
-    ``String temperatureScale``
+    ``String getTemperatureScale()``
 
 **Returns:**
     `String`_ - the temperature scale set for this location. Either "F" for fahrenheit or "C" for celsius.
@@ -221,13 +223,15 @@ The temperature scale ("F" for fahrenheit, "C" for celsius) for this location.
     def tempScale = location.temperatureScale
     log.debug "Temperature scale for this location is $tempScale"
 
-timeZone
---------
+----
+
+getTimeZone()
+-------------
 
 The time zone for the Location. Requires that location services are enabled in the mobile application.
 
 **Signature:**
-    ``TimeZone timeZone``
+    ``TimeZone getTimeZone()``
 
 **Returns:**
     `TimeZone`_ - the time zone for the Location.
@@ -240,13 +244,13 @@ The time zone for the Location. Requires that location services are enabled in t
 
 ----
 
-zipCode
--------
+getZipCode()
+------------
 
 The ZIP code for the Location, if in the USA. Requires that location services be enabled in the mobile application.
 
 **Signature:**
-    ``String zipCode``
+    ``String getZipCode()``
 
 **Returns:**
     `String`_ - the ZIP code for the Location.
