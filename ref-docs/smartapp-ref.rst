@@ -326,6 +326,8 @@ Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are l
 
 ----
 
+.. _smartapp_find_all_child_apps_by_name:
+
 findAllChildAppsByName()
 ------------------------
 
@@ -353,6 +355,8 @@ This includes child SmartApps that have both "complete" and "incomplete" :ref:`i
     }
 
 ----
+
+.. _smartapp_find_all_child_apps_by_namespace_and_name:
 
 findAllChildAppsByNamespaceAndName()
 ------------------------------------
@@ -411,6 +415,8 @@ This includes child SmartApps that have both "complete" and "incomplete" :ref:`i
 
 ----
 
+.. _smartapp_find_child_app_by_namespace_and_name:
+
 findChildAppByNamespaceAndName()
 --------------------------------
 
@@ -438,6 +444,8 @@ This includes child SmartApps that have both "complete" and "incomplete" :ref:`i
 
 ----
 
+.. _smartapp_get_all_child_apps:
+
 getAllChildApps()
 -----------------
 
@@ -462,6 +470,8 @@ This includes child SmartApps that have both "complete" and "incomplete" :ref:`i
     }
 
 ----
+
+.. _smartapp_get_child_apps:
 
 getChildApps()
 --------------
