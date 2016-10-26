@@ -17,13 +17,13 @@ SmartThings developers cannot create a new Mode. The most common way to interact
 
 ----
 
-id
---
+getId()
+-------
 
 The unique internal system identifier of the Mode.
 
 **Signature:**
-    ``String id``
+    ``String getId()``
 
 **Returns:**
     `String`_ - the unique internal system identifier for the Mode.
@@ -35,13 +35,13 @@ The unique internal system identifier of the Mode.
 
 ----
 
-name
-----
+getName()
+---------
 
 The name of the Mode.
 
 **Signature:**
-    ``String name``
+    ``String getName()``
 
 **Returns:**
     `String`_ - the name of the Mode, usually assigned by the user.

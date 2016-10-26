@@ -10,8 +10,8 @@ Every SmartApp has an instance of ``InstalledSmartApp`` available to it via the 
 
 ----
 
-currentState
-------------
+currentState()
+--------------
 
 Gets the current state of the given attribute.
 
@@ -35,8 +35,29 @@ Gets the current state of the given attribute.
 
 ----
 
-appSettings
------------
+getAllChildApps()
+-----------------
+
+Gets a list of child SmartApps associated with this SmartApp.
+This returns child SmartApps that have both "complete" and "incomplete" :ref:`installation states <isa_get_installation_state>`.
+
+**Signature:**
+    ``def getAllChildApps()``
+
+**Returns:**
+    `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
+
+**Example:**
+
+.. code-block:: groovy
+
+    def childApps = app.getAllChildApps()
+    log.debug "The app has ${childApps.size()} child SmartApps"
+
+----
+
+getAppSettings()
+----------------
 
 Gets the settings currently associated with this SmartApp.
 
@@ -44,23 +65,24 @@ Gets the settings currently associated with this SmartApp.
     This method applies to the SmartApp's :ref:`app_settings`.
 
 **Signature:**
-    ``Map`` app.appSettings
+    ``Map`` app.getAppSettings()
 
 **Returns:**
     `Map`_ - A map of key, value pairs that represent the current SmartApp settings
 
 ----
 
-childApps
-------------
+getChildApps()
+--------------
 
 Gets a list of child apps associated with this SmartApp.
+This only returns child SmartApps that have an :ref:`installation states <isa_get_installation_state>` of "complete".
 
 **Signature:**
-    ``InstalledSmartApp[]`` childApps
+    ``def getChildApps()``
 
 **Returns:**
-    `InstalledSmartApp[]` - A list of child SmartApps
+    `List`_ < :ref:`installed_smart_app_wrapper` > - A list of child SmartApps
 
 **Example:**
 
@@ -77,16 +99,16 @@ Gets a list of child apps associated with this SmartApp.
 
 ----
 
-childDevices
----------------
+getChildDevices()
+-----------------
 
 Gets a list of child devices associated with this SmartApp.
 
 **Signature:**
-    ``DeviceWrapper[]`` app.childDevices
+    ``List<Device>`` getChildDevices()
 
 **Returns:**
-    `DeviceWrapper[]` - A list of child devices
+    `List`_ < :ref:`device_ref` > - A list of child devices
 
 **Example:**
 
@@ -109,124 +131,126 @@ Gets a list of child devices associated with this SmartApp.
 
 ----
 
-executionIsModeRestricted
-----------------------------
+getExecutionIsModeRestricted()
+------------------------------
 
 Returns `true` if the SmartApp's execution is restricted by modes.
 The restrictive modes would have been configured when the SmartApp was installed.
 
 **Signature:**
-    ``Boolean`` executionIsModeRestricted()
+    ``Boolean`` getExecutionIsModeRestricted()()
 
 **Returns:**
     `Boolean`_ - True if the execution of the SmartApp is restricted to certain modes
 
 ----
 
-executableModes
-------------------
+getExecutableModes()
+--------------------
 
 Get a list of modes that this SmartApp is allowed to execute in.
 
 **Signature:**
-    :ref:`mode_ref` executableModes
+    :ref:`mode_ref` getExecutableModes()
 
 **Returns:**
     :ref:`mode_ref` - A list of modes that this SmartApp is allowed to execute in
 
 ----
 
-id
---
+getId()
+-------
 
 Get the id of the SmartApp
 
 **Signature:**
-    app.id
+    ``String getId()``
 
 **Returns:**
     The ID of the SmartApp
 
 ----
 
-installationState
------------------
+.. _isa_get_installation_state:
+
+getInstallationState()
+----------------------
 
 Get the current installation state of the SmartApp.
 
 **Signature:**
-    app.installationState
+    ``String getInstallationState()``
 
 **Returns:**
     The current installation state of the SmartApp. Can be ``incomplete`` or ``complete``
 
 ----
 
-label
------
+getLabel()
+----------
 
 Get the label of the SmartApp
 
 **Signature:**
-    app.label
+    ``String getLabel()``
 
 **Returns:**
     The label of the SmartApp
 
 ----
 
-name
-----
+getName()
+---------
 
 Get the name of the SmartApp
 
 **Signature:**
-    app.name
+    ``String getName()``
 
 **Returns:**
     The name of the SmartApp
 
 ----
 
-getNamespace
-------------
+getNamespace()
+--------------
 
 Get the namespace of the SmartApp
 
 **Signature:**
-    app.namespace
+    ``String getNamespace()``
 
 **Returns:**
     The namespace of the SmartApp
 
 ----
 
-parent
-------
+getParent()
+-----------
 
 Gets the parent of the SmartApp.
 
 **Signature:**
-    ``InstalledSmartApp`` app.parent
+    :ref:`installed_smart_app_wrapper` getParent()
 
 **Returns:**
-    `InstalledSmartApp` - The parent of this SmartApp
+    :ref:`installed_smart_app_wrapper` - The parent of this SmartApp
 
 ----
 
-subscriptions
--------------
+getSubscriptions()
+------------------
 
 **Signature:**
-    ``EventSubscriptionWrapper[]`` app.subscriptions
+    ``List<EventSubscriptionWrapper>`` getSubscriptions()
 
 **Returns**
-    `EventSubscriptionWrapper[]` - A list of subscriptions associated with this SmartApp
+    `List<EventSubscriptionWrapper[]` - A list of subscriptions associated with this SmartApp
 
 ----
 
-statesBetween
--------------
+statesBetween()
+---------------
 
 Get a list of app :ref:`app_state` objects for the specified attribute between the specified times in reverse chronological order (newest first).
 
@@ -269,7 +293,7 @@ Get a list of app :ref:`app_state` objects for the specified attribute between t
 
 ----
 
-statesSince
+statesSince()
 -------------
 
 Get a list of app :ref:`app_state` objects for the specified attribute since the date specified.
@@ -307,13 +331,13 @@ Get a list of app :ref:`app_state` objects for the specified attribute since the
 
 ----
 
-updateLabel
------------
+updateLabel()
+-------------
 
 Update the label of this SmartApp.
 
 **Signature:**
-    ``void`` app.updateLabel(String label)
+    ``void updateLabel(String label)``
 
 **Parameters:**
     `String`_ label - The updated label value

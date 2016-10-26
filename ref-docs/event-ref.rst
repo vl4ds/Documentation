@@ -9,61 +9,19 @@ Event instances are not created directly by SmartApp or Device Handlers. They ar
 
 .. note::
 
-    In a SmartApp or Device Handler, the method ``createEvent`` exists to create a Map that defines properties of an Event. Only by returning the resulting map from a Device Handler's ``parse`` method is an actual Event instance created and propagated through the SmartThings system.
+    In a SmartApp or Device Handler, the method ``createEvent()`` exists to create a Map that defines properties of an Event. Only by returning the resulting map from a Device Handler's ``parse()`` method is an actual Event instance created and propagated through the SmartThings system.
 
-The reference documentation here lists all properties and methods available on an Event object instance.
-
-----
-
-date
-----
-
-Acquisition time of this device state record.
-
-**Signature:**
-    ``Date date``
-
-**Returns:**
-    `Date`_ - the date and time this event record was created.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "event created at: ${evt.date}"
-    }
+The reference documentation here lists all methods available on an Event object instance.
 
 ----
 
-id
---
-
-The unique system identifier for this event.
-
-**Signature:**
-    ``String id``
-
-**Returns:**
-    `String`_ - the unique device identifier for this event.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "event id: ${evt.id}"
-    }
-
-----
-
-data
-----
+getData()
+---------
 
 A map of any additional data on the event.
 
 **Signature:**
-    ``String id``
+    ``String getData()``
 
 **Returns:**
     `Map`_ - A map of the additional data (if any) on the event.
@@ -88,15 +46,36 @@ Then in an event handler method, we can get at the data like this:
 
 ----
 
+getDate()
+---------
+
+Acquisition time of this device state record.
+
+**Signature:**
+    ``Date getDate()``
+
+**Returns:**
+    `Date`_ - the date and time this event record was created.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "event created at: ${evt.date}"
+    }
+
+----
+
 .. _event_date_value:
 
-dateValue
----------
+getDateValue()
+--------------
 
 The value of the event as a `Date`_ object, if applicable.
 
 **Signature:**
-    ``Date dateValue``
+    ``Date getDateValue()``
 
 **Returns:**
     `Date`_ - If the value of this event is date, a Date will be returned. ``null`` will be returned if the value of the event is not parseable to a Date.
@@ -113,13 +92,13 @@ The value of the event as a `Date`_ object, if applicable.
 
 ----
 
-description
------------
+getDescription()
+----------------
 
 The raw description that generated this Event.
 
 **Signature:**
-    ``String description``
+    ``String getDescription()``
 
 **Returns:**
     `String`_ - the raw description that generated this Event.
@@ -134,13 +113,13 @@ The raw description that generated this Event.
 
 ----
 
-descriptionText
----------------
+getDescriptionText()
+--------------------
 
 The description of the event that is to be displayed to the user in the mobile application.
 
 **Signature:**
-    ``String descriptionText``
+    ``String getDescriptionText()``
 
 **Returns:**
     `String`_ - the description of this event to be displayed to the user in the mobile application.
@@ -155,24 +134,24 @@ The description of the event that is to be displayed to the user in the mobile a
 
 ----
 
-device
-------
+getDevice()
+-----------
 
 The :ref:`device_ref` associated with this Event.
 
 **Signature:**
-    ``Device device``
+    ``Device getDevice()``
 
 **Returns:**
     :ref:`device_ref` - the Device associated with this Event, or ``null`` if no Device is associated with this Event.
 
 ----
 
-displayName
------------
+getDisplayName()
+----------------
 
 **Signature:**
-    ``String displayName``
+    ``String getDisplayName()``
 
 **Returns:**
     `String`_ - The user-friendly name of the source of this event. Typically the user-assigned device label.
@@ -187,13 +166,13 @@ displayName
 
 ----
 
-deviceId
---------
+getDeviceId()
+-------------
 
 The unique system identifer of the :ref:`device_ref` associated with this Event.
 
 **Signature:**
-    ``String deviceId``
+    ``String getDeviceId()``
 
 **Returns:**
     `String`_  - the unique system identifier of the device assocaited with this Event, or null if there is no device associated with this Event.
@@ -208,15 +187,36 @@ The unique system identifer of the :ref:`device_ref` associated with this Event.
 
 ----
 
+getId()
+-------
+
+The unique system identifier for this event.
+
+**Signature:**
+    ``String getId()``
+
+**Returns:**
+    `String`_ - the unique device identifier for this event.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "event id: ${evt.id}"
+    }
+
+----
+
 .. _event_ref_double_value:
 
-doubleValue
------------
+getDoubleValue()
+----------------
 
 The value of this Event, if the value can be parsed to a Double.
 
 **Signature:**
-    ``Double doubleValue``
+    ``Double getDoubleValue()``
 
 **Returns:**
     `Double`_ - the value of this Event as a Double.
@@ -244,13 +244,13 @@ The value of this Event, if the value can be parsed to a Double.
 
 ----
 
-floatValue
-----------
+getFloatValue()
+---------------
 
 The value of this Event as a Float, if it can be parsed into a Float.
 
 **Signature:**
-    ``Float foatValue``
+    ``Float getFloatValue()``
 
 **Returns:**
     `Float`_ - the value of this Event as a Float.
@@ -278,17 +278,13 @@ The value of this Event as a Float, if it can be parsed into a Float.
 
 ----
 
-.. hub
-.. ~~~~
-.. ----
-
-hubId
------
+getHubId()
+----------
 
 The unique system identifer of the Hub associated with this Event.
 
 **Signature:**
-    ``String hubId``
+    ``String getHubId()``
 
 **Returns:**
     `String`_ - the unique system identifier of the Hub associated with this Event, or ``null`` if no Hub is associated with this Event.
@@ -303,13 +299,13 @@ The unique system identifer of the Hub associated with this Event.
 
 ----
 
-installedSmartAppId
--------------------
+getInstalledSmartAppId()
+------------------------
 
 The unique system identifier of the SmartApp instance associated with this Event.
 
 **Signature:**
-    ``String installedSmartApp``
+    ``String getInstalledSmartAppId()``
 
 **Returns:**
     `String`_ - the unique system identifier of the SmartApp instance associated with this Event.
@@ -324,13 +320,13 @@ The unique system identifier of the SmartApp instance associated with this Event
 
 ----
 
-integerValue
-------------
+getIntegerValue()
+-----------------
 
 The value of this Event as an Integer.
 
 **Signature:**
-    ``Integer integerValue``
+    ``Integer getIntegerValue()``
 
 **Returns:**
     `Integer`_ - the value of this Event as an Integer.
@@ -358,6 +354,362 @@ The value of this Event as an Integer.
 
 ----
 
+getIsoDate()
+------------
+
+Acquisition time of this Event as an ISO-8601 String.
+
+**Signature:**
+    ``String getIsoDate()``
+
+**Returns:**
+    `String`_ - The acquisition time of this Event as an ISO-8601 String.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "event isoDate: ${evt.isoDate}"
+    }
+
+----
+
+getJsonValue()
+--------------
+
+Value of the Event as a parsed JSON data structure.
+
+**Signature:**
+    ``Object getJsonValue()``
+
+**Returns:**
+    `Object`_ - The value of the Event as a JSON structure
+
+.. warning::
+
+    ``jsonValue`` throws an Exception if the value of the Event cannot be parsed into a JSON object.
+
+    You should wrap calls in a try/catch block.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        // get the value of this event as a JSON structure
+        // throws an exception if the value is not convertable to JSON
+        try {
+            log.debug "The jsonValue of this event is ${evt.jsonValue}"
+        } catch (e) {
+            log.debug("Trying to get the jsonValue for ${evt.name} threw an exception", e)
+        }
+    }
+
+----
+
+getLinkText()
+-------------
+
+.. warning::
+
+    Deprecated.
+
+    ``getLinkText()`` is deprecated. Use `displayName`_ instead.
+
+The user-friendly name of the source of this event. Typically the user-assigned device label.
+
+----
+
+getLocation()
+-------------
+
+The Location associated with this Event.
+
+**Signature:**
+    ``Location getLocation()``
+
+**Returns:**
+    :ref:`location_ref` - The Location associated with this Event, or ``null`` if no Location is associated with this Event.
+
+----
+
+getLocationId()
+---------------
+
+The unique system identifier for the :ref:`location_ref` associated with this Event.
+
+**Signature:**
+    ``String getLocationId()``
+
+**Returns:**
+    `String`_ - the unique system identifier for the :ref:`location_ref` associated with this Event.
+
+----
+
+getLongValue()
+--------------
+
+The value of this Event as a Long.
+
+**Signature:**
+    ``Long getLongValue()``
+
+**Returns:**
+    `Long`_ - the value of this Event as a Long.
+
+.. warning::
+
+    ``longValue`` throws an Exception if the value of the Event cannot be parsed to a Long.
+
+    You should wrap calls in a try/catch block.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        // get the value of this event as an Long
+        // throws an exception if not convertable to Long
+        try {
+            def evtLongValue = evt.longVaue
+            log.debug "The longValue of this event is evtLongValue"
+            log.debug "evt.longValue instanceof Long? ${evtLongValue instanceof Long}"
+        } catch (e) {
+            log.debug("Trying to get the longValue for ${evt.name} threw an exception", e)
+        }
+    }
+
+----
+
+getName()
+---------
+
+The name of this Event.
+
+**Signature:**
+    ``String getName()``
+
+**Returns:**
+    `String`_ - the name of this event.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "the name of this event: ${evt.name}"
+    }
+
+----
+
+getNumberValue()
+----------------
+
+The value of this Event as a Number.
+
+**Signature:**
+    ``Number getNumberValue()``
+
+**Returns:**
+    `Number`_ - the value of this event as a Number.
+
+.. warning::
+
+    ``numberValue`` throws an Exception if the value of the Event cannot be parsed to a Number.
+
+    You should wrap calls in a try/catch block.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        // get the value of this event as an Number
+        // throws an exception if the value is not convertable to a Number
+        try {
+            def evtNumberValue = evt.numberValue
+            log.debug "The numberValue of this event is ${evtNumberValue}"
+            log.debug "evt.numberValue instanceof Number? ${evtNumberValue instanceof Number}"
+        } catch (e) {
+            log.debug("Trying to get the numberValue for ${evt.name} threw an exception", e)
+        }
+    }
+
+----
+
+getNumericValue()
+-----------------
+
+The value of this Event as a Number.
+
+**Signature:**
+    ``Number getNumericValue()``
+
+**Returns:**
+    `Number`_ - the value of this event as a Number.
+
+.. warning::
+
+    ``numericValue`` throws an Exception if the value of the Event cannot be parsed to a Number.
+
+    You should wrap calls in a try/catch block.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        // get the value of this event as an Number
+        // throws an exception if the value is not convertable to a Number
+        try {
+            def evtNumberValue = evt.numericValue
+            log.debug "The numericValue of this event is ${evtNumberValue}"
+            log.debug "evt.numericValue instanceof Number? ${evtNumberValue instanceof Number}"
+        } catch (e) {
+            log.debug("Trying to get the numericValue for ${evt.name} threw an exception", e)
+        }
+    }
+
+----
+
+getSource()
+-----------
+
+The source of the Event.
+
+**Signature:**
+    ``String getSource()``
+
+**Returns:**
+    `String`_ - the source of the Event. The following table lists the possible sources and their meaning:
+
+    ================ ===========
+    Source           Description
+    ================ ===========
+    `"APP"`          Event originated by an app touch event in the mobile application.
+    `"APP_COMMAND"`  Event originated by using the mobile application (for example, using the mobile application to turn a light off)
+    `"COMMAND"`      Event originated by a SmartApp or Device Handler calling a command on a device.
+    `"DEVICE`"       Event originated by the physical actuation of a device.
+    `"HUB"`          Event originated on the hub.
+    `"LOCATION"`     Event originated by a Location state change (for example, sunrise and sunset events)
+    `"USER"`
+    ================ ===========
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "The source of this event is: ${evt.source}"
+    }
+
+----
+
+getStringValue()
+----------------
+
+The value of this Event as a String.
+
+**Signature:**
+    ``String getStringValue()``
+
+**Returns:**
+    `String`_ - the value of this event as a String.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "The value of this event as a string: ${evt.stringValue}"
+    }
+
+----
+
+getUnit()
+---------
+
+The unit of measure for this Event, if applicable.
+
+**Signature:**
+    ``String getUnit()``
+
+**Returns:**
+    `String`_ - the unit of measure of this Event, if applicable. ``null`` otherwise.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "The unit for this event: ${evt.unit}"
+    }
+
+----
+
+getValue()
+----------
+
+The value of this Event as a String.
+
+**Signature:**
+    ``String getValue()``
+
+**Returns:**
+    `String`_ - the value of this event as a String.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def eventHandler(evt) {
+        log.debug "The value of this event as a string: ${evt.value}"
+    }
+
+----
+
+getXyzValue()
+-------------
+
+Value of the event as a 3-entry Map with keys 'x', 'y', and 'z' with BigDecimal values. For example:
+
+.. code-block:: groovy
+
+    [x: 1001, y: -23, z: -1021]
+
+Typically only useful for getting position data from the "Three Axis" Capability.
+
+**Signature:**
+    ``Map<String, BigDecimal> getXyzValue()``
+
+**Returns:**
+    `Map`_ < `String`_ , `BigDecimal`_ > - A map representing the X, Y, and Z coordinates.
+
+.. warning::
+
+    ``xyzValue`` throws an Exception if the value of the Event cannot be parsed to an X-Y-Z data structure.
+
+    You should wrap calls in a try/catch block.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def positionChangeHandler(evt) {
+        // get the value of this event as a 3 entry map with keys
+        //'x', 'y', 'z', and BigDecimal values
+        // throws an exception if the value is not convertable to a Date
+        try {
+            log.debug "The xyzValue of this event is ${evt.xyzValue }"
+            log.debug "evt.xyzValue instanceof Map? ${evt.xyzValue  instanceof Map}"
+        } catch (e) {
+            log.debug("Trying to get the xyzValue for ${evt.name} threw an exception", e)
+        }
+    }
+
+----
+
 isDigital()
 -----------
 
@@ -375,27 +727,6 @@ isDigital()
 
     def eventHandler(evt) {
         log.debug "event from digital actuation? ${evt.isDigital()}"
-    }
-
-----
-
-isoDate
--------
-
-Acquisition time of this Event as an ISO-8601 String.
-
-**Signature:**
-    ``String isoDate``
-
-**Returns:**
-    `String`_ - The acquisition time of this Event as an ISO-8601 String.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "event isoDate: ${evt.isoDate}"
     }
 
 ----
@@ -441,339 +772,6 @@ isStateChange()
     }
 
 ----
-
-jsonValue
----------
-
-Value of the Event as a parsed JSON data structure.
-
-**Signature:**
-    ``Object jsonValue``
-
-**Returns:**
-    `Object`_ - The value of the Event as a JSON structure
-
-.. warning::
-
-    ``jsonValue`` throws an Exception if the value of the Event cannot be parsed into a JSON object.
-
-    You should wrap calls in a try/catch block.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        // get the value of this event as a JSON structure
-        // throws an exception if the value is not convertable to JSON
-        try {
-            log.debug "The jsonValue of this event is ${evt.jsonValue}"
-        } catch (e) {
-            log.debug("Trying to get the jsonValue for ${evt.name} threw an exception", e)
-        }
-    }
-
-----
-
-linkText
---------
-
-.. warning::
-
-    Deprecated.
-
-    Using the ``linkText`` property is deprecated. Use `displayName`_ instead.
-
-The user-friendly name of the source of this event. Typically the user-assigned device label.
-
-----
-
-location
---------
-
-The Location associated with this Event.
-
-**Signature:**
-    ``Location location``
-
-**Returns:**
-    :ref:`location_ref` - The Location associated with this Event, or ``null`` if no Location is associated with this Event.
-
-----
-
-locationId
-----------
-
-The unique system identifier for the :ref:`location_ref` associated with this Event.
-
-**Signature:**
-    ``String locationId``
-
-**Returns:**
-    `String`_ - the unique system identifier for the :ref:`location_ref` associated with this Event.
-
-----
-
-longValue
----------
-
-The value of this Event as a Long.
-
-**Signature:**
-    ``Long longValue``
-
-**Returns:**
-    `Long`_ - the value of this Event as a Long.
-
-.. warning::
-
-    ``longValue`` throws an Exception if the value of the Event cannot be parsed to a Long.
-
-    You should wrap calls in a try/catch block.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        // get the value of this event as an Long
-        // throws an exception if not convertable to Long
-        try {
-            def evtLongValue = evt.longVaue
-            log.debug "The longValue of this event is evtLongValue"
-            log.debug "evt.longValue instanceof Long? ${evtLongValue instanceof Long}"
-        } catch (e) {
-            log.debug("Trying to get the longValue for ${evt.name} threw an exception", e)
-        }
-    }
-
-----
-
-name
-----
-
-The name of this Event.
-
-**Signature:**
-    ``String name``
-
-**Returns:**
-    `String`_ - the name of this event.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "the name of this event: ${evt.name}"
-    }
-
-----
-
-numberValue
------------
-
-The value of this Event as a Number.
-
-**Signature:**
-    ``BigDecimal numberValue``
-
-**Returns:**
-    `BigDecimal`_ - the value of this event as a BigDecimal.
-
-.. warning::
-
-    ``numberValue`` throws an Exception if the value of the Event cannot be parsed to a BigDecimal.
-
-    You should wrap calls in a try/catch block.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        // get the value of this event as an Number
-        // throws an exception if the value is not convertable to a Number
-        try {
-            def evtNumberValue = evt.numberValue
-            log.debug "The numberValue of this event is ${evtNumberValue}"
-            log.debug "evt.numberValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
-        } catch (e) {
-            log.debug("Trying to get the numberValue for ${evt.name} threw an exception", e)
-        }
-    }
-
-----
-
-numericValue
-------------
-
-The value of this Event as a Number.
-
-**Signature:**
-    ``BigDecimal numericValue``
-
-**Returns:**
-    `BigDecimal`_ - the value of this event as a BigDecimal.
-
-.. warning::
-
-    ``numericValue`` throws an Exception if the value of the Event cannot be parsed to a BigDecimal.
-
-    You should wrap calls in a try/catch block.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        // get the value of this event as an Number
-        // throws an exception if the value is not convertable to a Number
-        try {
-            def evtNumberValue = evt.numericValue
-            log.debug "The numericValue of this event is ${evtNumberValue}"
-            log.debug "evt.numericValue instanceof BigDecimal? ${evtNumberValue instanceof BigDecimal}"
-        } catch (e) {
-            log.debug("Trying to get the numericValue for ${evt.name} threw an exception", e)
-        }
-    }
-
-----
-
-source
-------
-
-The source of the Event.
-
-**Signature:**
-    ``String source``
-
-**Returns:**
-    `String`_ - the source of the Event. The following table lists the possible sources and their meaning:
-
-    ================ ===========
-    Source           Description
-    ================ ===========
-    `"APP"`          Event originated by an app touch event in the mobile application.
-    `"APP_COMMAND"`  Event originated by using the mobile application (for example, using the mobile application to turn a light off)
-    `"COMMAND"`      Event originated by a SmartApp or Device Handler calling a command on a device.
-    `"DEVICE`"       Event originated by the physical actuation of a device.
-    `"HUB"`          Event originated on the hub.
-    `"LOCATION"`     Event originated by a Location state change (for example, sunrise and sunset events)
-    `"USER"`
-    ================ ===========
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "The source of this event is: ${evt.source}"
-    }
-
-----
-
-stringValue
------------
-
-The value of this Event as a String.
-
-**Signature:**
-    ``String stringValue``
-
-**Returns:**
-    `String`_ - the value of this event as a String.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "The value of this event as a string: ${evt.stringValue}"
-    }
-
-----
-
-unit
-----
-
-The unit of measure for this Event, if applicable.
-
-**Signature:**
-    ``String unit``
-
-**Returns:**
-    `String`_ - the unit of measure of this Event, if applicable. ``null`` otherwise.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "The unit for this event: ${evt.unit}"
-    }
-
-----
-
-value
------
-
-The value of this Event as a String.
-
-**Signature:**
-    ``String stringValue``
-
-**Returns:**
-    `String`_ - the value of this event as a String.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def eventHandler(evt) {
-        log.debug "The value of this event as a string: ${evt.value}"
-    }
-
-----
-
-xyzValue
---------
-
-Value of the event as a 3-entry Map with keys 'x', 'y', and 'z' with BigDecimal values. For example:
-
-.. code-block:: groovy
-
-    [x: 1001, y: -23, z: -1021]
-
-Typically only useful for getting position data from the "Three Axis" Capability.
-
-**Signature:**
-    ``Map<String, BigDecimal> xyzValue``
-
-**Returns:**
-    `Map`_ < `String`_ , `BigDecimal`_ > - A map representing the X, Y, and Z coordinates.
-
-.. warning::
-
-    ``xyzValue`` throws an Exception if the value of the Event cannot be parsed to an X-Y-Z data structure.
-
-    You should wrap calls in a try/catch block.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def positionChangeHandler(evt) {
-        // get the value of this event as a 3 entry map with keys
-        //'x', 'y', 'z', and BigDecimal values
-        // throws an exception if the value is not convertable to a Date
-        try {
-            log.debug "The xyzValue of this event is ${evt.xyzValue }"
-            log.debug "evt.xyzValue instanceof Map? ${evt.xyzValue  instanceof Map}"
-        } catch (e) {
-            log.debug("Trying to get the xyzValue for ${evt.name} threw an exception", e)
-        }
-    }
 
 .. _BigDecimal: http://docs.oracle.com/javase/7/docs/api/java/math/BigDecimal.html
 .. _Boolean: http://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html

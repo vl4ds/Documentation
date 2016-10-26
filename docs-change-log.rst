@@ -6,6 +6,20 @@ A log of changes to this documentation.
 
 ----
 
+October 26 2016
+---------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/26-October-2016>`__
+
+- Documentation for :ref:`smartapp_nextoccurrence`.
+- Documentation for :ref:`smartapp_get_all_child_apps`, :ref:`smartapp_find_all_child_apps_by_name`, :ref:`smartapp_find_all_child_apps_by_namespace_and_name`, :ref:`smartapp_find_child_app_by_namespace_and_name`, and :ref:`smartapp_get_all_child_apps`.
+- Updated documentation for :ref:`smartapp_get_child_apps` to reflect that only "complete" child app installations will be returned.
+- Changed reference API docs to use getter forms instead of property access.
+- New attribute values added for the :ref:`lock` capability.
+- Typo fixes and other copy edits.
+
+----
+
 October 17 2016
 ---------------
 

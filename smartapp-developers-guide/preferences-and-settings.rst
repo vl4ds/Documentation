@@ -4,19 +4,20 @@ Preferences and Settings
 ========================
 
 The preferences section of a SmartApp specifies what kinds of devices and other information is needed in order for the application to run.
-Inputs for each of these are presented to the user during installation of the SmartApp from the mobile UI.
-You can present all of these inputs on a single page, or break them up into multiple pages.
+During the installation of the SmartApp the user is prompted, in the mobile UI, to provide such needed information.
+The user can present all these inputs on a single page, or break them up into multiple pages.
 
-As usual, the best way to become comfortable with something is through trying it yourself.
-So, fire up the `web IDE <http://ide.smartthings.com>`__ and try things out!
+We strongly recommend you to try out the `web IDE <http://ide.smartthings.com>`__ and become familiar with it.
 
 ----
 
 Preferences Overview
 --------------------
 
-Preferences are made up of one or more pages, which contain one or more sections, which in turn contain
-one more elements. The general form of creating preferences looks like:
+Preferences are made up of one or more pages.
+Later we will see that pages themselves contain one or more sections, which in turn contain
+one or more elements.
+The general form of creating preferences looks like:
 
 .. code-block:: groovy
 
@@ -36,7 +37,7 @@ one more elements. The general form of creating preferences looks like:
         }
     }
 
-All inputs from the user are stored in a read-only map called ``settings``, as well as available simply be referring to the input name (the first argument to ``input()``).
+All inputs from the user are stored in a read-only map called ``settings``, and they are available simply by referring to the input name (the first argument to ``input()``).
 
 Assuming the following inputs:
 
@@ -69,9 +70,11 @@ The values can be accessed like this:
 Page Definition
 ---------------
 
-Pages can be defined a couple different ways:
+Pages can be defined two different ways: either by *page(String pageName, String pageTitle) {}* or by *page(options) {}*.
 
-*page(String pageName, String pageTitle) {}*
+**page(String pageName, String pageTitle) {}**
+
+The code sample below illustrates the first way:
 
 .. code-block:: groovy
 
@@ -82,13 +85,14 @@ Pages can be defined a couple different ways:
         }
     }
 
-*page(options) {}*
+**page(options) {}**
 
 This form takes a comma-separated list of name-value arguments.
 
 .. note::
 
-    this is a common Groovy pattern that allows for named arguments to be passed to a method. More info can be found `here <http://groovy.codehaus.org/Extended+Guide+to+Method+Signatures>`__.
+    This is a common Groovy pattern that allows for named arguments to be passed to a method.
+    More info can be found `here <http://docs.groovy-lang.org/latest/html/documentation/#_named_arguments>`__.
 
 .. code-block:: groovy
 
@@ -121,9 +125,10 @@ We will see more in-depth examples of pages in the following sections.
 Section Definition
 ------------------
 
-Pages can have one or more sections. Think of sections as way to group the input you want to gather from the user.
+Pages can have one or more sections.
+Think of sections as way to group the inputs you want to gather from the user.
 
-Sections can be created in a few different ways:
+Sections can be created in three different ways:
 
 *section{}*
 
@@ -179,29 +184,28 @@ Here's an example:
 
 .. code-block:: groovy
 
-    preferences {
-        section("When activity on any of these sensors") {
+      preferences {
+            section("Turn on when motion is detected") {
+                  input "themotion", "capability.motionSensor", required: true, multiple: true, title: "Where?"
+                  }
+            section("Turn off when there's been no movement for") {
+                      input "minutes", "number", required: true, title: "Minutes?"
+                  }
+            section("Turn on/off this light") {
+                      input "theswitch", "capability.switch", required: true
+                  }
 
-            input "contactSensors", "capability.contactSensor",
-                title: "Open/close sensors", multiple: true
-
-            input "motionSensors", "capability.motionSensor",
-                title: "Motion sensors?", multiple: true
-        }
-        section("Turn on these lights") {
-            input "switches", "capability.switch", multiple: true
-        }
-    }
+      }
 
 Which would be rendered in the mobile app UI as:
 
-.. image:: ../img/smartapps/single-page-preferences.png
+.. image:: ../img/smartapps/single-page-preferences-new.png
     :width: 250 px
     :height: 447 px
 
-Note that in the above example, we did not specify the name or mode input, yet they appeared on our preferences page.
+Note that in the above example, we did not specify the *name* or *mode* input in the ``preferences`` section of the code, yet they appeared in the UI of our mobile app at the bottom ("Assign a name" and "Set for specific mode(s)").
 When defining single-page preferences, name and mode are automatically added.
-Also note that inputs that are marked as ``required: true`` are displayed differently by the mobile application, so that the user knows they are required.
+Also note that inputs that are marked as ``required: true`` are displayed prominently in red color by the mobile app, so that the user knows they are required.
 The mobile application will prevent the user from going to the next page or installing the SmartApp without entering required inputs.
 
 ----
@@ -213,7 +217,11 @@ Preferences can also be broken up into multiple pages.
 Each page must contain one or more *section* elements.
 Each page specifies a *name* property that is referenced by the *nextPage* property.
 The *nextPage* property is used to define the flow of the pages.
-Unlike single page preferences, the app name and mode control fields are not automatically added, and must be specified on the desired page or pages.
+
+.. note::
+
+    Unlike single page preferences, the name and mode control fields are not automatically added, and must be specified on the desired page or pages.
+
 
 Here's an example that defines three pages:
 
@@ -266,13 +274,14 @@ Page 1                      Page 2                      Page 3
 Preference Elements and Inputs
 ------------------------------
 
-Preference pages (single or multiple) are composed of one or more sections, each of which contains one or more of the
+Preference pages (single or multiple) are composed of one or more *sections.*
+Each *section*, in turn, contains one or more of the
 following elements:
 
 paragraph
 ^^^^^^^^^
 
-Text that's displayed on the page for messaging and instructional purposes.
+Text that is displayed on the page for messaging and instructional purposes.
 
 Example:
 
@@ -291,13 +300,13 @@ Example:
 
 
 
-The above preferences definition would render as:
+The above ``preferences`` definition would render the mobile app UI as:
 
 .. image:: ../img/smartapps/prefs-paragraph.png
     :width: 250 px
     :height: 447 px
 
-Valid options:
+Valid options are:
 
 *title*
     String - The title of the paragraph
@@ -309,7 +318,7 @@ Valid options:
 icon
 ^^^^
 
-Allows the user to select an icon to be used when displaying the app in the mobile UI
+Allows the user to select an icon to be used when displaying the app in the mobile UI.
 
 Example:
 
@@ -323,19 +332,19 @@ Example:
         }
     }
 
-The above preferences definition would render as:
+The above ``preferences`` definition would render the mobile app UI as:
 
 .. image:: ../img/smartapps/prefs-icon.png
     :width: 250 px
     :height: 447 px
 
-Tapping the element would then allow the user to choose an icon:
+Tapping the *icon* UI element would then allow the user to choose an icon:
 
 .. image:: ../img/smartapps/prefs-icon-chooser.png
     :width: 250 px
     :height: 447 px
 
-Valid options:
+Valid options are:
 
 *title*
     String - The title of the icon
@@ -345,9 +354,9 @@ Valid options:
 href
 ^^^^
 
-A control that selects another preference page or external HTML page.
+A control that selects an external HTML page or another preference page.
 
-Example of using href to visit a URL:
+Example of using *href* to visit a URL:
 
 .. code-block:: groovy
 
@@ -370,13 +379,13 @@ Example of using href to visit a URL:
     }
 
 
-The above preferences would render as:
+The above ``preferences`` would render the mobile app UI as:
 
 .. image:: ../img/smartapps/prefs-href-external-embedded.png
     :width: 250 px
     :height: 600 px
 
-Example of using href to link to another preference page (dynamic pages are discussed later in this section):
+Example of using *href* to link to another preference page (dynamic pages are discussed later in this section):
 
 .. code-block:: groovy
 
@@ -440,7 +449,7 @@ You can use the params option to pass data to dynamic pages:
     }
 
 
-Valid options:
+Valid options are:
 
 *title*
     String - the title of the element
@@ -497,13 +506,13 @@ Example:
     }
 
 
-The second page of the above example would render as:
+The second page of the above example would render in the mobile UI as:
 
 .. image:: ../img/smartapps/prefs-mode.png
     :width: 250 px
     :height: 447 px
 
-Valid options:
+Valid options are:
 
 *title*
     String - the title of the mode field
@@ -521,7 +530,7 @@ Valid options:
 
         input "modes", "mode", title: "only when mode is", multiple: true, required: false
 
-    This method will automatically list the defined modes as the options. Keep in mind when using modes in this way that the modes are just data
+    This method will automatically list the defined modes as the options. Please note when using modes in this way that the modes are just data
     and can be accessed in the SmartApp as such.
     This does not effect SmartApp execution. In this scenario, it is up to the SmartApp itself to react to the mode changes.
 
@@ -562,7 +571,7 @@ Example:
     }
 
 
-The above preferences definition would render as:
+The above preferences definition would render in the mobile UI as:
 
 .. image:: ../img/smartapps/prefs-label.png
     :width: 250 px
@@ -572,7 +581,7 @@ The above preferences definition would render as:
 
     Images do not currently render in ``label`` inputs on Android.
 
-Valid options:
+Valid options are:
 
 *title*
     String - the title of the label field
@@ -591,12 +600,14 @@ Provides user-initiated installation of child apps.
 input
 ^^^^^
 
-Allows the user to select devices or enter values to be used during execution of the smart app.
+Allows the user to select devices or enter values to be used during execution of the SmartApp.
 
-Inputs are the most commonly used preference elements. They can be used to prompt the user to select devices that
-provide a certain capability, devices of a specific type, or constants of various kinds. Input element method calls
-take two forms. The "shorthand" form passes in the name and type unnamed as the required first two parameters, and any
-other arguments as named options:
+Inputs are the most commonly used preference elements.
+They can be used to prompt the user to select devices that provide a certain capability, or devices of a specific type, or constants of various kinds.
+
+Input element method calls take two forms.
+
+The "shorthand" form passes in the name and type unnamed as the required first two parameters, and any other arguments as named options:
 
 .. code-block:: groovy
 
@@ -617,10 +628,10 @@ The second form explicitly specifies the name of each argument:
         }
     }
 
-Valid input options:
+Valid input options are:
 
 *capitalization*
-    (Note - this feature is currently only supported on iOS devices) String - if the input is a text field, this controls the behavior of the auto-capitalization on the mobile device. ``"none"`` specifies to not enable auto-capitalization for any word. ``"sentences"`` will capitlize the first letter of each sentence. ``"all"`` will use all caps (BECAUSE EVERYONE LIKES TO YELL). ``"words"`` will capitalize every word. The default if not specified is ``"words"``.
+    (Note - this feature is currently only supported on iOS devices) String - if the input is a text field, this controls the behavior of the auto-capitalization on the mobile device. ``"none"`` specifies to not enable auto-capitalization for any word. ``"sentences"`` will capitlize the first letter of each sentence. ``"all"`` will use all caps. ``"words"`` will capitalize every word. The default is ``"words"``.
 *defaultValue*
     Object - if specified, a default value for this input.
 *name*
@@ -630,7 +641,8 @@ Valid input options:
 *description*
     String - default value of the input element
 *multiple*
-    Boolean - ``true`` to allow multiple values or ``false`` to allow only one value. Not valid for all input types.
+    Boolean - ``true`` or ``false`` to specify this input allows selection of multiple devices of the input type (if you have more than one). Defaults to ``true``.
+    For example, in the motion sensor example above, setting this to ``true`` will allow you to select more than one motion sensor, provided you have more than one.
 *range*
     A range for numeric (number and decimal) that restricts the valid entries to values within the range. For exampe, ``range: "2..7"`` will only allow inputs between 2 and 7 (inclusive). ``range: "-5..8"`` allows inputs between -5 and 8. A value of "*" will allow any numeric value on that side of the range. Use ``range: "*..*"`` to allow the user to enter any value, negative or positive. Note that without specifying a range that allows negative numbers, the mobile clients will only show a keypad to allow positive numeric entries.
 *required*
@@ -670,7 +682,7 @@ Valid input options:
 Using device-specific inputs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If a specific device is required for this SmartApp, and not a capability, the ``"device.<deviceName>"`` input type can be used.
+If a specific device is required for a SmartApp, the device itself can be used instead of the capability, with the ``"device.<deviceName>"`` input type.
 For example, if your SmartApp specifically requires a device named "My Fancy Device", you can prompt the user for that device this way:
 
 .. code-block:: groovy
@@ -701,7 +713,7 @@ Original                      Replaced With
 ``"Mobile   Presence"``       ``"Mobile Presence"``
 ============================  =============
 
-Here are some examples:
+Here are a few examples:
 
 ============================= ========================
 Device Preference Input       Device Name Searched For
@@ -714,19 +726,19 @@ Device Preference Input       Device Name Searched For
 When using ``device.<name>`` inputs, the platform first looks up which Device Handler it is, then finds any devices of that type for that location.
 The algorithm searches for a Device Handler in the following order:
 
-#. A Device Handler published by SmartThings that matches the name
-#. A Device Handler published by the current user that matches the name
+#. A Device Handler published by SmartThings that matches the name.
+#. A Device Handler published by the current user that matches the name.
 
 If there are multiple Device Handlers with the same name, the first Device Handler found will be returned.
 Only the name of the Device Handler is searched for; namespace is not considered.
 
 There are some caveats to be aware of due to the way the algorithm works:
 
-- The name of the device should have every word capitalized
-- Use of numbers can cause unexpected results
-- Use of spaces in the device input can cause unexpected results
+- The name of the device should have every word capitalized.
+- Use of numbers can cause unexpected results.
+- Use of spaces in the device input can cause unexpected results.
 
-Here are some interesting examples that illustrate this:
+Here are some examples that illustrate this:
 
 ======================== ========================
 Device Preference Input  Device Name Searched For
@@ -744,13 +756,13 @@ Device Preference Input  Device Name Searched For
 Hide When Empty
 ---------------
 
-Inputs, sections, and pages, support the ``hideWhenEmpty`` attribute.
-The attribute will hide the element that it is associated with when the element is empty.
+Inputs, sections, and pages support the ``hideWhenEmpty`` attribute.
+This attribute will hide the element that it is associated with when the element is empty.
 For example, if you have an input that prompts the user for an audio device, but that user does not have any audio devices, the ``hideWhenEmpty`` attribute will hide the input from the user.
 Let's take a look at a few examples.
 
 Add the ``hideWhenEmpty`` attribute to SmartApp inputs to completely hide UI control if there are no devices available.
-In this example, the SmartApp will not display the valve input if there were no valves in this users location, but would display the switch input even if there were no switches.
+In this example, the SmartApp will not display the valve input if there were no valves in this user's location, but would display the switch input even if there were no switches.
 
 .. code-block:: groovy
 
@@ -766,7 +778,7 @@ This means that adding the ``hideWhenEmpty`` attribute to any parent element is 
 Let's look at a few examples.
 
 The following example will hide the entire section if there are no valves and no switches.
-If the use did have a switch or a valve, then the section would be displayed with only that input element available.
+If the user did have a switch or a valve, then the section would be displayed with only the input element that is available.
 
 .. code-block:: groovy
 
@@ -778,7 +790,9 @@ If the use did have a switch or a valve, then the section would be displayed wit
     }
 
 The last example illustrates how this attribute applies to an entire page element.
-In this case, any empty sections on the page will be hidden if all of their elements are empty.
+In this case, any section will be hidden if all of its input elements are absent.
+For example, if the switch device is available but the valve device is not available, then the section with switches and valves will still display.
+However, if both switch and valve devices are entirely absent, then the section with switches and valves will not display.
 
 .. code-block:: groovy
 
@@ -803,7 +817,8 @@ Working with other input types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We've seen how the ``hideWhenEmpty`` attribute works with device inputs, but what about other types of inputs like Number, text, or Boolean inputs?
-These types of inputs will always show up because they can never have empty selections.
+
+These types of inputs will always appear because they can never have empty selections.
 It is possible to hide these kinds of input elements if they relate to another input element.
 Let's look at an example where we have two inputs, an audio device input, and a volume input.
 The volume input can never be empty, so we can't hide it. But it is related to the audio input which can be empty and hidden.
@@ -856,7 +871,7 @@ We can also specify custom confirmation text:
         remove("Custom Button Text", "Custom Confirmation Text")
     }
 
-This renders as:
+This renders in the mobile UI as:
 
 .. image:: ../img/smartapps/remove-custom-confirmation.png
     :width: 50 %
@@ -872,17 +887,18 @@ Finally, we can specify custom detail text to show on the confirmation dialog:
         remove("Custom Button Text!", "Custom Confirmation Text!", "Custom detail text")
     }
 
-This renders as:
+This renders in the mobile UI as:
 
 .. image:: ../img/smartapps/remove-custom-all-options.png
     :width: 50 %
 
+
 The use of ``remove()`` must follow these rules:
 
-- It must be defined after all other sections
-- It must not be nested inside a section
-- It can only be used inside a page
-- It must only be used once per page
+- It must be defined after all other sections.
+- It must not be nested inside a section.
+- It can only be used inside a page.
+- It must only be used once per page.
 
 If these rules are not followed, exceptions are thrown and error messages are displayed when pressing "Save".
 
@@ -893,10 +909,8 @@ If these rules are not followed, exceptions are thrown and error messages are di
 Dynamic Preferences
 -------------------
 
-One of the most powerful features of multi-page preferences is the ability to dynamically generate the content of a page
-based on previous selections or external inputs, such as the data elements returned from a web services call. The
-following example shows how to create a two-page preferences SmartApp where the content of the second page depends
-on the selections made on the first page.
+One of the most powerful features of multi-page preferences is the ability to dynamically generate the content of a page based on previous selections or external inputs, such as the data elements returned from a web services call.
+The following example shows how to create a two-page preferences SmartApp where the content of the second page depends on the selections made on the first page.
 
 .. code-block:: groovy
 
@@ -961,8 +975,7 @@ on the selections made on the first page.
     }
 
 The previous example shows how you can achieve dynamic behavior between pages.
-With the ``submitOnChange`` input attribute
-you can also have dynamic behavior in a single page.
+Next, with the ``submitOnChange`` input attribute you can also have dynamic behavior in a single page.
 
 .. code-block:: groovy
 
@@ -994,8 +1007,7 @@ you can also have dynamic behavior in a single page.
 
 .. note::
 
-    When a ``submitOnChange`` input is changed, the whole page will be saved.
-    Then a refresh is triggered with the saved page state.
+    When a ``submitOnChange`` input is changed, the whole page will be saved and then a refresh is triggered with the saved page state.
     This means that all of the methods will execute each time you change a submitOnChange input.
 
 ----
@@ -1051,6 +1063,6 @@ Any SmartApp that requires the use of API keys or other information that is sens
 Examples
 --------
 
-`page-params-by-href.groovy <https://github.com/SmartThingsCommunity/Code/blob/master/smartapps/preferences/page-params-by-href.groovy>`__ shows how to pass parameters to dynamic pages using the href element.
+The Github page `page-params-by-href.groovy <https://github.com/SmartThingsCommunity/Code/blob/master/smartapps/preferences/page-params-by-href.groovy>`__ shows how to pass parameters to dynamic pages using the href element.
 
 Almost every SmartApp makes use of preferences to some degree. You can browse them in the IDE under the "Browse SmartApp Templates" menu.

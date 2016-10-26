@@ -31,11 +31,11 @@ Below are the available properties on a Hub:
 ----
 
 
-firmareVersionString
---------------------
+getFirmwareVersionString()
+--------------------------
 
 **Signature:**
-    ``String firmwareVersionString``
+    ``String getFirmwareVersionString()()``
 
 **Returns:**
     `String`_ - The firmware version of the Hub
@@ -50,13 +50,13 @@ firmareVersionString
 
 ----
 
-id
---
+getId()
+-------
 
 The unique system identifier for this Hub.
 
 **Signature:**
-    ``String id``
+    ``String getId()``
 
 **Returns:**
     `String`_ - the unique device identifier for this Hub.
@@ -71,78 +71,78 @@ The unique system identifier for this Hub.
 
 ----
 
-localIP
--------
+getLocalIP()
+------------
 
 The local IP address of the Hub.
 
 **Signature:**
-    ``String localIP``
+    ``String getLocalIP()``
 
 **Returns:**
     `String`_ - The IP address of the Hub.
 
 ----
 
-localSrvPortTCP
----------------
+getLocalSrvPortTCP()
+--------------------
 
 The local server TCP port of the Hub.
 
 **Signature:**
-    ``String localSrvPortTCP``
+    ``String getLocalSrvPortTCP()``
 
 **Returns:**
     `String`_ - the TCP port for the Hub.
 
 ----
 
-name
-----
+getName()
+---------
 
 The name of the Hub.
 
 **Signature:**
-    ``String name``
+    ``String getName()``
 
 **Returns:**
     `String`_ - the name of the Hub.
 
 ----
 
-type
-----
+getType()
+---------
 
 The type of the Hub. Either "PHYSICAL" or "VIRTUAL".
 
 **Signature:**
-    ``String type``
+    ``String getType()``
 
 **Returns:**
     `String`_ - the type of the hub.
 
 ----
 
-zigbeeEui
----------
+getZigbeeEui()
+--------------
 
 The ZigBee Extended Unique Identifier of the Hub.
 
 **Signature:**
-    ``String zigbeeEui``
+    ``String getZigbeeEui()``
 
 **Returns:**
     `String`_ - The ZigBee EUI
 
 ----
 
-zigbeeId
---------
+getZigbeeId()
+-------------
 
 The ZigBee ID of the Hub.
 
 **Signature:**
-    ``String zigbeeId``
+    ``String getZigbeeId()``
 
 **Returns:**
     `String`_  - the ZigBee ID

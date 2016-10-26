@@ -1663,17 +1663,13 @@ Defines a tile that displays a specific value. Typical examples include temperat
 zigbee
 ------
 
-.. warning::
-
-    The documentation for this property is incomplete.
-
 A utility class for parsing and formatting ZigBee messages.
 
 **Signature:**
     ``Zigbee zigbee``
 
 **Returns:**
-    A reference to the ZigBee utility class.
+    A reference to the :ref:`ZigBee utility class <zigbee_ref>`.
 
 
 
