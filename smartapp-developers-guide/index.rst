@@ -18,6 +18,7 @@ If you haven't written a SmartApp yet, you should work through the :ref:`first-s
    modes
    routines
    scheduling
+   time-methods
    sunset-and-sunrise
    app-touch
    calling-web-services-in-smartapps
