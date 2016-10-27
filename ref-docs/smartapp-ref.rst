@@ -2147,6 +2147,8 @@ Subscribes to device commands that are sent to a device. The specified ``handler
 
 ----
 
+.. _smartapp_timeofdayisbetween:
+
 timeOfDayIsBetween()
 --------------------
 
