@@ -9,6 +9,9 @@ For example, a SmartApp can turn on a room light when a door is opened but only 
 Time methods can be used in a SmartApp to accomplish such automations.
 These time methods support a variety of time-related queries such as get the current time or today's date, know the time zone, or find out if a given moment of time is between a preset time-window.
 
+
+.. smartapp_taking-action_in_a_time_window:
+
 Taking Action Within a Time Window
 ----------------------------------
 
@@ -75,3 +78,51 @@ fromTime      toTime        new Date()   between
 ============ ============= ============= ==========
 
 ----
+
+.. smartapp_execute_on_certain_days:
+
+Execute Only On Certain Days
+----------------------------
+
+A natural extension to the above automation of taking action within a time window is taking action only within a time window on *selected* days of the week.
+This can be easily achieved by a slight modification to the above SmartApp.
+
+First we prompt the user to select the preferred days of the week, by adding an enumerated ``input`` *days* in the ``preferences`` section, as below: 
+
+.. code-block:: groovy
+
+    preferences {
+        section("On Which Days") {
+            input "days", "enum", title: "Select Days of the Week", required: true, multiple: true, options: ["Monday": "Monday", "Tuesday": "Tuesday", "Wednesday": "Wednesday", "Thursday": "Thursday", "Friday": "Friday"]
+        }
+    }
+
+
+Next, we make modifications to the ``contactHandler`` event handler so that it checks for the following conditions:
+
+- Is the door open? No? Then do nothing (as in the earlier example, we do not care if the door is closed).
+- If the door is open, then is today one of the preferred days-of-the-week?
+- If no, then do nothing.
+- If yes, i.e., if today is one of the preferred days-of-the-week, then are we within the time-window? No? Then do nothing.
+- If yes, then turn on the room light.
+
+.. code-block:: groovy
+
+    def contactHandler(evt) {
+
+        // Door is opened. Now check if today is one of the preset days-of-week
+        def df = new java.text.SimpleDateFormat("EEEE")
+        // Ensure the new date object is set to local time zone
+        df.setTimeZone(location.timeZone) 
+        def day = df.format(new Date())
+        //Does the preference input Days, i.e., days-of-week, contain today?
+        def dayCheck = days.contains(day) 
+        if (dayCheck) {
+            def between = timeOfDayIsBetween(fromTime, toTime, new Date(), location.timeZone)
+            if (between) {
+                roomLight.on()
+            } else {
+                roomLight.off()
+            }
+        }
+    }
