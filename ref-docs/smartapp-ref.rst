@@ -310,7 +310,7 @@ A map of name/value pairs that SmartApp can use to save and retrieve data across
 canSchedule()
 -------------
 
-Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are limited to 4 scheduled jobs. That limit includes operations such as runIn and runOnce.
+Returns true if the SmartApp is able to schedule jobs. SmartApps are limited to 6 pending scheduled executions.
 
 **Signature:**
     ``Boolean canSchedule()``
@@ -1249,7 +1249,8 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 runEvery5Minutes()
 ------------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes.
+Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
 **Signature:**
     ``void runEvery5Minutes(handlerMethod[, options])``
@@ -1266,7 +1267,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1278,14 +1278,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery5Minutes(handlerMethod1)
-    runEvery5Minutes(handlerMethod2)
+    runEvery5Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1312,7 +1312,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1324,14 +1323,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery10Minutes(handlerMethod1)
-    runEvery10Minutes(handlerMethod2)
+    runEvery10Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1358,7 +1357,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1370,14 +1368,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery15Minutes(handlerMethod1)
-    runEvery15Minutes(handlerMethod2)
+    runEvery15Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1404,7 +1402,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1416,14 +1413,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery30Minutes(handlerMethod1)
-    runEvery30Minutes(handlerMethod2)
+    runEvery30Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1450,7 +1447,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1462,14 +1458,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery1Hour(handlerMethod1)
-    runEvery1Hour(handlerMethod2)
+    runEvery1Hour(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1496,7 +1492,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1508,14 +1503,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery3Hours(handlerMethod1)
-    runEvery3Hours(handlerMethod2)
+    runEvery3Hours(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1585,7 +1580,6 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
