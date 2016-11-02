@@ -70,7 +70,9 @@ Device Attributes
 
 Attributes represent the state of a device. A device that supports the "temperatureMeasurement" capability has a "temperature" attribute, for example.
 
-Attributes have state -  the "temperature" attribute has an associated :ref:`state_ref` object that contains information about the temperature (its value, the date it was recorded, etc.)
+Attributes have state -  the "temperature" attribute has an associated :ref:`state_ref` object that contains information about the temperature (its value, the date it was recorded, etc.).
+
+Attribute data is stored in the SmartThings Cloud and updated when the device reports its status.
 
 ----
 
@@ -78,7 +80,8 @@ Device Commands
 ---------------
 
 Devices may expose one or many commands.
-Commands are the things that devices can do. A switch supports the "on" and "off" commands, that turn the switch "on" and "off", respectively.
+Commands are the things that devices can do.
+A switch supports the "on" and "off" commands, that turn the switch "on" and "off", respectively.
 
 Not all devices have commands.
 Commands typically perform some sort of physical actuation (turn a switch on, or unlock a lock, for example).
@@ -89,14 +92,14 @@ A humidity sensor has nothing to physically actuate, for example.
 Getting Device Current Values
 -----------------------------
 
-You can retrieve information about a device's current state in a few ways.
+Information about the most recently reported device attribute state can be retrieved in two ways:
 
-The ``currentState`` method and ``<attributeName>State`` properties both return a :ref:`state_ref` object representing the current state of this device.
+:ref:`device_current_state` and :ref:`device_attribute_state` return a :ref:`state_ref` object that encapsulates the most recently reported state of the device.
 
 .. code-block:: groovy
 
     preferences {
-        section {
+        section() {
             input "tempSensor", "capability.temperatureMeasurement"
         }
     }
@@ -113,12 +116,13 @@ The ``currentState`` method and ``<attributeName>State`` properties both return 
         log.debug "temperature value as an integer: ${anotherCurrentState.integerValue}"
     }
 
-You can get the current value directly by using the ``currentValue(attributeName)`` and its shortcut, ``current<Uppercase attribute name>``:
+:ref:`device_latest_value`, :ref:`device_current_value`, and :ref:`currentAttributeName` returns the most recently reported attribute value.
+These can be used interchangeably; they all do the same thing.
 
 .. code-block:: groovy
 
     preferences {
-        section {
+        section() {
             input "myLock", "capability.lock"
         }
     }
@@ -127,11 +131,22 @@ You can get the current value directly by using the ``currentValue(attributeName
         def currentValue = myLock.currentValue("lock")
         log.debug "the current value of myLock is $currentValue"
 
+        def latestValue = myLock.latestValue("lock")
+        log.debug "the latest value of myLock is $latestValue"
+
         // Lock capability has "lock" attribute.
         // <deviceName>.current<uppercase attribute name>:
         def anotherCurrentValue = myLock.currentLock
         log.debug "the current value of myLock using shortcut is: $anotherCurrentValue"
     }
+
+.. important::
+
+    The current or latest state for an attribute value is the *most recent value the device has reported to SmartThings.*
+    It is not calculated by polling or otherwise directly communicating with the device.
+
+    For example, ``someDevice.currentValue('someAttribute')`` will get the most recently reported value for the specified attribute.
+    If the device has malfunctioned, or the SmartThings Hub has gone offline, it is possible that the value returned is not consistent with the physical status of the device.
 
 ----
 
@@ -201,7 +216,9 @@ All commands can take an optional map parameter, as the last argument, to specif
 
 .. note::
 
-    Because specific devices *can* provide more commands than its supported capabilities, it is possible to have more available commands than the capability declares. As a best practice, you should write your SmartApp to the capabilities specification, and not to any specific device. If, however, you are writing a SmartApp for a very specific case, and are willing to forgo the flexibility, you may make use of this ability.
+    Because specific devices *can* provide more commands than its supported capabilities, it is possible to have more available commands than the capability declares.
+    As a best practice, you should write your SmartApp to the capabilities specification, and not to any specific device.
+    If, however, you are writing a SmartApp for a very specific case, and are willing to forgo the flexibility, you may make use of this ability.
 
 ----
 
