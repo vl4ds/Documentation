@@ -310,7 +310,7 @@ A map of name/value pairs that SmartApp can use to save and retrieve data across
 canSchedule()
 -------------
 
-Returns true if the SmartApp is able to schedule jobs. Currently SmartApps are limited to 4 scheduled jobs. That limit includes operations such as runIn and runOnce.
+Returns true if the SmartApp is able to schedule jobs. SmartApps are limited to 6 pending scheduled executions.
 
 **Signature:**
     ``Boolean canSchedule()``
@@ -1249,7 +1249,8 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 runEvery5Minutes()
 ------------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes.
+Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
 **Signature:**
     ``void runEvery5Minutes(handlerMethod[, options])``
@@ -1266,7 +1267,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1278,14 +1278,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery5Minutes(handlerMethod1)
-    runEvery5Minutes(handlerMethod2)
+    runEvery5Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1312,7 +1312,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1324,14 +1323,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery10Minutes(handlerMethod1)
-    runEvery10Minutes(handlerMethod2)
+    runEvery10Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1358,7 +1357,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1370,14 +1368,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery15Minutes(handlerMethod1)
-    runEvery15Minutes(handlerMethod2)
+    runEvery15Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1404,7 +1402,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1416,14 +1413,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery30Minutes(handlerMethod1)
-    runEvery30Minutes(handlerMethod2)
+    runEvery30Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1450,7 +1447,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1462,14 +1458,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery1Hour(handlerMethod1)
-    runEvery1Hour(handlerMethod2)
+    runEvery1Hour(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1496,7 +1492,6 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -1508,14 +1503,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery3Hours(handlerMethod1)
-    runEvery3Hours(handlerMethod2)
+    runEvery3Hours(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1585,7 +1580,6 @@ Creates a scheduled job that calls the ``handlerMethod`` once per day at the tim
     ========= ====================== ===========
     Key       Possible values        Description
     ========= ====================== ===========
-    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
     data      A map of data          A map of data that will be passed to the handler method.
     ========= ====================== ===========
 
@@ -2147,6 +2141,8 @@ Subscribes to device commands that are sent to a device. The specified ``handler
 
 ----
 
+.. _smartapp_timeofdayisbetween:
+
 timeOfDayIsBetween()
 --------------------
 
@@ -2249,15 +2245,15 @@ Gets a `Date`_ object for today's date, for the specified time in the date-time 
 timeTodayAfter()
 ----------------
 
-Gets a `Date`_ object for the specified input that is guaranteed to be after the specified starting date.
+Returns a `Date`_ of the next occurrence of the time specified in the input, relative to a reference time.
 
 **Signature:**
     ``Date timeTodayAfter(String startTimeString, String timeString [, TimeZone timeZone])``
 
 **Parameters:**
-    `String`_ ``startTimeString`` - The time for which the returned date must be after. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
+    `String`_ ``startTimeString`` - The reference time. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
 
-    `String`_ ``timeString`` - The time string to get the date object for. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
+    `String`_ ``timeString`` - The time string whose next occurrence is queried. Can be an ISO-8601 date string as returned from ``time`` input preferences, or a simple time string in ``"hh:mm"`` format ("21:34").
 
     `TimeZone`_ ``timeZone`` *(optional)* - The time zone used for determining the current date and time.
 
@@ -2270,8 +2266,8 @@ Gets a `Date`_ object for the specified input that is guaranteed to be after the
     Future releases may remove the option to call ``timeToday`` without a time zone.
 
 **Returns:**
-    `Date`_ - the Date for the specified ``timeString`` that is guaranteed to be after the ``startTimeString``.
-
+    `Date`_ - If time specified by ``timeString`` has already occurred prior to ``startTimeString`` then returns the next day Date object when the ``timeString`` time occurs next. If ``timeString`` time has not yet occurred relative to ``startTimeString``, then returns today's Date object when the ``timeString`` time will occur. Since only the occurrence of ``timeString`` after the elapse of ``startTimeString`` time is considered, the Date returned is guaranteed to be later than the ``startTimeString`` date.
+:
 **Example:**
 
 .. code-block:: groovy
@@ -2285,11 +2281,12 @@ Gets a `Date`_ object for the specified input that is guaranteed to be after the
     ...
     // assume time1 entered as 20:20
     // assume time2 entered as 14:05
-    // nextTime would be tomorrow's date, 14:05 time.
+    // since 14:05 time today has already elapsed prior to 20:20 reference time today,
+    // the nextTime would be tomorrow's date, 14:05 time (the next occurrence of 14:05 time)
     def nextTime = timeTodayAfter(time1, time2, location.timeZone)
-    ...
 
 ----
+
 
 timeZone()
 ----------
@@ -2300,10 +2297,10 @@ Get a `TimeZone` object for the specified time value entered as a SmartApp prefe
     ``TimeZone timeZone(String timePreferenceString)``
 
 **Parameters:**
-    `String`_ ``timeZoneString`` - The time zone string in IS0-8061 format as used by SmartApp time preferences.
+    `String`_ ``timePreferenceString`` - The time value string in IS0-8061 format as entered as input in SmartApp time preferences.
 
 **Returns:**
-    `TimeZone`_ - the TimeZone for the time zone as specified by the ``timeZoneString``.
+    `TimeZone`_ - the TimeZone for the time value as specified by the ``timePreferenceString``.
 
 **Example:**
 

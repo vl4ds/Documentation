@@ -995,17 +995,27 @@ For example, the reply method ``reply "2001FF,2502": "command: 2503, payload: FF
 runEvery5Minutes()
 ------------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every five minutes.
+Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
 **Signature:**
-    ``void runEvery5Minutes(handlerMethod)``
+    ``void runEvery5Minutes(handlerMethod[, options])``
 
 .. tip::
 
-    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time. With this method, the executions will be spread out over the 5 minute period.
+    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time.
+    With this method, the executions will be spread out over the 5 minute period.
 
 **Parameters:**
     ``handlerMethod`` - The method to call every five minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1015,14 +1025,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery5Minutes(handlerMethod1)
-    runEvery5Minutes(handlerMethod2)
+    runEvery5Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1030,17 +1040,27 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 runEvery10Minutes()
 -------------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every ten minutes. Using this method will pick a random start time in the next ten minutes, and run every ten minutes after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every ten minutes.
+Using this method will pick a random start time in the next ten minutes, and run every ten minutes after that.
 
 **Signature:**
-    ``void runEvery10Minutes(handlerMethod)``
+    ``void runEvery10Minutes(handlerMethod[, options])``
 
 .. tip::
 
-    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time. With this method, the executions will be spread out over the ten minute period.
+    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time.
+    With this method, the executions will be spread out over the ten minute period.
 
 **Parameters:**
     ``handlerMethod`` - The method to call every ten minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1050,14 +1070,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery10Minutes(handlerMethod1)
-    runEvery10Minutes(handlerMethod2)
+    runEvery10Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1065,17 +1085,27 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 runEvery15Minutes()
 -------------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every fifteen minutes. Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every fifteen minutes.
+Using this method will pick a random start time in the next five minutes, and run every five minutes after that.
 
 **Signature:**
-    ``void runEvery15Minutes(handlerMethod)``
+    ``void runEvery15Minutes(handlerMethod[, options])``
 
 .. tip::
 
-    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time. With this method, the executions will be spread out over the fifteen minute period.
+    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time.
+    With this method, the executions will be spread out over the fifteen minute period.
 
 **Parameters:**
     ``handlerMethod`` - The method to call every fifteen minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1085,14 +1115,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery15Minutes(handlerMethod1)
-    runEvery15Minutes(handlerMethod2)
+    runEvery15Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1100,17 +1130,27 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 runEvery30Minutes()
 -------------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every thirty minutes. Using this method will pick a random start time in the next thirty minutes, and run every thirty minutes after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every thirty minutes.
+Using this method will pick a random start time in the next thirty minutes, and run every thirty minutes after that.
 
 **Signature:**
-    ``void runEvery30Minutes(handlerMethod)``
+    ``void runEvery30Minutes(handlerMethod[, options])``
 
 .. tip::
 
-    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time. With this method, the executions will be spread out over the thirty minute period.
+    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time.
+    With this method, the executions will be spread out over the thirty minute period.
 
 **Parameters:**
     ``handlerMethod`` - The method to call every thirty minutes. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1120,14 +1160,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery30Minutes(handlerMethod1)
-    runEvery30Minutes(handlerMethod2)
+    runEvery30Minutes(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1135,17 +1175,27 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 runEvery1Hour()
 ---------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every hour. Using this method will pick a random start time in the next hour, and run every hour after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every hour.
+Using this method will pick a random start time in the next hour, and run every hour after that.
 
 **Signature:**
-    ``void runEvery1Hour(handlerMethod)``
+    ``void runEvery1Hour(handlerMethod[, options])``
 
 .. tip::
 
-    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time. With this method, the executions will be spread out over the one hour period.
+    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time.
+    With this method, the executions will be spread out over the one hour period.
 
 **Parameters:**
     ``handlerMethod``- The method to call every hour. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1155,14 +1205,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery1Hour(handlerMethod1)
-    runEvery1Hour(handlerMethod2)
+    runEvery1Hour(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1170,17 +1220,27 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 runEvery3Hours()
 ----------------
 
-Creates a recurring schedule that executes the specified ``handlerMethod`` every three hours. Using this method will pick a random start time in the next hour, and run every three hours after that.
+Creates a recurring schedule that executes the specified ``handlerMethod`` every three hours.
+Using this method will pick a random start time in the next hour, and run every three hours after that.
 
 **Signature:**
-    ``void runEvery3Hours(handlerMethod)``
+    ``void runEvery3Hours(handlerMethod[, options])``
 
 .. tip::
 
-    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time. With this method, the executions will be spread out over the three hour period.
+    This is preferred over using ``schedule(cronExpression, handlerMethod)`` for a regular schedule like this because with a cron expression all installations of a SmartApp will execute at the same time.
+    With this method, the executions will be spread out over the three hour period.
 
 **Parameters:**
     ``handlerMethod`` - The method to call every three hours. Can be the name of the method as a string, or a reference to the method.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1190,14 +1250,14 @@ Creates a recurring schedule that executes the specified ``handlerMethod`` every
 .. code-block:: groovy
 
     runEvery3Hours(handlerMethod1)
-    runEvery3Hours(handlerMethod2)
+    runEvery3Hours(handlerMethod2, [data: [key1: 'val1']])
 
     def handlerMethod1() {
         log.debug "handlerMethod1"
     }
 
-    def handlerMethod2() {
-        log.debug "handlerMethod2"
+    def handlerMethod2(data) {
+        log.debug "handlerMethod2, data: $data"
     }
 
 ----
@@ -1219,7 +1279,14 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 
     ``handlerMethod`` - The method to call after ``delayInSeconds`` has passed. Can be a string or a reference to the method.
 
-    ``options`` *(optional)* - A map of parameters. Currently only the value ``[overwrite: true/false]`` is supported. Normally, if within the time window betwen calling ``runIn()`` and the ``handlerMethod`` being called, if you call runIn(300, 'handlerMethod') method again we will stop the original schedule and just use the new one. In this case there is at most one schedule for the `handlerMethod`. However, if you were to call runIn(300, 'handlerMethod', [overwrite: false]), then we let the original schedule continue and also add a new one for another 5 minutes out. This could lead to many different schedules. If you are going to use this, be sure to handle multiple calls to the 'handlerMethod' method.
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1229,15 +1296,16 @@ Executes a specified ``handlerMethod`` after ``delaySeconds`` have elapsed.
 .. code-block:: groovy
 
     runIn(300, myHandlerMethod)
-    runIn(400, "myOtherHandlerMethod")
+    runIn(400, "myOtherHandlerMethod", [data: [flag: true]])
 
     def myHandlerMethod() {
         log.debug "handler method called"
     }
 
-    def myOtherHandlerMethod() {
-        log.debug "other handler method called"
+    def myOtherHandlerMethod(data) {
+        log.debug "other handler method called with flag: $data.flag"
     }
+
 
 ----
 
@@ -1247,12 +1315,21 @@ runOnce()
 Executes the ``handlerMethod`` once at the specified date and time.
 
 **Signature:**
-    ``void runOnce(dateTime, handlerMethod)``
+    ``void runOnce(dateTime, handlerMethod [, options])``
 
 **Parameters:**
     ``dateTime`` - When to execute the ``handlerMethod``. Can be either a `Date`_ object or an ISO-8601 date string. For example, ``new Date() + 1`` would run at the current time tomorrow, and ``"2017-07-04T12:00:00.000Z"`` would run at noon GMT on July 4th, 2017.
 
     ``handlerMethod`` - The method to execute at the specified ``dateTime``. This can be a reference to the method, or the method name as a string.
+
+    ``options`` *(optional)* - A map of parameters, with the following keys supported:
+
+    ========= ====================== ===========
+    Key       Possible values        Description
+    ========= ====================== ===========
+    overwrite ``true`` or ``false``  Specify ``[overwrite: false]`` to not overwrite any existing pending schedule handler for the given method (the default behavior is to overwrite the pending schedule). Specifying ``[overwrite: false]`` can lead to multiple different schedules for the same handler method, so be sure your handler method can handle this.
+    data      A map of data          A map of data that will be passed to the handler method.
+    ========= ====================== ===========
 
 **Returns:**
     void
@@ -1267,6 +1344,7 @@ Executes the ``handlerMethod`` once at the specified date and time.
     def handler() {
         ...
     }
+
 
 ----
 

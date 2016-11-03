@@ -27,6 +27,8 @@ Device objects cannot be instantiated, but are created by the SmartThings platfo
 
 ----
 
+.. _device_attribute_state:
+
 <attribute name>State
 ---------------------
 
@@ -207,6 +209,8 @@ Gets the latest :ref:`state_ref` for the specified attribute.
     ...
 
 ----
+
+.. _device_current_value:
 
 currentValue()
 --------------
@@ -696,6 +700,8 @@ Get the latest Device State record for the specified attribute.
     log.debug "latest state value: ${latestDeviceState.value}"
 
 ----
+
+.. _device_latest_value:
 
 latestValue()
 -------------
