@@ -6,6 +6,19 @@ A log of changes to this documentation.
 
 ----
 
+November 03 2016
+----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/03-November-2016>`__
+
+- Revised timeTodayAfter() method description in the :ref:`smartapp_ref` Guide
+- Added :ref:`smartapp-time-methods` guide to the SmartApp Developers Guide
+- Fixed up scheduling reference docs in :ref:`device_handler_ref`, and :ref:`smartapp_ref` Guides
+- Clarify getting latest device state in :ref:`device_ref`, and :ref:`smartapp_working_with_devices`
+- Corrected timeZone() method description in the :ref:`smartapp_ref` Guide
+
+----
+
 October 26 2016
 ---------------
 
