@@ -2297,10 +2297,10 @@ Get a `TimeZone` object for the specified time value entered as a SmartApp prefe
     ``TimeZone timeZone(String timePreferenceString)``
 
 **Parameters:**
-    `String`_ ``timeZoneString`` - The time zone string in IS0-8061 format as used by SmartApp time preferences.
+    `String`_ ``timePreferenceString`` - The time value string in IS0-8061 format as entered as input in SmartApp time preferences.
 
 **Returns:**
-    `TimeZone`_ - the TimeZone for the time zone as specified by the ``timeZoneString``.
+    `TimeZone`_ - the TimeZone for the time value as specified by the ``timePreferenceString``.
 
 **Example:**
 
