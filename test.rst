@@ -150,7 +150,7 @@ Capabilities Reference
           {{ "Arguments:"|indent(2, true) }}
           {% if command['argument'] is a_list %}
             {% for arg in command['argument'] %}
-              ``{{ arg['@name'] }}`` - {{ arg['@type'] }}
+              ``{{ arg['@name'] }}`` {% if arg['@required'] and arg['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ arg['@type'] }}
               {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+arg['@name']+".description"] %}
                 {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+arg['@name']+".description"]|indent(2, true) }}
               {%- endif %}
@@ -166,7 +166,7 @@ Capabilities Reference
               {%- endif %}
             {% endfor %}
           {%- else %}
-            ``{{ command['argument']['@name'] }}`` - {{ command['argument']['@type'] }}
+            ``{{ command['argument']['@name'] }}`` {% if command['argument']['@required'] and command['argument']['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ command['argument']['@type'] }}
             {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+".description"] %}
               {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+".description"]|indent(2, true) }}
             {%- endif %}
@@ -204,39 +204,3 @@ Capabilities Reference
     ----
     {%- endif %}
     {%- endfor %}
-
-    {#- These are attempts at table generation that are around for reference #}
-    {#- {%- if capability['attribute'] %} #}
-    {#- {%- if capability['attribute'] is a_list %} #}
-    {#-    {%- for attribute in capability['attribute'] %} #}
-    {#-       {%- if loop.first %} #}
-    {#-          {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#-          {{ '|' }} Name{{ ' ' * 25 }}{{ '|' }} #}
-    {#-          {{ '+' }}{{ '=' * 30 }}{{ '+' }} #}
-    {#-       {% endif -%} #}
-    {#-       {{ '|' }} {{ attribute['@name'] }}{{ ' ' * (30 - ((attribute['@name']|length) + 1)) }}{{ '|' }} #}
-    {#-       {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#-   {% endfor -%} #}
-    {#- {%- else %} #}
-    {#-    {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#-    {{ '|' }} Name{{ ' ' * 25 }}{{ '|' }} #}
-    {#-    {{ '+' }}{{ '=' * 30 }}{{ '+' }} #}
-    {#-    {{ '|' }} {{ capability['attribute']['@name'] }}{{ ' ' * (30 - ((capability['attribute']['@name']|length) + 1)) }}{{ '|' }} #}
-    {#-    {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#- {% endif -%} #}
-    {#- {%- else %} #}
-    {#- None #}
-    {#- {%- endif %} #}
-
-    {#- {% if capability['command'] %} #}
-    {#- {% if not capability['command']['@name'] %} #}
-    {#- {% for command in capability['command'] %}{% if loop.first %}{{ '+' }}{{ '-' * 20 }}{{ '+' }} #}
-    {#- {{ '|' }} Name{{ ' ' * 15 }}{{ '|' }} #}
-    {#- {{ '+' }}{{ '=' * 20 }}{{ '+' }}{% endif %} #}
-    {#- {{ '|' }} {{ command['@name'] }}{{ ' ' * (20 - ((command['@name']|length) + 1)) }}{{ '|' }} #}
-    {#- {{ '+' }}{{ '-' * 20 }}{{ '+' }}{% endfor %} #}
-    {#- {% else %}{{ capability['@name'] }} #}
-    {#- {% endif %} #}
-    {#- {% else %} #}
-    {#- None #}
-    {#- {% endif %} #}
