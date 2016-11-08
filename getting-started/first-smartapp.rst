@@ -489,8 +489,10 @@ When you press the *Publish* button, a *For Me* option will appear.
 Select it.
 This means that the SmartApp will only be published for your account and not be visible for everyone in the SmartThings community.
 
-.. note:: If you have a SmartApp that you do want to publish publicly, you can do that via the "My Publication Requests" link at the top of the page.
-For more information on this, see :ref:`submitting_smartapps_for_publication`.
+.. note::
+
+    If you have a SmartApp that you do want to publish publicly, you can do that via the "My Publication Requests" link at the top of the page.
+    For more information on this, see :ref:`submitting_smartapps_for_publication`.
 
 Now you should be able to see your SmartApp in the mobile app if you browse to the *My Apps* category of the marketplace:
 
@@ -809,8 +811,7 @@ In this tutorial, you learned how to write a SmartApp. To do this, we:
 
 - Created a new SmartApp using the web-based IDE.
 - Defined the ``preferences`` that specifies what input we need from the user.
-- Subscribed to device events and controlled a device.
-We used the :ref:`capabilities_taxonomy` to determine what attributes and commands a capability supports.
+- Subscribed to device events and controlled a device. We used the :ref:`capabilities_taxonomy` to determine what attributes and commands a capability supports.
 - Used the web-based simulator to test our SmartApp with virtual devices.
 - Published the SmartApp for yourself and installed it on your mobile phone.
 - Extended our SmartApp by allowing a user to enter the number of minutes to wait before turning the switch off, and implemented this using the ``runIn()`` method.

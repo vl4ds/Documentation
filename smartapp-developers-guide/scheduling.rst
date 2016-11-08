@@ -442,7 +442,7 @@ For example, if you schedule a job at 5:30:20 (20 seconds past 5:30) to execute 
 Do Not Aggressively Schedule
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Every scheduled execution incurs a cost to launch the SmartApp, and counts against the :ref:`SmartApp rate limit <smartapp_rate_limiting>`.
+Every scheduled execution incurs a cost to launch the SmartApp, and counts against the :ref:`rate_limits`.
 While there are some limitations in place to prevent excessive scheduling, it's important to note that excessive polling or scheduling is discouraged.
 It is one of the items we look for when reviewing community-developed SmartApps or device-type handlers.
 
