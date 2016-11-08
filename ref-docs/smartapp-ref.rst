@@ -1063,7 +1063,7 @@ Returns a Date when the time specified in the input occurs next.
 .. _smartapp_now:
 
 now()
-----
+-----
 
 Gets the current Unix time in milliseconds.
 
@@ -2267,7 +2267,7 @@ Returns a `Date`_ of the next occurrence of the time specified in the input, rel
 
 **Returns:**
     `Date`_ - If time specified by ``timeString`` has already occurred prior to ``startTimeString`` then returns the next day Date object when the ``timeString`` time occurs next. If ``timeString`` time has not yet occurred relative to ``startTimeString``, then returns today's Date object when the ``timeString`` time will occur. Since only the occurrence of ``timeString`` after the elapse of ``startTimeString`` time is considered, the Date returned is guaranteed to be later than the ``startTimeString`` date.
-:
+
 **Example:**
 
 .. code-block:: groovy

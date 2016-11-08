@@ -148,7 +148,8 @@ Get the headers of the response.
     ``Map<String, String> getHeaders()``
 
 **Returns:**
-    `Map`_ < `String`
+    `Map`_ < `String`_ , `String`_ > - A map of response headers keyed by the header name.
+    
 **Example:**
 
 .. code-block:: groovy
@@ -297,3 +298,5 @@ This will be ``true`` if the request succeeded with a 2XX response code, and ``f
 ----
 
 .. _processing_xml: http://groovy-lang.org/processing-xml.html#_gpath
+.. _Map: http://docs.oracle.com/javase/7/docs/api/java/util/Map.html
+.. _String: http://docs.oracle.com/javase/7/docs/api/java/lang/String.html

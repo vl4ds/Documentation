@@ -82,7 +82,7 @@ October 05 2016
 
 - Added documentation for :ref:`passing data to schedule handler methods <scheduling_passing_data>`.
 - Added :ref:`best practices <review_guidelines_parent_child>` for parent-child relationships.
-- Updated the :doc:`README` with pull request guidelines.
+- Updated the repository's README with pull request guidelines.
 - Added scheduling APIs to the :ref:`device_handler_ref` reference documentation (including all ``runEvery*`` APIs, which are now supported in Device Handlers).
 - Fixed broken cron tutorial link the :ref:`smartapp-scheduling` guide.
 - Added note to the :ref:`first SmartApp tutorial <first-smartapp-tutorial>` and :ref:`editor_and_simulator` that the simulator is inconsistent with the mobile application.
@@ -223,7 +223,7 @@ July 07 2016
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/07-July-2016>`__
 
-- Added documentation for :ref:`working with collections in State and Atomic State <state_using_collections>`
+- Added documentation for working with collections in :ref:`State <state_collections>` and :ref:`Atomic State <atomic_state_collections>`.
 - Added documentation for :doc:`ref-docs/app-state-ref`
 - Added documentation for :doc:`ref-docs/installed-smart-app-wrapper-ref`
 - Added :ref:`clarification <run_api_smartapp_simulator>` that the callable URL for Web Services SmartApps will vary by installed location

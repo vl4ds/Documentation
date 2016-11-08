@@ -1,3 +1,4 @@
+.. _rate_limits:
 
 ===========
 Rate Limits
