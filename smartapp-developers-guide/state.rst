@@ -282,7 +282,7 @@ If you were to store a date directly, you would end up with a string representat
 
     def check() {
         def isDate = state.date instanceof Date // -> false
-        def isString = state.date instanceof Date // -> true
+        def isString = state.date instanceof String // -> true
     }
 
 
@@ -401,7 +401,7 @@ Working with collections in ``state`` is straightforward:
 
     state.collection = [k1: "one", k2: "two", k3: [n1: 2, n2: 3]]
     state.collection.k1 = "UPDATED"
-    state.k3.n1 = "ALSO UPDATED"
+    state.collection.k3.n1 = "ALSO UPDATED"
 
     // [k1: "UPDATED", k2: "two", k3: [n1: 2, n2: "ALSO UPDATED"]
     log.debug "state: $state"
