@@ -126,12 +126,12 @@ This process is known as a "join" process, or "fingerprinting".
 
 The fingerprinting process is dependent on the type of device you are looking to pair.
 SmartThings attempts to match devices coming in based on the input and output clusters a device uses, as well as a profileId (for ZigBee) or deviceId (for Z-Wave).
-Basically, by determining what capabilities your device has, SmartThings determines what your device is.
+By determining what capabilities the device has, SmartThings determines what your device is.
 
 
 .. _zigbee-fingerprinting-label:
 
-ZigBee Fingerprinting
+ZigBee fingerprinting
 ^^^^^^^^^^^^^^^^^^^^^
 
 For ZigBee devices, the main profileIds you will need to use are
@@ -149,7 +149,7 @@ An example of a ZigBee fingerprint definition:
         fingerprint profileId: "C05E", inClusters: "0000,0003,0004,0005,0006,0008,0300,1000", outClusters: "0019"
 
 
-Z-Wave Fingerprinting
+Z-Wave fingerprinting
 ^^^^^^^^^^^^^^^^^^^^^
 
 For Z-Wave devices, the fingerprint should include the deviceId of the device and the command classes it supports in the inClusters list.
@@ -183,39 +183,29 @@ The fingerprint will be:
 Note that the fingerprint clusters lists are comma separated while the raw
 description is not.
 
-Fingerprinting Best Practices and Important Information
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _device_handler_fingerprinting_best_practices:
 
-Include Manufacturer and Model
+Fingerprinting best practices
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Include manufacturer and model
 ++++++++++++++++++++++++++++++
 
-Try and include the manufacturer and model name to your fingerprint (only supported for ZigBee devices right now - you can add them to Z-Wave devices as well, but they won't be used yet):
+Include the manufacturer and model name in the fingerprint:
 
 .. code-block:: groovy
 
     fingerprint inClusters: "0000,0001,0003,0020,0406,0500", manufacturer: "NYCE", model: "3014"
 
-When adding the manufacturer model and name, you'll likely need to add the following raw commands in the ``refresh()`` command.
-This is used to report back the manufacturer/model name from the device.
-
-The reply will be hexadecimal that you can convert to ascii using the hex-to-ascii converter (we'll be adding a utility method to do this, but in the meantime you can use an online converter like `this one <http://www.rapidtables.com/convert/number/hex-to-ascii.htm>`__):
-
-.. code-block:: groovy
-
-    def refresh() {
-        "st rattr 0x${zigbee.deviceNetworkId} 0x${zigbee.endpointId} 0 4", "delay 200",
-        "st rattr 0x${zigbee.deviceNetworkId} 0x${zigbee.endpointId} 0 5"
-    }
-
-Adding Multiple Fingerprints
-++++++++++++++++++++++++++++
+Add multiple fingerprints
++++++++++++++++++++++++++
 
 You can have multiple fingerprints.
-This is often desirable when a Device Handler should work with multiple versions of a device.
+This is often necessary when a Device Handler should work with multiple versions of a device.
 
 The platform will use the fingerprint with the longest possible match.
 
-Device Pairing Process
+Device pairing process
 ++++++++++++++++++++++
 
 The order of the ``inClusters`` and ``outClusters`` lists is not important to the pairing process.

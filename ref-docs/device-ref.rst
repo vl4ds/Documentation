@@ -259,170 +259,6 @@ Gets the latest reported values of the specified attribute.
 
 ----
 
-getCapabilities()
------------------
-
-The List of Capabilities provided by this Device.
-
-**Signature:**
-    ``List<Capability> getCapabilities()``
-
-**Returns:**
-    `List`_ <:ref:`capability_ref`> - a List of Capabilities supported by this Device.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def supportedCaps = somedevice.capabilities
-    supportedCaps.each {cap ->
-        log.debug "This device supports the ${cap.name} capability"
-    }
-
-----
-
-getDisplayName()
-----------------
-
-The label of the Device assigned by the user.
-
-**Signature:**
-    ``String getDisplayName()``
-
-**Returns:**
-    `String`_ - the label of the Device assigned by the user, ``null`` if no label iset.
-
-**Example:**
-
-.. code-block:: groovy
-
-    def devLabel = somedevice.displayName
-    if (devLabel) {
-        log.debug "label set by user: $devLabel"
-    } else {
-        log.debug "no label set by user for this device"
-    }
-
-----
-
-getHub()
---------
-
-The Hub associated with this Device.
-
-**Signature:**
-    ``Hub getHub()``
-
-**Returns:**
-    :ref:`hub_ref` - the Hub for this Device.
-
-**Example:**
-
-.. code-block:: groovy
-
-    log.debug "Hub: ${someDevice.hub.name}"
-
-----
-
-getId()
--------
-
-The unique system identifier for this Device.
-
-**Signature:**
-    ``String getId()``
-
-**Returns:**
-    `String`_ - the unique system identifer for this Device.
-
-----
-
-getLabel()
-----------
-
-The name of the Device set by the user in the mobile application or Web IDE.
-
-**Signature:**
-    ``String getLabel()``
-
-**Returns:**
-    `String`_ - the name of the Device as configured by the user.
-
-----
-
-getName()
----------
-
-The internal name of the Device. Typically assigned by the system and editable only by a user in the IDE.
-
-**Signature:**
-    ``String getName()``
-
-**Returns:**
-    `String`_ - the internal name of the Device.
-
-----
-
-.. _supportedAttributes:
-
-getSupportedAttributes()
-------------------------
-
-The list of :ref:`attribute_ref` s for this Device.
-
-**Signature:**
-    ``List<Attribute> getSupportedAttributes()``
-
-**Returns:**
-    `List`_ <:ref:`attribute_ref`> - the list of Attributes for this Device. Includes both capability attributes as well as Device-specific attributes.
-
-**Example:**
-
-.. code-block:: groovy
-
-    preferences {
-        section() {
-            input "theswitch", "capability.switch"
-        }
-    }
-    ...
-    def theAtts = theswitch.supportedAttributes
-    theAtts.each {att ->
-        log.debug "Supported Attribute: ${att.name}"
-    }
-    ...
-
-----
-
-getSupportedCommands()
-----------------------
-
-The list of :ref:`command_ref` s for this Device.
-
-**Signature:**
-    ``List<Command> getSupportedCommands()``
-
-**Returns:**
-    `List`_ <:ref:`command_ref`> - the list of Commands for this Device. Includes both capability commands as well as Device-specific commands.
-
-**Example:**
-
-.. code-block:: groovy
-
-    preferences {
-        section() {
-            input "theswitch", "capability.switch"
-        }
-    }
-    ...
-    def theCommands = theswitch.supportedCommands
-    theCommands.each {com ->
-        log.debug "Supported Command: ${com.name}"
-    }
-    ...
-
-----
-
 events()
 --------
 
@@ -534,6 +370,234 @@ Get a list of Events since the specified date.
 
     def eventsSinceYesterday = somedevice.eventsSince(new Date() - 1)
     log.debug "there have been ${eventsSinceYesterday.size()} since yesterday"
+
+----
+
+getCapabilities()
+-----------------
+
+The List of Capabilities provided by this Device.
+
+**Signature:**
+    ``List<Capability> getCapabilities()``
+
+**Returns:**
+    `List`_ <:ref:`capability_ref`> - a List of Capabilities supported by this Device.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def supportedCaps = somedevice.capabilities
+    supportedCaps.each {cap ->
+        log.debug "This device supports the ${cap.name} capability"
+    }
+
+----
+
+getDisplayName()
+----------------
+
+The label of the Device assigned by the user.
+
+**Signature:**
+    ``String getDisplayName()``
+
+**Returns:**
+    `String`_ - the label of the Device assigned by the user, ``null`` if no label iset.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def devLabel = somedevice.displayName
+    if (devLabel) {
+        log.debug "label set by user: $devLabel"
+    } else {
+        log.debug "no label set by user for this device"
+    }
+
+----
+
+getHub()
+--------
+
+The Hub associated with this Device.
+
+**Signature:**
+    ``Hub getHub()``
+
+**Returns:**
+    :ref:`hub_ref` - the Hub for this Device.
+
+**Example:**
+
+.. code-block:: groovy
+
+    log.debug "Hub: ${someDevice.hub.name}"
+
+----
+
+getId()
+-------
+
+The unique system identifier for this Device.
+
+**Signature:**
+    ``String getId()``
+
+**Returns:**
+    `String`_ - the unique system identifer for this Device.
+
+----
+
+getLabel()
+----------
+
+The name of the Device set by the user in the mobile application or Web IDE.
+
+**Signature:**
+    ``String getLabel()``
+
+**Returns:**
+    `String`_ - the name of the Device as configured by the user.
+
+----
+
+.. _device_ref_manufacturer_name:
+
+getManufacturerName()
+---------------------
+
+Gets the manufacturer name of the device, as specified in the Device Handler's :ref:`fingerprint <device_handler_fingerprinting_best_practices>`.
+If the device was joined using a generic fingerprint, it is whatever the device reported while joining.
+
+Not applicable for cloud or LAN-connected devices (``null`` will be returned).
+
+**Signature:**
+    ``String getManufacturerName()``
+
+**Returns:**
+    `String`_ - the manufacturer name of the device, or ``null``.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        input "switches", "capability.switch", multiple: true
+    }
+
+    def installed() {
+        switches.each {
+            log.debug "switch id: ${it.id}, manufacturer name: ${it.getManufacturerName()}"
+        }
+    }
+
+----
+
+.. _device_ref_model_name:
+
+getModelName()
+--------------
+
+Gets the model name of the device, as specified in the Device Handler's :ref:`fingerprint <device_handler_fingerprinting_best_practices>`.
+If the device was joined using a generic fingerprint, it is whatever the device reported while joining.
+
+Not applicable for cloud or LAN-connected devices (``null`` will be returned).
+
+**Signature:**
+    ``String getModelName()``
+
+**Returns:**
+    `String`_ - the model name of the device, or ``null``.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        input "switches", "capability.switch", multiple: true
+    }
+
+    def installed() {
+        switches.each {
+            log.debug "switch id: ${it.id}, model name: ${it.getModelName()}"
+        }
+    }
+
+----
+
+getName()
+---------
+
+The internal name of the Device. Typically assigned by the system and editable only by a user in the IDE.
+
+**Signature:**
+    ``String getName()``
+
+**Returns:**
+    `String`_ - the internal name of the Device.
+
+----
+
+.. _supportedAttributes:
+
+getSupportedAttributes()
+------------------------
+
+The list of :ref:`attribute_ref` s for this Device.
+
+**Signature:**
+    ``List<Attribute> getSupportedAttributes()``
+
+**Returns:**
+    `List`_ <:ref:`attribute_ref`> - the list of Attributes for this Device. Includes both capability attributes as well as Device-specific attributes.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "theswitch", "capability.switch"
+        }
+    }
+    ...
+    def theAtts = theswitch.supportedAttributes
+    theAtts.each {att ->
+        log.debug "Supported Attribute: ${att.name}"
+    }
+    ...
+
+----
+
+getSupportedCommands()
+----------------------
+
+The list of :ref:`command_ref` s for this Device.
+
+**Signature:**
+    ``List<Command> getSupportedCommands()``
+
+**Returns:**
+    `List`_ <:ref:`command_ref`> - the list of Commands for this Device. Includes both capability commands as well as Device-specific commands.
+
+**Example:**
+
+.. code-block:: groovy
+
+    preferences {
+        section() {
+            input "theswitch", "capability.switch"
+        }
+    }
+    ...
+    def theCommands = theswitch.supportedCommands
+    theCommands.each {com ->
+        log.debug "Supported Command: ${com.name}"
+    }
+    ...
 
 ----
 
