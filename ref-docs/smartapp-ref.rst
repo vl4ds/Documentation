@@ -2287,6 +2287,7 @@ Returns a `Date`_ of the next occurrence of the time specified in the input, rel
 
 ----
 
+.. _smartapp_timezone:
 
 timeZone()
 ----------
