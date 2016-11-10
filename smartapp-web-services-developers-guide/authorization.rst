@@ -103,6 +103,8 @@ Once you have the token, it must be stored securely in the application.
 
 ----
 
+.. _web_services_get_endpoints:
+
 Get SmartApp Endpoints
 ----------------------
 

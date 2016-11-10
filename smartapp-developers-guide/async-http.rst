@@ -720,7 +720,3 @@ Related Documentation
 - :ref:`calling_web_services`
 - :ref:`async_http_api_ref`
 - :ref:`async_http_response_ref`
-
-.. |beta-img| image:: ../img/beta.jpg
-.. |beta-icon| unicode:: U+03B2
-.. |beta-icon2| unicode:: U+03B2
