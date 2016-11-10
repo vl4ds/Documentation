@@ -392,6 +392,8 @@ We can also find entries using any of Groovy's collections methods like ``find()
 
     log.debug "found: $found" // -> [key_one: "val one", key_two: "val two"]
 
+.. _state_collections:
+
 Working with collections
 ^^^^^^^^^^^^^^^^^^^^^^^^
 

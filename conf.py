@@ -96,7 +96,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'SmartThings Documentation'
+project = u'SmartThings Developer Documentation'
 copyright = u'2016, SmartThings'
 
 # The version info for the project you're documenting, acts as replacement for

@@ -150,7 +150,7 @@ Capabilities Reference
           {{ "Arguments:"|indent(2, true) }}
           {% if command['argument'] is a_list %}
             {% for arg in command['argument'] %}
-              ``{{ arg['@name'] }}`` - {{ arg['@type'] }}
+              ``{{ arg['@name'] }}`` {% if arg['@required'] and arg['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ arg['@type'] }}
               {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+arg['@name']+".description"] %}
                 {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+arg['@name']+".description"]|indent(2, true) }}
               {%- endif %}
@@ -166,7 +166,7 @@ Capabilities Reference
               {%- endif %}
             {% endfor %}
           {%- else %}
-            ``{{ command['argument']['@name'] }}`` - {{ command['argument']['@type'] }}
+            ``{{ command['argument']['@name'] }}`` {% if command['argument']['@required'] and command['argument']['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ command['argument']['@type'] }}
             {%- if properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+".description"] %}
               {{ properties[referenceName][referenceName+".cmd."+command['@name']+"."+command['argument']['@name']+".description"]|indent(2, true) }}
             {%- endif %}
@@ -192,10 +192,48 @@ Capabilities Reference
     {#- handle case if we only have one command and it wasn't a list in the dict #}
     {%- else %}
     {#- for this command, print its name method signature followed by its description #}
-      *{{ capability['command']['@name'] }}:*
-        {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] %}
-        {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] }}
-        {%- endif %}
+    *{{ capability['command']['@name'] }}({% if capability['command']['argument'] %}{% if capability['command']['argument'] is a_list %}{% for arg in capability['command']['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}, {% endfor %}{% else %}{{ capability['command']['argument']['@type'] }} {{ capability['command']['argument']['@name'] }}{% endif %}{% endif %}):*
+      {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] %}
+      {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] }}
+      {%- endif %}
+      {%- if capability['command']['argument'] %}
+    	{{ "Arguments:"|indent(2, true) }}
+    	{% if capability['command']['argument'] is a_list %}
+    	  {% for arg in capability['command']['argument'] %}
+    		``{{ arg['@name'] }}`` {% if arg['@required'] and arg['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ arg['@type'] }}
+    		{%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+arg['@name']+".description"] %}
+    		  {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+arg['@name']+".description"]|indent(2, true) }}
+    		{%- endif %}
+    		{%- if arg['component'] %}
+    		  {%- if arg['component'] is a_list %}
+    			{%- for component in arg['component'] %}
+    			  ``{{ component['@name'] }}`` - {{ component['@type'] }}
+    			  {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+component['@name']+".value"] %}
+    				{{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+component['@name']+".value"]|indent(2, true) }}
+    			  {%- endif %}
+    			{%- endfor %}
+    		  {%- endif %}
+    		{%- endif %}
+    	  {% endfor %}
+        {%- else %}
+      	  ``{{ capability['command']['argument']['@name'] }}`` {% if capability['command']['argument']['@required'] and capability['command']['argument']['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ capability['command']['argument']['@type'] }}
+      	  {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+".description"] %}
+      		{{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+".description"]|indent(2, true) }}
+      	  {%- endif %}
+      	  {%- if capability['command']['argument']['component'] %}
+      		{%- if capability['command']['argument']['component'] is a_list %}
+      		  {%- for component in capability['command']['argument']['component'] %}
+      			``{{ component['@name'] }}`` - {{ component['@type'] }}
+      			{%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+"."+component['@name']+".value"] %}
+      			  {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+"."+component['@name']+".value"]|indent(2, true) }}
+      			{%- endif %}
+      		  {%- endfor %}
+      		{%- else %}
+      		  {{ capability['command']['argument']['component']['@name']}}
+      		{%- endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
     {%- endif %}
     {%- else %}
       None
@@ -204,39 +242,3 @@ Capabilities Reference
     ----
     {%- endif %}
     {%- endfor %}
-
-    {#- These are attempts at table generation that are around for reference #}
-    {#- {%- if capability['attribute'] %} #}
-    {#- {%- if capability['attribute'] is a_list %} #}
-    {#-    {%- for attribute in capability['attribute'] %} #}
-    {#-       {%- if loop.first %} #}
-    {#-          {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#-          {{ '|' }} Name{{ ' ' * 25 }}{{ '|' }} #}
-    {#-          {{ '+' }}{{ '=' * 30 }}{{ '+' }} #}
-    {#-       {% endif -%} #}
-    {#-       {{ '|' }} {{ attribute['@name'] }}{{ ' ' * (30 - ((attribute['@name']|length) + 1)) }}{{ '|' }} #}
-    {#-       {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#-   {% endfor -%} #}
-    {#- {%- else %} #}
-    {#-    {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#-    {{ '|' }} Name{{ ' ' * 25 }}{{ '|' }} #}
-    {#-    {{ '+' }}{{ '=' * 30 }}{{ '+' }} #}
-    {#-    {{ '|' }} {{ capability['attribute']['@name'] }}{{ ' ' * (30 - ((capability['attribute']['@name']|length) + 1)) }}{{ '|' }} #}
-    {#-    {{ '+' }}{{ '-' * 30 }}{{ '+' }} #}
-    {#- {% endif -%} #}
-    {#- {%- else %} #}
-    {#- None #}
-    {#- {%- endif %} #}
-
-    {#- {% if capability['command'] %} #}
-    {#- {% if not capability['command']['@name'] %} #}
-    {#- {% for command in capability['command'] %}{% if loop.first %}{{ '+' }}{{ '-' * 20 }}{{ '+' }} #}
-    {#- {{ '|' }} Name{{ ' ' * 15 }}{{ '|' }} #}
-    {#- {{ '+' }}{{ '=' * 20 }}{{ '+' }}{% endif %} #}
-    {#- {{ '|' }} {{ command['@name'] }}{{ ' ' * (20 - ((command['@name']|length) + 1)) }}{{ '|' }} #}
-    {#- {{ '+' }}{{ '-' * 20 }}{{ '+' }}{% endfor %} #}
-    {#- {% else %}{{ capability['@name'] }} #}
-    {#- {% endif %} #}
-    {#- {% else %} #}
-    {#- None #}
-    {#- {% endif %} #}

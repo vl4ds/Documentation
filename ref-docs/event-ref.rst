@@ -147,6 +147,8 @@ The :ref:`device_ref` associated with this Event.
 
 ----
 
+.. _event_ref_get_display_name:
+
 getDisplayName()
 ----------------
 
@@ -415,7 +417,7 @@ getLinkText()
 
     Deprecated.
 
-    ``getLinkText()`` is deprecated. Use `displayName`_ instead.
+    ``getLinkText()`` is deprecated. Use :ref:`event_ref_get_display_name` instead.
 
 The user-friendly name of the source of this event. Typically the user-assigned device label.
 
