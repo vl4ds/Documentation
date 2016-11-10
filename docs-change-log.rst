@@ -6,6 +6,17 @@ A log of changes to this documentation.
 
 ----
 
+November 10 2016
+----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/10-November-2016>`__
+
+- Documented new :ref:`device_ref_model_name` and :ref:`device_ref_manufacturer_name`.
+- Styling and organiational changes to the left-hand navigation.
+- Internal build error fixes.
+
+----
+
 November 03 2016
 ----------------
 
