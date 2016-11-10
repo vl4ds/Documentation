@@ -192,10 +192,48 @@ Capabilities Reference
     {#- handle case if we only have one command and it wasn't a list in the dict #}
     {%- else %}
     {#- for this command, print its name method signature followed by its description #}
-      *{{ capability['command']['@name'] }}:*
-        {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] %}
-        {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] }}
-        {%- endif %}
+    *{{ capability['command']['@name'] }}({% if capability['command']['argument'] %}{% if capability['command']['argument'] is a_list %}{% for arg in capability['command']['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}, {% endfor %}{% else %}{{ capability['command']['argument']['@type'] }} {{ capability['command']['argument']['@name'] }}{% endif %}{% endif %}):*
+      {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] %}
+      {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] }}
+      {%- endif %}
+      {%- if capability['command']['argument'] %}
+    	{{ "Arguments:"|indent(2, true) }}
+    	{% if capability['command']['argument'] is a_list %}
+    	  {% for arg in capability['command']['argument'] %}
+    		``{{ arg['@name'] }}`` {% if arg['@required'] and arg['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ arg['@type'] }}
+    		{%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+arg['@name']+".description"] %}
+    		  {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+arg['@name']+".description"]|indent(2, true) }}
+    		{%- endif %}
+    		{%- if arg['component'] %}
+    		  {%- if arg['component'] is a_list %}
+    			{%- for component in arg['component'] %}
+    			  ``{{ component['@name'] }}`` - {{ component['@type'] }}
+    			  {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+component['@name']+".value"] %}
+    				{{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+component['@name']+".value"]|indent(2, true) }}
+    			  {%- endif %}
+    			{%- endfor %}
+    		  {%- endif %}
+    		{%- endif %}
+    	  {% endfor %}
+        {%- else %}
+      	  ``{{ capability['command']['argument']['@name'] }}`` {% if capability['command']['argument']['@required'] and capability['command']['argument']['@required'] == "false" %}{% else %}*\*Required*{% endif %} - {{ capability['command']['argument']['@type'] }}
+      	  {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+".description"] %}
+      		{{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+".description"]|indent(2, true) }}
+      	  {%- endif %}
+      	  {%- if capability['command']['argument']['component'] %}
+      		{%- if capability['command']['argument']['component'] is a_list %}
+      		  {%- for component in capability['command']['argument']['component'] %}
+      			``{{ component['@name'] }}`` - {{ component['@type'] }}
+      			{%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+"."+component['@name']+".value"] %}
+      			  {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+"."+capability['command']['argument']['@name']+"."+component['@name']+".value"]|indent(2, true) }}
+      			{%- endif %}
+      		  {%- endfor %}
+      		{%- else %}
+      		  {{ capability['command']['argument']['component']['@name']}}
+      		{%- endif %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
     {%- endif %}
     {%- else %}
       None
