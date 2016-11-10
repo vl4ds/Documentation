@@ -29,11 +29,6 @@ Contents
 --------
 
 .. toctree::
-   :maxdepth: 1
-
-   docs-change-log
-
-.. toctree::
    :caption: Getting Started
    :maxdepth: 2
 
@@ -57,8 +52,6 @@ Contents
    arduino/index
    ratelimits/index
    code-review-guidelines
-   contributing/index
-   sept-2015-faq
 
 .. toctree::
     :maxdepth: 1
@@ -66,3 +59,11 @@ Contents
 
     capabilities-reference
     ref-docs/reference
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Misc
+
+   sept-2015-faq
+   docs-change-log
+   contributing/index
