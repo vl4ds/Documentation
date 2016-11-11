@@ -61,6 +61,10 @@ You can choose from a variety of themes, key maps, and font sizes to suit your p
 Using the Simulator
 -------------------
 
+.. warning::
+
+   The simulator may not work reliably at all times, so we recommend that you validate your code on your SmartThings mobile app before deploying it.
+
 The simulator allows you to test your SmartApps or Device Handlers within the IDE, and without requiring you to have the actual physical devices.
 
 When you run your application in the IDE, it is always running in the simulation framework.
@@ -83,6 +87,3 @@ When simulating a SmartApp, any selected devices will appear in the IDE, along w
 .. figure:: ../img/ide/simulator.png
    :alt: Simulator
 
-.. note::
-
-   Not all of the capabilities we support will work properly in the simulator. We are actively working to close those gaps.
