@@ -310,7 +310,9 @@ texinfo_documents = [
 ]
 
 def setup(app):
-  app.add_stylesheet("custom.css")
+  app.add_stylesheet("css/custom.css")
+  app.add_javascript("javascript/clipboard.min.js")
+  app.add_javascript("javascript/copycode.js")
   app.connect("source-read", rstjinja) # Add Jinja template processing to HTML build.
   app.connect("builder-inited", add_jinja_tests) # Add custom Jinja tests.
 
