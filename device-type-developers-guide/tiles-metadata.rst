@@ -543,7 +543,7 @@ Here's an example of a color control tile:
 The tile may render differently depending on the mobile OS.
 The command method specified by ``action`` will be called with a map that looks like this:
 
-.. code-block:: groovy
+.. code-block:: bash
 
         [red:241, hex:#F1E3FF, saturation:10.980392, blue:255, green:227, hue:75.0]
 
@@ -714,7 +714,7 @@ Key                    Description
 
 The command method specified by ``action`` will be called with a map that looks like this:
 
-.. code-block:: groovy
+.. code-block:: bash
 
         [red:241, hex:#F1E3FF, saturation:10.980392, blue:255, green:227, hue:75.0]
 

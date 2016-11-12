@@ -66,7 +66,7 @@ In the above HubAction example, the main message to be sent through the hub is:
 This is converted by our device connectivity layer into an M-SEARCH multicast request that is sent to the LAN via the hub, and
 should look something like the following:
 
-.. code-block:: http
+.. code-block:: bash
 
     M-SEARCH * HTTP/1.1
     HOST: 239.255.255.250:1900
@@ -77,7 +77,7 @@ should look something like the following:
 After the end device receives the multicast M-SEARCH, it is supposed to issue a unicast **search response**, delayed by a random number of seconds between 0 and MX (4 in this case).
 The search response sent from the device back to the hub should look something like this:
 
-.. code-block:: http
+.. code-block:: bash
 
     HTTP/1.1 200 OK
     CACHE-CONTROL: max-age=100
@@ -89,7 +89,7 @@ The search response sent from the device back to the hub should look something l
 
 This will get routed back to the cloud where it will be converted into an event that will fire the ssdpHandler method with the following description:
 
-.. code-block:: json
+.. code-block:: bash
 
     devicetype:04, mac:000E58F0FFFF, networkAddress:0A00010E, deviceAddress:0578, stringCount:04, ssdpPath:/xml/device_description.xml, ssdpUSN:uuid:RINCON_000E58F0FFFFFF400::urn:schemas-upnp-org:device:ZonePlayer:1, ssdpTerm:urn:schemas-upnp-org:device:ZonePlayer:1, ssdpNTS:
 

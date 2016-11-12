@@ -255,7 +255,7 @@ Here's an example making a ``POST`` request using a map for the body:
 
 Here's what the request looks like (note that the ``Content-Type`` and ``Accept`` headers are ``"application/json"`` by default):
 
-.. code-block:: http
+.. code-block:: bash
 
     POST /some/path
 
@@ -285,7 +285,7 @@ Here's an example making a ``PUT`` request using a string as the body:
 
 And here's the request made by the above example:
 
-.. code-block:: http
+.. code-block:: bash
 
     PUT /some/path
 
