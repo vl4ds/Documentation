@@ -110,7 +110,7 @@ The ``parse()`` method may return a map defining the :ref:`event_ref` to create 
                 def reportValue = description.split(",").find {it.split(":")[0].trim() == "value"}?.split(":")[1].trim()
                 name = "power"
                 // assume 16 bit signed for encoding and power divisor is 10
-                value = Integer.parseInt(reportValue, 16) / 10
+                value = Integer.parseInt(reportValue, 16).intdiv(10)
             }
         } else if (description?.startsWith("on/off:")) {
             log.debug "Switch command"

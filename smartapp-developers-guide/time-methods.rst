@@ -90,7 +90,7 @@ Execute Only On Certain Days
 A natural extension to the above automation of taking action within a time window is taking action only within a time window on *selected* days of the week.
 This can be easily achieved by a slight modification to the above SmartApp.
 
-First we prompt the user to select the preferred days of the week, by adding an enumerated ``input`` *days* in the ``preferences`` section, as below: 
+First we prompt the user to select the preferred days of the week, by adding an enumerated ``input`` *days* in the ``preferences`` section, as below:
 
 .. code-block:: groovy
 
@@ -116,10 +116,10 @@ Next, we make modifications to the ``contactHandler`` event handler so that it c
         // Door is opened. Now check if today is one of the preset days-of-week
         def df = new java.text.SimpleDateFormat("EEEE")
         // Ensure the new date object is set to local time zone
-        df.setTimeZone(location.timeZone) 
+        df.setTimeZone(location.timeZone)
         def day = df.format(new Date())
         //Does the preference input Days, i.e., days-of-week, contain today?
-        def dayCheck = days.contains(day) 
+        def dayCheck = days.contains(day)
         if (dayCheck) {
             def between = timeOfDayIsBetween(fromTime, toTime, new Date(), location.timeZone)
             if (between) {
@@ -129,3 +129,39 @@ Next, we make modifications to the ``contactHandler`` event handler so that it c
             }
         }
     }
+
+
+----
+
+.. _smartapp_timezones:
+
+Working With Time Zones
+-----------------------
+
+Often we may want to set or adjust the SmartApp automation settings while we are traveling, in which case the time zone of the hub may differ from the time zone of the mobile app (our current travel location).
+For this reason, the code defining the SmartApp should be aware of the time zone of the physical location of the hub.
+
+When working with time-related methods, SmartThings provides ways to handle time zone of both the physical location of the hub and of the mobile app (installed on mobile phone).
+
+For example, ``location.getTimeZone()`` gives the time zone of the physical location of the hub, whereas invoking :ref:`smartapp_timezone` method will give the current time zone of the mobile app, i.e., the time zone where mobile phone is currently located.
+
+For a hub that is physically located in Eastern Time Zone in the U.S., and the mobile phone with SmartThings mobile app located in the Pacific Time Zone, the below SmartApp code fragment prints the results shown in the comments:
+
+.. code-block:: groovy
+
+    preferences {
+        section("What time?") {
+            input "myTime", "time", title: "From", required: false
+        }
+    }
+
+    ...
+
+    def contactHandler(evt) {
+        // this below outputs "America/New_York", i.e., time zone of hub's physical location
+        log.debug "location.getTimeZone() value is: ${location.getTimeZone()}"
+        // this below outputs "America/Los_Angeles", the time zone of the mobile app
+        log.debug "timeZone() for the preference time input value is: ${timeZone(myTime)}"
+    }
+
+Many time-related methods, such as ``timeOfDayIsBetween()`` and ``timeToday()`` require ``timeZone`` argument to ensure that the correct time zone of the hub is used.
