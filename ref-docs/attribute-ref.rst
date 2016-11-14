@@ -101,7 +101,7 @@ The possible values for this Attribute, if the data type is "ENUM".
     ...
     def attrs = thetemp.supportedAttributes
     attrs.each {
-        log.debug "${thetemp.displayName}, attribute ${it.name}, values: ${it.values}
+        log.debug "${thetemp.displayName}, attribute ${it.name}, values: ${it.values}"
         log.debug "${thetemp.displayName}, attribute ${it.name}, dataType: ${it.dataType}"
     }
     ...

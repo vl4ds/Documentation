@@ -56,7 +56,7 @@ The values can be accessed like this:
 .. code-block:: groovy
 
     // direct access
-    log.debug "someSwitch" is $someSwitch"
+    log.debug "someSwitch is $someSwitch"
     log.debug "someText is $someText"
     log.debug "someTime is $someTime"
 
