@@ -1,0 +1,105 @@
+@font-face {
+	font-family: 'Swiss 721 Light';
+	src: url('fonts/swiss-721-light-webfont.eot');
+	src: url('fonts/swiss-721-light-webfont.eot?#iefix') format('embedded-opentype'),
+	url('fonts/swiss-721-light-webfont.woff') format('woff'),
+	url('fonts/swiss-721-light-webfont.ttf') format('truetype'),
+	url('fonts/swiss-721-light-webfont.svg#swis721_lt_btlight') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* consistent font with SmartThings website */
+body {
+    font-family: "Swiss 721 Light" !important;
+}
+
+h1, h2, .rst-content p.caption, h3, h4, h5, h6, legend, input[type="text"] {
+    font-family: "Swiss 721 Light" !important;
+}
+
+.wy-side-nav-search, .wy-nav-top {
+    /* background-color: #06abab !important; */
+    background: #06abab;
+    background: -webkit-gradient(left top, right top, color-stop(0%, #06abab), color-stop(51%, #1197b5), color-stop(71%, #1197b5), color-stop(100%, #068ab6));
+    background: -webkit-linear-gradient(left, #06abab 0%, #1197b5 51%, #1197b5 71%, #068ab6 100%);
+    background: linear-gradient(to right, #06abab 0%, #1197b5 51%, #1197b5 71%, #068ab6 100%);
+}
+
+.wy-nav-side {
+    background: #3f3e43 !important;
+}
+
+.wy-menu-vertical p.caption {
+    font-size: 90% !important;
+    color: #ece8e9 !important;
+    padding: 0 0.75em; !important;
+}
+
+.codeblock, pre.literal-block, .rst-content .literal-block, .rst-content pre.literal-block, div[class^='highlight'] {
+    border-radius: 10px !important;
+}
+/* override table width restrictions */
+.wy-table-responsive table td, .wy-table-responsive table th {
+    /* !important prevents the common CSS stylesheets from
+       overriding this as on RTD they are loaded after this stylesheet */
+    white-space: normal !important;
+    vertical-align: top !important;
+}
+
+.wy-table-responsive {
+    overflow: visible !important;
+}
+
+/* A little hacky... sets the width large enough to fit the capabilities
+   taxonomy table.*/
+.wy-nav-content {
+    max-width: 950px !important;
+}
+
+.red {
+    color: #ff0000;
+}
+
+.green {
+    color: #009900;
+}
+
+.magenta {
+    color: #990099;
+}
+
+.blue {
+    color: #0000ff;
+}
+
+.brown {
+    color: #8b4513;
+}
+
+.strike {
+  text-decoration: line-through;
+}
+
+div.column {
+    background-color: #eee;
+    /*border: 1px solid #ccc;*/
+}
+
+.new-feature {
+    padding: 12px;
+    line-height: 24px;
+    margin-bottom: 24px;
+    background: #eaf4fa;
+}
+
+.beta-feature {
+    padding: 12px;
+    line-height: 24px;
+    margin-bottom: 24px;
+    background: #eaf4fa;
+}
+
+.beta-feature .admonition-title {
+    background: #ff4d4d;
+}
