@@ -9,11 +9,10 @@ A log of changes to this documentation.
 November 14 2016
 ----------------
 
-`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/14-November-2016>`__
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/14-November-2016_2>`__
 
 - Added documentation for :ref:`working with time zones <smartapp_timezones>`.
 - Fixed warnings related to lexical parsing of code blocks.
-- Added ability to copy code blocks to the clipboard.
 
 ----
 
