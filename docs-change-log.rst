@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+November 15 2016
+----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/15-November-2016>`__
+
+- Added ability to copy code blocks to the clipboard.
+
+----
+
 November 14 2016
 ----------------
 

@@ -19,7 +19,7 @@ The general flow is:
 
 As part of the authorization flow, the SmartApp will be installed to the user's selected Location.
 
-.. include:: ../common/oauth-install-restriction.rst
+.. include:: ../common/oauth-install-restriction.txt
 
 .. note::
 
