@@ -94,7 +94,14 @@ Capabilities Reference
           {%- endif %}
         {% endfor %}
         {%- else %}
-        {{ attribute['value']['@name'] }}
+        {% if attribute['@type'] == 'ENUM' %}
+        ``{{ attribute['value']['@name'] }}``
+        {%- else %}
+            ``{{ attribute['value']['@name'] }}`` - {{ attribute['value']['@type'] }}
+        {%- endif %}
+            {% if properties[referenceName][referenceName+".attr."+attribute['@name']+"."+attribute['value']['@name']+".value"] %}
+            {{ properties[referenceName][referenceName+".attr."+attribute['@name']+"."+attribute['value']['@name']+".value"]|indent(4, true) }}
+            {% endif %}
         {%- endif %}
         {%- else %}
         {%- if properties[referenceName][referenceName+".attr."+attribute['@name']+".value"] %}
