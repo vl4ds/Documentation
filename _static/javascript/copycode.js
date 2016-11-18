@@ -24,13 +24,13 @@ var copyCode = {
       });
       $(this).mouseleave(function() {
         $(this).removeAttr('aria-label');
-        $(this).removeClass('tooltipped tooltipped-sw');
+        $(this).removeClass('tooltipped tooltipped-nw');
       });
     });
   },
 
   showTooltip: function(elem, msg) {
-    $(elem).addClass('tooltipped tooltipped-sw');
+    $(elem).addClass('tooltipped tooltipped-nw');
     $(elem).attr('aria-label', msg);
   },
 
