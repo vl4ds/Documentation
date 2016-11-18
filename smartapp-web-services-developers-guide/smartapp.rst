@@ -35,7 +35,7 @@ During validation, the ``redirect_uri`` passed in with the authorization code re
 The port does matter during validation.
 If there is no match, validation will fail with the following error:
 
-.. code-block:: html
+.. code-block:: bash
 
     OAuth2 Error
 
