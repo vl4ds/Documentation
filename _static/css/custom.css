@@ -117,8 +117,8 @@ div.column {
     opacity: 0;
     padding: 2px 6px;
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: 0;
+    top: 0;
     display: inline-block;
     font-size: 13px;
     font-weight: bold;
@@ -129,7 +129,7 @@ div.column {
     cursor: pointer;
     background-color: #eee;
     border: 0px;
-    border-radius: 3px;
+    border-radius: 0px 0px 0px 3px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
