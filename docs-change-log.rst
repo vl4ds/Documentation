@@ -6,6 +6,15 @@ A log of changes to this documentation.
 
 ----
 
+November 17 2016
+----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/17-November-2016>`__
+
+- Changed code blocks to use the monokai dark theme.
+
+----
+
 November 15 2016
 ----------------
 
