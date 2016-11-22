@@ -380,7 +380,7 @@ getValue()
 The value of the underlying Attribute as a String
 
 **Signature:**
-    ``String getUnit()``
+    ``String getValue()``
 
 **Returns:**
     `String`_ - the value of the underlying Attribute as a String.
