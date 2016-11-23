@@ -131,6 +131,9 @@ Capabilities Reference
         {% endfor %}
         {%- else %}
         ``{{ capability['attribute']['value']['@name'] }}``
+        {%- if properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+"."+capability['attribute']['value']['@name']+".value"] %}
+        {{ properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+"."+capability['attribute']['value']['@name']+".value"]|indent(4, true) }}
+        {% endif %}
         {%- endif %}
         {%- else %}
         {%- if properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+".value"] %}
