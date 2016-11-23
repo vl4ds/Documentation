@@ -559,7 +559,7 @@ No Data                NO_DATA                  0x00
 16-bit data            DATA16                   0x09
 24-bit data            DATA24                   0x0a
 32-bit data            DATA32                   0x0b
-40-bit data	           DATA40                   0x0c
+40-bit data            DATA40                   0x0c
 48-bit data            DATA48                   0x0d
 56-bit data            DATA56                   0x0e
 64-bit data            DATA64                   0x0f
