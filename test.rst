@@ -77,7 +77,7 @@ Capabilities Reference
     {%- if capability['attribute'] is a_list %}
     {#- for each attribute, print its name and type followed by its attribute value list if present #}
     {%- for attribute in capability['attribute'] %}
-      *{{ attribute['@name'] }}:* {{ attribute['@type'] }}
+      *{{ attribute['@name'] }}:* {{ attribute['@type'] }}{% if attribute['@optional'] and attribute['@optional'] == "true" %} - Optional{% endif %}
         {%- if properties[referenceName][referenceName+".attr."+attribute['@name']+".description"] %}
         {{ properties[referenceName][referenceName+".attr."+attribute['@name']+".description"]|indent(2, true) }}
         {% else %}
@@ -113,7 +113,7 @@ Capabilities Reference
     {#- handle case if we only have one attribute and it wasn't a list in the dict #}
     {%- else %}
     {#- for this attribute, print its name and type followed by its attribute value list if present #}
-      *{{ capability['attribute']['@name'] }}:* {{ capability['attribute']['@type'] }}
+      *{{ capability['attribute']['@name'] }}:* {{ capability['attribute']['@type'] }}{% if capability['attribute']['@optional'] and capability['attribute']['@optional'] == "true" %} - Optional{% endif %}
 	{%- if properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+".description"] %}
 	{{ properties[referenceName][referenceName+".attr."+capability['attribute']['@name']+".description"]|indent(2, true) }}
 	{% endif %}
