@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Consumable' public='true'>
+	<attribute name='consumableStatus' type='ENUM'>
+		<value name='good' />
+		<value name='maintenance_required' />
+		<value name='missing' />
+		<value name='order' />
+		<value name='replace' />
+	</attribute>
+	<command name='setConsumableStatus'>
+		<argument name='status' type='STRING' />
+	</command>
+</capability>

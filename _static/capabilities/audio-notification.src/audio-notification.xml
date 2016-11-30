@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <capability name='Audio Notification' public='true'>
+       <command name='playText'>
+           <argument name='message' type='STRING' />
+           <argument name='level' type='NUMBER' required="false"/>
+       </command>
+       <command name='playTextAndResume'>
+           <argument name='message' type='STRING' />
+           <argument name='level' type='NUMBER' required="false"/>
+       </command>
+       <command name='playTextAndRestore'>
+           <argument name='message' type='STRING' />
+           <argument name='level' type='NUMBER' required="false"/>
+       </command>
+       <command name='playTrack'>
+           <argument name='uri' type='STRING' />
+           <argument name='level' type='NUMBER' required="false"/>
+       </command>
+       <command name='playTrackAndResume'>
+           <argument name='uri' type='STRING' />
+           <argument name='level' type='NUMBER' required="false"/>
+       </command>
+       <command name='playTrackAndRestore'>
+           <argument name='uri' type='STRING' />
+           <argument name='level' type='NUMBER' required="false"/>
+       </command>
+   </capability>

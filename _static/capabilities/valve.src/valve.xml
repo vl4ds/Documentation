@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Valve' public='true'>
+	<attribute name='contact' type='ENUM' deprecated="true">
+		<value name='closed' />
+		<value name='open' />
+	</attribute>
+	<attribute name='valve' type='ENUM'>
+		<value name='closed' />
+		<value name='open' />
+	</attribute>
+	<command name='close' />
+	<command name='open' />
+</capability>

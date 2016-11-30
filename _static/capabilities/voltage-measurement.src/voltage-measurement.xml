@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Voltage Measurement' public='true'>
+	<attribute name='voltage' type='NUMBER' />
+</capability>

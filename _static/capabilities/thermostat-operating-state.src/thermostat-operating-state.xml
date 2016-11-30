@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Thermostat Operating State' public='true'>
+	<attribute name='thermostatOperatingState' type='ENUM'>
+		<value name='cooling' />
+		<value name='fan only' />
+		<value name='heating' />
+		<value name='idle' />
+		<value name='pending cool' />
+		<value name='pending heat' />
+		<value name='vent economizer' />
+	</attribute>
+</capability>

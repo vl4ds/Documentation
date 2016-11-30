@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Water Sensor' public='true'>
+	<attribute name='water' type='ENUM'>
+		<value name='dry' />
+		<value name='wet' />
+	</attribute>
+</capability>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Alarm' public='true'>
+	<attribute name='alarm' type='ENUM'>
+		<value name='both' />
+		<value name='off' />
+		<value name='siren' />
+		<value name='strobe' />
+	</attribute>
+	<command name='both' />
+	<command name='off' />
+	<command name='siren' />
+	<command name='strobe' />
+</capability>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='pH Measurement' public='true'>
+	<attribute name='pH' type='NUMBER' />
+</capability>
