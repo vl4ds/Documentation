@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Thermostat Cooling Setpoint' public='true'>
+	<attribute name='coolingSetpoint' type='NUMBER' />
+	<command name='setCoolingSetpoint'>
+		<argument name='setpoint' type='NUMBER' />
+	</command>
+</capability>

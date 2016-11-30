@@ -6,6 +6,16 @@ A log of changes to this documentation.
 
 ----
 
+November 30 2016
+----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/30-November-2016>`__
+
+- Added dynamicPage() params description in the :ref:`prefs_and_settings` guide.
+- Fixed up some images in the :ref:`storing-data` guide.
+
+----
+
 November 17 2016
 ----------------
 

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Relative Humidity Measurement' public='true'>
+	<attribute name='humidity' type='NUMBER' />
+</capability>

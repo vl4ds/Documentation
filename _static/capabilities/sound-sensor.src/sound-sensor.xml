@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Sound Sensor' public='true'>
+	<attribute name='sound' type='ENUM'>
+		<value name='detected' />
+		<value name='not detected' />
+	</attribute>
+</capability>

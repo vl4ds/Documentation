@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Acceleration Sensor' public='true'>
+	<attribute name='acceleration' type='ENUM'>
+		<value name='active' />
+		<value name='inactive' />
+	</attribute>
+</capability>

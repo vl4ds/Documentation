@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Thermostat Fan Mode' public='true'>
+	<attribute name='thermostatFanMode' type='ENUM'>
+		<value name='auto' />
+		<value name='circulate' />
+		<value name='on' />
+	</attribute>
+	<command name='fanAuto' />
+	<command name='fanCirculate' />
+	<command name='fanOn' />
+	<command name='setThermostatFanMode'>
+		<argument name='mode' type='ENUM'>
+			<value name='auto' />
+			<value name='circulate' />
+			<value name='on' />
+		</argument>
+	</command>
+</capability>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Color Temperature' public='true'>
+	<attribute name='colorTemperature' type='NUMBER' />
+	<command name='setColorTemperature'>
+		<argument name='temperature' type='NUMBER' />
+	</command>
+</capability>

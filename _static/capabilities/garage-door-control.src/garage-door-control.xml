@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Garage Door Control' public='true'>
+	<attribute name='door' type='ENUM'>
+		<value name='closed' />
+		<value name='closing' />
+		<value name='open' />
+		<value name='opening' />
+		<value name='unknown' />
+	</attribute>
+	<command name='close' />
+	<command name='open' />
+</capability>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Sleep Sensor' public='true'>
+	<attribute name='sleeping' type='ENUM'>
+		<value name='not sleeping' />
+		<value name='sleeping' />
+	</attribute>
+</capability>

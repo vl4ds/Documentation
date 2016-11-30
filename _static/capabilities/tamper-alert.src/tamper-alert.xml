@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Tamper Alert' public='true'>
+	<attribute name='tamper' type='ENUM'>
+		<value name='clear' />
+		<value name='detected' />
+	</attribute>
+</capability>

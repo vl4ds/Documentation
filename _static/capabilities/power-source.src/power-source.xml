@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Power Source' public='true'>
+	<attribute name='powerSource' type='ENUM'>
+		<value name='battery' />
+		<value name='dc' />
+		<value name='mains' />
+		<value name='unknown' />
+	</attribute>
+</capability>
