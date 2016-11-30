@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Button' public='true'>
+	<attribute name='button' type='ENUM'>
+		<value name='pushed' />
+	</attribute>
+	<attribute name='numberOfButtons' type='NUMBER' />
+</capability>

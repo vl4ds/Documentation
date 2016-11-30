@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Power Meter' public='true'>
+	<attribute name='power' type='NUMBER' />
+</capability>

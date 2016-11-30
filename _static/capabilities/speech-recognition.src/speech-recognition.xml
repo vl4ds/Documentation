@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Speech Recognition' public='true'>
+	<attribute name='phraseSpoken' type='STRING' />
+</capability>

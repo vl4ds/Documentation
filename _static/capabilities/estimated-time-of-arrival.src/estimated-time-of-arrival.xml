@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Estimated Time Of Arrival' public='true'>
+	<attribute name='eta' type='DATE' />
+</capability>

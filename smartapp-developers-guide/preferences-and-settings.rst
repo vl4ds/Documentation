@@ -1010,6 +1010,32 @@ Next, with the ``submitOnChange`` input attribute you can also have dynamic beha
     When a ``submitOnChange`` input is changed, the whole page will be saved and then a refresh is triggered with the saved page state.
     This means that all of the methods will execute each time you change a submitOnChange input.
 
+
+dynamicPage() options
+^^^^^^^^^^^^^^^^^^^^^
+
+Any valid option for ``page()`` will work for ``dynamicPage()`` also. 
+In addition, the ``refreshInterval`` input option is specific to ``dynamicPage()`` method:
+
+.. code-block:: groovy
+
+    preferences {
+        page(name: "page0")
+        page(name: "page1")
+        page(name: "page3")
+    }
+    
+    ...
+
+    def page1() {
+        dynamicPage(name: "page1", title: "Page 1", nextPage: "page2", refreshInterval: 5, uninstall: "true")
+    }
+
+*refreshInterval*
+    Integer - refreshes the specific page of the SmartApp on the mobile device for the integer number of seconds. 
+    In the above example, it refreshes the *page1* every 5 seconds. 
+
+
 ----
 
 .. _app_settings:

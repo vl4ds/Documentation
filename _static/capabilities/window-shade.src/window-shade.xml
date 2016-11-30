@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Window Shade' public='true'>
+	<attribute name='windowShade' type='ENUM'>
+		<value name='closed' />
+		<value name='closing' />
+		<value name='open' />
+		<value name='opening' />
+		<value name='partially open' />
+		<value name='unknown' />
+	</attribute>
+	<command name='close' />
+	<command name='open' />
+	<command name='presetPosition' />
+</capability>

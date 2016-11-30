@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Speech Synthesis' public='true'>
+	<command name='speak'>
+		<argument name='phrase' type='STRING' />
+	</command>
+</capability>

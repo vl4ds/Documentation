@@ -127,6 +127,7 @@ The general flow for SmartApp state is as follows:
 This is summarized in the following diagram:
 
 .. image:: ../img/smartapps/state-execution-lifecycle.png
+    :scale: 40
 
 ----
 
@@ -178,6 +179,7 @@ In addition to ``state``, SmartApps also available to them the object ``atomicSt
 The following diagram illustrates how Atomic State is initialized and updated when a SmartApp executes:
 
 .. image:: ../img/smartapps/atomic-state-execution-lifecycle.png
+    :scale: 40
 
 ----
 
