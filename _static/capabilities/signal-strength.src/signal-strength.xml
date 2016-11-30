@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Signal Strength' public='true'>
+	<attribute name='lqi' type='NUMBER' />
+	<attribute name='rssi' type='NUMBER' />
+</capability>

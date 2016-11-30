@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Holdable Button' public='true'>
+	<attribute name='button' type='ENUM'>
+		<value name='held' />
+		<value name='pushed' />
+	</attribute>
+	<attribute name='numberOfButtons' type='NUMBER' />
+</capability>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Thermostat' public='true'>
+    <attribute name='coolingSetpoint' type='NUMBER' />
+    <attribute name='heatingSetpoint' type='NUMBER' />
+    <attribute name='schedule' type='JSON_OBJECT' />
+    <attribute name='temperature' type='NUMBER' />
+    <attribute name='thermostatFanMode' type='ENUM'>
+        <value name='auto' />
+        <value name='circulate' />
+        <value name='on' />
+    </attribute>
+    <attribute name='thermostatMode' type='ENUM'>
+        <value name='auto' />
+        <value name='cool' />
+        <value name='emergency heat' />
+        <value name='heat' />
+        <value name='off' />
+    </attribute>
+    <attribute name='thermostatOperatingState' type='ENUM'>
+        <value name='cooling' />
+        <value name='fan only' />
+        <value name='heating' />
+        <value name='idle' />
+        <value name='pending cool' />
+        <value name='pending heat' />
+        <value name='vent economizer' />
+    </attribute>
+    <attribute name='thermostatSetpoint' type='NUMBER' />
+    <command name='auto' />
+    <command name='cool' />
+    <command name='emergencyHeat' />
+    <command name='fanAuto' />
+    <command name='fanCirculate' />
+    <command name='fanOn' />
+    <command name='heat' />
+    <command name='off' />
+    <command name='setCoolingSetpoint'>
+        <argument name='setpoint' type='NUMBER' />
+    </command>
+    <command name='setHeatingSetpoint'>
+        <argument name='setpoint' type='NUMBER' />
+    </command>
+    <command name='setSchedule'>
+        <argument name='schedule' type='JSON_OBJECT' />
+    </command>
+    <command name='setThermostatFanMode'>
+        <argument name='fanmode' type='ENUM'>
+            <value name='auto' />
+            <value name='circulate' />
+            <value name='on' />
+        </argument>
+    </command>
+    <command name='setThermostatMode'>
+        <argument name='mode' type='ENUM'>
+            <value name='auto' />
+            <value name='cool' />
+            <value name='emergency heat' />
+            <value name='heat' />
+            <value name='off' />
+        </argument>
+    </command>
+</capability>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Lock Only' public='true'>
+    <attribute name='lock' type='ENUM'>
+        <value name='locked' />
+        <value name='unknown' />
+        <value name='unlocked' />
+        <value name='unlocked with timeout' />
+    </attribute>
+    <command name='lock' />
+</capability>

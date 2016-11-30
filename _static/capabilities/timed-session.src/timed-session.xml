@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Timed Session' public='true'>
+	<attribute name='sessionStatus' type='ENUM'>
+		<value name='canceled' />
+		<value name='paused' />
+		<value name='running' />
+		<value name='stopped' />
+	</attribute>
+	<attribute name='timeRemaining' type='NUMBER' />
+	<command name='cancel' />
+	<command name='pause' />
+	<command name='setTimeRemaining'>
+		<argument name='time' type='NUMBER' />
+	</command>
+	<command name='start' />
+	<command name='stop' />
+</capability>

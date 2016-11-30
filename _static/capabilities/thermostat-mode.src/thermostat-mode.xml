@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Thermostat Mode' public='true'>
+	<attribute name='thermostatMode' type='ENUM'>
+		<value name='auto' />
+		<value name='cool' />
+		<value name='emergency heat' />
+		<value name='heat' />
+		<value name='off' />
+	</attribute>
+	<command name='auto' />
+	<command name='cool' />
+	<command name='emergencyHeat' />
+	<command name='heat' />
+	<command name='off' />
+	<command name='setThermostatMode'>
+		<argument name='mode' type='ENUM'>
+			<value name='auto' />
+			<value name='cool' />
+			<value name='emergency heat' />
+			<value name='heat' />
+			<value name='off' />
+		</argument>
+	</command>
+</capability>

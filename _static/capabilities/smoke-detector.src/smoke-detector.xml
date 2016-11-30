@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Smoke Detector' public='true'>
+	<attribute name='smoke' type='ENUM'>
+		<value name='clear' />
+		<value name='detected' />
+		<value name='tested' />
+	</attribute>
+	<attribute name='carbonMonoxide' type='ENUM' optional="true">
+		<value name='clear' />
+		<value name='detected' />
+		<value name='tested' />
+	</attribute>
+</capability>

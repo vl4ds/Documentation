@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Indicator' public='true'>
+	<attribute name='indicatorStatus' type='ENUM'>
+		<value name='never' />
+		<value name='when off' />
+		<value name='when on' />
+	</attribute>
+	<command name='indicatorNever' />
+	<command name='indicatorWhenOff' />
+	<command name='indicatorWhenOn' />
+</capability>

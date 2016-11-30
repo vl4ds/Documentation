@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Contact Sensor' public='true'>
+	<attribute name='contact' type='ENUM'>
+		<value name='closed' />
+		<value name='open' />
+	</attribute>
+</capability>
