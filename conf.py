@@ -35,7 +35,7 @@ properties = {}
 # Read in the capability XML and properties files.
 path = '_static/capabilities'
 for dirpath, dirs, files in os.walk(path):
-    for filename in files:
+    for filename in sorted(files):
         if filename.endswith('.xml'):
             # If we have a XML file, read and parse it into and element tree
             # structure. Then use xmltodict to convert the XML structure into a
