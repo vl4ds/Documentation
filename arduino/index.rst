@@ -17,7 +17,7 @@ Installing the Library
 To install, copy the entire SmartThings directory into the ‘libraries’ directory in your sketchbook. Your sketchbook location is set in the Arduino IDE preferences, by default, the location will be:
 
 Windows:
-‘My Documents\Arduino\libraries\SmartThings’
+‘My Documents\\Arduino\\libraries\\SmartThings’
 
 OSX:
 ‘~/Documents/Arduino/libraries/SmartThings’
