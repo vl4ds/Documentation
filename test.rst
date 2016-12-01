@@ -34,10 +34,6 @@ Capabilities Reference
         The name of the capability that is used by a Device Handler.
     Preferences Reference:
         The string you would use in a SmartApp to allow a user to select from devices supporting this capability.
-    Attributes:
-        The attributes that the capability defines.
-    Commands:
-        The commands (and their signatures) that the capability defines.
 
     {#- First iterate through the capabilities to create a quick reference table #}
     {% for capability in capabilities %}
@@ -153,7 +149,7 @@ Capabilities Reference
     {%- if capability['command'] is a_list %}
     {#- for each command, print its name method signature followed by its description #}
     {%- for command in capability['command'] %}
-      *{{ command['@name'] }}({% if command['argument'] %}{% if command['argument'] is a_list %}{% for arg in command['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}, {% endfor %}{% else %}{{ command['argument']['@type'] }} {{ command['argument']['@name'] }}{% endif %}{% endif %}):*
+      *{{ command['@name'] }}({% if command['argument'] %}{% if command['argument'] is a_list %}{% for arg in command['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ command['argument']['@type'] }} {{ command['argument']['@name'] }}{% endif %}{% endif %}):*
         {%- if properties[referenceName][referenceName+".cmd."+command['@name']+".description"] %}
           {{ properties[referenceName][referenceName+".cmd."+command['@name']+".description"] }}
         {% else %}
@@ -239,7 +235,7 @@ Capabilities Reference
     {#- handle case if we only have one command and it wasn't a list in the dict #}
     {%- else %}
     {#- for this command, print its name method signature followed by its description #}
-      *{{ capability['command']['@name'] }}({% if capability['command']['argument'] %}{% if capability['command']['argument'] is a_list %}{% for arg in capability['command']['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}, {% endfor %}{% else %}{{ capability['command']['argument']['@type'] }} {{ capability['command']['argument']['@name'] }}{% endif %}{% endif %}):*
+      *{{ capability['command']['@name'] }}({% if capability['command']['argument'] %}{% if capability['command']['argument'] is a_list %}{% for arg in capability['command']['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ capability['command']['argument']['@type'] }} {{ capability['command']['argument']['@name'] }}{% endif %}{% endif %}):*
       {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] %}
         {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] }}
       {% endif %}
