@@ -17,6 +17,7 @@ import os
 import xml.etree.ElementTree as ET
 from xml.etree.ElementTree import Element, tostring
 import xmltodict
+import collections
 
 # Convert a passed in capability name to the preference reference name.
 def getReferenceName(name):
@@ -31,6 +32,7 @@ def getReferenceName(name):
 # Read in capability XML files
 root = Element('capabilities')
 properties = {}
+elements = {}
 
 # Read in the capability XML and properties files.
 path = '_static/capabilities'
@@ -42,9 +44,10 @@ for dirpath, dirs, files in os.walk(path):
             # dictionary.
             fname = os.path.join(dirpath, filename)
             tree = ET.parse(fname)
-            prefRef = Element('reference', {'name': getReferenceName(tree.getroot().get('name'))})
+            refName = getReferenceName(tree.getroot().get('name'))
+            prefRef = Element('reference', {'name': refName})
             tree.getroot().append(prefRef)
-            root.append(tree.getroot())
+            elements.update({refName: tree})
         elif filename.endswith('.properties'):
             # If we have a properties file, create a dictionary of its values
             # and stuff it into the properties dictionary
@@ -61,6 +64,11 @@ for dirpath, dirs, files in os.walk(path):
             properties[key] = tempdict
         else:
             continue
+# Sort the element tree by capability reference name
+sortedElements = collections.OrderedDict(sorted(elements.items()))
+
+for key, value in sortedElements.items():
+    root.append(value.getroot())
 
 capabilitiesDict = xmltodict.parse(tostring(root))
 
