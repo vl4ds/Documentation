@@ -25,8 +25,31 @@ Capabilities Reference
 
     ----
 
-    At a Glance
-    -----------
+    Data Types
+    ----------
+
+    Before we present the Capabilities, it's worth covering the various Data Types associated with Capability Attributes and Commands.
+    It is essential to understand that these Data Types are guidelines as to how actual values can be represented.
+    In most cases, Device Handlers contain the implementation logic and define the actual objects for these Data Types.
+    Below is a table outlining the the possible Data Types and what they mean.
+
+    ============== ============================= ======================================
+    Data Type      Example                       Description
+    ============== ============================= ======================================
+    STRING         "This is a String"            Represents character strings
+    NUMBER         ``5``, ``10.67``              The Number data type is a guideline indicating that a number should be expected, and not a specific type. Device Handlers contain the implementation of what kind of number object is actually returned.
+    VECTOR3        ``(x,y,z)``                   This Data Type is a representation of x,y,z coordinates in space. Device Handlers contain the implementation of the actual data structure, but it is usually as a Map: ``[x: 0, y: 0, z: 0]``.
+    ENUM           "one", "two", "three"         The Enum Data Type is a static set of predefined String values that an Attribute can have, or that a Command can accept as an argument.
+    DYNAMIC_ENUM   "Any", "value"                Much like the Enum Data Type, Dynamic Enum is a set of String values. However, the set is not static or predefined.
+    COLOR_MAP      ``[hue: 50, saturation: 75]`` The Color Map is a Map specifically for the use of color control. As such, the Map should contain a Hue and a Saturation value.
+    JSON_OBJECT                                  A standard JSON object. Device Handlers contain the implementation and thus should be consulted when looking for the JSON object structure.
+    DATE                                         A Date, usually represented as a java.util.Date object.
+    ============== ============================= ======================================
+
+    ----
+
+    Capabilities at a Glance
+    ------------------------
 
     The Capabilities reference table below lists all capabilities. The various columns are:
 
