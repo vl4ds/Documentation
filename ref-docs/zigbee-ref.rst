@@ -104,16 +104,17 @@ There are several ZigBee methods that support an optional map parameter called a
 intended to be used to support future params without affecting backward compatibility.  The following keys are
 supported:
 
-======= ======== ==============
-Key     Type     Description
-======= ======== ==============
-mfgCode integer  The ZigBee manufacturing code (e.g. 0x110A)
-======= ======== ==============
+============= ========= ==============
+Key            Type      Description
+============= ========= ==============
+mfgCode        integer   The ZigBee manufacturing code (e.g. 0x110A)
+destEndpoint   integer   The destination endpoint for the given message (e.g. 0x02)
+============= ========= ==============
 
 zigbee.command()
 ^^^^^^^^^^^^^^^^
 
-Send a Cluster specific Command.
+Send a Cluster specific Command.  This method is overloaded and has a couple of signatures.
 
 **Signature:**
     .. code-block:: groovy
@@ -124,6 +125,17 @@ Send a Cluster specific Command.
     - **Cluster**: The Cluster ID
     - **Command**: The Command ID
     - **payload** (optional): Zero or more arguments required by the Command. Each argument should be passed as an ASCII hex string in little endian format of the appropriate width for the data type. For example, to pass the value 5 for a UINT24 (24-bit unsigned integer) you would pass “050000”.
+
+**Signature:**
+    .. code-block:: groovy
+
+        zigbee.command(Integer Cluster, Integer Command, String payload, additionalParams=[:])
+
+**Parameters:**
+    - **Cluster**: The Cluster ID
+    - **Command**: The Command ID
+    - **payload**: An ASCII hex string in little endian format of the appropriate width for the data type. For example, to pass the value 5 for a UINT24 (24-bit unsigned integer) you would pass “050000”.  You can also use the `DataType.pack()`_ method described below.  If you have multiple arguments, they can just be appended in order.
+    - **additionalParams**: An optional map to specify additional parameters.  See `additionalParams`_ for supported attributes.
 
 **Examples:**
     - Send *Move To Level* Command to *Level Control* Cluster.
@@ -214,7 +226,7 @@ Configure a ZigBee device's reporting properties. Refer to the *Configure Report
 **Parameters:**
     - **Cluster**: The Cluster ID of the requested report
     - **attributeId**: The attribute ID for the requested report
-    - **dataType**: The two byte ZigBee type value for the requested report
+    - **dataType**: The two byte ZigBee type value for the requested report (see `DataType`_)
     - **minReportTime**: Minimum number of seconds between reports
     - **maxReportTime**: Maximum number of seconds between reports
     - **reportableChange** (optional): Amount of change needed to trigger a report. Required for analog data types. Discrete data types should always provide *null* for this value.
@@ -428,7 +440,6 @@ should be of the form "zone status {number}" where {number} is a hex number.
 
 
 .. _zigbee_additional_zigbee_classes:
-
 Additional ZigBee Classes
 -------------------------
 
@@ -529,3 +540,170 @@ batteryDefect          isBatteryDefectSet()
 
        return resultMap
    }
+
+DataType
+^^^^^^^^
+
+The ``DataType`` class contains information and some utility methods for ZCL data types.
+
+DataType Constants
+>>>>>>>>>
+
+The list of types and their ``DataType`` constant name are as follows:
+
+===================== ======================== ===================
+ZCL Data Type          DataType constant name   ZCL numeric value  
+===================== ======================== ===================
+No Data                NO_DATA                  0x00
+8-bit data             DATA8                    0x08
+16-bit data            DATA16                   0x09
+24-bit data            DATA24                   0x0a
+32-bit data            DATA32                   0x0b
+40-bit data            DATA40                   0x0c
+48-bit data            DATA48                   0x0d
+56-bit data            DATA56                   0x0e
+64-bit data            DATA64                   0x0f
+Boolean                BOOLEAN                  0x10
+8-bit bitmap           BITMAP8                  0x18
+16-bit bitmap          BITMAP16                 0x19
+24-bit bitmap          BITMAP24                 0x1a
+32-bit bitmap          BITMAP32                 0x1b
+40-bit bitmap          BITMAP40                 0x1c
+48-bit bitmap          BITMAP48                 0x1d
+56-bit bitmap          BITMAP56                 0x1e
+64-bit bitmap          BITMAP64                 0x1f
+Unsigned 8-bit int     UINT8                    0x20
+Unsigned 16-bit int    UINT16                   0x21
+Unsigned 24-bit int    UINT24                   0x22
+Unsigned 32-bit int    UINT32                   0x23
+Unsigned 40-bit int    UINT40                   0x24
+Unsigned 48-bit int    UINT48                   0x25
+Unsigned 56-bit int    UINT56                   0x26
+Unsigned 64-bit int    UINT64                   0x27
+Signed 8-bit int       INT8                     0x28
+Signed 16-bit int      INT16                    0x29
+Signed 24-bit int      INT24                    0x2a
+Signed 32-bit int      INT32                    0x2b
+Signed 40-bit int      INT40                    0x2c
+Signed 48-bit int      INT48                    0x2d
+Signed 56-bit int      INT56                    0x2e
+Signed 64-bit int      INT64                    0x2f
+8-bit enumeration      ENUM8                    0x30
+16-bit enumeration     ENUM16                   0x31
+Semi-precision         FLOAT2                   0x38
+Single precision       FLOAT4                   0x39
+Double precision       FLOAT8                   0x3a
+Octet String           STRING_OCTET             0x41
+Character String       STRING_CHAR              0x42
+Long Octet String      STRING_LONG_OCTET        0x43
+Long Character String  STRING_LONG_CHAR         0x44
+Array                  ARRAY                    0x48
+Structure              STRUCTURE                0x4c
+Set                    SET                      0x50
+Bag                    BAG                      0x51
+Time of day            TIME_OF_DAY              0xe0
+Date                   DATE                     0xe1
+UTCTime                UTCTIME                  0xe2
+Cluster ID             CLUSTER_ID               0xe8
+Attribute ID           ATTRIBUTE_ID             0xe9
+BACnet OID             BACNET_OID               0xea
+IEEE address           IEEE_ADDRESS             0xf0
+128-bit security key   SECKEY128                0xf1
+Unknown                UNKNOWN                  0xff
+===================== ======================== ===================
+
+See the `ZigBee Cluster Library (ZCL) <http://www.zigbee.org/download/standards-zigbee-cluster-library/>`__ specification for more information on the different data types and how they are used.
+
+DataType.getLength()
+>>>>>>>>>>>>>>>>>>>>>>>>
+
+This method is used to get the length of a variable of the given type.  This length is in number of bytes.  For variable length or unknown types it will return ``null``
+
+**Signature:**
+
+.. code-block:: groovy
+
+    DataType.isVariableLength(type)
+
+**Parameters:**
+    - **type**: The type to check.  This should be one of the `DataType Constants`_ defined above.
+
+**Example**
+
+.. code-block:: groovy
+
+    DataType.getLength(DataType.UINT8)       // returns 1
+    DataType.getLength(DataType.CLUSTER_ID)  // returns 2
+    DataType.getLength(DataType.STRING_CHAR) // returns null
+
+
+DataType.isVariableLength()
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+This method is used to test if a given type is variable length or not.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    DataType.isVariableLength(type)
+
+**Parameters:**
+    - **type**: The type to check.  This should be one of the `DataType Constants`_ defined above.
+
+**Example**
+
+.. code-block:: groovy
+
+    DataType.isVariableLength(DataType.UINT8)       // returns false
+    DataType.isVariableLength(DataType.STRING_CHAR) // returns true
+
+
+DataType.isDiscrete()
+>>>>>>>>>>>>>>>>>>>>>>>>>
+
+This method is used to test if a given type is discrete.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    DataType.isDiscrete(type)
+
+**Parameters:**
+    - **type**: The type to check.  This should be one of the `DataType Constants`_ defined above.
+
+**Example**
+
+.. code-block:: groovy
+
+    DataType.isDiscrete(DataType.UINT8)  // returns true
+    DataType.isDiscrete(DataType.FLOAT2) // returns false
+
+
+DataType.pack()
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+This method is used to pack data of a given type into hex string form.  Currently not all DataTypes are supported by this method.  All discrete data types are supported, but only ``STRING_CHAR`` is supported for variable length data types.  If the type passed in is ``null``, an empty string, or ``DataType.UNKNOWN`` the value of data will be returned unmodified.
+
+**Signature:**
+
+.. code-block:: groovy
+
+    DataType.pack(data, type, littleEndian=false)
+
+**Parameters:**
+    - **data**: The data to pack, the type of this should be appropriate for the type argument
+    - **type**: The type of the data being packed.  This should be one of the `DataType Constants`_ defined above.
+    - **littleEndian**: If true it will pack it with the least significant bits first.
+
+**Example**
+
+.. code-block:: groovy
+
+    DataType.pack(0x01, DataType.UINT8)        // returns "01"
+    DataType.pack(0x01, DataType.UINT64)       // returns "0000000000000001"
+    DataType.pack(0x01, DataType.UINT32, true) // returns "01000000"
+
+
