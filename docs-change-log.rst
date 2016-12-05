@@ -144,7 +144,7 @@ September 23 2016
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/23-September-2016>`__
 
 - Added link to the Z-Wave public spec on the following Z-Wave pages: :ref:`Building Z-Wave Device Handlers <zwave-device-handlers>` and :ref:`Z-Wave Primer <zwave-primer>`
-- Updated the :ref:`Color Control <color_control>` capability to correctly reflect the capability definition.
+- Updated the :ref:`Color Control <colorControl>` capability to correctly reflect the capability definition.
 - Updated Jinja template to add some more features for the ongoing generated capability documentation project.
 - Fixed minor grammatical errors.
 
@@ -193,7 +193,7 @@ September 02 2016
 - Typos and spelling fixes
 - Added more around the generated capabilities documentation framework
 - Added :ref:`web_services_smartapps_troubleshooting` document to the SmartApp Web Services guide
-- Fixed :ref:`color_control` example code in the capabilities reference
+- Fixed :ref:`colorControl` example code in the capabilities reference
 
 ----
 

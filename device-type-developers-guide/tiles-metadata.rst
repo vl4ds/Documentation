@@ -528,7 +528,7 @@ Only integers (negative and positive) are supported for custom ranges; decimal v
 Color Control Tile
 ^^^^^^^^^^^^^^^^^^
 
-If your device supports the :ref:`color_control` capability, you can use a Control Tile that displays a color wheel.
+If your device supports the :ref:`colorControl` capability, you can use a Control Tile that displays a color wheel.
 The user can then set the color by interacting with the control.
 
 Here's an example of a color control tile:
@@ -575,7 +575,7 @@ These values are not controlled by the color control tile, so are not useful.
 Carousel Tile
 ^^^^^^^^^^^^^
 
-A Carousel Tile is often used in conjunction with the :ref:`image_capture` capability, to allow users to scroll through recent pictures.
+A Carousel Tile is often used in conjunction with the :ref:`imageCapture` capability, to allow users to scroll through recent pictures.
 
 Many of the camera Device Handlers will make use of the ``carouselTile()``.
 
@@ -670,7 +670,7 @@ Lighting Multi-Attribute Tile
 The lighting Multi-Attribute Tile makes it easy to create rich tiles for lighting devices.
 There are several ways a lighting Multi-Attribute Tile can be configured, depending on the type of bulb and its supported capabilities.
 
-Consider the following Multi-Attribute Tile for a bulb that supports the :ref:`switch`, :ref:`color_control`, :ref:`power_meter`, and :ref:`switch_level` capabilities:
+Consider the following Multi-Attribute Tile for a bulb that supports the :ref:`switch`, :ref:`colorControl`, :ref:`powerMeter`, and :ref:`switchLevel` capabilities:
 
 .. code-block:: groovy
 
@@ -708,8 +708,8 @@ Key                    Description
 =====================  ===========
 ``PRIMARY_CONTROL``    Displays the status of the switch, and allows the switch state to be toggled when pressed.
 ``SECONDARY_CONTROL``  Used to display textual information. Often used to display power usage.
-``SLIDER_CONTROL``     For bulbs that support the :ref:`switch_level` capability, allows the user to set the switch level.
-``COLOR_CONTROL``      For bulbs that support the :ref:`color_control` capability, allows the user to select a color.
+``SLIDER_CONTROL``     For bulbs that support the :ref:`switchLevel` capability, allows the user to set the switch level.
+``COLOR_CONTROL``      For bulbs that support the :ref:`colorControl` capability, allows the user to select a color.
 =====================  ===========
 
 The command method specified by ``action`` will be called with a map that looks like this:
@@ -837,7 +837,7 @@ Value                 Description                                   Notes
 Multimedia Multi-Attribute Tile
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Multimedia Multi-Attribute Tile is intended for devices that support the :ref:`music_player` capability.
+The Multimedia Multi-Attribute Tile is intended for devices that support the :ref:`musicPlayer` capability.
 It can render controls for playing, pausing, next/previous tracks, and volume levels for a music player.
 It can also display information about the currently playing track.
 
