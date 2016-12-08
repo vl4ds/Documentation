@@ -1,21 +1,33 @@
+.. _zigbee_primer:
+
 ZigBee Primer
 =============
 
 Before we start, lets take a look at a full ZigBee message as it would look in a SmartThings Device Handler.
 Then we’ll break up the message into its parts and dive into what each part means.
 Make sure you download the ZigBee Cluster Library as a reference for ZigBee message formatting and what is possible for each device.
+You can also see our :ref:`zigbee_ref` for more detailed descriptions of our library methods.
 
-Here is a full command:
-``"st cmd 0x${device.deviceNetworkId} ${endpointId} 8 4 {FFFF 0000}”``
+Here are some full commands:
 
-The 3 Main types of ZigBee Messages
+Set the level of a device
+    ``zigbee.command(0x0008, 0x04, "FE0500")``
 
--  st cmd - SmartThings Command which formats the message as a ZigBee
-   Command
--  st rattr - SmartThings Read Attribute which formats the message as a
-   ZigBee Read Attribute
--  st wattr - SmartThings Write Attribtue which as you guessed formats
-   the message as a ZigBee Write Attribute
+Read the current level (e.g. of a light)
+    ``zigbee.readAttribute(0x0008, 0x0000)``
+
+Write the value 0xBEEF to cluster 0x0008 attribute 0x0010
+    ``zigbee.writeAttribute(0x0008, 0x0010, DataType.UINT16, 0xBEEF)``
+
+Report battery level every 10 minutes to 6 hours if it changes value by 1
+    ``zigbee.configureReporting(0x0001, 0x0021, DataType.UINT8, 600, 21600, 0x01)``
+
+The 4 Main types of ZigBee Messages
+
+-  zigbee.command - A ZigBee command for a given cluster
+-  zigbee.readAttribute - A ZigBee Read Attribute requesting the value of an attribute from a cluster
+-  zigbee.writeAttribute - A ZigBee Write Attribute writing a value to the attribute of a cluster
+-  zigbee.configureReporting - A ZigBee Configure Report that configures a cluster attribute to report changes of a given amount within a certain time period
 
 ----
 
@@ -25,8 +37,7 @@ Device Network ID
 All connected devices have a Device Network ID that is used to route messages correctly to the device.
 In the loosest terms think of the Network ID as the IP Address.
 It is a 4 digit hex number that the device gets while pairing.
-Since the Network ID is different by device, you can reference it dynamically in a Device Handler like this:
-``0x${device.deviceNetworkId}``
+Since the Network ID is unique by device on a network, it can be handled by the ZigBee library provided by SmartThings and needs not be handled directly.
 
 ----
 
@@ -67,7 +78,6 @@ Commands
 
 Commands are basically actions a device can take.
 It’s how we get things to do stuff.
-We start a command with “st cmd”.
 Commands and whats available are defined by the cluster.
 
 Keeping on the On/Off cluster as an example, the available commands are:
@@ -78,13 +88,13 @@ Keeping on the On/Off cluster as an example, the available commands are:
 
 In a SmartThings Device Type the following line would turn a switch off
 (look at the last number):
-``"st cmd 0x${device.deviceNetworkId} ${endpointId} 6 0 {}”``
+``zigbee.command(0x0006, 0x00)``
 
 This would turn it on:
-``"st cmd 0x${device.deviceNetworkId} ${endpointId} 6 1 {}”``
+``zigbee.command(0x0006, 0x01)``
 
 This would toggle it:
-``"st cmd 0x${device.deviceNetworkId} ${endpointId} 6 2 {}"``
+``zigbee.command(0x0006, 0x02)``
 
 ----
 
@@ -98,21 +108,35 @@ The data type and values are specified by cluster.
 An example of a Read Attribute that would read the current level of a
 dimmer and return the value:
 
-``"st rattr cmd 0x${device.deviceNetworkId} ${endpointId} 8 0 {}"``
+``zigbee.readAttribute(0x0008, 0x0000)``
 
 Write Attributes are used to set specific preferences.
 Write attributes can need specific data type that the payload is in.
-In this example the 0x21 in the message means Unsigned 16-bit integer.
 
 An example of a Write Attribute that would set the transition time from
 on to off of a dimmer look like this:
 
-``"st wattr 0x${device.deviceNetworkId} 1 8 0x10 0x21 {0014}”``
+``zigbee.writeAttribute(0x0008, 0x0010, DataType.UINT16, 0x0014)``
 
-In this case the payload ({0014}) translates to 2 seconds.
+In this case the value (0x0014) translates to 2 seconds.
 Breaking the payload down we see that the hex value of 0x0014 equals the decimal value of 20. 20 * 1/10 of a second equals 2 seconds.
 
 ----
+
+Configure Reporting
+-------------------
+
+Many times you will have an attribute for a given device that you are interested in receiving notifications about.
+For example you may want to be notified any time the battery level changes.
+The way to do this in ZigBee is by configuring a report for that cluster.
+
+An example of configuring a report for the battery level:
+``zigbee.configureReporting(0x0001, 0x0021, DataType.UINT8, 600, 21600, 0x01)``
+
+This is for cluster 0x0001 (power cluster), attribute 0x0021 (battery level), whose type is UINT8, the minimum time
+between reports is 10 minutes (600 seconds) and the maximum time between reports is 6 hours (21600 seconds), and the
+amount of change needed to trigger a report is 1 unit (0x01).
+
 
 Device Discovery
 ----------------
