@@ -1,3 +1,5 @@
+.. _architecture:
+
 Architecture
 ============
 
@@ -251,15 +253,15 @@ Accordingly, SmartApps that use web services will run in the cloud also.
 Hubs and Locations
 ------------------
 
-To efficiently manage performance, the SmartThings platform scales its cloud server architecture horizontally with *sharding*. 
-Sharding helps reduce the latency between the hub and the cloud, and handles increasing capacity. 
-As a developer you must note the impact of sharding on how you work with the SmartThings IDE. 
+To efficiently manage performance, the SmartThings platform scales its cloud server architecture horizontally with *sharding*.
+Sharding helps reduce the latency between the hub and the cloud, and handles increasing capacity.
+As a developer you must note the impact of sharding on how you work with the SmartThings IDE.
 
-When you first install SmartThings app on your mobile phone, create your user account and claim your hub, the SmartThings platform automatically assigns your hub to the location and connects your location/hub to a particular shard. 
+When you first install SmartThings app on your mobile phone, create your user account and claim your hub, the SmartThings platform automatically assigns your hub to the location and connects your location/hub to a particular shard.
 Before starting your development, you must note that:
 
 - Your location/hub is connected to a *specific* SmartThings shard, based on the geographical location of the hub, and,
-- You must ensure that you are logged into the URL of this specific shard on IDE. Since the location is always connected to the correct shard URL, you can do this by clicking on your location from "My Locations" page after you log in.  
+- You must ensure that you are logged into the URL of this specific shard on IDE. Since the location is always connected to the correct shard URL, you can do this by clicking on your location from "My Locations" page after you log in.
 
 .. note::
 
@@ -268,7 +270,7 @@ Before starting your development, you must note that:
 Consequences of Sharding
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-In practice, some consequences of sharding are: 
+In practice, some consequences of sharding are:
 
 - A global layer, with a few specific services, spans across all shards while all other services are owned by the specific shard itself (which, as emphasized above, is location-dependent). A few global layer services are: user account creation, authorization, OAuth authentication, mappings of location-to-shard, users-to-locations and hub-to-locations. All data that is down from the location level are managed by the specific shard.
 - A shard does not share information with another shard. For example, a common login across the shards does not exist yet. You will have to log in to each shard, although the userid and password will be the same (see the note above). At the same time, note that SmartThings mobile app users do not have to log in again because mobile client OAuth tokens are shared across the shards.

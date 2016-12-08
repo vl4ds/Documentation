@@ -6,6 +6,18 @@ A log of changes to this documentation.
 
 ----
 
+December 08 2016
+----------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/08-December-2016>`__
+
+- New generated :ref:`capabilities_taxonomy` live
+- Updated ZigBee documentation in the :ref:`zigbee_primer` and :ref:`zigbee_ref` guides
+- Added shard documentation to the :ref:`architecture` guide
+- Minor typo corrections
+
+----
+
 November 30 2016
 ----------------
 

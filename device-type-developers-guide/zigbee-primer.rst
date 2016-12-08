@@ -1,3 +1,5 @@
+.. _zigbee_primer:
+
 ZigBee Primer
 =============
 
@@ -25,8 +27,7 @@ The 4 Main types of ZigBee Messages
 -  zigbee.command - A ZigBee command for a given cluster
 -  zigbee.readAttribute - A ZigBee Read Attribute requesting the value of an attribute from a cluster
 -  zigbee.writeAttribute - A ZigBee Write Attribute writing a value to the attribute of a cluster
--  zigbee.configureReporting - A ZigBee Configure Report that configures a cluster attribute to report changes
-  of a given amount within a certain time period
+-  zigbee.configureReporting - A ZigBee Configure Report that configures a cluster attribute to report changes of a given amount within a certain time period
 
 ----
 
@@ -36,8 +37,7 @@ Device Network ID
 All connected devices have a Device Network ID that is used to route messages correctly to the device.
 In the loosest terms think of the Network ID as the IP Address.
 It is a 4 digit hex number that the device gets while pairing.
-Since the Network ID is unique by device on a network, it can be handled by the ZigBee library provided by SmartThings
- and needs not be handled directly.
+Since the Network ID is unique by device on a network, it can be handled by the ZigBee library provided by SmartThings and needs not be handled directly.
 
 ----
 

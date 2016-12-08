@@ -440,6 +440,7 @@ should be of the form "zone status {number}" where {number} is a hex number.
 
 
 .. _zigbee_additional_zigbee_classes:
+
 Additional ZigBee Classes
 -------------------------
 
@@ -547,12 +548,12 @@ DataType
 The ``DataType`` class contains information and some utility methods for ZCL data types.
 
 DataType Constants
->>>>>>>>>
+>>>>>>>>>>>>>>>>>>
 
 The list of types and their ``DataType`` constant name are as follows:
 
 ===================== ======================== ===================
-ZCL Data Type          DataType constant name   ZCL numeric value  
+ZCL Data Type          DataType constant name   ZCL numeric value
 ===================== ======================== ===================
 No Data                NO_DATA                  0x00
 8-bit data             DATA8                    0x08
@@ -705,5 +706,3 @@ This method is used to pack data of a given type into hex string form.  Currentl
     DataType.pack(0x01, DataType.UINT8)        // returns "01"
     DataType.pack(0x01, DataType.UINT64)       // returns "0000000000000001"
     DataType.pack(0x01, DataType.UINT32, true) // returns "01000000"
-
-
