@@ -5,7 +5,7 @@ Scheduling
 
 SmartApps and Device Handlers often need to schedule certain actions to take place at a given point in time.
 For example, an app may want to turn off the lights five minutes after someone leaves.
-Or, an app may want to turn the lights on every day at a certain time.
+Or, an app may want to turn on the lights every day at a certain time.
 
 ----
 
@@ -14,31 +14,31 @@ Overview
 
 Broadly speaking, there are a few different ways we might want to schedule something to happen:
 
-- Do something after a certain time amount from now.
-- Do something once at certain time in the future.
+- Do something after a certain duration of time from now.
+- Do something once at a certain time in the future.
 - Do something on a recurring schedule.
 
-We'll look at each scenario in detail, and what methods SmartThings makes available to address these requirements.
+We'll look at each scenario in detail, and at the methods SmartThings makes available to address these requirements.
 
 .. note::
-    When using the scheduler APIs, the schedule will be created using the time zone for the installed SmartApp's location.
+    When using the scheduler APIs, the schedule will be created using the time zone of the SmartApp's location.
 
 ----
 
-``runIn()`` - Schedule From Now
+Schedule From Now - ``runIn()`` 
 -------------------------------
 
-A SmartApp may want to take some action in a certain amount of time after some event has occurred.
+A SmartApp may want to take some action within a certain duration of time after some event has occurred.
 Consider a few examples:
 
-- When a door closes, turn a light off after two minutes.
-- When everyone leaves, adjust the thermostat after ten minutes.
+- Turn a light off two minutes after a door closes.
+- Adjust the thermostat ten minutes after everyone leaves.
 - If a door opens and is not shut after five minutes, send a notification.
 
-All these scenarios follow a common pattern: when a certain event happens, take some action after a given amount of time.
+All these scenarios follow a common pattern: when a certain event happens, take some action after a given duration of time.
 This can be accomplished this by using the :ref:`smartapp_run_in` method.
 
-``runIn()`` takes the number of seconds from now to execute, the method to execute, and a map of options (not required).
+The ``runIn()`` method executes a specified handler method after a given number of seconds have elapsed. 
 
 .. code-block:: groovy
     :emphasize-lines: 3
@@ -52,10 +52,10 @@ This can be accomplished this by using the :ref:`smartapp_run_in` method.
         theswitch.off()
     }
 
-By default, if a method is scheduled to run in the future, and then another call to runIn with the same method is made, the last one overwrites the previously scheduled method.
+By default, if a method is scheduled to run in the future, and then if another call to ``runIn()`` with the same method is made, the last one overwrites the previously scheduled method.
 This is usually preferable.
 
-Consider the situation if we have a switch scheduled to turn off after five minutes of a door closing:
+Consider a situation where we have a switch scheduled to turn off after five minutes of a door closing:
 
 - First, the door closes at 2:50 and we schedule the switch to turn off after five minutes (2:55).
 - Then, two minutes later (2:52), the door opens and closes again - another call to ``runIn()`` will be made to schedule the switch to turn off in five minutes from now (2:57).
@@ -87,7 +87,7 @@ So, if you do specify ``[overwrite: false]``, be sure to write your handler so t
 
 ----
 
-``runOnce()`` - Run Once in the Future
+Run Once in the Future - ``runOnce()``
 --------------------------------------
 
 Some SmartApps may need to schedule certain actions to happen *once* at a specific time and date. :ref:`smartapp_run_once` handles this case.
@@ -122,7 +122,7 @@ Like ``runIn()``, you can also specify the overwrite behavior of ``runOnce()``:
 
 ----
 
-``schedule()`` - Run on a Recurring Schedule
+Run on a Recurring Schedule - ``schedule()``
 --------------------------------------------
 
 Often, there is a need to schedule a job to run on a specific schedule.
@@ -133,10 +133,9 @@ SmartThings provides the :ref:`smartapp_schedule` method to allow you to create 
 
 The various ``schedule()`` methods follow a similar form - they take an argument representing the desired schedule, and the method to be called on this schedule.
 
-
 .. note::
 
-    If you call ``schedule()`` with a method that is already scheduled, it will result in the schedule for that method being updated with the new schedule.
+    If a method is already scheduled, and later you call ``schedule()`` with that method, then that method will be executed as per the new schedule.
 
 Schedule Once Per Day
 ^^^^^^^^^^^^^^^^^^^^^
@@ -184,11 +183,8 @@ Finally, you can pass a Long representing the desired time in milliseconds (usin
 Schedule Using Cron
 ^^^^^^^^^^^^^^^^^^^
 
-Scheduling jobs to execute at a particular time is useful, but what if we want to execute a job at some other interval?
-What if, for example, we want a method to execute at fifteen minutes past the hour, every hour?
-
-SmartThings allows you to pass a cron expression to the schedule method to accomplish this.
-A cron expression is based on the cron UNIX tool, and is a way to specify a recurring schedule.
+Scheduling jobs to execute at a particular time is useful, but what if, for example, we want a method to execute at fifteen minutes past the hour, every hour? 
+SmartThings allows you to pass a cron expression to the ``schedule()`` method to accomplish this.
 
 .. code-block:: groovy
     :emphasize-lines: 3
@@ -202,58 +198,95 @@ A cron expression is based on the cron UNIX tool, and is a way to specify a recu
         ...
     }
 
-Cron syntax is very powerful, but also fairly complex.
+A cron expression is a way to specify a recurring schedule, based on the UNIX cron tool.
+The cron expression supported by SmartThings is a string of six or seven fields, separated by white space. 
+The *seconds* field is the left most field.
+The below table describes these fields. 
 
-We recommend reading through the `Quartz Cron Trigger Tutorial`_ for some basic information and examples using the cron expression format.
+============ ================ ======== =================
+Field        Allowed Values   Required Allowed Wildcards
+============ ================ ======== =================
+Seconds      0-59             Yes      \*  
+Minutes      0-59             Yes      , - * /
+Hours        0-23             Yes      , - * /
+Day of Month 1-31             Yes      , - * ? / L W
+Month        1-12 or JAN-DEC  Yes      , - * /
+Day of Week  1-7 or SUN-SAT   Yes      , - * ? / L
+Year         empty, 1970-2099 No       , - * /
+============ ================ ======== =================
 
-We also recommend you test your cron expression before using it in a SmartApp or Device Handler.
-It's easy to create a cron expression that doesn't do what you intended, and often this results in too many scheduled executions, resulting in a wide range of problems.
+**Allowed Wildcards**
+
+    - ``,`` (comma) is used to specify additional values. For example, SAT,SUN,MON in the Day of Week field means “the days Saturday, Sunday, and Monday.”
+    - ``-`` (hyphen) is used to specify ranges. For example, ``5-7`` in the Hours field means “the hours 5, 6 and 7”.
+    - ``*`` (asterisk) is used to specify all values in the field. For example, ``*`` in the Hours field means *every* hour.
+    - ``?`` (question mark) is used to specify any value. For example, ``?`` in the Day of Week field means *regardless* of what the day of the week is.
+    - ``/`` (forward slash) is used to specify increments. For example, ``5/15`` in the Minutes field means “the minutes 5, 20, 35, and 50”.
+    - ``L`` is used to specify the last day of the month when used in the Day of Month field and the last day of the week when used in the Day of Week fields.
+    - ``W`` is used to specify a weekday (Monday-Friday) that is nearest to the given day when used in the Day of Month field. For example, if you specify ``21W`` in the Day of Month field, it means: “the nearest weekday to the 21st of the month”. So if the 21st is a Saturday, the trigger will fire on Friday the 20th. If the 21st is a Sunday, the trigger will fire on Monday the 22nd. If the 21st is a Tuesday, then it will fire on Tuesday the 21st. However if you specify ``1W`` as the value for day-of-month, and the 1st is a Saturday, the trigger will fire on Monday the 3rd, and not on Friday, as it will not cross over the boundary of a month. The ``W`` character can only be specified when the day-of-month is a single day, not a range or list of days.
+
+.. warning::
+
+    You cannot specify both the *Day of Month* and the *Day of Week* fields in the same cron expression. 
+    If you specifiy one of these fields, the other one must be ``?``.
+
+Here is an example with the two fields, i.e., the *Day of Month* and the *Day of Week*. 
+In the table below cases A and C are invalid.
+
+====== ============ =========== ====================================================
+Case   Day of Month Day of Week Cron Interpretation
+====== ============ =========== ====================================================
+A      `*`          MON         Every day of month *and* every Monday
+B      `*`          ?           Every day of month *and* whatever be the day of week
+C      23           `*`         Every 23rd of month *and* every day of week
+D      ?            `*`         Whatever be the day of month *and* every day of week
+====== ============ =========== ====================================================
+
+We recommend that you test your cron expression before using it in a SmartApp or Device Handler.
 The cron expression test tool we use is http://www.cronmaker.com/.
 
 .. note::
 
-    High volume cron schedules are encouraged to specify a random seconds field.
-    This helps to avoid a large number of scheduled executions being queued up at the same time.
+    Cron jobs are only allowed to run at a rate of 1 minute or slower.
+    If your cron expression runs faster than once per minute, it will be limited to a one minute interval.
+    For more information, see this `community post`_.
 
-    It may not be acceptable for every use case, but if it is, use a random second.
+    High volume cron schedules are encouraged to specify a random seconds field.
+    This helps to avoid a large number of scheduled executions being queued up at the same time. If you can, use a random second.
 
 Here are some common examples for recurring schedules using cron:
 
 ============================================= ===========
 Expression Description                        Description
 ============================================= ===========
-``schedule("12 30 * * * ?", handler)``         Execute ``handler()`` every hour on the half hour (using a randomly chosen seconds field)
-``schedule("23 0/7 * * * ?", handler)``        Execute ``handler()`` every 7 minutes beginning at 0 minutes after the hour (using a randomly chosen seconds field)
+``schedule("12 30 * * * ?", handler)``         Execute ``handler()`` every hour on the half hour (using a randomly chosen seconds field of 12)
+``schedule("23 0/7 * * * ?", handler)``        Execute ``handler()`` every 7 minutes beginning at 0 minutes after the hour (using a randomly chosen seconds field of 23)
 ``schedule("0 0/5 10-11 * * ?", handler)``    Execute ``handler()`` every 5 minutes beginning at 0 minutes after the hour, between the hours of 10 and 11 AM, at 0 seconds past the minute
-``schedule("48 25 10 ? * MON-FRI", handler)``  Execute ``handler()`` at 10:25 AM Monday through Friday (using a randomly chosen seconds field)
+``schedule("48 25 10 ? * MON-FRI", handler)``  Execute ``handler()`` at 10:25 AM Monday through Friday (using a randomly chosen seconds field of 48)
 ============================================= ===========
 
 .. warning::
 
-    ``*`` means "every", not "any".
-    Don't confuse the two.
+    Note how you use ``*`` as it may unwittingly lead to high-frequency schedules. 
+    You may have intended to use ``?``. 
+    Note the difference between ``*``, which means "every" and ``?``, which means "any". 
 
-    ``* */5 * * * ?`` means every 5th minute, run 60 times within that minute.
+    For example, ``* */5 * * * ?`` means every 5th minute, run 60 times within that minute.
     That's almost surely not what you want, and SmartThings will not execute your schedule that frequently (see below).
 
     If you were trying to execute every X minutes, it would look like this: ``0 0/X * * * ?`` where X is the minute value.
 
-Cron jobs are only be allowed to run at a minimum of 1 minute intervals.
-If your cron expression runs more often than once per minute it, will be limited to a 1 minute interval.
-
-For more information, see this `community post`_.
-
 Schedule Every X Minutes or Hours
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-For common recurring schedules, SmartThings provides some convenience APIs that we can use.
-These methods use cron under the hood, but save you the pain of authoring the expression themselves.
+For common recurring schedules, SmartThings provides a few convenience APIs that we can use.
+These methods use cron under the hood, but nevertheless will save you the effort of writing up the expressions themselves.
 
-These methods work by creating a random start time in the X minutes or hours, and then every X minutes or hours after that.
+These methods work by creating a random start time in X minutes or hours, and then every X minutes or hours after that.
 For example, ``runEvery5Minutes(handlerMethod)`` will execute ``handlerMethod()`` at a random time in the next five minutes, and then run every five minutes from then.
 
 These methods have the advantage of randomizing the start time for schedules, which can reduce the load on the SmartThings cloud.
-As such, they should be preferred over cron expressions when available.
+As such, these methods should be preferred over cron expressions when available.
 
 The currently available methods are:
 
@@ -264,7 +297,7 @@ The currently available methods are:
 - :ref:`smartapp_run_every_1_hours`
 - :ref:`smartapp_run_every_3_hours`
 
-Using them is similar to other scheduling methods:
+Using these methods is similar to other scheduling methods:
 
 .. code-block:: groovy
     :emphasize-lines: 2
@@ -355,8 +388,6 @@ You can also call ``unschedule()`` with no arguments to remove all schedules:
 
     Due to the way that the scheduling service is currently implemented, ``unschedule()`` is a fairly expensive operation, and may take many seconds to execute.
 
-    We plan to address this in the future, but until then, you should be aware of the potential performance impacts.
-
 ----
 
 Viewing Schedules in the IDE
@@ -366,8 +397,7 @@ You can view schedules for any installed SmartApp in the IDE.
 
 .. note::
     Schedules can only be viewed for SmartApps installed via the mobile client.
-
-    Schedules for Device Handlers and SmartApps installed into the IDE simulator can not be viewed.
+    Schedules for Device Handlers and SmartApps installed via the IDE simulator can not be viewed.
 
 1. In the IDE, navigate to `Locations`.
 2. Select the Location the SmartApp is installed into.
@@ -391,8 +421,8 @@ You can also view the SmartApp job history, which shows the previous executions 
 
 .. _limitations_best_practices:
 
-Scheduling Limitations, Best Practices, and Things Good to Know
----------------------------------------------------------------
+Scheduling Limitations and Best Practices 
+-----------------------------------------
 
 When using any of the scheduling APIs, it's important to understand some limitations and best practices.
 
@@ -406,7 +436,6 @@ Use ``runIn()`` to schedule one-time executions, not recurring schedules.
 For example, do **not** do this:
 
 .. code-block:: groovy
-    :caption: do-not-do-this.groovy
 
     def initialize() {
         runIn(60, handler)
@@ -421,7 +450,7 @@ For example, do **not** do this:
 
 The above example uses a chained ``runIn()`` pattern to create a recurring schedule to execute every minute.
 
-This pattern is prone to failure, because any single scheduled execution failure that results in ``handler()`` not being called, means it will not be able to reschedule itself.
+This pattern is prone to failure, because any single scheduled execution failure that results in ``handler()`` not being called means it will not be able to reschedule itself.
 One failure causes the whole chain to collapse.
 
 If you need a recurring schedule, use cron.
