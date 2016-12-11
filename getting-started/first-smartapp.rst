@@ -372,7 +372,7 @@ The ``subscribe()`` method accepts three parameters: The thing we want to subscr
 How do you know what attribute and what state we can subscribe to?
 We refer to the :ref:`capabilities_taxonomy` to find out the available attributes the capability supports.
 In the case of the Motion Sensor capability, we see that it supports the ``"motion"`` attribute.
-In this case, it has two discreet possible values - "active" and "inactive".
+In this case, it has two possible values - "active" and "inactive".
 
 Since the ``"motion"`` attribute value is either active or inactive, we can subscribe to either of those specific changes by using the format ``"<attribute>.<value>"``.
 This will cause the specified event handler method to be called any time the ``"motion"`` attribute value changes to ``"active"`` (motion is detected).
