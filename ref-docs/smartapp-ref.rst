@@ -1676,6 +1676,49 @@ Creates and sends an event constructed from the specified properties. If a devic
 
 ----
 
+.. _smartapp_sendhubcommand:
+
+sendHubCommand()
+----------------
+
+Sends a command to the Hub, with the details of the command encapsulated within a HubAction object.
+
+**Signature:**
+    ``void sendHubCommand(HubAction action)``
+
+    ``void sendHubCommand(List<HubAction> actions, delay)``
+
+**Parameters:**
+    ``HubAction action`` - A HubAction object 
+    
+    ``List<HubAction> actions`` - A list of HubAction objects 
+
+
+    ``delay`` - An integer number representing milliseconds. This is the delay between commands when a list of HubAction objects are sent using ``List<HubAction> actions`` parameter. The default value of delay is 1000.
+
+**Returns:**
+    void
+
+**Example:**
+    During the discovery phase of a LAN-connected device the following discovery command can be sent to the Hub.
+
+.. code-block:: groovy
+    
+    // Send a single HubAction command to the Hub
+    void ssdpDiscover() {
+        sendHubCommand(new physicalgraph.device.HubAction("lan discovery urn:schemas-upnp-org:device:ZonePlayer:1", physicalgraph.device.Protocol.LAN))
+    }
+    // Send a List of HubAction commands to the Hub with a delay of 3 seconds between each HubAction command
+    void sendMultiDevice() {
+        List actions = []
+        actions.add(new physicalgraph.device.HubAction("lan discovery urn:schemas-upnp-org:device:ZonePlayer:1", physicalgraph.device.Protocol.LAN))
+        actions.add(new physicalgraph.device.HubAction("lan discovery urn:schemas-upnp-org:device:MediaRenderer:1", physicalgraph.device.Protocol.LAN))
+        actions.add(new physicalgraph.device.HubAction("lan discovery urn:samsung.com:device:RemoteControlReceiver:1", physicalgraph.device.Protocol.LAN))
+        sendHubCommand(actions, 3000)
+    }
+    
+----
+
 sendLocationEvent()
 -------------------
 
