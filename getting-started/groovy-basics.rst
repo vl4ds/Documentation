@@ -622,7 +622,7 @@ The example above uses the ``findAll()`` method that is available on all Groovy 
 
 To deepen our understanding, we will next look at an example of creating a method that accepts a closure.
 
-Let's say we want to print all even numbers up to a a specified number [1]_. While we can do this without closures, using them will illustrate how they work.
+Let's say we want to print all even numbers up to a specified number [1]_. While we can do this without closures, using them will illustrate how they work.
 
 Here's the code to do this:
 
