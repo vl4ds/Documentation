@@ -6,6 +6,18 @@ A log of changes to this documentation.
 
 ----
 
+January 03 2017
+---------------
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/03-January-2017>`__
+
+- New guide added for :ref:`Publishing Custom Code <publishing>`.
+- Added :ref:`smartapp_sendhubcommand` reference documentation.
+- Expanded the :ref:`smartapp-scheduling` guide with more examples and information for using Cron schedules.
+- Various typos and formatting fixes.
+
+----
+
 December 08 2016
 ----------------
 

@@ -32,14 +32,30 @@ The purpose of the SmartApp we'll write is to turn a switch on when motion is de
 
 ----
 
+.. _ide_requirements:
+
 Prerequisites
 -------------
 
 Before completing this tutorial, you should have read the :ref:`get-started-overview`, and registered for an account as discussed in the :ref:`quick-start` page.
 It is recommended that you become at least familiar with the basic Groovy concepts discussed in the :ref:`groovy-basics` and :ref:`groovy-for-smartthings` tutorials.
 
+Start by logging into IDE at at https://graph.api.smartthings.com.
+Next, navigate to *My Locations* page to see the Locations you created.
+
+.. image:: ../img/getting-started/first-smartapp/my-locations.png
+   :width: 70%
+
+Normally you will see just one Location where you installed your Hub. 
+Click on the Location name appearing in the far left column (i.e., the *Name* column). You may need to log in again with your SmartThings userid and password. 
+
+.. warning::
+
+    Note that even though the IDE is located at https://graph.api.smartthings.com, it may not always be the correct URL for your SmartApp deployment.
+    By explicitly selecting the Location name you will ensure that your SmartApp will be published properly.
+
 The SmartApp will utilize a motion sensor and a smart switch.
-Even if you don't have these devices or don't have a hub, you can still complete the majority of this tutorial.
+Even if you don't have these devices or don't have a Hub, you can still complete the majority of this tutorial.
 We will call out any special steps required if you don't have the hardware.
 
 ----
@@ -47,11 +63,7 @@ We will call out any special steps required if you don't have the hardware.
 Create a SmartApp
 -----------------
 
-In the developer tools, navigate to the *My SmartApps* page.
-
-.. image:: ../img/getting-started/first-smartapp/my-smartapps.png
-   :width: 70%
-
+In the IDE, navigate to the *My SmartApps* page.
 This will bring you to a page that shows all of the SmartApps that you have created.
 This is also where you can create a new SmartApp. Click on the *New SmartApp* button.
 
@@ -153,7 +165,7 @@ The first thing to know is that there are a few different types of SmartApps.
 
 Some SmartApps, called *Service Manager SmartApps*, manage the connection of a cloud-connected or LAN-connected device.
 
-*Solution Module SmartApps* provide a dashboard-like user interface in the SmartThings mobile application[1]_.
+*Solution Module SmartApps* provide a dashboard-like user interface in the SmartThings mobile application [1]_.
 
 The most common type of a SmartApp is one that monitors the user's devices for certain changes (or simply execute on a defined schedule), and then take certain action ("Turn a light on when motion is detected").
 These SmartApps are called *Event-Handler SmartApps*.
@@ -492,7 +504,7 @@ This means that the SmartApp will only be published for your account and not be 
 .. note::
 
     If you have a SmartApp that you do want to publish publicly, you can do that via the "My Publication Requests" link at the top of the page.
-    For more information on this, see :ref:`submitting_smartapps_for_publication`.
+    For more information on this, see :ref:`publishing-for-distribution`.
 
 Now you should be able to see your SmartApp in the mobile app if you browse to the *My Apps* category of the marketplace:
 

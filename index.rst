@@ -27,7 +27,7 @@ This documentation is actively being developed and expanded, so check back often
 
 Contents
 --------
-
+     
 .. toctree::
    :caption: Getting Started
    :maxdepth: 2
@@ -51,6 +51,7 @@ Contents
    cloud-and-lan-connected-device-types-developers-guide/index
    arduino/index
    ratelimits/index
+   publishing/index
    code-review-guidelines
 
 .. toctree::
