@@ -239,7 +239,7 @@ Strings can be defined using single, double, or triple quotes:
 
     def a = "some string"
     def b = 'another string'
-    dev c = '''Triple quotes
+    def c = '''Triple quotes
                allow multiple
                lines'''
 
