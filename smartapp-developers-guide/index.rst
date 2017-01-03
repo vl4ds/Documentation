@@ -26,4 +26,3 @@ If you haven't written a SmartApp yet, you should work through the :ref:`first-s
    sending-notifications
    parent-child-smartapps
    example-bon-voyage
-   submitting-smartapps-for-publication

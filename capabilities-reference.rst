@@ -88,11 +88,12 @@ Capabilities Reference
     {{ properties[referenceName][referenceName+".description"] }}
     {%- endif %}
     {# Capability preference reference #}
-    **Preferences Reference:**
-    {{ ("capability."+referenceName)|indent(2, true) }}
+    Preferences Reference
+    ^^^^^^^^^^^^^^^^^^^^^
+    {{ ("``capability."+referenceName+"``")|indent(2, true) }}
     {# Capability attributes section #}
-    **Attributes:**
-    ^^^^^^^^^^^^^^^
+    Attributes
+    ^^^^^^^^^^
     {% if capability['attribute'] %}
     {#- check if the attribute key in dict is a list. It will not be a list if there is only one attribute #}
     {%- if capability['attribute'] is a_list %}
@@ -167,14 +168,14 @@ Capabilities Reference
     {%- endif %}
 
     {# Capability commands section #}
-    **Commands:**
-    ^^^^^^^^^^^^^
+    Commands
+    ^^^^^^^^
     {% if capability['command'] %}
     {#- check if the command key in dict is a list. It will not be a list if there is only one command #}
     {%- if capability['command'] is a_list %}
     {#- for each command, print its name method signature followed by its description #}
     {%- for command in capability['command'] %}
-      *{{ command['@name'] }}({% if command['argument'] %}{% if command['argument'] is a_list %}{% for arg in command['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ command['argument']['@type'] }} {{ command['argument']['@name'] }}{% endif %}{% endif %}):*
+      *{{ command['@name'] }}({% if command['argument'] %}{% if command['argument'] is a_list %}{% for arg in command['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ command['argument']['@type'] }} {{ command['argument']['@name'] }}{% endif %}{% endif %})*
         {%- if properties[referenceName][referenceName+".cmd."+command['@name']+".description"] %}
           {{ properties[referenceName][referenceName+".cmd."+command['@name']+".description"] }}
         {% else %}
@@ -260,7 +261,7 @@ Capabilities Reference
     {#- handle case if we only have one command and it wasn't a list in the dict #}
     {%- else %}
     {#- for this command, print its name method signature followed by its description #}
-      *{{ capability['command']['@name'] }}({% if capability['command']['argument'] %}{% if capability['command']['argument'] is a_list %}{% for arg in capability['command']['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ capability['command']['argument']['@type'] }} {{ capability['command']['argument']['@name'] }}{% endif %}{% endif %}):*
+      *{{ capability['command']['@name'] }}({% if capability['command']['argument'] %}{% if capability['command']['argument'] is a_list %}{% for arg in capability['command']['argument'] %}{{ arg['@type'] }} {{ arg['@name'] }}{% if not loop.last %}, {% endif %}{% endfor %}{% else %}{{ capability['command']['argument']['@type'] }} {{ capability['command']['argument']['@name'] }}{% endif %}{% endif %})*
       {%- if properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] %}
         {{ properties[referenceName][referenceName+".cmd."+capability['command']['@name']+".description"] }}
       {% endif %}

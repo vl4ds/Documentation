@@ -35,5 +35,4 @@ Table of Contents:
    building-zigbee-device-handlers
    zigbee-example
    other-available-apis
-   submitting-device-types-for-publication
    device-integration
