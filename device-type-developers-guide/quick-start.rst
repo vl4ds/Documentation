@@ -6,9 +6,10 @@ They are responsible for communicating between the actual device, and the SmartT
 
 This section will walk you through getting your first device handler running.
 
-.. note::
+.. warning::
 
-    This guide assumes you have created a developer account, and are generally familiar with development in the SmartThings ecosystem.
+    Before you proceed, ensure that you are on the correct Location on IDE.
+    Follow the prerequisites described in :ref:`ide_requirements`.
 
     If you are new to SmartThings development, consider starting with the :ref:`Getting Started <get-started-overview>` material.
 
