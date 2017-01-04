@@ -11,7 +11,7 @@ The Parse Method
 The parse method for cloud connected devices will always be empty. In a
 cloud connected device, event data is passed down from the service
 manager, not from the device itself, so the parsing is handled in a
-separate method. The device type handler doesn't interface directly with
+separate method. The Device Handler doesn't interface directly with
 a hardware device, which is what parse is used for.
 
 Sending Commands to the Third-Party Cloud
@@ -41,7 +41,7 @@ the following.
 Receiving Events from the Third-Party Cloud
 -------------------------------------------
 
-The device type handler continuously polls the third-party cloud through
+The Device Handler continuously polls the third-party cloud through
 the service manager to check on the status of devices. When an event is
 fired, they can then be passed to the child device handler. Note that
 poll runs every 10 minutes for Service Manager SmartApps.

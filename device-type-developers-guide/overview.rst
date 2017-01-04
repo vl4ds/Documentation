@@ -8,7 +8,7 @@ When a SmartApp interacts with the virtual representation of a device, it knows 
 A device that has the "switch" capability must support both the "on" and "off" actions.
 In this way, all switches are the same, and it doesn't matter to the SmartApp what kind of switch is actually involved.
 
-This virtual representation of the device is called a Device Handler, or SmartDevice.
+This virtual representation of the device is called a Device Handler.
 
 .. note::
 

@@ -4,7 +4,7 @@
 Editor and Simulator
 ====================
 
-The SmartThings editor and simulator allows you to create, edit, and test SmartApps and Device Type Handlers.
+The SmartThings editor and simulator allows you to create, edit, and test SmartApps and Device Handlers.
 
 .. figure:: ../img/ide/ide.png
    :alt: Ide
@@ -15,6 +15,11 @@ Creating a New SmartApp
 -----------------------
 
 To create a new SmartApp, click the *New SmartApp* button from the *My SmartApps* page.
+
+.. important::
+
+    Make sure you have selected the correct Location before creating a new SmartApp.
+    Follow :ref:`these steps <ensure-proper-location>` to ensure your code will be puplished to the correct Location.
 
 There are three different tabs on the *New SmartApp* page that allow you to create a new SmartApp in different ways:
 
@@ -31,13 +36,18 @@ There are three different tabs on the *New SmartApp* page that allow you to crea
 Creating a new Device Handler
 -----------------------------
 
-To create a new Device Type, click the *New SmartDevice* button from the *My Device Types* page.
+To create a new Device Handler, click the *Create New Device Handler* button from the *My Device Handlers* page.
 
-There are three different tabs on the *New SmartDevice* page that allow you to create a new Device Type Handler in different ways:
+.. important::
 
-- *From Form* allows you to create a new Device Type Handler based on the some metadata you can enter into the form.
-- *From Code* allows you to create a new Device Type Handler directly from existing code. This is useful if you receive the code for a Device Type Handler - just paste it in to the page and a new Device Type Handler will be created from it.
-- *From Template* allows you to create a new Device Type Handler based upon existing Device Type Handlers. This is especially useful if you are new to SmartThings development, since you can start from an existing Device Type Handlers.
+    Make sure you have selected the correct Location before creating a new Device Handler.
+    Follow :ref:`these steps <ensure-proper-location>` to ensure your code will be puplished to the correct Location.
+
+There are three different tabs on the *New Device Handler* page that allow you to create a new Device Handler in different ways:
+
+- *From Form* allows you to create a new Device Handler based on the some metadata you can enter into the form.
+- *From Code* allows you to create a new Device Handler directly from existing code. This is useful if you receive the code for a Device Handler - just paste it in to the page and a new Device Handler will be created from it.
+- *From Template* allows you to create a new Device Handler based upon existing Device Handlers. This is especially useful if you are new to SmartThings development, since you can start from an existing Device Handlers.
 
 .. important::
 
@@ -86,4 +96,3 @@ When simulating a SmartApp, any selected devices will appear in the IDE, along w
 
 .. figure:: ../img/ide/simulator.png
    :alt: Simulator
-
