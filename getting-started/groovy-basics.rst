@@ -35,7 +35,7 @@ The best way to get familiar with Groovy is by installing it and experimenting. 
 
 Head over to the `Groovy Documentation <http://www.groovy-lang.org/documentation.html>`__ site and follow the Getting Started guides for downloading and installing Groovy (the rest of the Getting Started material is pretty awesome too, and definitely worth a read).
 
-We make heavy use of the Groovy Console to test things out, and recommend you do to.
+We make heavy use of the Groovy Console to test things out, and recommend you do too.
 
 .. note::
 
