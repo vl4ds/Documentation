@@ -180,6 +180,8 @@ Finally, you can pass a Long representing the desired time in milliseconds (usin
         ...
     }
 
+.. _schedule_using_cron:
+
 Schedule Using Cron
 ^^^^^^^^^^^^^^^^^^^
 
