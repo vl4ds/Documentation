@@ -1,60 +1,55 @@
-========================
-Documentation Change Log
-========================
+.. _latest-updates:
 
-A log of changes to this documentation.
-
-----
+==============
+Latest Updates
+==============
 
 January 03 2017
 ---------------
 
-`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/03-January-2017>`__
+- Thinking about setting up a regular on and off schedule for your SmartThings? See our latest update, with examples, in :ref:`schedule_using_cron`.
+- Confused about sharding and where to publish your SmartApp or Device Handler? Here is a big picture view that clarifies :ref:`Publishing Custom Code <publishing>`.
+- Did you know there's a default delay between commands when you send a sequence of them to the Hub? See :ref:`smartapp_sendhubcommand` reference documentation for details. 
 
-- New guide added for :ref:`Publishing Custom Code <publishing>`.
-- Added :ref:`smartapp_sendhubcommand` reference documentation.
-- Expanded the :ref:`smartapp-scheduling` guide with more examples and information for using Cron schedules.
-- Various typos and formatting fixes.
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/03-January-2017>`__
 
 ----
 
 December 08 2016
 ----------------
 
-`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/08-December-2016>`__
+- Quick, how do you know what Capabilities are supported by SmartThings? Checkout out the new generated :ref:`capabilities_taxonomy`, now live.
+- Don't know much about ZigBee? We got you covered with our updated ZigBee documentation in the :ref:`zigbee_primer` and :ref:`zigbee_ref` guides.
+- What you, as a developer, must know while working with the SmartThings IDE. Checkout latest in the :ref:`hubs-and-locations` guide.
 
-- New generated :ref:`capabilities_taxonomy` live
-- Updated ZigBee documentation in the :ref:`zigbee_primer` and :ref:`zigbee_ref` guides
-- Added shard documentation to the :ref:`architecture` guide
-- Minor typo corrections
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/08-December-2016>`__
 
 ----
 
 November 30 2016
 ----------------
 
-`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/30-November-2016>`__
+- Did you know you can refresh any page of the SmartApp on the mobile device with a set interval? See the :ref:`dynamic-page-options` guide.
 
-- Added dynamicPage() params description in the :ref:`prefs_and_settings` guide.
-- Fixed up some images in the :ref:`storing-data` guide.
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/30-November-2016>`__
 
 ----
 
 November 17 2016
 ----------------
 
-`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/17-November-2016>`__
-
 - Changed code blocks to use the monokai dark theme.
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/17-November-2016>`__
 
 ----
 
 November 15 2016
 ----------------
 
-`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/15-November-2016>`__
-
 - Added ability to copy code blocks to the clipboard.
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/15-November-2016>`__
 
 ----
 

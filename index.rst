@@ -27,6 +27,12 @@ This documentation is actively being developed and expanded, so check back often
 
 Contents
 --------
+
+.. toctree::
+   :caption: What's New
+   :maxdepth: 2
+
+   latest-updates
      
 .. toctree::
    :caption: Getting Started
@@ -66,5 +72,4 @@ Contents
    :caption: Misc
 
    sept-2015-faq
-   docs-change-log
    contributing/index

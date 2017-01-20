@@ -1010,6 +1010,7 @@ Next, with the ``submitOnChange`` input attribute you can also have dynamic beha
     When a ``submitOnChange`` input is changed, the whole page will be saved and then a refresh is triggered with the saved page state.
     This means that all of the methods will execute each time you change a submitOnChange input.
 
+.. _dynamic-page-options:
 
 dynamicPage() options
 ^^^^^^^^^^^^^^^^^^^^^

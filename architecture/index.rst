@@ -249,6 +249,7 @@ Accordingly, SmartApps that use web services will run in the cloud also.
 
        myGarageDoor.open()
 
+.. _hubs-and-locations:
 
 Hubs and Locations
 ------------------
