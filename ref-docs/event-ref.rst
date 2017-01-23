@@ -24,7 +24,7 @@ A map of any additional data on the event.
     ``String getData()``
 
 **Returns:**
-    `Map`_ - A map of the additional data (if any) on the event.
+    `String`_ - A JSON string representing a map of the additional data (if any) on the event.
 
 **Example:**
 
@@ -39,9 +39,10 @@ Then in an event handler method, we can get at the data like this:
 .. code-block:: groovy
 
     def eventHandler(evt) {
-        log.debug "event data: ${evt.data}"
-        log.debug "event key1: ${evt.data.key1}"
-        log.debug "event key2: ${evt.data.key2}"
+        def data = parseJson(evt.data)
+        log.debug "event data: ${data}"
+        log.debug "event key1: ${data.key1}"
+        log.debug "event key2: ${data.key2}"
     }
 
 ----

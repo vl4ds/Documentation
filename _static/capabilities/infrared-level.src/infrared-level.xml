@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<capability name='Infrared Level' public='true'>
+	<attribute name='infraredLevel' type='NUMBER' />
+	<command name='setInfraredLevel'>
+		<argument name='level' type='NUMBER' />
+	</command>
+</capability>

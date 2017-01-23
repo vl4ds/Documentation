@@ -142,7 +142,7 @@ Device Discovery
 ----------------
 
 After a ZigBee device joins the network it must be queried in order to select
-the correct Device Type Handler. After a device joins (or rejoins) the network
+the correct Device Handler. After a device joins (or rejoins) the network
 the hub will collect the simple descriptor, manufacturer, model and application
 version for each endpoint without any interaction with the cloud. The hub will
 automatically resend any messages that the device does not respond to in a
@@ -188,7 +188,7 @@ The value is a dictionary that contains all the information gathered from the de
   * model: The Model value read from attribute 0x0005 of the Basic Cluster
 
 See :ref:`zigbee-fingerprinting-label` for more information on how the platform uses this
-information to find the correct Device Type Handler for the device.
+information to find the correct Device Handler for the device.
 
 ----
 

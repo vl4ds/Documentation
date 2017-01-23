@@ -1,8 +1,8 @@
 .. _installed_smart_app_wrapper:
 
-========================
+=================
 InstalledSmartApp
-========================
+=================
 
 The ``InstalledSmartApp`` class represents a SmartApp.
 Every SmartApp has an instance of ``InstalledSmartApp`` available to it via the ``app`` object.
@@ -32,6 +32,28 @@ Gets the current state of the given attribute.
     def myAppState = app.currentState("someAttribute")
     log.debug "state value: ${myAppState.value}"
     ...
+
+----
+
+.. _isa_ref_get_account_id:
+
+getAccountId()
+-----------------
+
+Gets the account ID of the owner of the Location in to which this SmartApp is installed.
+
+**Signature:**
+    ``String getAccountId()``
+
+**Returns:**
+    `String`_ - The account ID of the owner of the Location in to which this SmartApp is installed.
+
+**Example:**
+
+.. code-block:: groovy
+
+    def accountId = app.getAccountId()
+    log.debug "This account ID of this installed SmartApp is $accountId"
 
 ----
 

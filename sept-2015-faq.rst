@@ -16,7 +16,7 @@ With the new Hub and mobile experience, we've also laid the groundwork for excit
 
 ----
 
-**Do I need to update my SmartApps or Device Type Handlers?**
+**Do I need to update my SmartApps or Device Handlers?**
 
 Most custom SmartApps and Device Types will continue to work without the need for code changes. There are some features that you may wish to take advantage of, however, like the new multi-attribute device tile. SmartApps that send notifications should be updated to use the new Contact Book feature, but they will continue to function as they did before without updating your code.
 
@@ -37,7 +37,7 @@ At some point in the future, we may create new methods that reflect the terminol
 Certain automations can now execute locally on the Samsung SmartThings Hub.
 The SmartThings internal team specifies which automations are eligible for local execution. This process requires evaluation and testing of the SmartApp and devices, as well as ensuring that the necessary code artifacts are delivered to the Hub.
 
-Any locally executing SmartApps or Device Type Handlers still send events to the SmartThings cloud. This is necessary so that the mobile application can accurately reflect the current state of the devices, as well as perform any cloud-required services (e.g., sending notifications). In the event of an Internet outage, the events will be queued and sent to the SmartThings cloud when Internet is restored.
+Any locally executing SmartApps or Device Handlers still send events to the SmartThings cloud. This is necessary so that the mobile application can accurately reflect the current state of the devices, as well as perform any cloud-required services (e.g., sending notifications). In the event of an Internet outage, the events will be queued and sent to the SmartThings cloud when Internet is restored.
 
 It is not possible for developers to specify that certain Device Types or SmartApps execute in any particular location (cloud or on the hub).  SmartApps or Device Types that have not been reviewed, tested, and delivered to the hub by the SmartThings team will execute in the SmartThings cloud.
 
