@@ -4,12 +4,24 @@
 Latest Updates
 ==============
 
+January 23 2017
+---------------
+
+- While using the ``HubAction`` class is discussed is the :ref:`LAN Device Handler Guide <lan_device_handler_guide>`, there was no reference documentation available for it. We've addressed that by adding a :ref:`new reference document for HubAction! <hubaction_ref>`
+- If you need to get the account ID associated with an installed SmartApp, check out the :ref:`isa_ref_get_account_id` method available on the :ref:`installed_smart_app_wrapper` object!
+- We've updated the :ref:`editor_and_simulator` guide to clarify that you need to ensure you are on the correct shard when creating SmartApps or Device Handlers.
+- A new Capability, :ref:`infraredLevel`, is now available!
+
+`GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/23-January-2017>`__
+
+----
+
 January 03 2017
 ---------------
 
 - Thinking about setting up a regular on and off schedule for your SmartThings? See our latest update, with examples, in :ref:`schedule_using_cron`.
 - Confused about sharding and where to publish your SmartApp or Device Handler? Here is a big picture view that clarifies :ref:`Publishing Custom Code <publishing>`.
-- Did you know there's a default delay between commands when you send a sequence of them to the Hub? See :ref:`smartapp_sendhubcommand` reference documentation for details. 
+- Did you know there's a default delay between commands when you send a sequence of them to the Hub? See :ref:`smartapp_sendhubcommand` reference documentation for details.
 
 `GitHub Release Tag <https://github.com/SmartThingsCommunity/Documentation/releases/tag/03-January-2017>`__
 

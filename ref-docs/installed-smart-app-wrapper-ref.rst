@@ -1,8 +1,8 @@
 .. _installed_smart_app_wrapper:
 
-========================
+=================
 InstalledSmartApp
-========================
+=================
 
 The ``InstalledSmartApp`` class represents a SmartApp.
 Every SmartApp has an instance of ``InstalledSmartApp`` available to it via the ``app`` object.
@@ -34,6 +34,8 @@ Gets the current state of the given attribute.
     ...
 
 ----
+
+.. _isa_ref_get_account_id:
 
 getAccountId()
 -----------------
