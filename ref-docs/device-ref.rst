@@ -464,6 +464,19 @@ The name of the Device set by the user in the mobile application or Web IDE.
 
 ----
 
+getLastActivity()
+-----------------
+
+The date of the last event with a source of ``device``. (i.e. not commands)
+
+**Signature:**
+    ``String getLastActivity()``
+
+**Returns:**
+    `Date`_ - Date of the last event with a source of ``device``.
+
+----
+
 .. _device_ref_manufacturer_name:
 
 getManufacturerName()
@@ -525,6 +538,19 @@ Not applicable for cloud or LAN-connected devices (``null`` will be returned).
             log.debug "switch id: ${it.id}, model name: ${it.getModelName()}"
         }
     }
+
+----
+
+getStatus()
+-----------
+
+Get the current status of the Device. If no status is found then ``INACTIVE`` is returned.
+
+**Signature:**
+    ``String getStatus()``
+
+**Returns:**
+    `String`_ - the status of the Device or ``INACTIVE`` if one doesn't exist.
 
 ----
 

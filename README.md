@@ -9,7 +9,7 @@ This documentation is written using [reStructuredText](http://docutils.sourcefor
 Follow these steps to build the documentation locally:
 
 1. [Install virtualenv](https://virtualenv.pypa.io/en/latest/installation.html).
-2. Create an isolated environment: `virtualenv --no-site-packages .venv`
+2. Create an isolated environment in a different location than the Documentation directory: `virtualenv --no-site-packages .venv`
 3. Activate the environment: `source .venv/bin/activate`
 4. Install dependencies: `(.venv)~/Documentation$ pip install -r requirements.txt`
 5. Build HTML: `(.venv)~/Documentation$ make html`
